@@ -20,13 +20,21 @@
   },
   "contributors": [
     {
-      "name": "Dani Lucaci",
-      "email": "danilucaci@gmail.com",
-      "url": "https://www.danilucaci.com/"
+      "name": "Pablo Caravaca",
+      "email": ""
+      
     },
     {
-      "name": "Joan Carrion",
-      "email": "joancarrion14@gmail.com"
+      "name": "Ignacio Fernandez",
+      "email": ""
+    },
+    {
+      "name": "Luis Blanco",
+      "email": ""
+    },
+    {
+      "name": "Wilmer Sierra",
+      "email": ""
     }
   ],
   "license": "MIT",
@@ -90,8 +98,11 @@
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@svgr/webpack": "^5.5.0",
     "babel-eslint": "^10.1.0",
+    "commitlint": "^11.0.0",
     "cross-env": "^7.0.3",
     "eslint": "^7.19.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -108,6 +119,8 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^3.10.1",
     "history": "^5.0.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.3",
     "prettier": "^2.2.1"
   }
 }
