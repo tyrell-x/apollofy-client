@@ -2,14 +2,14 @@ $input-color: #000000;
 $input-background-color: #e4e4e4;
 $input-placeholder-color: #797979b6;
 $input-height: 50px;
-$active-color: rgb(4, 0, 235);
+$active-color: rgb(224, 130, 21);
 
 .floating-label-input {
   width: 100%;
   background-color: $input-background-color;
   color: $input-color;
   border-radius: 5px;
-  border: 2px solid transparent;
+  border: 2px solid black;
   font-family: monospace;
   transition: transform ease-out 0.1s;
 
