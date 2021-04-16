@@ -6,6 +6,7 @@ import GoogleIcon from "../../assets/images/google-icon.png";
 import AppLogo from "../../assets/images/logo.png";
 
 import FLInput from "../../components/FLInput";
+import Button from "../../components/Button";
 
 import "./Login.scss";
 
@@ -78,9 +79,7 @@ function Login() {
               value={password}
               onChange={handleSetPassword}
             />
-            <button className="submit-btn" type="submit" disabled={isSigningUp}>
-              LOG IN
-            </button>
+            <Button style={{maxWidth: 150}} type="submit" disabled={isSigningUp} text="Log in"></Button>
           </form>
           {signUpError && <section className="mt-4">{signUpError}</section>}
           <button

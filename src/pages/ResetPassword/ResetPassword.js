@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import "./ResetPassword.scss";
 
-import Header from "../../components/Header";
+import FLInput from "../../components/FLInput";
+import Button from "../../components/Button";
 
 import {
   sendPasswordResetEmail,
@@ -49,29 +50,23 @@ function ResetPassword() {
 
   return (
     <>
-      <main className="ResetPassword">
-        <Header />
-        <section className="Login__wrapper">
-          <h1 className="text-2xl font-bold mb-6">Password Reset</h1>
-          <hr className="my-4" />
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
+      <main className="resetpassword">
+        <section className="resetpassword__wrapper">
+          <form className="resetpassword__form" onSubmit={handleSubmit}>
+            <FLInput
+              required
+              label="email"
               type="text"
               id="email"
               className="form-input"
               value={email}
               onChange={handleSetEmail}
-            />
-            <button
+            ></FLInput>
+            <Button
               type="submit"
-              className="btn btn-primary w-full"
               disabled={isSendingPasswordReset || passwordResetSent}
-            >
-              {buttonText(isSendingPasswordReset, passwordResetSent)}
-            </button>
+              text={buttonText(isSendingPasswordReset, passwordResetSent)}
+            ></Button>
           </form>
           {passwordResetError && (
             <section className="mt-4">{passwordResetError}</section>

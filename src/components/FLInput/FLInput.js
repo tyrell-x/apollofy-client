@@ -8,20 +8,18 @@ function FLInput(props) {
 
   const [active, setActive] = useState(false);
 
-  const activate = (event) => {
+  const activate = () => {
     setActive(true);
   };
 
-  const desactive = (event) => {
-    if (!event.target.value) {
-      setActive(false);
-    }
+  const tryDesactivate = event => {
+    !event.target.value ? setActive(false) : setActive(true);
   };
 
   return (
     <div className={`floating-label-input ${active ? "active" : ""}`}>
       <label>
-        <input {...attributes} onFocus={activate} onBlur={desactive}></input>
+        <input {...attributes} onFocus={activate} onBlur={tryDesactivate} onInput={tryDesactivate}></input>
         <span className="input-placeholder">
           {label + (attributes.required ? "*" : "")}
         </span>

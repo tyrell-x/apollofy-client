@@ -16,7 +16,9 @@ body {
 }
 
 .App__container {
-  @apply h-screen bg-dark-dark text-white;
+  background-color: rgb(20, 20, 20);
+  color: white;
+  min-height: 100vh;
 }
 
 img {

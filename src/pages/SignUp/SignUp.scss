@@ -1,9 +1,19 @@
-.SignUp {
+.signup {
   max-width: 32rem;
-
-  @apply h-full w-full p-1 flex flex-col align-middle mx-auto;
+  height: 100%;
+  margin: 0 auto;
 
   &__wrapper {
-    @apply p-4;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .signup__form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
   }
 }

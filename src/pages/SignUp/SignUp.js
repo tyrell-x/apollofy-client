@@ -4,7 +4,8 @@ import { Link, Redirect } from "react-router-dom";
 
 import "./SignUp.scss";
 
-import Header from "../../components/Header";
+import Button from "../../components/Button";
+import FLInput from "../../components/FLInput";
 import * as ROUTES from "../../routes";
 
 import {
@@ -56,59 +57,70 @@ function SignUp() {
 
   return (
     <>
-      <main className="SignUp">
-        <Header />
-        <section className="Login__wrapper">
-          <h1 className="text-2xl font-bold mb-6">SignUp</h1>
-          <hr className="my-4" />
-          <button
-            className="btn btn-primary w-full"
-            type="button"
-            onClick={handleLoginWithGoogle}
-            disabled={isSigningUp}
-          >
-            SignUp with Google
-          </button>
+      <main className="signup">
+        <section className="signup__wrapper">
           <hr className="mt-1 mb-4" />
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
+          <form className="signup__form" onSubmit={handleSubmit}>
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+              }}
+            >
+              <FLInput
+                label="first name"
+                type="text"
+                id="email"
+                onChange={handleSetEmail}
+              />
+              <FLInput
+                label="last name"
+                type="text"
+                id="email"
+                onChange={handleSetEmail}
+              />
+            </div>
+            <FLInput
+              required
+              label="email"
               type="text"
               id="email"
-              className="form-input"
               value={email}
               onChange={handleSetEmail}
             />
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
+            <FLInput
+              required
+              label="password"
               type="password"
               id="password"
-              className="form-input"
               value={password}
               onChange={handleSetPassword}
             />
-            <button
-              className="btn btn-primary w-full"
+            <FLInput
+              required
+              label="repeat password"
+              type="password"
+              id="password_repeat"
+              value={password}
+              onChange={handleSetPassword}
+            />
+            <FLInput
+              label="phone number"
+              type="number"
+              id="password_repeat"
+              onChange={handleSetPassword}
+            />
+            <Button
+              style={{
+                maxWidth: 150,
+              }}
               type="submit"
+              text="Sign up"
               disabled={isSigningUp}
             >
-              Sign Up
-            </button>
+            </Button>
           </form>
           {signUpError && <section className="mt-4">{signUpError}</section>}
-          <section className="mt-4">
-            <hr className="mt-1 mb-4" />
-            <Link
-              to={ROUTES.RESET_PASSWORD}
-              className="underline text-blue-gray-200 w-full text-center block"
-            >
-              Reset password
-            </Link>
-          </section>
         </section>
       </main>
     </>
