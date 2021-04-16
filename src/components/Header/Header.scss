@@ -1,0 +1,17 @@
+*{
+    color: aliceblue;
+}
+
+@mixin flex-spaceAround{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.header_container{
+    @include flex-spaceAround;
+    background-color: #161616;
+}
+
+
