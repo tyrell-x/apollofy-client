@@ -1,0 +1,81 @@
+$input-color: #000000;
+$input-background-color: #e4e4e4;
+$input-placeholder-color: #797979b6;
+$input-height: 50px;
+$active-color: rgb(4, 0, 235);
+
+.floating-label-input {
+  width: 100%;
+  background-color: $input-background-color;
+  color: $input-color;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  font-family: monospace;
+  transition: transform ease-out 0.1s;
+
+  * {
+    font-family: inherit;
+  }
+
+  label {
+    border-radius: inherit;
+    display: flex;
+    position: relative;
+    height: $input-height;
+
+    input {
+      border-radius: inherit;
+      width: 100%;
+      outline: none;
+      appearance: none;
+      border-color: transparent;
+      outline: none;
+      padding-top: 0.3rem;
+      padding-bottom: 0.3rem;
+      padding-right: 0.75rem;
+      padding-left: 0.75rem;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      transition: transform ease-out 0.1s;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .input-placeholder {
+      position: absolute;
+      left: 16px;
+      color: $input-placeholder-color;
+      font-size: 16px;
+      font-weight: 500;
+      height: $input-height;
+      line-height: $input-height;
+      overflow: hidden;
+      pointer-events: none;
+      transform-origin: left;
+      transition: transform ease-out 0.1s, padding-top ease-out 0.1s;
+    }
+  }
+
+  &.active {
+    transform: scaleY(1.1);
+    border-color: $active-color;
+
+    .input-placeholder {
+      transform: scale(0.81) translateY(-17px);
+      color: $active-color;
+    }
+
+    input {
+      padding-top: 18px;
+    }
+  }
+}
+
+.floating-label-input input:-webkit-autofill,
+.floating-label-input input:-webkit-autofill:hover,
+.floating-label-input input:-webkit-autofill:focus {
+  -webkit-text-fill-color: rgb(31, 31, 31);
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}

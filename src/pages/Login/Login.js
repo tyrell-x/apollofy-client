@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
+import GoogleIcon from "../../assets/images/google-icon.png";
+import AppLogo from "../../assets/images/logo.png";
+
+import FLInput from "../../components/FLInput";
+
 import "./Login.scss";
 
-import Header from "../../components/Header";
 import * as ROUTES from "../../routes";
 
 import {
@@ -35,11 +39,7 @@ function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
     dispatch(signInWithEmailRequest(email, password));
-
-    setEmail("");
-    setPassword("");
   }
 
   function handleSetEmail(e) {
@@ -56,50 +56,56 @@ function Login() {
 
   return (
     <>
-      <main className="Login">
-        <Header />
-        <section className="Login__wrapper">
-          <h1 className="text-2xl font-bold mb-6">Login</h1>
-          <hr className="my-4" />
-          <button
-            className="btn btn-primary w-full"
-            type="button"
-            onClick={handleLoginWithGoogle}
-            disabled={isSigningUp}
-          >
-            Login with Google
-          </button>
-          <hr className="mt-1 mb-4" />
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
+      <main className="login">
+        <section className="login__wrapper">
+          <div className="login__logo">
+            <img alt="App Logo" src={AppLogo}></img>
+          </div>
+          <form className="login-form" onSubmit={handleSubmit}>
+            <FLInput
+              label="email"
               type="text"
               id="email"
-              className="form-input"
+              required
               value={email}
               onChange={handleSetEmail}
             />
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
+            <FLInput
+              label="password"
               type="password"
               id="password"
-              className="form-input"
+              required
               value={password}
               onChange={handleSetPassword}
             />
-            <button
-              className="btn btn-primary w-full"
-              type="submit"
-              disabled={isSigningUp}
-            >
-              Login
+            <button className="submit-btn" type="submit" disabled={isSigningUp}>
+              LOG IN
             </button>
           </form>
           {signUpError && <section className="mt-4">{signUpError}</section>}
+          <button
+            className=""
+            onClick={handleLoginWithGoogle}
+            disabled={isSigningUp}
+          >
+            <img
+              alt="google icon"
+              src={GoogleIcon}
+              style={{
+                height: "40px",
+                display: "inline-block",
+                marginRight: "20px",
+              }}
+            ></img>
+            <span>Sign in with Google</span>
+          </button>
+
+          <button className="">
+            <Link to={ROUTES.SIGN_UP} className="w-full" disabled={isSigningUp}>
+              Sign Up
+            </Link>
+          </button>
+
           <section className="mt-4">
             <hr className="mt-1 mb-4" />
             <Link
