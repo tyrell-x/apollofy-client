@@ -10,8 +10,7 @@ import * as ROUTES from "../../routes";
 
 import {
   resetAuthState,
-  signUpWithEmailRequest,
-  signUpWithGoogleRequest,
+  signUpWithEmailRequest
 } from "../../redux/auth/auth-actions";
 
 import { authSelector } from "../../redux/auth/auth-selectors";
@@ -24,23 +23,18 @@ function SignUp() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatedPassword, setRepeatedPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   useEffect(() => {
     dispatch(resetAuthState());
   }, [dispatch]);
 
-  function handleLoginWithGoogle(e) {
-    e.preventDefault();
-    dispatch(signUpWithGoogleRequest());
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
-
     dispatch(signUpWithEmailRequest(email, password));
-
-    setEmail("");
-    setPassword("");
   }
 
   function handleSetEmail(e) {
@@ -49,6 +43,22 @@ function SignUp() {
 
   function handleSetPassword(e) {
     setPassword(e.target.value);
+  }
+
+  function handleSetFirstName(e) {
+    setFirstName(e.target.value);
+  }  
+  
+  function handleSetLastName(e) {
+    setLastName(e.target.value);
+  }
+
+  function handleSetRepeatedPassword(e) {
+    setRepeatedPassword(e.target.value);
+  }
+
+  function handleSetPhoneNumber(e) {
+    setPhoneNumber(e.target.value);
   }
 
   if (isAuthenticated) {
@@ -69,14 +79,16 @@ function SignUp() {
               <FLInput
                 label="first name"
                 type="text"
-                id="email"
-                onChange={handleSetEmail}
+                id="firstName"
+                value={firstName}
+                onChange={handleSetFirstName}
               />
               <FLInput
                 label="last name"
                 type="text"
-                id="email"
-                onChange={handleSetEmail}
+                id="lastName"
+                value={lastName}
+                onChange={handleSetLastName}
               />
             </div>
             <FLInput
@@ -100,14 +112,15 @@ function SignUp() {
               label="repeat password"
               type="password"
               id="password_repeat"
-              value={password}
-              onChange={handleSetPassword}
+              value={repeatedPassword}
+              onChange={handleSetRepeatedPassword}
             />
             <FLInput
               label="phone number"
               type="number"
-              id="password_repeat"
-              onChange={handleSetPassword}
+              id="phone_number"
+              value={phoneNumber}
+              onChange={handleSetPhoneNumber}
             />
             <Button
               style={{
