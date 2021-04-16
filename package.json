@@ -15,8 +15,7 @@
     "lint:js": "eslint . --ext .js",
     "lint:js:fix": "yarn run lint:js -- --fix",
     "lint:format": "prettier --write .",
-    "lint:format:check": "prettier --check .",
-    "precommit": "lint-staged"
+    "lint:format:check": "prettier --check ."
   },
   "contributors": [
     {
