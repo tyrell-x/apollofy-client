@@ -49,6 +49,7 @@ $active-color: rgb(224, 130, 21);
       color: $input-placeholder-color;
       font-size: 16px;
       font-weight: 500;
+      user-select: none;
       height: $input-height;
       line-height: $input-height;
       overflow: hidden;

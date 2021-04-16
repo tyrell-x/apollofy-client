@@ -81,9 +81,9 @@ function Login() {
             />
             <Button style={{maxWidth: 150}} type="submit" disabled={isSigningUp} text="Log in"></Button>
           </form>
-          {signUpError && <section className="mt-4">{signUpError}</section>}
+          {signUpError && <section>{signUpError}</section>}
           <button
-            className=""
+            className="google_sigin"
             onClick={handleLoginWithGoogle}
             disabled={isSigningUp}
           >
@@ -99,21 +99,19 @@ function Login() {
             <span>Sign in with Google</span>
           </button>
 
-          <button className="">
-            <Link to={ROUTES.SIGN_UP} className="w-full" disabled={isSigningUp}>
+          <button className="link">
+            <Link to={ROUTES.SIGN_UP} disabled={isSigningUp}>
               Sign Up
             </Link>
           </button>
 
-          <section className="mt-4">
-            <hr className="mt-1 mb-4" />
-            <Link
+          <button className="link">
+          <Link
               to={ROUTES.RESET_PASSWORD}
-              className="underline text-blue-gray-200 w-full text-center block"
             >
               Reset password
             </Link>
-          </section>
+          </button>
         </section>
       </main>
     </>

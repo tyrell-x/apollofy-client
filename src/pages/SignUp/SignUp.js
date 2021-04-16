@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import "./SignUp.scss";
 
@@ -59,7 +59,6 @@ function SignUp() {
     <>
       <main className="signup">
         <section className="signup__wrapper">
-          <hr className="mt-1 mb-4" />
           <form className="signup__form" onSubmit={handleSubmit}>
             <div
               style={{
