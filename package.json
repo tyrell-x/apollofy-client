@@ -21,6 +21,7 @@
     {
       "name": "Pablo Caravaca",
       "email": ""
+      
     },
     {
       "name": "Ignacio Fernandez",
@@ -98,6 +99,7 @@
   "devDependencies": {
     "@svgr/webpack": "^5.5.0",
     "babel-eslint": "^10.1.0",
+    "commitlint": "^11.0.0",
     "cross-env": "^7.0.3",
     "eslint": "^7.19.0",
     "eslint-config-airbnb": "^18.2.1",
