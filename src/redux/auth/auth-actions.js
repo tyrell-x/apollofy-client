@@ -48,9 +48,9 @@ export function signInWithGoogleRequest() {
 export function signUpWithEmailRequest(email, password, user = {}) {
   return async function signUpThunk(dispatch) {
     dispatch(signUpRequest());
-    dispatch(setUserInfo(user));
     try {
       await auth.signUpWithEmailAndPassword(email, password);
+      dispatch(setUserInfo(user));
     } catch (error) {
       dispatch(signUpError(error.message));
     }

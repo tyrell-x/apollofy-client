@@ -69,7 +69,7 @@ function ResetPassword() {
             ></Button>
           </form>
           {passwordResetError && (
-            <section className="mt-4">{passwordResetError}</section>
+            <section>{passwordResetError}</section>
           )}
         </section>
       </main>

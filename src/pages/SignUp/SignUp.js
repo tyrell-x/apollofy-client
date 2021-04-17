@@ -9,11 +9,10 @@ import Button from "../../components/Button";
 import FLInput from "../../components/FLInput";
 import * as ROUTES from "../../routes";
 
-import {
-  resetAuthState
-} from "../../redux/auth/auth-actions";
+import { resetAuthState } from "../../redux/auth/auth-actions";
 
 import { authSelector } from "../../redux/auth/auth-selectors";
+import { signUpWithEmailRequest } from "../../redux/auth/auth-actions";
 
 function SignUp() {
   const dispatch = useDispatch();
@@ -21,8 +20,16 @@ function SignUp() {
     authSelector,
   );
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    const { email, password, repeatPassword, ...userData } = data;
+    dispatch(signUpWithEmailRequest(email, password, userData));
+  };
 
   useEffect(() => {
     dispatch(resetAuthState());
@@ -46,25 +53,27 @@ function SignUp() {
               <FLInput
                 name="firstName"
                 register={register}
-                rules={{ maxLength: {
-                  value: 20,
-                  message: "Max length exceeded (20)"
-                }}}
+                rules={{
+                  maxLength: {
+                    value: 20,
+                    message: "Max length (20)",
+                  },
+                }}
                 error={errors?.firstName}
                 label="first name"
-                type="text"
               />
-              
+
               <FLInput
-                name="lastName"
+                name="familyName"
                 register={register}
-                rules={{ maxLength: {
-                  value: 20,
-                  message: "Max length exceeded (20)"
-                }}}
+                rules={{
+                  maxLength: {
+                    value: 20,
+                    message: "Max length (20)",
+                  },
+                }}
                 error={errors?.lastName}
                 label="last name"
-                type="text"
               />
             </div>
             <FLInput
@@ -74,18 +83,29 @@ function SignUp() {
                 required: true,
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Entered value does not match email format"
-                }
+                  message: "Entered value does not match email format",
+                },
+                maxLength: {
+                  value: 30,
+                  message: "Max length (30)",
+                },
               }}
               error={errors?.email}
               label="email"
-              type="text"
             />
             <FLInput
               name="password"
               register={register}
               rules={{
-                required: true
+                required: true,
+                minLength: {
+                  value: 6,
+                  message: "Min length (6)",
+                },
+                maxLength: {
+                  value: 20,
+                  message: "Min length (20)",
+                },
               }}
               label="password"
               type="password"
@@ -93,20 +113,28 @@ function SignUp() {
             <FLInput
               name="repeatPassword"
               register={register}
-              rules= {{
-                  validate: value =>
-                    value === watch("password") || "Las contraseñas no coinciden"
-                }
-              }
+              rules={{
+                validate: (value) =>
+                  value === watch("password") || "Las contraseñas no coinciden",
+              }}
               error={errors?.repeatPassword}
               label="repeat password"
               type="password"
             />
             <FLInput
               name="phoneNumber"
-              register={register}            
+              register={register}
+              rules={{
+                pattern: {
+                  value: /^-?[0-9]\d*\.?\d*$/,
+                  message: "Must be composed of numbers",
+                },
+                maxLength: {
+                  value: 20,
+                  message: "Max length (20)",
+                },
+              }}
               label="phone number"
-              type="text"
             />
             <Button
               style={{
@@ -115,8 +143,7 @@ function SignUp() {
               type="submit"
               text="Sign up"
               disabled={isSigningUp}
-            >
-            </Button>
+            ></Button>
           </form>
           {signUpError && <section className="mt-4">{signUpError}</section>}
         </section>
