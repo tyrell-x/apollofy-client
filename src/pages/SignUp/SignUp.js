@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 import "./SignUp.scss";
 
@@ -9,8 +10,7 @@ import FLInput from "../../components/FLInput";
 import * as ROUTES from "../../routes";
 
 import {
-  resetAuthState,
-  signUpWithEmailRequest
+  resetAuthState
 } from "../../redux/auth/auth-actions";
 
 import { authSelector } from "../../redux/auth/auth-selectors";
@@ -21,45 +21,12 @@ function SignUp() {
     authSelector,
   );
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [repeatedPassword, setRepeatedPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const onSubmit = data => console.log(data);
 
   useEffect(() => {
     dispatch(resetAuthState());
   }, [dispatch]);
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    dispatch(signUpWithEmailRequest(email, password));
-  }
-
-  function handleSetEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleSetPassword(e) {
-    setPassword(e.target.value);
-  }
-
-  function handleSetFirstName(e) {
-    setFirstName(e.target.value);
-  }  
-  
-  function handleSetLastName(e) {
-    setLastName(e.target.value);
-  }
-
-  function handleSetRepeatedPassword(e) {
-    setRepeatedPassword(e.target.value);
-  }
-
-  function handleSetPhoneNumber(e) {
-    setPhoneNumber(e.target.value);
-  }
 
   if (isAuthenticated) {
     return <Redirect to={ROUTES.HOME} />;
@@ -69,7 +36,7 @@ function SignUp() {
     <>
       <main className="signup">
         <section className="signup__wrapper">
-          <form className="signup__form" onSubmit={handleSubmit}>
+          <form className="signup__form" onSubmit={handleSubmit(onSubmit)}>
             <div
               style={{
                 display: "flex",
@@ -77,50 +44,69 @@ function SignUp() {
               }}
             >
               <FLInput
+                name="firstName"
+                register={register}
+                rules={{ maxLength: {
+                  value: 20,
+                  message: "Max length exceeded (20)"
+                }}}
+                error={errors?.firstName}
                 label="first name"
                 type="text"
-                id="firstName"
-                value={firstName}
-                onChange={handleSetFirstName}
               />
+              
               <FLInput
+                name="lastName"
+                register={register}
+                rules={{ maxLength: {
+                  value: 20,
+                  message: "Max length exceeded (20)"
+                }}}
+                error={errors?.lastName}
                 label="last name"
                 type="text"
-                id="lastName"
-                value={lastName}
-                onChange={handleSetLastName}
               />
             </div>
             <FLInput
-              required
+              name="email"
+              register={register}
+              rules={{
+                required: true,
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Entered value does not match email format"
+                }
+              }}
+              error={errors?.email}
               label="email"
               type="text"
-              id="email"
-              value={email}
-              onChange={handleSetEmail}
             />
             <FLInput
-              required
+              name="password"
+              register={register}
+              rules={{
+                required: true
+              }}
               label="password"
               type="password"
-              id="password"
-              value={password}
-              onChange={handleSetPassword}
             />
             <FLInput
-              required
+              name="repeatPassword"
+              register={register}
+              rules= {{
+                  validate: value =>
+                    value === watch("password") || "Las contraseñas no coinciden"
+                }
+              }
+              error={errors?.repeatPassword}
               label="repeat password"
               type="password"
-              id="password_repeat"
-              value={repeatedPassword}
-              onChange={handleSetRepeatedPassword}
             />
             <FLInput
+              name="phoneNumber"
+              register={register}            
               label="phone number"
-              type="number"
-              id="phone_number"
-              value={phoneNumber}
-              onChange={handleSetPhoneNumber}
+              type="text"
             />
             <Button
               style={{

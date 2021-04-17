@@ -15,7 +15,7 @@ import * as ROUTES from "../../routes";
 import {
   resetAuthState,
   signInWithEmailRequest,
-  signUpWithGoogleRequest,
+  signInWithGoogleRequest,
 } from "../../redux/auth/auth-actions";
 
 import { authSelector } from "../../redux/auth/auth-selectors";
@@ -35,7 +35,7 @@ function Login() {
 
   function handleLoginWithGoogle(e) {
     e.preventDefault();
-    dispatch(signUpWithGoogleRequest());
+    dispatch(signInWithGoogleRequest());
   }
 
   function handleSubmit(e) {

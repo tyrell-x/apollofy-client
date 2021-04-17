@@ -20,7 +20,7 @@ export const setUserInfo = (userInfo) => ({
   payload: userInfo,
 });
 
-export function signUpWithGoogleRequest() {
+export function signInWithGoogleRequest() {
   return async function signUpThunk(dispatch) {
     dispatch(signUpRequest());
     try {
@@ -45,9 +45,10 @@ export function signUpWithGoogleRequest() {
   };
 }
 
-export function signUpWithEmailRequest(email, password) {
+export function signUpWithEmailRequest(email, password, user = {}) {
   return async function signUpThunk(dispatch) {
     dispatch(signUpRequest());
+    dispatch(setUserInfo(user));
     try {
       await auth.signUpWithEmailAndPassword(email, password);
     } catch (error) {
