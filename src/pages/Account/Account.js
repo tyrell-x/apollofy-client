@@ -1,12 +1,14 @@
 import React from "react";
 
-import "./Home.scss";
+import "./Account.scss";
 import Header from "../../components/Header";
 
 function Account() {
     return (
         <main className="main">
-            <Header />
+            <div>
+                <img src="http://dummyimage.com/50x50/fff/000.gif&text=Profile"></img>
+            </div>
         </main>
     );
 }
