@@ -11,7 +11,10 @@ import { Redirect } from "react-router-dom";
 
 
 function Home() {
-  console.log(process.env)
+  const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getUserData())
+    }, []);
   const { isAuthenticated, currentUser } = useSelector(authSelector);
   return (
     <main className="p-4">
