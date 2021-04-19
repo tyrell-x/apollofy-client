@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
-
+import { useSelector, useDispatch} from "react-redux";
 import "./Home.scss";
 import Header from "../../components/Header";
 import * as ROUTES from "../../routes";
 import { authSelector } from "../../redux/auth/auth-selectors";
 import { statement } from "@babel/template";
-
+import {getUserData} from "../../redux/profile/profile-actions"
 import { Redirect } from "react-router-dom";
 
 

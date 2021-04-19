@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import * as ROUTES from "../../routes";
 
@@ -6,6 +6,9 @@ import "./Account.scss";
 import Header from "../../components/Header";
 
 function Account() {
+    useEffect(() => {
+        
+    })
     return (
         <>
         <Header/>
