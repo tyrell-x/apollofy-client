@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserData } from "../../redux/profile/profile-actions";
 import "./ProfileBar.scss"
 
 
@@ -15,6 +16,10 @@ const BarElement = ({id, number, text, active, handleClick}) => {
 }
 
 function ProfileBar () {
+const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getUserData())
+    }, []);
     const profile = useSelector((state) => state.profile)
     const [active, setActive] = useState({
         components: [

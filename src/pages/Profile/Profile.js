@@ -12,11 +12,6 @@ import { statement } from "@babel/template";
 
 function Profile() {
   const profile = useSelector((state) => state.profile)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getUserData())
-  }, []);
 
   return (
     <div className="background">
