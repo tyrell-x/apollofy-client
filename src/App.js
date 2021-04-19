@@ -12,6 +12,8 @@ import ResetPassword from "./pages/ResetPassword";
 
 import { onAuthStateChanged } from "./services/auth";
 import { syncSignIn, signOut } from "./redux/auth/auth-actions";
+import Account from "./pages/Account/Account";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +43,8 @@ function App() {
         <Route path={ROUTES.LOGIN} component={Login} />
         <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
         <Route path={ROUTES.HOME} component={Home} exact />
+        <Route path={ROUTES.ACCOUNT} component={Account} exact />
+        <Route path={ROUTES.EDIT_PROFILE} component={EditProfile} exact />
       </Switch>
     </div>
   );
