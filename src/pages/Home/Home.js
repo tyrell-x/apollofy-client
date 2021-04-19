@@ -7,6 +7,9 @@ import * as ROUTES from "../../routes";
 import { authSelector } from "../../redux/auth/auth-selectors";
 import { statement } from "@babel/template";
 
+import { Redirect } from "react-router-dom";
+import * as ROUTES from "../../routes";
+
 function Home() {
   const { isAuthenticated, currentUser } = useSelector(authSelector);
   return (

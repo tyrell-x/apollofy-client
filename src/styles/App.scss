@@ -1,7 +1,23 @@
 @import "./utils.scss";
 
 .App__container {
-  @apply h-screen bg-dark-dark text-white;
   background: rgb(0,0,0);
   background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5065213585434174) 100%);
+  min-height: 100vh;
+  color: white;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e5e5e5;
 }
