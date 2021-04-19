@@ -2,4 +2,6 @@
 
 .App__container {
   @apply h-screen bg-dark-dark text-white;
+  background: rgb(0,0,0);
+  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5065213585434174) 100%);
 }

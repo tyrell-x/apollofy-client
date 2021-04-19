@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "../../redux/actions/index";
+import { useSelector} from "react-redux";
 import "./Home.scss";
 import Header from "../../components/Header";
 import * as ROUTES from "../../routes";
@@ -10,8 +9,6 @@ import { statement } from "@babel/template";
 
 function Home() {
   const { isAuthenticated, currentUser } = useSelector(authSelector);
-  const counter = useSelector((state) => state.counter);
-  const dispatch = useDispatch();
   return (
     <main className="p-4">
       <Header />
@@ -25,9 +22,7 @@ function Home() {
           </div>
         ) : (
           <div>
-            <h1 className="text-xl">{counter}</h1>
-            <button onClick={() => dispatch(increment())}>+</button>
-            <button onClick={() => dispatch(decrement())}>-</button>
+            <h1 className="text-xl">Hello</h1>
           </div>
         )}
       </section>

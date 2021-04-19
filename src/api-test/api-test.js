@@ -17,9 +17,18 @@ function makeApi(request = makeRequest()) {
     });
   }
 
+  function getProfileInfo(headers) {
+    return request({
+      url: "/account",
+      requestMethod: "GET",
+      headers: headers,
+    });
+  }
+
   return {
     signUp: signUp,
     signOut: signOut,
+    getProfileInfo: getProfileInfo
   };
 }
 
