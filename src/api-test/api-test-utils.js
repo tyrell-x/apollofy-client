@@ -24,9 +24,10 @@ export async function normalizeResponse(promise = Promise.resolve) {
 
 export function makeRequest(
   httpClient = axios,
-  baseURL = process.env.REACT_APP_API_BASE_URL,
+  baseURL = "http://apollo.eu-west-3.elasticbeanstalk.com/api",
   baseHeaders = {
     Accept: "application/json",
+    Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpZ25hY2lvIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTYyMTAxMDY3MH0.Gh8k7p16OIboZnzlnllckdEIdp98JWNU7NKReyrzkCjMGWCX4TOsk49g3YESVsPQde_v32lW7tPAEJS1byep-g" ,
   },
 ) {
   return async function request({

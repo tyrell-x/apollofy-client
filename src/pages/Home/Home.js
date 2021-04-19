@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import "./Home.scss";
 import Header from "../../components/Header";
@@ -8,22 +9,26 @@ import { authSelector } from "../../redux/auth/auth-selectors";
 import { statement } from "@babel/template";
 
 import { Redirect } from "react-router-dom";
-import * as ROUTES from "../../routes";
+
 
 function Home() {
+  console.log(process.env)
   const { isAuthenticated, currentUser } = useSelector(authSelector);
-  const counter = useSelector((state) => state.counter);
-  const dispatch = useDispatch();
   return (
     <main className="p-4">
       <Header />
       <section className="p-4">
         {isAuthenticated ? (
-          <h1 className="text-xl">
-            Hello {currentUser.firstName || currentUser.email}
-          </h1>
+          <div>
+            <h1 className="text-xl">Hello {currentUser.email}</h1>
+            <h2>
+              <Link to={ROUTES.PROFILE}>Profile</Link>
+            </h2>
+          </div>
         ) : (
-          <Redirect to={ROUTES.LOGIN} />
+          <div>
+            <h1 className="text-xl">Hello</h1>
+          </div>
         )}
       </section>
     </main>

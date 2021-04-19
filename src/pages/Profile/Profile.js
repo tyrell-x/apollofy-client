@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "../../redux/actions/index";
+import { getUserData } from "../../redux/profile/profile-actions";
+import ProfileInfo from "../../components/ProfileInfo"
+import ProfileBar from "../../components/ProfileBar"
 import "./Profile.scss";
 import Header from "../../components/Header";
 import * as ROUTES from "../../routes";
@@ -9,22 +11,12 @@ import { authSelector } from "../../redux/auth/auth-selectors";
 import { statement } from "@babel/template";
 
 function Profile() {
-  useEffect(() => {
-    getProfileInfo();
-  }, []);
-
-  const apiUrl = "http://apollo.eu-west-3.elasticbeanstalk.com/api/account";
-  async function getProfileInfo() {
-    await fetch(apiUrl).then((data) => console.log(data));
-  }
+  const profile = useSelector((state) => state.profile)
 
   return (
     <div className="background">
-      <div className="profile-info">
-        <img src=""></img>
-        <h3>Daniel Rovira</h3>
-        <p>danielrovira@gmail.com</p>
-      </div>
+        <ProfileInfo />
+        <ProfileBar />
     </div>
   );
 }

@@ -1,5 +1,12 @@
 @import "./utils.scss";
 
+.App__container {
+  background: rgb(0,0,0);
+  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5065213585434174) 100%);
+  min-height: 100vh;
+  color: white;
+}
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
@@ -13,10 +20,4 @@ body {
   border-width: 0;
   border-style: solid;
   border-color: #e5e5e5;
-}
-
-.App__container {
-  background-color: rgb(20, 20, 20);
-  color: white;
-  min-height: 100vh;
 }
