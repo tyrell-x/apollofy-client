@@ -15,22 +15,42 @@ export const signUpError = (message) => ({
   payload: message,
 });
 
-export function signUpWithGoogleRequest() {
+export const setUserInfo = (userInfo) => ({
+  type: AuthTypes.SET_CURRENT_USER,
+  payload: userInfo,
+});
+
+export function signInWithGoogleRequest() {
   return async function signUpThunk(dispatch) {
     dispatch(signUpRequest());
     try {
-      await auth.singInWithGoogle();
+      const response = await auth.signInWithGoogle();
+      const additionalUserInfo = response.additionalUserInfo.profile;
+      const isNewUser = response.additionalUserInfo.isNewUser;
+      const profile = response.user;
+      const userInfo = {
+        email: profile.email,
+        familyName: additionalUserInfo.family_name,
+        firstName: additionalUserInfo.given_name,
+        displayName: profile.displayName,
+        locale: additionalUserInfo.locale,
+        pictureUrl: additionalUserInfo.picture,
+        phoneNumber: profile.phoneNumber,
+        isNewUser: isNewUser,
+      };
+      dispatch(setUserInfo(userInfo));
     } catch (error) {
       dispatch(signUpError(error.message));
     }
   };
 }
 
-export function signUpWithEmailRequest(email, password) {
+export function signUpWithEmailRequest(email, password, user = {}) {
   return async function signUpThunk(dispatch) {
     dispatch(signUpRequest());
     try {
-      await auth.singUpWithEmailAndPassword(email, password);
+      await auth.signUpWithEmailAndPassword(email, password);
+      dispatch(setUserInfo(user));
     } catch (error) {
       dispatch(signUpError(error.message));
     }
@@ -41,7 +61,7 @@ export function signInWithEmailRequest(email, password) {
   return async function signUpThunk(dispatch) {
     dispatch(signUpRequest());
     try {
-      await auth.singInWithEmailAndPassword(email, password);
+      await auth.signInWithEmailAndPassword(email, password);
     } catch (error) {
       dispatch(signUpError(error.message));
     }
@@ -49,14 +69,14 @@ export function signInWithEmailRequest(email, password) {
 }
 
 export function syncSignIn() {
-  return async function syncSignInThunk(dispatch) {
+  return async function syncSignInThunk(dispatch, getState) {
     const token = await auth.getCurrentUserToken();
 
     if (!token) {
       return dispatch(signOutSuccess());
     }
 
-    const response = await api.signUp({
+    const response = await api.signUp(getState().auth.currentUser, {
       Authorization: `Bearer ${token}`,
     });
 
@@ -64,13 +84,14 @@ export function syncSignIn() {
       return dispatch(signUpError(response.errorMessage));
     }
 
-    return dispatch(signUpSuccess(response.data));
+    dispatch(setUserInfo(response.data.data));
+
+    return dispatch(signUpSuccess());
   };
 }
 
-export const signUpSuccess = (user) => ({
+export const signUpSuccess = () => ({
   type: AuthTypes.SIGN_UP_SUCCESS,
-  payload: user,
 });
 
 export const signOutRequest = () => ({

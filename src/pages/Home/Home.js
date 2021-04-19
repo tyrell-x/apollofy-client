@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import "./Home.scss";
 import Header from "../../components/Header";
 import { authSelector } from "../../redux/auth/auth-selectors";
+
+import { Redirect } from "react-router-dom";
+import * as ROUTES from "../../routes";
 
 function Home() {
   const { isAuthenticated, currentUser } = useSelector(authSelector);
@@ -13,10 +16,11 @@ function Home() {
       <Header />
       <section className="p-4">
         {isAuthenticated ? (
-          <h1 className="text-xl">Hello {currentUser.email}</h1>
+          <h1 className="text-xl">
+            Hello {currentUser.firstName || currentUser.email}
+          </h1>
         ) : (
-          <h1 className="text-xl">Hello World Luis</h1>
-          
+          <Redirect to={ROUTES.LOGIN} />
         )}
         <button className = "button">Change Password</button>
       </section>

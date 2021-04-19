@@ -9,9 +9,7 @@ export const AuthInitialState = {
   isSendingPasswordReset: false,
   passwordResetError: null,
   passwordResetSent: false,
-  currentUser: {
-    email: null,
-  },
+  currentUser: {},
 };
 
 const AuthReducer = (state = AuthInitialState, action) => {
@@ -28,6 +26,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         ...state,
         isSigningUp: false,
         signUpError: action.payload,
+        currentUser: {},
       };
     }
     case AuthTypes.SIGN_UP_SUCCESS: {
@@ -36,9 +35,6 @@ const AuthReducer = (state = AuthInitialState, action) => {
         isAuthenticated: true,
         isSigningUp: false,
         signUpError: null,
-        currentUser: {
-          email: action.payload.email,
-        },
       };
     }
     case AuthTypes.SIGN_OUT_REQUEST: {
@@ -100,6 +96,15 @@ const AuthReducer = (state = AuthInitialState, action) => {
         isSendingPasswordReset: false,
         passwordResetError: null,
         passwordResetSent: false,
+      };
+    }
+    case AuthTypes.SET_CURRENT_USER: {
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          ...action.payload,
+        },
       };
     }
     default: {
