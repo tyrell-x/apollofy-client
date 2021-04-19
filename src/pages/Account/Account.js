@@ -1,10 +1,14 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import * as ROUTES from "../../routes";
 
 import "./Account.scss";
 import Header from "../../components/Header";
 
 function Account() {
     return (
+        <>
+        <Header/>
         <main className="main_container">
             <div className="main_container__profileImg">
                 <img
@@ -49,10 +53,13 @@ function Account() {
                     </table>
                 </article>
                 <article className="main_container_profileInfo_btn">
-                    <button className="main_container_profileInfo_btn__tag">Edit information</button>
+                    <button className="main_container_profileInfo_btn__tag">
+                        <NavLink to={ROUTES.EDIT_PROFILE}>Edit information</NavLink>
+                    </button>
                 </article>
             </div>
         </main>
+        </>
     );
 }
 
