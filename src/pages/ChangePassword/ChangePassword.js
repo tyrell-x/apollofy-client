@@ -6,13 +6,14 @@ import firebase from "firebase/app";
 import "firebase/auth";
 
 import "./ChangePassword.scss";
+import "../../components/FLInput/FLInput.scss";
 
 import Header from "../../components/Header";
 import * as ROUTES from "../../routes";
 
 import {
   resetAuthState,
-  signUpWithGoogleRequest,
+  signInWithGoogleRequest,
 } from "../../redux/auth/auth-actions";
 
 import { authSelector } from "../../redux/auth/auth-selectors";
@@ -36,7 +37,7 @@ function SignUp() {
 
   function handleLoginWithGoogle(e) {
     e.preventDefault();
-    dispatch(signUpWithGoogleRequest());
+    dispatch(signInWithGoogleRequest());
   }
 
   function handleSubmit(e) {
@@ -80,7 +81,7 @@ function SignUp() {
 
   return (
     <>
-      <main className="ChangePassword">
+      <div className="input-container">
         <Header />
         <section className="Login__wrapper">
           <h1 className="text-2xl font-bold mb-6">Change Password</h1>
@@ -127,7 +128,7 @@ function SignUp() {
             </Link>
           </section>
         </section>
-      </main>
+      </div>
     </>
   );
 }
