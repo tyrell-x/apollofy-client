@@ -18,6 +18,7 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
     list-style: none;
+    text-decoration: none;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -46,16 +47,26 @@ q:before, q:after {
     @include flex-column;
     justify-content: space-around;
     align-items: center;
+    // width: 50px;
 
     padding-top: 15%;
 }
+.main_container__icon{
+    width: 80px
+}
 
 .main_container__nav{
+    @include flex-column;
+    justify-content: space-around;
+    // align-items: center;
+    width: 100%;
+
+    margin-top: 10%;
+}
+.tab-buttons{
     @include flex-row;
     justify-content: space-around;
     align-items: center;
-
-    margin-top: 10%;
 }
 
 .main_container__profileInfo{
