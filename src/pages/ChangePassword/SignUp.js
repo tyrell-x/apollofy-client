@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
+//importing the firebase file
+import firebase from "firebase/app";
+import "firebase/auth";
 
 import "./ChangePassword.scss";
 
@@ -8,9 +11,7 @@ import Header from "../../components/Header";
 import * as ROUTES from "../../routes";
 
 import {
-  resetAuthState,
-  signUpWithEmailRequest,
-  signUpWithGoogleRequest,
+  resetAuthState
 } from "../../redux/auth/auth-actions";
 
 import { authSelector } from "../../redux/auth/auth-selectors";
@@ -21,34 +22,55 @@ function SignUp() {
     authSelector,
   );
 
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState(""); // old code
   const [password, setPassword] = useState("");
+  // This one goes to confirm the password
+  const [confirmPassword, confirmSetPassword] = useState("");
+
+  const user = firebase.auth().currentUser;
 
   useEffect(() => {
     dispatch(resetAuthState());
   }, [dispatch]);
 
-  function handleLoginWithGoogle(e) {
-    e.preventDefault();
-    dispatch(signUpWithGoogleRequest());
-  }
+  // function handleLoginWithGoogle(e) {
+  //   e.preventDefault();
+  //   dispatch(signUpWithGoogleRequest());
+  // }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    dispatch(signUpWithEmailRequest(email, password));
+    // dispatch(signUpWithEmailRequest(email, password));
 
-    setEmail("");
+    // setEmail("");
     setPassword("");
+    confirmSetPassword("");
+
   }
 
-  function handleSetEmail(e) {
-    setEmail(e.target.value);
-  }
 
   function handleSetPassword(e) {
     setPassword(e.target.value);
   }
+
+  function handleConfirmPassword(e) {
+    if (e.target.value !== this.state.password) {
+      // message.error('error');
+      this.setState({confirmPassword: e.target.value})
+    }
+
+    else {
+      user.updatePassword(confirmPassword).then(function() {
+          console.log("Password updated")
+      }).catch(function(error) {
+          console.log(`Could not change password, due to ${}`)
+      });
+      
+    }
+}
+
+
 
   if (isAuthenticated) {
     return <Redirect to={ROUTES.HOME} />;
@@ -64,17 +86,7 @@ function SignUp() {
           {/* Here will introduce th whole structure for changing the password */}
           <hr className="mt-1 mb-4" />
           <form onSubmit={handleSubmit}>
-            <label htmlFor="email" className="form-label">
-              Old Password
-            </label>
-            <input
-              type="text"
-              id="email"
-              className="form-input"
-              value={email}
-              onChange={handleSetEmail}
-            />
-            <label htmlFor="password" className="form-label">
+            <label htmlFor="newPassword" className="form-label">
               New password
             </label>
             <input
@@ -83,6 +95,16 @@ function SignUp() {
               className="form-input"
               value={password}
               onChange={handleSetPassword}
+            />
+            <label htmlFor="newPassword" className="form-label">
+              Confirm password
+            </label>
+            <input
+              type="password"
+              id="password"
+              className="form-input"
+              value={password}
+              onChange={handleConfirmPassword}
             />
             <button
               className="btn btn-primary w-full"

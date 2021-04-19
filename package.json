@@ -22,7 +22,6 @@
     {
       "name": "Pablo Caravaca",
       "email": ""
-      
     },
     {
       "name": "Ignacio Fernandez",
@@ -75,6 +74,7 @@
     "dotenv": "^8.2.0",
     "firebase": "^8.3.1",
     "focus-visible": "^5.2.0",
+    "husky": "^6.0.0",
     "msw": "^0.26.2",
     "node-sass": "^5.0.0",
     "normalizr": "^3.6.1",
