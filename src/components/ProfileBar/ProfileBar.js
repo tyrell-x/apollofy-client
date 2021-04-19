@@ -16,10 +16,7 @@ const BarElement = ({id, number, text, active, handleClick}) => {
 }
 
 function ProfileBar () {
-const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(getUserData())
-    }, []);
+
     const profile = useSelector((state) => state.profile)
     const [active, setActive] = useState({
         components: [
