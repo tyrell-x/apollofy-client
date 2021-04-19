@@ -2,7 +2,9 @@ import React from 'react';
 
 import Tab from "../../../../components/TabComponents/Tab";
 import Tabs from "../../../../components/TabComponents/Tabs";
+import EditForm from "../EditForm";
 import PersonalInformation from "../PersonalInformation";
+
 
 function TabMenu() {
 
@@ -12,7 +14,7 @@ function TabMenu() {
                     <PersonalInformation/>
                 </Tab>
                 <Tab label="Change Password">
-
+                    <EditForm/>
                 </Tab>
             </Tabs>
         );

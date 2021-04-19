@@ -20,15 +20,6 @@ function ProfileMenu() {
           <li>
             <NavLink to={ROUTES.ACCOUNT}>Account</NavLink>
           </li>
-          <li>
-            <button
-              className=""
-              type="button"
-              onClick={handleSignOut}
-            >
-              Sign Out
-            </button>
-          </li>
         </ul>
     );
 }

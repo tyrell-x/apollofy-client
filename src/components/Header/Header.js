@@ -1,45 +1,58 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import * as ROUTES from "../../routes";
-// import { signOut } from "../../redux/auth/auth-actions";
+import { signOut } from "../../redux/auth/auth-actions";
 // import { authSelector } from "../../redux/auth/auth-selectors";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
+import {getUserData} from "../../redux/profile/profile-actions";
 import ProfileMenu from "../ProfileMenu"
 import ModalWindow from "../ModalWindow"
 import "./Header.scss";
-import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from "reactstrap";
+import AppLogo from "../../assets/images/logo.png";
+import {Dropdown, DropdownItem, DropdownMenu} from "reactstrap";
 
 function Header() {
+
+  // const profile = useSelector((state) => state.profile);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserData())
+  }, []);
   // const dispatch = useDispatch();
   // const { isAuthenticated } = useSelector(authSelector);
   const [isOpen, setIsOpen] = useState(true);
 
-// function handleSignOut(){
-//   dispatch(signOut());
-// }
+function handleSignOut(){
+  dispatch(signOut());
+}
 
 function Settings(){
   setIsOpen(!isOpen)
 }
 
   const logo = (
-    <div>
+    <button>
+    <NavLink to={ROUTES.HOME}>
       <img
-        src="http://dummyimage.com/50x50/fff/000.gif&text=logo"
+        src={AppLogo}
         alt="logo"
+        className="logo_apollofy"
       ></img>
-    </div>
+    </NavLink>
+    </button>
   );
 
   const profile = (
     <div>
           <img
             onClick={Settings}
-            src="http://dummyimage.com/50x50/fff/000.gif&text=profle"
+            src="http://dummyimage.com/50x50/000/fff.gif&text=Profile"
             alt="profile"
             className="profileImg"
           ></img>
@@ -48,6 +61,12 @@ function Settings(){
           <DropdownMenu>
             <DropdownItem>
               <ProfileMenu/>
+            </DropdownItem>
+            <DropdownItem
+              type="button"
+              onClick={handleSignOut}
+            >
+              Sign Out
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>

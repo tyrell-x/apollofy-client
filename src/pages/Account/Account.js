@@ -3,11 +3,10 @@ import { NavLink } from "react-router-dom";
 import * as ROUTES from "../../routes";
 import {useSelector, useDispatch} from "react-redux";
 import {getUserData} from "../../redux/profile/profile-actions";
-import PersonalInformation from "./Sections/PersonalInformation";
 
 import "./Account.scss";
 import Header from "../../components/Header";
-import TabMenu from "./Sections/TabMenu";
+import TabMenu from "./sections/TabMenu";
 
 function Account() {
     const profile = useSelector((state) => state.profile);

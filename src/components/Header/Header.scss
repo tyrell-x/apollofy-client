@@ -11,7 +11,16 @@
 
 .header_container{
     @include flex-spaceAround;
-    background-color: #161616;
+    background-color: #1b1b1b;
 }
 
+.dropdown-menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
 
+.logo_apollofy{
+    width: 50px;
+}
