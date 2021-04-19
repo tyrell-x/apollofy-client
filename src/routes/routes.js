@@ -4,3 +4,6 @@ export const LOGIN = "/login";
 export const RESET_PASSWORD = "/reset-password";
 export const ACCOUNT ="/account";
 export const EDIT_PROFILE = "/edit-profile"
+export const PROFILE = "/profile";
+export const EXPLORE = "/explore";
+export const LIBRARY = "/library";
