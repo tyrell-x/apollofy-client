@@ -21,7 +21,6 @@
     {
       "name": "Pablo Caravaca",
       "email": ""
-      
     },
     {
       "name": "Ignacio Fernandez",
@@ -61,7 +60,12 @@
   },
   "dependencies": {
     "@craco/craco": "^6.1.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-regular-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "@fullhuman/postcss-purgecss": "^4.0.0",
+    "@hookform/error-message": "^2.0.0",
     "@reach/menu-button": "^0.13.2",
     "@tailwindcss/forms": "^0.2.1",
     "@tailwindcss/postcss7-compat": "^2.0.2",
@@ -83,6 +87,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.1.1",
     "react-intl": "^5.13.2",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
@@ -99,7 +104,6 @@
   "devDependencies": {
     "@svgr/webpack": "^5.5.0",
     "babel-eslint": "^10.1.0",
-    "commitlint": "^11.0.0",
     "cross-env": "^7.0.3",
     "eslint": "^7.19.0",
     "eslint-config-airbnb": "^18.2.1",
