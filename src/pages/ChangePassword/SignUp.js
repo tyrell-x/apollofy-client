@@ -11,7 +11,8 @@ import Header from "../../components/Header";
 import * as ROUTES from "../../routes";
 
 import {
-  resetAuthState
+  resetAuthState,
+  signUpWithGoogleRequest,
 } from "../../redux/auth/auth-actions";
 
 import { authSelector } from "../../redux/auth/auth-selectors";
@@ -33,10 +34,10 @@ function SignUp() {
     dispatch(resetAuthState());
   }, [dispatch]);
 
-  // function handleLoginWithGoogle(e) {
-  //   e.preventDefault();
-  //   dispatch(signUpWithGoogleRequest());
-  // }
+  function handleLoginWithGoogle(e) {
+    e.preventDefault();
+    dispatch(signUpWithGoogleRequest());
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -46,6 +47,7 @@ function SignUp() {
     // setEmail("");
     setPassword("");
     confirmSetPassword("");
+
 
   }
 
@@ -64,7 +66,7 @@ function SignUp() {
       user.updatePassword(confirmPassword).then(function() {
           console.log("Password updated")
       }).catch(function(error) {
-          console.log(`Could not change password, due to ${}`)
+          console.log("Could not change password")
       });
       
     }
