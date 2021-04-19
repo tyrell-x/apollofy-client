@@ -15,8 +15,7 @@
     "lint:js": "eslint . --ext .js",
     "lint:js:fix": "yarn run lint:js -- --fix",
     "lint:format": "prettier --write .",
-    "lint:format:check": "prettier --check .",
-    "precommit": "lint-staged"
+    "lint:format:check": "prettier --check ."
   },
   "contributors": [
     {
@@ -99,8 +98,6 @@
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
     "@svgr/webpack": "^5.5.0",
     "babel-eslint": "^10.1.0",
     "commitlint": "^11.0.0",
