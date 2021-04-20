@@ -9,7 +9,11 @@ import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
+<<<<<<< HEAD
 import Profile from "./pages/Profile";
+=======
+import ChangePassword from "./pages/ChangePassword";
+>>>>>>> fb630e37b083744c285d5da859c11ef85b1db0a3
 
 import { onAuthStateChanged } from "./services/auth";
 import { syncSignIn, signOut } from "./redux/auth/auth-actions";
@@ -48,6 +52,7 @@ function App() {
         <Route path={ROUTES.HOME} component={Home} exact />
         <Route path={ROUTES.ACCOUNT} component={Account} exact />
         <Route path={ROUTES.EDIT_PROFILE} component={EditProfile} exact />
+        <Route path={ROUTES.CHANGE_PASSWORD} component={ChangePassword} exact />
       </Switch>
     </div>
   );
