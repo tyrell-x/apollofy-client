@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import * as ROUTES from "../../../../routes";
 
 function PersonalInformation() {
-    const profile = useSelector((state) => state.profile);
+    const profile = useSelector((state) => state.auth.currentUser);
     console.log(profile);
     const dispatch = useDispatch()
     useEffect(() => {
@@ -19,19 +19,19 @@ function PersonalInformation() {
                     <tbody>
                         <tr className="main_container_profileInfo__data">
                             <td>First Name</td>
-                            <td>{profile.data.firstName}</td>
+                            <td>{profile.firstName}</td>
                         </tr>
                         <tr className="main_container_profileInfo__data">
                             <td>Last Name</td>
-                            <td>{profile.data.lastName}</td>
+                            <td>{profile.familyName}</td>
                         </tr>
                         <tr className="main_container_profileInfo__data">
                             <td>Email</td>
-                            <td>{profile.data.email }</td>
+                            <td>{profile.email }</td>
                         </tr>
                         <tr className="main_container_profileInfo__data">
                             <td>Phone Number</td>
-                            <td>677 77 77 77</td>
+                            <td>{profile.phoneNumber}</td>
                         </tr>
                         <tr className="main_container_profileInfo__data">
                             <td>Gender</td>
@@ -39,7 +39,7 @@ function PersonalInformation() {
                         </tr>
                         <tr className="main_container_profileInfo__data">
                             <td>Country</td>
-                            <td>Spain</td>
+                            <td>{profile.locale}</td>
                         </tr>
                     </tbody>
                 </table>

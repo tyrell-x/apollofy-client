@@ -14,7 +14,7 @@ function TabMenu() {
                     <PersonalInformation/>
                 </Tab>
                 <Tab label="Change Password">
-                    <EditForm/>
+                    {/* <EditForm/> */}
                 </Tab>
             </Tabs>
         );
