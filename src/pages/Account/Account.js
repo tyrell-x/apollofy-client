@@ -11,7 +11,7 @@ import TabMenu from "./sections/TabMenu";
 function Account() {
     const profile = useSelector((state) => state.auth.currentUser);
 
-    console.log(profile);
+    // console.log(profile);
 
     // const { username, firstName, lastName, email, firebaseId } = useSelector(
     //     (state) => state.auth?.currentUser?.data,
@@ -25,10 +25,10 @@ function Account() {
     //     firebaseId,
     //   });
 
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(getUserData())
-    }, []);
+    // const dispatch = useDispatch()
+    // useEffect(() => {
+    //     dispatch(getUserData())
+    // }, []);
 
     return (
         <>

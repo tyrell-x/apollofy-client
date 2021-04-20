@@ -18,14 +18,14 @@ function makeApi(request = makeRequest()) {
     });
   }
 
-  function updateUserInfo(headers, options) {
+  function updateUserInfo(headers, userInfo) {
     console.log(headers);
-    console.log(options);
+    console.log(userInfo);
     return request({
-      url: "/account",
+      url: "/edit-profile",
       requestMethod: "PATCH",
       headers: headers,
-      body: options,
+      body: userInfo,
     });
   }
 

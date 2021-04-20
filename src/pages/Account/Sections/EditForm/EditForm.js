@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+// import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import * as ROUTES from "../../../../routes";
+import { updateUserAccount } from "../../../../redux/auth/auth-actions"
+import { useForm } from "react-hook-form";
 
 
 import firebase from "firebase/app";
@@ -12,27 +15,32 @@ import FLInput from "../../../../components/FLInput";
 import "./EditForm.scss"
 
 function EditForm() {
-    // const profile = useSelector((state) => state.auth.currentUser);
+    const profile = useSelector((state) => state.auth.currentUser);
     // console.log(profile);
+    const dispatch = useDispatch();
 
-    const handleSubmit = () => {
-        // const profile = useSelector((state) => state.profile);
-        // const name = name.value;
-        // const name = document.querySelector('.firstName');
-        // console.log(name);
+    useEffect(() => {
 
-    }
+    })
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+      } = useForm();
+
+    const onSubmit = (data) => {
+        console.log(data);
+        const { ...userData } = data;
+        dispatch(updateUserAccount(userData));
+    };
 
     // TODO: Este componente hay que cambiarlo de manera dinámica sin llevarselo a otra página diferente.
-    const user = firebase.auth().currentUser;
-    console.log(user);
-    // const profile = useSelector((state) => state.auth.currentUser);
-    // console.log(profile);
-    // console.log(profile.data.email);
+    
     return (
         <section>
-            <form className="form_editProfile">
+            <form className="form_editProfile" onSubmit={handleSubmit(onSubmit)}>
                 <FLInput
+                register={register}
                     className="firstName"
                     name="firstName"
                     rules={{
@@ -42,9 +50,10 @@ function EditForm() {
                         },
                     }}
                     // error={errors?.firstName}
-                    // label={profile.firstName}
+                    label="First Name"
                 />
                 <FLInput
+                register={register}
                     name="lastName"
                     rules={{
                         maxLength: {
@@ -52,9 +61,10 @@ function EditForm() {
                         message: "Max length (20)",
                         },
                     }}
-                    // label={profile.familyName}
+                    label="Last Name"
                 />
                 <FLInput
+                register={register}
                     name="email"
                     rules={{
                         maxLength: {
@@ -62,9 +72,10 @@ function EditForm() {
                         message: "Max length (20)",
                         },
                     }}
-                    // label={profile.email}
+                    label="Email"
                 />
                 <FLInput
+                register={register}
                     name="phoneNumber"
                     rules={{
                         maxLength: {
@@ -72,19 +83,10 @@ function EditForm() {
                         message: "Max length (20)",
                         },
                     }}
-                    // label={profile.phoneNumber}
+                    label="PhoneNumber"
                 />
                 <FLInput
-                    name="gender"
-                    rules={{
-                        maxLength: {
-                        value: 20,
-                        message: "Max length (20)",
-                        },
-                    }}
-                    // label={profile.data.createdBy}
-                />
-                <FLInput
+                register={register}
                     name="country"
                     rules={{
                         maxLength: {
@@ -92,11 +94,10 @@ function EditForm() {
                         message: "Max length (20)",
                         },
                     }}
-                    // label={profile.locale}
+                    label="Country"
                 />
-                <NavLink to={ROUTES.ACCOUNT}>
+                {/* <NavLink to={ROUTES.ACCOUNT}> */}
                     <Button
-                        onClick={handleSubmit}
                         style={{
                             maxWidth: 150,
                         }}
@@ -104,7 +105,7 @@ function EditForm() {
                         text="Update"
                         // disabled={isSigningUp}
                     />
-                </NavLink>
+                {/* </NavLink> */}
             </form>
         </section>
     );

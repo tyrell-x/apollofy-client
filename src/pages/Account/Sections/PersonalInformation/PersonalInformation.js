@@ -3,14 +3,14 @@ import {useSelector, useDispatch} from "react-redux";
 import {getUserData} from "../../../../redux/profile/profile-actions";
 import { NavLink } from "react-router-dom";
 import * as ROUTES from "../../../../routes";
+import { profileSelector } from "../../../../redux/auth/auth-selectors";
 
 function PersonalInformation() {
-    const profile = useSelector((state) => state.auth.currentUser);
-    console.log(profile);
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(getUserData())
-    }, []);
+    const profile = useSelector(profileSelector);
+    // const dispatch = useDispatch()
+    // useEffect(() => {
+    //     dispatch(getUserData())
+    // }, []);
 
     return(
         <div className="main_container__profileInfo">
@@ -34,10 +34,6 @@ function PersonalInformation() {
                             <td>{profile.phoneNumber}</td>
                         </tr>
                         <tr className="main_container_profileInfo__data">
-                            <td>Gender</td>
-                            <td>Male</td>
-                        </tr>
-                        <tr className="main_container_profileInfo__data">
                             <td>Country</td>
                             <td>{profile.locale}</td>
                         </tr>
@@ -45,7 +41,10 @@ function PersonalInformation() {
                 </table>
             </article>
             <article className="main_container_profileInfo_btn">
-                <button className="main_container_profileInfo_btn__tag">
+                <button 
+                type="submit"
+                className="main_container_profileInfo_btn__tag"
+                >
                     <NavLink to={ROUTES.EDIT_PROFILE}>Edit information</NavLink>
                 </button>
             </article>
