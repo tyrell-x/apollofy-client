@@ -1,140 +1,93 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-//importing the firebase file
-import firebase from "firebase/app";
-import "firebase/auth";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-regular-svg-icons";
-import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
-
-
-import "./ChangePassword.scss";
-import "../../components/FLInput/FLInput.scss";
-
 import Header from "../../components/Header";
-import * as ROUTES from "../../routes";
+import { changePassword } from "../../redux/auth/auth-actions";
+import "./ChangePassword.scss";
 
-import {
-  resetAuthState,
-  signInWithGoogleRequest,
-} from "../../redux/auth/auth-actions";
 
-import { authSelector } from "../../redux/auth/auth-selectors";
-
-function SignUp() {
+function ChangePassword() {
   const dispatch = useDispatch();
-  const { isSigningUp, signUpError, isAuthenticated } = useSelector(
-    authSelector,
-  );
-
-  // const [email, setEmail] = useState(""); // old code
-  const [password, setPassword] = useState("");
-  // This one goes to confirm the password
-  const [confirmPassword, confirmSetPassword] = useState("");
-
-  const user = firebase.auth().currentUser;
-
-  useEffect(() => {
-    dispatch(resetAuthState());
-  }, [dispatch]);
-
-  function handleLoginWithGoogle(e) {
-    e.preventDefault();
-    dispatch(signInWithGoogleRequest());
-  }
+  const errorMessage = useSelector((state) => state.auth?.passwordChangeError);
+  const history = useHistory();
+  const [userPassword, setUserPassword] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    // dispatch(signUpWithEmailRequest(email, password));
-
-    // setEmail("");
-    setPassword("");
-    confirmSetPassword("");
-
-
-  }
-
-
-  function handleSetPassword(e) {
-    setPassword(e.target.value);
-  }
-
-  function handleConfirmPassword(e) {
-    if (e.target.value !== this.state.password) {
-      // message.error('error');
-      this.setState({confirmPassword: e.target.value})
+    if (userPassword.newPassword === userPassword.confirmPassword) {
+      dispatch(changePassword(userPassword));
     }
-
-    else {
-      user.updatePassword(confirmPassword).then(function() {
-          console.log("Password updated")
-      }).catch(function(error) {
-          console.log("Could not change password")
-      });
-      
-    }
-}
-
-
-
-  if (isAuthenticated) {
-    return <Redirect to={ROUTES.HOME} />;
   }
+
+  useEffect(() => {
+    if (errorMessage === null) {
+      history.push("/");
+    }
+  }, [errorMessage, history]);
+
+  const handleChange = (e) => {
+    setUserPassword({ ...userPassword, [e.target.name]: e.target.value });
+  };
 
   return (
     <>
-      <div className="input-container">
-        <Header />
+      <Header />
+      <main className="changePassword">
         <section className="Login__wrapper">
-          <h1 className="text-2xl font-bold mb-6">Change Password</h1>
-          <hr className="my-4" />
-          {/* Here will introduce th whole structure for changing the password */}
           <hr className="mt-1 mb-4" />
           <form onSubmit={handleSubmit}>
-            <label htmlFor="newPassword" className="form-label">
+            <label htmlFor="username" className="form-label">
+              Current Password
+            </label>
+            <input
+              type="password"
+              id="currentPassword"
+              name="currentPassword"
+              className="form-input"
+              value={userPassword.currentPassword}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="firstName" className="form-label">
               New password
             </label>
             <input
               type="password"
-              id="password"
+              id="newPassword"
+              name="newPassword"
               className="form-input"
-              value={password}
-              onChange={handleSetPassword}
+              value={userPassword.newPassword}
+              onChange={handleChange}
+              required
             />
-            <label htmlFor="newPassword" className="form-label">
+            <label htmlFor="lastName" className="form-label">
               Confirm password
             </label>
             <input
               type="password"
-              id="password"
+              id="confirmPassword"
+              name="confirmPassword"
               className="form-input"
-              value={confirmPassword}
-              onChange={handleConfirmPassword}
+              value={userPassword.confirmPassword}
+              onChange={handleChange}
+              required
             />
-            <button
-              className="btn btn-primary w-full"
-              type="submit"
-              disabled={isSigningUp}
-            >
-              Change password
+            <button className="btn btn-primary w-full" type="submit">
+              Submit
             </button>
           </form>
-          {signUpError && <section className="mt-4">{signUpError}</section>}
           <section className="mt-4">
             <hr className="mt-1 mb-4" />
-            <Link
-              to={ROUTES.RESET_PASSWORD}
-              className="underline text-blue-gray-200 w-full text-center block"
-            >
-              Reset password
-            </Link>
           </section>
         </section>
-      </div>
+      </main>
     </>
   );
 }
 
-export default SignUp;
+export default ChangePassword;

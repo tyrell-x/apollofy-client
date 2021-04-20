@@ -159,3 +159,33 @@ export const sendPasswordResetEmailSuccess = () => ({
 export const resetAuthState = () => ({
   type: AuthTypes.RESET_AUTH_STATE,
 });
+
+
+//PASSWORD CHANGE
+
+export const changePasswordRequest = () => ({
+  type: AuthTypes.CHANGE_PASSWORD_REQUEST,
+});
+
+export const changePasswordError = (message) => ({
+  type: AuthTypes.CHANGE_PASSWORD_ERROR,
+  payload: message,
+});
+
+export const changePasswordSuccess = () => ({
+  type: AuthTypes.CHANGE_PASSWORD_SUCCESS,
+});
+
+export function changePassword(userPassword) {
+  return async function changePasswordThunk(dispatch) {
+    dispatch(changePasswordRequest());
+    try {
+      await auth.reauthenticatePassword(userPassword);
+      await auth.changePassword(userPassword);
+
+      dispatch(changePasswordSuccess());
+    } catch (error) {
+      dispatch(changePasswordError(error));
+    }
+  };
+}

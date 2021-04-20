@@ -26,6 +26,7 @@ export function onAuthStateChanged(...props) {
 
 export function signInWithGoogle() {
   const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
   return auth.signInWithPopup(GoogleAuthProvider);
 }
 
@@ -59,4 +60,22 @@ export function getCurrentUserEmail() {
   }
 
   return auth.currentUser.email;
+}
+
+// Function t return the password
+export function changePassword(userPassword) {
+  if (!auth.currentUser) {
+    return null;
+  }
+
+  return auth.currentUser.updatePassword(userPassword.newPassword);
+}
+
+export function reauthenticatePassword(userPassword) {
+  const credential = firebase.auth.EmailAuthProvider.credential(
+    auth.currentUser.email,
+    userPassword.currentPassword,
+  );
+
+  return auth.currentUser.reauthenticateWithCredential(credential);
 }
