@@ -32,7 +32,6 @@ function Home() {
             <h1 className="text-xl">Hello</h1>
           </div>
         )}
-        <button className = "button">Change Password</button>
       </section>
     </main>
   );

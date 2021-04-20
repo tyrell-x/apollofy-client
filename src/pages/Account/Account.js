@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import * as ROUTES from "../../routes";
 import {useSelector, useDispatch} from "react-redux";
@@ -10,7 +10,21 @@ import TabMenu from "./sections/TabMenu";
 
 function Account() {
     const profile = useSelector((state) => state.auth.currentUser);
+
     console.log(profile);
+
+    // const { username, firstName, lastName, email, firebaseId } = useSelector(
+    //     (state) => state.auth?.currentUser?.data,
+    // );
+
+    // const [userData, setUserData] = useState({
+    //     username,
+    //     firstName,
+    //     lastName,
+    //     email,
+    //     firebaseId,
+    //   });
+
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getUserData())

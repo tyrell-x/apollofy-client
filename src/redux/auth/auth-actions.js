@@ -159,3 +159,34 @@ export const sendPasswordResetEmailSuccess = () => ({
 export const resetAuthState = () => ({
   type: AuthTypes.RESET_AUTH_STATE,
 });
+
+export function updateUserAccount(userData) {
+  return async function updateUserAccountThunk(dispatch) {
+    dispatch(updateUserAccountRequest(userData));
+    try {
+      const token = await auth.getCurrentUserToken();
+      const response = await api.updateUserInfo(
+        {
+          Authorization: `Bearer ${token}`,
+        },
+        userData,
+      );
+      return updateUserAccountRequest(response.data);
+    } catch (error) {
+      dispatch(updateUserAccountError(error.message));
+    }
+    return dispatch(updateUserAccountSuccess(userData));
+  };
+}
+export const updateUserAccountRequest = (userData) => ({
+  type: AuthTypes.UPDATE_USER_ACCOUNT_REQUEST,
+  payload: userData,
+});
+export const updateUserAccountSuccess = (userData) => ({
+  type: AuthTypes.UPDATE_USER_ACCOUNT_SUCCESS,
+  payload: userData,
+});
+export const updateUserAccountError = (message) => ({
+  type: AuthTypes.UPDATE_USER_ACCOUNT_ERROR,
+  payload: message,
+});

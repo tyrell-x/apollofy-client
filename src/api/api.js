@@ -18,9 +18,19 @@ function makeApi(request = makeRequest()) {
     });
   }
 
+  function updateUserInfo(headers, options) {
+    return request({
+      url: "/account",
+      requestMethod: "PATCH",
+      headers: headers,
+      body: options,
+    });
+  }
+
   return {
     signUp: signUp,
     signOut: signOut,
+    updateUserInfo: updateUserInfo,
   };
 }
 
