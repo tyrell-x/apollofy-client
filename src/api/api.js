@@ -19,6 +19,8 @@ function makeApi(request = makeRequest()) {
   }
 
   function updateUserInfo(headers, options) {
+    console.log(headers);
+    console.log(options);
     return request({
       url: "/account",
       requestMethod: "PATCH",

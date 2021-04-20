@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import FLInput from "../../components/FLInput";
+import Button from "../.././components/Button";
 
 
 
@@ -76,74 +77,96 @@ function ChangePassword(props) {
           <hr className="mt-1 mb-4" />
           <form onSubmit={handleSubmit}>
           <FLInput
-                    name="currentPassword"
-                    rules={{
-                        maxLength: {
-                        value: 20,
-                        message: "Max length (20)",
-                        },
-                    }}
-                    label="Current Password"
-                />
-          <FLInput
-                    name="currentPassword"
-                    rules={{
-                        maxLength: {
-                        value: 20,
-                        message: "Max length (20)",
-                        },
-                    }}
-                    label="Current Password"
-                />
-          <FLInput
-                    name="currentPassword"
-                    rules={{
-                        maxLength: {
-                        value: 20,
-                        message: "Max length (20)",
-                        },
-                    }}
-                    label="Current Password"
-                />
-            <label htmlFor="username" className="form-label">
-              Current Password
-            </label>
-            <input
-              type="password"
-              id="currentPassword"
-              name="currentPassword"
-              className="form-input"
-              value={userPassword.currentPassword}
-              onChange={handleChange}
-              required
+            name="currentPassword"
+
+            rules={{
+
+                maxLength: {
+
+                value: 20,
+
+                message: "Max length (20)",
+
+                },
+
+            }}
+
+            label="Current Password"
+
+            onChange={handleChange}
+
+            value={userPassword.currentPassword}
+
+            required
+
+            className="form-input"
+
             />
-            <label htmlFor="firstName" className="form-label">
-              New password
-            </label>
-            <input
-              type="password"
-              id="newPassword"
-              name="newPassword"
-              className="form-input"
-              value={userPassword.newPassword}
-              onChange={handleChange}
-              required
+
+            <FLInput
+
+            name="newPassword"
+
+            rules={{
+
+                maxLength: {
+
+                value: 20,
+
+                message: "Max length (20)",
+
+                },
+
+            }}
+
+            label="New Password"
+
+            onChange={handleChange}
+
+            value={userPassword.newPassword}
+
+            required
+
+            className="form-input"
+
             />
-            <label htmlFor="lastName" className="form-label">
-              Confirm password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              className="form-input"
-              value={userPassword.confirmPassword}
-              onChange={handleChange}
-              required
+
+            <FLInput
+
+            name="confirmPassword"
+
+            rules={{
+
+                maxLength: {
+
+                value: 20,
+
+                message: "Max length (20)",
+
+                },
+
+            }}
+
+            label="Confirm Password"
+
+            onChange={handleChange}
+
+            value={userPassword.confirmPassword}
+
+            required
+
+            className="form-input"
+
             />
-            <button className="btn btn-primary w-full" type="submit">
-              Submit
-            </button>
+            <Button
+                        // onClick={handleSubmit}
+                        style={{
+                            maxWidth: 150,
+                        }}
+                        type="submit"
+                        text="Change Password"
+                        // disabled={isSigningUp}
+                    />
           </form>
           <section className="mt-4">
             <hr className="mt-1 mb-4" />
