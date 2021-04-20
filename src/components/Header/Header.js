@@ -35,7 +35,7 @@ function Header() {
             <NavLink to={ROUTES.RESET_PASSWORD}>Reset password</NavLink>
           </li>
           {/* This part it will display once authentification takes place */}
-          {!isAuthenticated && (
+          {isAuthenticated && (
             <>
               <li className="mr-4 px-3 py-2 bg-gray-600">
                 <NavLink to={ROUTES.CHANGE_PASSWORD}>Change Password</NavLink>

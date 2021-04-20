@@ -4,10 +4,25 @@ import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header";
 import { changePassword } from "../../redux/auth/auth-actions";
 import "./ChangePassword.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-regular-svg-icons";
+import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
 
-function ChangePassword() {
+
+function ChangePassword(props) {
+  const {
+    label,
+    register = () => {},
+    name,
+    rules,
+    error,
+    ...attributes
+  } = props;
   const dispatch = useDispatch();
+  const [hasError, setHasError] = useState(false);
+  const [active, setActive] = useState(false);
+  const [type, setType] = useState(attributes?.type || "text");
   const errorMessage = useSelector((state) => state.auth?.passwordChangeError);
   const history = useHistory();
   const [userPassword, setUserPassword] = useState({
