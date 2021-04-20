@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header";
@@ -33,6 +33,25 @@ function ChangePassword() {
   const handleChange = (e) => {
     setUserPassword({ ...userPassword, [e.target.name]: e.target.value });
   };
+
+
+  // functions for Pablo style
+
+  const changeVisibility = useCallback(() => {
+    setType((type) => (type === "password" ? "text" : "password"));
+  }, []);
+
+  const activate = () => {
+    setActive(true);
+  };
+
+  const tryDesactivate = (event) => {
+    !event.target.value ? setActive(false) : setActive(true);
+  };
+
+
+
+
 
   return (
     <>
