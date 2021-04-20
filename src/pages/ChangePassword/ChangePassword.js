@@ -110,7 +110,7 @@ function SignUp() {
               type="password"
               id="password"
               className="form-input"
-              value={password}
+              value={confirmPassword}
               onChange={handleConfirmPassword}
             />
             <button
