@@ -14,6 +14,9 @@ export const AuthInitialState = {
   userIsUpdated: false,
   userUpdateError: null,
 
+  passwordIsChanging: false,
+  passwordIsChanged: false,
+  passwordChangeError: null,
   currentUser: {},
 };
 
@@ -142,6 +145,28 @@ const AuthReducer = (state = AuthInitialState, action) => {
       console.log(action.payload);
       return {
         ...state,
+      };
+    }
+    case AuthTypes.CHANGE_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        passwordIsChanging: true,
+        passwordChangeError: null,
+      };
+    }
+    case AuthTypes.CHANGE_PASSWORD_ERROR: {
+      return {
+        ...state,
+        passwordIsChanging: false,
+        passwordChangeError: action.payload,
+      };
+    }
+    case AuthTypes.CHANGE_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        passwordIsChanged: true,
+        passwordIsChanging: false,
+        passwordChangeError: null,
       };
     }
     default: {
