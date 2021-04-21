@@ -1,10 +1,15 @@
+import React, { useEffect } from "react";
 import {useSelector} from "react-redux";
 import { authSelector } from "../../../../redux/auth/auth-selectors";
 
 import "./InfoAccount.scss"
 
-function InfoAccount() {
+function InfoAccount(props) {
     const { currentUser } = useSelector(authSelector);
+
+    useEffect(() => {
+        console.log(props)
+    }, [props])
 
     return(
         <div className="main_container__profileInfo">

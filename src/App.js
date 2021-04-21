@@ -1,5 +1,5 @@
-import React, { useEffect, useSelector } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Switch, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import "./styles/App.scss";
@@ -13,6 +13,8 @@ import ResetPassword from "./pages/ResetPassword";
 import { onAuthStateChanged } from "./services/auth";
 import { syncSignIn, signOut } from "./redux/auth/auth-actions";
 import Account from "./pages/Account/Account";
+
+import ProtectedRoute from "./components/ProtectedRoute"
 
 function App() {
   const dispatch = useDispatch();
@@ -41,8 +43,8 @@ function App() {
         <Route path={ROUTES.SIGN_UP} component={SignUp} />
         <Route path={ROUTES.LOGIN} component={Login} />
         <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
-        <Route path={ROUTES.HOME} component={Home} exact />
-        <Route path={ROUTES.ACCOUNT} component={Account} exact />
+        <ProtectedRoute path={ROUTES.HOME} component={Home} exact />
+        <ProtectedRoute path={ROUTES.ACCOUNT} component={Account} exact />
       </Switch>
     </div>
   );

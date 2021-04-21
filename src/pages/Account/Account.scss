@@ -30,9 +30,3 @@
 
     margin-top: 10%;
 }
-
-.tab-buttons{
-    @include flex-row;
-    justify-content: space-around;
-    align-items: center;
-}
