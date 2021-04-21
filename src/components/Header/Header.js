@@ -7,8 +7,6 @@ import { signOut } from "../../redux/auth/auth-actions";
 import { authSelector } from "../../redux/auth/auth-selectors";
 import { useState, useEffect } from "react";
 
-
-import {getUserData} from "../../redux/profile/profile-actions";
 import ProfileMenu from "../ProfileMenu"
 import ModalWindow from "../ModalWindow"
 import "./Header.scss";
@@ -21,10 +19,6 @@ function Header() {
 
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dispatch(getUserData())
-    // }, []);
-    // const dispatch = useDispatch();
     const { isAuthenticated } = useSelector(authSelector);
     const [isOpen, setIsOpen] = useState(true);
 

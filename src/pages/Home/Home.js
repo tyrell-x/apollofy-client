@@ -6,15 +6,12 @@ import Header from "../../components/Header";
 import * as ROUTES from "../../routes";
 import { authSelector } from "../../redux/auth/auth-selectors";
 import { statement } from "@babel/template";
-import {getUserData} from "../../redux/profile/profile-actions"
 import { Redirect } from "react-router-dom";
 
 
 function Home() {
-  const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(getUserData())
-    }, []);
+  // const dispatch = useDispatch();
+
   const { isAuthenticated, currentUser } = useSelector(authSelector);
   return (
     <main className="p-4">

@@ -14,6 +14,7 @@ const Tabs = (props) => {
         <div className="main_container__nav">
         {React.Children.map(props.children, child =>{
             buttons.push(child.props.label)
+            {/* child.props.changeTab = changeTab; */}
             if (child.props.label === activeTab) content = child.props.children
         })}
 

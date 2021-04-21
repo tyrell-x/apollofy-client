@@ -2,7 +2,6 @@ import React, {useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import * as ROUTES from "../../routes";
 import {useSelector, useDispatch} from "react-redux";
-import {getUserData} from "../../redux/profile/profile-actions";
 
 import "./Account.scss";
 import Header from "../../components/Header";
@@ -25,10 +24,6 @@ function Account() {
     //     firebaseId,
     //   });
 
-    // const dispatch = useDispatch()
-    // useEffect(() => {
-    //     dispatch(getUserData())
-    // }, []);
 
     return (
         <>
