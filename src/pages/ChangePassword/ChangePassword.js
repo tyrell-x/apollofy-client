@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changePassword } from "../../redux/auth/auth-actions";
 import "./ChangePassword.scss";
 import FLInput from "../../components/FLInput";
+import Button from "../.././components/Button";
 
 
 
@@ -107,9 +108,17 @@ function ChangePassword(props) {
                     type="password"
 
                 />
-            <button className="btn btn-primary w-full" type="submit">
-              Submit
-            </button>
+                <Button
+                        // onClick={handleSubmit}
+                        style={{
+                            maxWidth: 150,
+                        }}
+                        type="submit"
+                        text="Change Password"
+                        // disabled={isSigningUp}
+                    />
+
+            
           </form>
           <section className="mt-4">
             <hr className="mt-1 mb-4" />

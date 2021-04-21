@@ -21,9 +21,9 @@ function Header() {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getUserData())
-    }, []);
+    // useEffect(() => {
+    //     dispatch(getUserData())
+    // }, []);
     // const dispatch = useDispatch();
     const { isAuthenticated } = useSelector(authSelector);
     const [isOpen, setIsOpen] = useState(true);
