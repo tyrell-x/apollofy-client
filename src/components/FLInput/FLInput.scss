@@ -33,6 +33,17 @@ $error-color: rgb(224, 45, 21);
 
   button {
     width: 30px;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+    text-transform: none;
+    line-height: inherit;
+    color: inherit;
+    background-color: transparent;
+    background-image: none;
     
     svg {
       width: 95% !important;
@@ -126,5 +137,5 @@ $error-color: rgb(224, 45, 21);
 .floating-label-input input:-webkit-autofill:focus {
   -webkit-text-fill-color: rgb(204, 204, 204);
   -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0) inset !important;
-  transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 90000s ease-in-out 0s;
 }

@@ -136,11 +136,10 @@ export function sendPasswordResetEmail(email) {
     dispatch(sendPasswordResetEmailRequest());
     try {
       await auth.sendPasswordResetEmail(email);
-      dispatch(sendPasswordResetEmailSuccess());
+      return dispatch(sendPasswordResetEmailSuccess());
     } catch (error) {
       dispatch(sendPasswordResetEmailError(error.message));
     }
-    return dispatch(sendPasswordResetEmailSuccess());
   };
 }
 
@@ -159,3 +158,64 @@ export const sendPasswordResetEmailSuccess = () => ({
 export const resetAuthState = () => ({
   type: AuthTypes.RESET_AUTH_STATE,
 });
+
+export function updateUserAccount(userData) {
+  console.log(userData)
+  return async function updateUserAccountThunk(dispatch) {
+    dispatch(updateUserAccountRequest(userData));
+    try {
+      const token = await auth.getCurrentUserToken();
+      await api.updateUserInfo(
+        {
+          Authorization: `Bearer ${token}`,
+        },
+        userData,
+        );
+      return dispatch(updateUserAccountSuccess(userData));
+    } catch (error) {
+      return dispatch(updateUserAccountError());
+    }
+  };
+}
+
+export const updateUserAccountRequest = (userData) => ({
+  type: AuthTypes.UPDATE_USER_ACCOUNT_REQUEST,
+  payload: userData,
+});
+
+export const updateUserAccountSuccess = (userData) => ({
+  type: AuthTypes.UPDATE_USER_ACCOUNT_SUCCESS,
+  payload: userData,
+});
+
+export const updateUserAccountError = (message) => ({
+  type: AuthTypes.UPDATE_USER_ACCOUNT_ERROR,
+  payload: message,
+});
+
+export const changePasswordRequest = () => ({
+  type: AuthTypes.CHANGE_PASSWORD_REQUEST,
+});
+
+export const changePasswordError = (message) => ({
+  type: AuthTypes.CHANGE_PASSWORD_ERROR,
+  payload: message,
+});
+
+export const changePasswordSuccess = () => ({
+  type: AuthTypes.CHANGE_PASSWORD_SUCCESS,
+});
+
+export function changePassword(userPassword) {
+  return async function changePasswordThunk(dispatch) {
+    dispatch(changePasswordRequest());
+    try {
+      await auth.reauthenticatePassword(userPassword);
+      await auth.changePassword(userPassword);
+
+      return dispatch(changePasswordSuccess());
+    } catch (error) {
+      return dispatch(changePasswordError(error));
+    }
+  };
+}

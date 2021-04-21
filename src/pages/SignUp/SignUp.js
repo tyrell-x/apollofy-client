@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -26,6 +26,7 @@ function SignUp() {
     watch,
     formState: { errors },
   } = useForm();
+  
   const onSubmit = (data) => {
     const { email, password, repeatPassword, ...userData } = data;
     dispatch(signUpWithEmailRequest(email, password, userData));

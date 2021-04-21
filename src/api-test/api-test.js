@@ -1,9 +1,8 @@
-import { makeRequest } from "./api-utils";
+import { makeRequest } from "./api-test-utils";
 
 function makeApi(request = makeRequest()) {
-  function signUp(user, headers) {
+  function signUp(headers) {
     return request({
-      body: user,
       url: "/sign-up",
       requestMethod: "POST",
       headers: headers,
@@ -18,19 +17,18 @@ function makeApi(request = makeRequest()) {
     });
   }
 
-  function updateUserInfo(headers, userInfo) {
+  function getProfileInfo(headers) {
     return request({
-      url: "/edit-profile",
-      requestMethod: "PATCH",
+      url: "/account",
+      requestMethod: "GET",
       headers: headers,
-      body: userInfo,
     });
   }
 
   return {
     signUp: signUp,
     signOut: signOut,
-    updateUserInfo: updateUserInfo,
+    getProfileInfo: getProfileInfo
   };
 }
 
