@@ -136,11 +136,10 @@ export function sendPasswordResetEmail(email) {
     dispatch(sendPasswordResetEmailRequest());
     try {
       await auth.sendPasswordResetEmail(email);
-      dispatch(sendPasswordResetEmailSuccess());
+      return dispatch(sendPasswordResetEmailSuccess());
     } catch (error) {
       dispatch(sendPasswordResetEmailError(error.message));
     }
-    return dispatch(sendPasswordResetEmailSuccess());
   };
 }
 
@@ -161,23 +160,24 @@ export const resetAuthState = () => ({
 });
 
 export function updateUserAccount(userData) {
+  console.log(userData)
   return async function updateUserAccountThunk(dispatch) {
     dispatch(updateUserAccountRequest(userData));
     try {
       const token = await auth.getCurrentUserToken();
-      const response = await api.updateUserInfo(
+      await api.updateUserInfo(
         {
           Authorization: `Bearer ${token}`,
         },
         userData,
-      );
-      return updateUserAccountRequest(response.data);
+        );
+      return dispatch(updateUserAccountSuccess(userData));
     } catch (error) {
-      dispatch(updateUserAccountError(error.message));
+      return dispatch(updateUserAccountError());
     }
-    return dispatch(updateUserAccountSuccess(userData));
   };
 }
+
 export const updateUserAccountRequest = (userData) => ({
   type: AuthTypes.UPDATE_USER_ACCOUNT_REQUEST,
   payload: userData,
@@ -190,8 +190,6 @@ export const updateUserAccountError = (message) => ({
   type: AuthTypes.UPDATE_USER_ACCOUNT_ERROR,
   payload: message,
 });
-
-//PASSWORD CHANGE
 
 export const changePasswordRequest = () => ({
   type: AuthTypes.CHANGE_PASSWORD_REQUEST,
@@ -213,9 +211,9 @@ export function changePassword(userPassword) {
       await auth.reauthenticatePassword(userPassword);
       await auth.changePassword(userPassword);
 
-      dispatch(changePasswordSuccess());
+      return dispatch(changePasswordSuccess());
     } catch (error) {
-      dispatch(changePasswordError(error));
+      return dispatch(changePasswordError(error));
     }
   };
 }

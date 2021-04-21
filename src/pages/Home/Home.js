@@ -1,32 +1,23 @@
-import React, {useEffect} from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch} from "react-redux";
+import { useSelector} from "react-redux";
 import "./Home.scss";
 import Navbar from "../../components/Navbar";
-import * as ROUTES from "../../routes";
 import { authSelector } from "../../redux/auth/auth-selectors";
-import { statement } from "@babel/template";
 import { Redirect } from "react-router-dom";
-
+import * as ROUTES from "../../routes"
 
 function Home() {
   const dispatch = useDispatch()
   const { isAuthenticated, currentUser } = useSelector(authSelector);
   return (
-    <main className="p-4">
+    <main>
       <Navbar />
-      <section className="p-4">
+      <section>
         {isAuthenticated ? (
           <div>
-            <h1 className="text-xl">Hello {currentUser.email}</h1>
-            <h2>
-              <Link to={ROUTES.PROFILE}>Profile</Link>
-            </h2>
+            <h1>Hello {currentUser.firstName || currentUser.email}</h1>
           </div>
         ) : (
-          <div>
-            <h1 className="text-xl">Hello</h1>
-          </div>
+          <Redirect to={ROUTES.LOGIN} ></Redirect>
         )}
       </section>
     </main>

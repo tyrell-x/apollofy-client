@@ -62,19 +62,18 @@ export function getCurrentUserEmail() {
   return auth.currentUser.email;
 }
 
-// Function t return the password
 export function changePassword(userPassword) {
   if (!auth.currentUser) {
     return null;
   }
 
-  return auth.currentUser.updatePassword(userPassword.newPassword);
+  return auth.currentUser.updatePassword(userPassword.new);
 }
 
 export function reauthenticatePassword(userPassword) {
   const credential = firebase.auth.EmailAuthProvider.credential(
     auth.currentUser.email,
-    userPassword.currentPassword,
+    userPassword.current,
   );
 
   return auth.currentUser.reauthenticateWithCredential(credential);

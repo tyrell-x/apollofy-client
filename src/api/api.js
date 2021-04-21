@@ -19,8 +19,6 @@ function makeApi(request = makeRequest()) {
   }
 
   function updateUserInfo(headers, userInfo) {
-    console.log(headers);
-    console.log(userInfo);
     return request({
       url: "/edit-profile",
       requestMethod: "PATCH",
