@@ -2,11 +2,10 @@ import React, {useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import * as ROUTES from "../../routes";
 import {useSelector, useDispatch} from "react-redux";
-import {getUserData} from "../../redux/profile/profile-actions";
 
 import "./Account.scss";
 import Header from "../../components/Header";
-import TabMenu from "./sections/TabMenu";
+import TabMenu from "../Account/Sections/TabMenu";
 
 function Account() {
     const profile = useSelector((state) => state.auth.currentUser);

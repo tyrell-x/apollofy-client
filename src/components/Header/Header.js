@@ -8,7 +8,6 @@ import { authSelector } from "../../redux/auth/auth-selectors";
 import { useState, useEffect } from "react";
 
 
-import {getUserData} from "../../redux/profile/profile-actions";
 import ProfileMenu from "../ProfileMenu"
 import ModalWindow from "../ModalWindow"
 import "./Header.scss";
