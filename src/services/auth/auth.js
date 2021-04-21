@@ -62,7 +62,6 @@ export function getCurrentUserEmail() {
   return auth.currentUser.email;
 }
 
-// Function t return the password
 export function changePassword(userPassword) {
   if (!auth.currentUser) {
     return null;

@@ -2,21 +2,18 @@ import React from 'react';
 
 import Tab from "../../../../components/TabComponents/Tab";
 import Tabs from "../../../../components/TabComponents/Tabs";
-import EditForm from "../EditForm";
-import PersonalInformation from "../PersonalInformation";
-
-import ChangePassword from "../../../ChangePassword/ChangePassword";
-
+import EditAccount from "../EditAccount";
+import InfoAccount from "../InfoAccount";
+import ChangePassword from "../ChangePassword";
 
 function TabMenu() {
-
         return(
             <Tabs>
-                <Tab label="Personal Information">
-                    <PersonalInformation/>
+                <Tab label="Account Details">
+                    <InfoAccount/>
                 </Tab>
-                <Tab label="edit">
-                    <EditForm/>
+                <Tab label="Edit Account Details">
+                    <EditAccount/>
                 </Tab>
                 <Tab label="Change Password">
                     <ChangePassword/>

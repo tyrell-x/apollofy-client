@@ -3,12 +3,13 @@
     display: flex;
     flex-direction: column;
 }
+
 @mixin flex-row{
     display: flex;
     flex-direction: row;
 }
 
-.main_container__profileImg{
+.main_container__profileImg {
     @include flex-column;
     justify-content: space-around;
     align-items: center;
@@ -16,6 +17,7 @@
 
     padding-top: 15%;
 }
+
 .main_container__icon{
     width: 80px
 }
@@ -28,43 +30,9 @@
 
     margin-top: 10%;
 }
+
 .tab-buttons{
     @include flex-row;
     justify-content: space-around;
     align-items: center;
-}
-
-.main_container__profileInfo{
-    @include flex-column;
-    justify-content: space-around;
-
-    margin-top: 3%;
-    padding-top: 10%;
-    border-top: 1px solid wheat;
-}
-.main_container__formInfo{
-    @include flex-column;
-    justify-content: space-between;
-}
-.main_container_profileInfo__data{
-    @include flex-row;
-    justify-content: space-between;
-
-    margin: 3% 10px;
-    border-bottom: 1px solid #c7493a;
-}
-.main_container_profileInfo_btn{
-    @include flex-column;
-    align-items: center;
-}
-.main_container_profileInfo_btn__tag{
-    width: 10em;
-    border-radius: 10px;
-    background-color: #ad8174;
-    padding: 10px;
-    margin: 5% 0;
-}
-.main_container_profileInfo_btn__tag:hover,
-.main_container_profileInfo_btn__tag:focus{
-    background-color: #7a5f53;
 }

@@ -1,55 +1,32 @@
 import React, { useEffect, useState} from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { changePassword } from "../../redux/auth/auth-actions";
+import { changePassword } from "../../../../redux/auth/auth-actions";
 import "./ChangePassword.scss";
-import FLInput from "../../components/FLInput";
-import Button from "../.././components/Button";
-
-
+import FLInput from "../../../../components/FLInput";
+import Button from "../../../../components/Button";
 
 function ChangePassword(props) {
-  const {
-    label,
-    register = () => {},
-    name,
-    rules,
-    error,
-    ...attributes
-  } = props;
+
   const dispatch = useDispatch();
-  const [hasError, setHasError] = useState(false);
-  const [active, setActive] = useState(false);
-  const [type, setType] = useState(attributes?.type || "text");
-  const errorMessage = useSelector((state) => state.auth?.passwordChangeError);
-  const history = useHistory();
+
   const [userPassword, setUserPassword] = useState({
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
+    current: "",
+    new: "",
+    newRepeated: "",
   });
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (userPassword.newPassword === userPassword.confirmPassword) {
+    if (userPassword.new === userPassword.newRepeated) {
       dispatch(changePassword(userPassword));
     }
   }
 
-  useEffect(() => {
-    if (errorMessage === null) {
-      history.push("/");
-    }
-  }, [errorMessage, history]);
-
   const handleChange = (e) => {
     setUserPassword({ ...userPassword, [e.target.name]: e.target.value });
   };
-
-
-
-
 
   return (
     <>
@@ -60,15 +37,9 @@ function ChangePassword(props) {
           <FLInput
                     name="currentPassword"
                     id="currentPassword"
-                    rules={{
-                        maxLength: {
-                        value: 20,
-                        message: "Max length (20)",
-                        },
-                    }}
                     label="Current Password"
                     onChange={handleChange}
-                    value={userPassword.currentPassword}
+                    value={userPassword.current}
                     required
                     className="form-input"
                     type="password"
@@ -85,7 +56,7 @@ function ChangePassword(props) {
                     }}
                     label="New Password"
                     onChange={handleChange}
-                    value={userPassword.newPassword}
+                    value={userPassword.new}
                     required
                     className="form-input"
                     type="password"
@@ -102,7 +73,7 @@ function ChangePassword(props) {
                     }}
                     label="Confirm Password"
                     onChange={handleChange}
-                    value={userPassword.confirmPassword}
+                    value={userPassword.newRepeated}
                     required
                     className="form-input"
                     type="password"

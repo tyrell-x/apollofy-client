@@ -1,31 +1,28 @@
-import React, {useState} from 'react';
-import * as FaIcons from "react-icons/fa"
-import * as AiIcons from "react-icons/ai"
-import * as IoIcons from "react-icons/io"
+import React from "react";
+import * as FaIcons from "react-icons/fa";
+import * as AiIcons from "react-icons/ai";
+
+import * as ROUTES from "../../routes";
 
 export const SidebarData = [
-    {
-        title: 'Home',
-        path: '/',
-        icon: <AiIcons.AiFillHome />,
-        cName: 'navText'
-    },
-    {
-        title: 'Search',
-        path: '/search',
-        icon: <FaIcons.FaSearch />,
-        cName: 'navText'
-    },
-    {
-        title: 'Library',
-        path: '/library',
-        icon: <FaIcons.FaMusic/>,
-        cName: 'navText'
-    },
-    {
-        title: 'Profile',
-        path: '/profile',
-        icon: <FaIcons.FaUserAlt />,
-        cName: 'navText'
-    }
-]
+  {
+    title: "Home",
+    path: ROUTES.HOME,
+    icon: <AiIcons.AiFillHome />,
+  },
+  {
+    title: "Explore",
+    path: ROUTES.EXPLORE,
+    icon: <FaIcons.FaSearch />,
+  },
+  {
+    title: "Library",
+    path: ROUTES.LIBRARY,
+    icon: <FaIcons.FaMusic />,
+  },
+  {
+    title: "Profile",
+    path: ROUTES.PROFILE,
+    icon: <FaIcons.FaUserAlt />,
+  },
+];
