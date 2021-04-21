@@ -40,8 +40,6 @@ function App() {
   return (
     <div className="App__container">
       <Switch>
-        {/* <Route path={ROUTES.PROFILE_EDIT} component={Profile} /> */}
-        {/* <Route path={ROUTES.PROFILE} component={Profile} /> */}
         <Route path={ROUTES.SIGN_UP} component={SignUp} />
         <Route path={ROUTES.LOGIN} component={Login} />
         <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />

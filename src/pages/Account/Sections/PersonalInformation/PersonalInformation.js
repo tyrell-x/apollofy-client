@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import { NavLink } from "react-router-dom";
 import * as ROUTES from "../../../../routes";
 import { profileSelector } from "../../../../redux/auth/auth-selectors";
