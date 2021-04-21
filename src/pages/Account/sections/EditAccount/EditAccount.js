@@ -24,7 +24,7 @@ function EditAccount() {
   };
 
   return (
-    <section class="edit-account">
+    <section className="edit-account">
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <FLInput
           register={register}

@@ -33,6 +33,17 @@ $error-color: rgb(224, 45, 21);
 
   button {
     width: 30px;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+    text-transform: none;
+    line-height: inherit;
+    color: inherit;
+    background-color: transparent;
+    background-image: none;
     
     svg {
       width: 95% !important;

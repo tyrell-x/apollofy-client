@@ -132,7 +132,10 @@ const AuthReducer = (state = AuthInitialState, action) => {
         userIsUpdated: true,
         userIsUpdating: false,
         userUpdateError: null,
-        currentUser: action.payload,
+        currentUser: {
+          ...state.currentUser,
+          ...action.payload,
+        },
       };
     }
 

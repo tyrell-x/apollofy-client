@@ -160,19 +160,20 @@ export const resetAuthState = () => ({
 });
 
 export function updateUserAccount(userData) {
+  console.log(userData)
   return async function updateUserAccountThunk(dispatch) {
     dispatch(updateUserAccountRequest(userData));
     try {
       const token = await auth.getCurrentUserToken();
-      const response = await api.updateUserInfo(
+      await api.updateUserInfo(
         {
           Authorization: `Bearer ${token}`,
         },
         userData,
         );
-      return dispatch(updateUserAccountSuccess(response.data));
+      return dispatch(updateUserAccountSuccess(userData));
     } catch (error) {
-      return dispatch(updateUserAccountError(error.message));
+      return dispatch(updateUserAccountError());
     }
   };
 }
