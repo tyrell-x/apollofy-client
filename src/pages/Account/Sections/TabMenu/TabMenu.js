@@ -5,7 +5,7 @@ import Tabs from "../../../../components/TabComponents/Tabs";
 // import EditForm from "../EditForm";
 import PersonalInformation from "../PersonalInformation";
 
-import ChangePassword from "../../../ChangePassword";
+import ChangePassword from "../../../ChangePassword/ChangePassword";
 
 
 function TabMenu() {

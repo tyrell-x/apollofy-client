@@ -1,12 +1,8 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState} from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Header from "../../components/Header";
 import { changePassword } from "../../redux/auth/auth-actions";
 import "./ChangePassword.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-regular-svg-icons";
-import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import FLInput from "../../components/FLInput";
 
 
@@ -51,21 +47,6 @@ function ChangePassword(props) {
   };
 
 
-  // functions for Pablo style
-
-  const changeVisibility = useCallback(() => {
-    setType((type) => (type === "password" ? "text" : "password"));
-  }, []);
-
-  const activate = () => {
-    setActive(true);
-  };
-
-  const tryDesactivate = (event) => {
-    !event.target.value ? setActive(false) : setActive(true);
-  };
-
-
 
 
 
@@ -77,6 +58,7 @@ function ChangePassword(props) {
           <form onSubmit={handleSubmit}>
           <FLInput
                     name="currentPassword"
+                    id="currentPassword"
                     rules={{
                         maxLength: {
                         value: 20,
@@ -88,9 +70,12 @@ function ChangePassword(props) {
                     value={userPassword.currentPassword}
                     required
                     className="form-input"
+                    type="password"
+                    
                 />
           <FLInput
                     name="newPassword"
+                    id="newPassword"
                     rules={{
                         maxLength: {
                         value: 20,
@@ -102,9 +87,12 @@ function ChangePassword(props) {
                     value={userPassword.newPassword}
                     required
                     className="form-input"
+                    type="password"
+
                 />
           <FLInput
                     name="confirmPassword"
+                    id="confirmPassword"
                     rules={{
                         maxLength: {
                         value: 20,
@@ -116,43 +104,9 @@ function ChangePassword(props) {
                     value={userPassword.confirmPassword}
                     required
                     className="form-input"
+                    type="password"
+
                 />
-            <label htmlFor="username" className="form-label">
-              Current Password
-            </label>
-            <input
-              type="password"
-              id="currentPassword"
-              name="currentPassword"
-              className="form-input"
-              value={userPassword.currentPassword}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="firstName" className="form-label">
-              New password
-            </label>
-            <input
-              type="password"
-              id="newPassword"
-              name="newPassword"
-              className="form-input"
-              value={userPassword.newPassword}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="lastName" className="form-label">
-              Confirm password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              className="form-input"
-              value={userPassword.confirmPassword}
-              onChange={handleChange}
-              required
-            />
             <button className="btn btn-primary w-full" type="submit">
               Submit
             </button>
