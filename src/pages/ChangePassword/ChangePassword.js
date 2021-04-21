@@ -84,26 +84,38 @@ function ChangePassword(props) {
                         },
                     }}
                     label="Current Password"
+                    onChange={handleChange}
+                    value={userPassword.currentPassword}
+                    required
+                    className="form-input"
                 />
           <FLInput
-                    name="currentPassword"
+                    name="newPassword"
                     rules={{
                         maxLength: {
                         value: 20,
                         message: "Max length (20)",
                         },
                     }}
-                    label="Current Password"
+                    label="New Password"
+                    onChange={handleChange}
+                    value={userPassword.newPassword}
+                    required
+                    className="form-input"
                 />
           <FLInput
-                    name="currentPassword"
+                    name="confirmPassword"
                     rules={{
                         maxLength: {
                         value: 20,
                         message: "Max length (20)",
                         },
                     }}
-                    label="Current Password"
+                    label="Confirm Password"
+                    onChange={handleChange}
+                    value={userPassword.confirmPassword}
+                    required
+                    className="form-input"
                 />
             <label htmlFor="username" className="form-label">
               Current Password

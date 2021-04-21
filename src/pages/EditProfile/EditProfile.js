@@ -2,7 +2,7 @@ import React from 'react';
 
 import "./EditProfile.scss";
 import Header from "../../components/Header";
-import EditForm from "../Account/sections/EditForm";
+import EditForm from "../Account/Sections/EditForm/index";
 
 function EditProfile(){
 

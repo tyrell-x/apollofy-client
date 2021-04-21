@@ -6,7 +6,7 @@ import {getUserData} from "../../redux/profile/profile-actions";
 
 import "./Account.scss";
 import Header from "../../components/Header";
-import TabMenu from "./sections/TabMenu";
+import TabMenu from "../Account/Sections/TabMenu/index";
 
 function Account() {
     const profile = useSelector((state) => state.auth.currentUser);
