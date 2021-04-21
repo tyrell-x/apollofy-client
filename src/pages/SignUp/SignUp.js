@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 import "./SignUp.scss";
 
-import Header from "../../components/Header";
+import Button from "../../components/Button";
+import FLInput from "../../components/FLInput";
 import * as ROUTES from "../../routes";
 
-import {
-  resetAuthState,
-  signUpWithEmailRequest,
-  signUpWithGoogleRequest,
-} from "../../redux/auth/auth-actions";
+import { resetAuthState } from "../../redux/auth/auth-actions";
 
 import { authSelector } from "../../redux/auth/auth-selectors";
+import { signUpWithEmailRequest } from "../../redux/auth/auth-actions";
 
 function SignUp() {
   const dispatch = useDispatch();
@@ -21,34 +20,21 @@ function SignUp() {
     authSelector,
   );
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  
+  const onSubmit = (data) => {
+    const { email, password, repeatPassword, ...userData } = data;
+    dispatch(signUpWithEmailRequest(email, password, userData));
+  };
 
   useEffect(() => {
     dispatch(resetAuthState());
   }, [dispatch]);
-
-  function handleLoginWithGoogle(e) {
-    e.preventDefault();
-    dispatch(signUpWithGoogleRequest());
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    dispatch(signUpWithEmailRequest(email, password));
-
-    setEmail("");
-    setPassword("");
-  }
-
-  function handleSetEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleSetPassword(e) {
-    setPassword(e.target.value);
-  }
 
   if (isAuthenticated) {
     return <Redirect to={ROUTES.HOME} />;
@@ -56,59 +42,111 @@ function SignUp() {
 
   return (
     <>
-      <main className="SignUp">
-        <Header />
-        <section className="Login__wrapper">
-          <h1 className="text-2xl font-bold mb-6">SignUp</h1>
-          <hr className="my-4" />
-          <button
-            className="btn btn-primary w-full"
-            type="button"
-            onClick={handleLoginWithGoogle}
-            disabled={isSigningUp}
-          >
-            SignUp with Google
-          </button>
-          <hr className="mt-1 mb-4" />
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              type="text"
-              id="email"
-              className="form-input"
-              value={email}
-              onChange={handleSetEmail}
-            />
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="form-input"
-              value={password}
-              onChange={handleSetPassword}
-            />
-            <button
-              className="btn btn-primary w-full"
-              type="submit"
-              disabled={isSigningUp}
+      <main className="signup">
+        <section className="signup__wrapper">
+          <form className="signup__form" onSubmit={handleSubmit(onSubmit)}>
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+              }}
             >
-              Sign Up
-            </button>
+              <FLInput
+                name="firstName"
+                register={register}
+                rules={{
+                  maxLength: {
+                    value: 20,
+                    message: "Max length (20)",
+                  },
+                }}
+                error={errors?.firstName}
+                label="first name"
+              />
+
+              <FLInput
+                name="familyName"
+                register={register}
+                rules={{
+                  maxLength: {
+                    value: 20,
+                    message: "Max length (20)",
+                  },
+                }}
+                error={errors?.lastName}
+                label="last name"
+              />
+            </div>
+            <FLInput
+              name="email"
+              register={register}
+              rules={{
+                required: true,
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Entered value does not match email format",
+                },
+                maxLength: {
+                  value: 30,
+                  message: "Max length (30)",
+                },
+              }}
+              error={errors?.email}
+              label="email"
+            />
+            <FLInput
+              name="password"
+              register={register}
+              rules={{
+                required: true,
+                minLength: {
+                  value: 6,
+                  message: "Min length (6)",
+                },
+                maxLength: {
+                  value: 20,
+                  message: "Min length (20)",
+                },
+              }}
+              label="password"
+              type="password"
+            />
+            <FLInput
+              name="repeatPassword"
+              register={register}
+              rules={{
+                validate: (value) =>
+                  value === watch("password") || "Las contraseñas no coinciden",
+              }}
+              error={errors?.repeatPassword}
+              label="repeat password"
+              type="password"
+            />
+            <FLInput
+              name="phoneNumber"
+              register={register}
+              rules={{
+                pattern: {
+                  value: /^-?[0-9]\d*\.?\d*$/,
+                  message: "Must be composed of numbers",
+                },
+                maxLength: {
+                  value: 20,
+                  message: "Max length (20)",
+                },
+              }}
+              label="phone number"
+            />
+            <Button
+              style={{
+                maxWidth: 150,
+              }}
+              type="submit"
+              text="Sign up"
+              disabled={isSigningUp}
+            ></Button>
           </form>
           {signUpError && <section className="mt-4">{signUpError}</section>}
-          <section className="mt-4">
-            <hr className="mt-1 mb-4" />
-            <Link
-              to={ROUTES.RESET_PASSWORD}
-              className="underline text-blue-gray-200 w-full text-center block"
-            >
-              Reset password
-            </Link>
-          </section>
         </section>
       </main>
     </>

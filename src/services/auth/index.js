@@ -1,10 +1,12 @@
 export {
   onAuthStateChanged,
-  singInWithGoogle,
-  singInWithEmailAndPassword,
-  singUpWithEmailAndPassword,
+  signInWithGoogle,
+  signInWithEmailAndPassword,
+  signUpWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
   getCurrentUserToken,
   getCurrentUserEmail,
+  changePassword,
+  reauthenticatePassword
 } from "./auth";

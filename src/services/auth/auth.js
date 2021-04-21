@@ -24,17 +24,17 @@ export function onAuthStateChanged(...props) {
   return auth.onAuthStateChanged(...props);
 }
 
-export function singInWithGoogle() {
+export function signInWithGoogle() {
   const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
   return auth.signInWithPopup(GoogleAuthProvider);
 }
 
-export function singInWithEmailAndPassword(email, password) {
+export function signInWithEmailAndPassword(email, password) {
   return auth.signInWithEmailAndPassword(email, password);
 }
 
-export function singUpWithEmailAndPassword(email, password) {
+export function signUpWithEmailAndPassword(email, password) {
   return auth.createUserWithEmailAndPassword(email, password);
 }
 
@@ -60,4 +60,21 @@ export function getCurrentUserEmail() {
   }
 
   return auth.currentUser.email;
+}
+
+export function changePassword(userPassword) {
+  if (!auth.currentUser) {
+    return null;
+  }
+
+  return auth.currentUser.updatePassword(userPassword.new);
+}
+
+export function reauthenticatePassword(userPassword) {
+  const credential = firebase.auth.EmailAuthProvider.credential(
+    auth.currentUser.email,
+    userPassword.current,
+  );
+
+  return auth.currentUser.reauthenticateWithCredential(credential);
 }

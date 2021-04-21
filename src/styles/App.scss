@@ -1,5 +1,28 @@
 @import "./utils.scss";
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
 .App__container {
-  @apply h-screen bg-dark-dark text-white;
+  background: rgb(0,0,0);
+  //background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5065213585434174) 100%);
+  min-height: 100vh;
+  color: white;
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e5e5e5;
+}
+
+button {
+  color: black
 }
