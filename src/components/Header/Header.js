@@ -50,7 +50,7 @@ function Header() {
                 alt="profile"
                 className="profileImg"
             ></img>
-        {!isOpen &&
+        {/* {!isOpen &&
             <Dropdown isOpen={isOpen}>
             <DropdownMenu>
                 <DropdownItem>
@@ -69,7 +69,7 @@ function Header() {
                     )}
             </DropdownMenu>
             </Dropdown>
-        }
+        } */}
         </div>
     );
 
@@ -79,6 +79,15 @@ function Header() {
         {logo}
         {/* {!isAuthenticated && ( */}
         {profile}
+
+        <ProfileMenu/>
+        <button
+            className="btn btn-primary m-0"
+            type="button"
+            onClick={handleSignOut}
+        >
+            Sign Out
+        </button>
 
 
 

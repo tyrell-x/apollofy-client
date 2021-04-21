@@ -9,21 +9,7 @@ import TabMenu from "./sections/TabMenu";
 
 function Account() {
     const profile = useSelector((state) => state.auth.currentUser);
-
-    // console.log(profile);
-
-    // const { username, firstName, lastName, email, firebaseId } = useSelector(
-    //     (state) => state.auth?.currentUser?.data,
-    // );
-
-    // const [userData, setUserData] = useState({
-    //     username,
-    //     firstName,
-    //     lastName,
-    //     email,
-    //     firebaseId,
-    //   });
-
+    console.log(profile);
 
     return (
         <>

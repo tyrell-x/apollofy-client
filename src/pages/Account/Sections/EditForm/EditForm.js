@@ -26,16 +26,16 @@ function EditForm() {
         register,
         handleSubmit,
         formState: { errors },
-      } = useForm();
+    } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
         const { ...userData } = data;
+        console.log(data);
         dispatch(updateUserAccount(userData));
     };
 
     // TODO: Este componente hay que cambiarlo de manera dinámica sin llevarselo a otra página diferente.
-    
+
     return (
         <section>
             <form className="form_editProfile" onSubmit={handleSubmit(onSubmit)}>

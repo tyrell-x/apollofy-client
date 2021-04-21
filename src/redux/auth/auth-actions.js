@@ -161,6 +161,7 @@ export const resetAuthState = () => ({
 });
 
 export function updateUserAccount(userData) {
+  console.log(userData);
   return async function updateUserAccountThunk(dispatch) {
     dispatch(updateUserAccountRequest(userData));
     try {
@@ -170,14 +171,17 @@ export function updateUserAccount(userData) {
           Authorization: `Bearer ${token}`,
         },
         userData,
-      );
+        );
+        console.log(response.data);
       return updateUserAccountRequest(response.data);
     } catch (error) {
       dispatch(updateUserAccountError(error.message));
     }
     return dispatch(updateUserAccountSuccess(userData));
+
   };
 }
+
 export const updateUserAccountRequest = (userData) => ({
   type: AuthTypes.UPDATE_USER_ACCOUNT_REQUEST,
   payload: userData,

@@ -4,9 +4,10 @@ import { NavLink } from "react-router-dom";
 import * as ROUTES from "../../../../routes";
 import { profileSelector } from "../../../../redux/auth/auth-selectors";
 
-function PersonalInformation(props) {
-    console.log(props);
+function PersonalInformation() {
+    // console.log(props);
     const profile = useSelector(profileSelector);
+    console.log(profile);
 
     return(
         <div className="main_container__profileInfo">
@@ -19,7 +20,7 @@ function PersonalInformation(props) {
                         </tr>
                         <tr className="main_container_profileInfo__data">
                             <td>Last Name</td>
-                            <td>{profile.familyName}</td>
+                            <td>{profile.lastName}</td>
                         </tr>
                         <tr className="main_container_profileInfo__data">
                             <td>Email</td>
