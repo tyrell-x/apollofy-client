@@ -1,0 +1,26 @@
+.tab-button {
+    background-color: transparent;
+
+    button {
+        cursor: pointer;
+        background-color: transparent;
+        color: white;
+        border: 1px solid transparent;
+        border-width: 0 0 2px 0;
+        transition: border-color 0.2s ease-out;
+        text-transform: uppercase;
+
+        &.active {
+            border-color: rgba(255, 166, 0, 0.521);
+        }
+
+        &:focus {
+            outline: none;
+            border-color: orange;
+        }
+
+        &::first-letter {
+            font-size: larger;
+        }
+    }
+}

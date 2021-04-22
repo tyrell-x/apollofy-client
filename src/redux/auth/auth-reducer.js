@@ -9,6 +9,14 @@ export const AuthInitialState = {
   isSendingPasswordReset: false,
   passwordResetError: null,
   passwordResetSent: false,
+
+  userIsUpdating: false,
+  userIsUpdated: false,
+  userUpdateError: null,
+
+  passwordIsChanging: false,
+  passwordIsChanged: false,
+  passwordChangeError: null,
   currentUser: {},
 };
 
@@ -21,6 +29,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         signUpError: null,
       };
     }
+
     case AuthTypes.SIGN_UP_ERROR: {
       return {
         ...state,
@@ -29,6 +38,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         currentUser: {},
       };
     }
+
     case AuthTypes.SIGN_UP_SUCCESS: {
       return {
         ...state,
@@ -37,6 +47,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         signUpError: null,
       };
     }
+
     case AuthTypes.SIGN_OUT_REQUEST: {
       return {
         ...state,
@@ -44,6 +55,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         signOutError: null,
       };
     }
+
     case AuthTypes.SIGN_OUT_ERROR: {
       return {
         ...state,
@@ -51,6 +63,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         signOutError: action.payload,
       };
     }
+
     case AuthTypes.SIGN_OUT_SUCCESS: {
       return {
         ...state,
@@ -62,6 +75,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         },
       };
     }
+
     case AuthTypes.SEND_PASSWORD_RESET_EMAIL_REQUEST: {
       return {
         ...state,
@@ -70,6 +84,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         passwordResetSent: false,
       };
     }
+
     case AuthTypes.SEND_PASSWORD_RESET_EMAIL_ERROR: {
       return {
         ...state,
@@ -78,6 +93,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         passwordResetSent: false,
       };
     }
+
     case AuthTypes.SEND_PASSWORD_RESET_EMAIL_SUCCESS: {
       return {
         ...state,
@@ -86,6 +102,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         passwordResetSent: true,
       };
     }
+
     case AuthTypes.RESET_AUTH_STATE: {
       return {
         ...state,
@@ -98,6 +115,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         passwordResetSent: false,
       };
     }
+
     case AuthTypes.SET_CURRENT_USER: {
       return {
         ...state,
@@ -107,6 +125,53 @@ const AuthReducer = (state = AuthInitialState, action) => {
         },
       };
     }
+
+    case AuthTypes.UPDATE_USER_ACCOUNT_SUCCESS: {
+      return {
+        ...state,
+        userIsUpdated: true,
+        userIsUpdating: false,
+        userUpdateError: null,
+        currentUser: {
+          ...state.currentUser,
+          ...action.payload,
+        },
+      };
+    }
+
+    case AuthTypes.UPDATE_USER_ACCOUNT_ERROR: {
+      return {
+        ...state,
+        userIsUpdating: false,
+        userUpdateError: action.payload,
+      };
+    }
+
+    case AuthTypes.CHANGE_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        passwordIsChanging: true,
+        passwordChangeError: null,
+      };
+    }
+
+    case AuthTypes.CHANGE_PASSWORD_ERROR: {
+      return {
+        ...state,
+        passwordIsChanging: false,
+        passwordChangeError: action.payload,
+      };
+    }
+
+    case AuthTypes.CHANGE_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        passwordIsChanged: true,
+        passwordIsChanging: false,
+        passwordChangeError: null,
+      };
+    }
+
     default: {
       return state;
     }

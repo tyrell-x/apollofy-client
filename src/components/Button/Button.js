@@ -7,8 +7,8 @@ function Button(props) {
 
   return (
     <button {...attributes} className="button">
-        <span className="button__text">{text}</span>
-        {props.children}
+      <span className="button__text">{text}</span>
+      {props.children}
     </button>
   );
 }

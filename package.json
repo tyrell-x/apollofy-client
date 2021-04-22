@@ -19,20 +19,16 @@
   },
   "contributors": [
     {
-      "name": "Pablo Caravaca",
-      "email": ""
+      "name": "Pablo Caravaca"
     },
     {
-      "name": "Ignacio Fernandez",
-      "email": ""
+      "name": "Ignacio Fernandez"
     },
     {
-      "name": "Luis Blanco",
-      "email": ""
+      "name": "Luis Blanco"
     },
     {
-      "name": "Wilmer Sierra",
-      "email": ""
+      "name": "Wilmer Sierra"
     }
   ],
   "license": "MIT",
@@ -65,10 +61,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@fullhuman/postcss-purgecss": "^4.0.0",
-    "@hookform/error-message": "^2.0.0",
-    "@reach/menu-button": "^0.13.2",
-    "@tailwindcss/forms": "^0.2.1",
-    "@tailwindcss/postcss7-compat": "^2.0.2",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
@@ -79,6 +71,7 @@
     "dotenv": "^8.2.0",
     "firebase": "^8.3.1",
     "focus-visible": "^5.2.0",
+    "fontawesome": "^5.6.3",
     "msw": "^0.26.2",
     "node-sass": "^5.0.0",
     "normalizr": "^3.6.1",
@@ -90,17 +83,18 @@
     "react-dropzone": "^11.3.2",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.1.1",
+    "react-icons": "^4.2.0",
     "react-intl": "^5.13.2",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.1",
+    "reactstrap": "^8.9.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
