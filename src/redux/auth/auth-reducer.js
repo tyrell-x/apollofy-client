@@ -29,7 +29,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         signUpError: null,
       };
     }
-    
+
     case AuthTypes.SIGN_UP_ERROR: {
       return {
         ...state,
@@ -47,7 +47,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         signUpError: null,
       };
     }
-    
+
     case AuthTypes.SIGN_OUT_REQUEST: {
       return {
         ...state,

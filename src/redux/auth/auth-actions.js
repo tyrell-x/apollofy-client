@@ -160,7 +160,7 @@ export const resetAuthState = () => ({
 });
 
 export function updateUserAccount(userData) {
-  console.log(userData)
+  console.log(userData);
   return async function updateUserAccountThunk(dispatch) {
     dispatch(updateUserAccountRequest(userData));
     try {
@@ -170,7 +170,7 @@ export function updateUserAccount(userData) {
           Authorization: `Bearer ${token}`,
         },
         userData,
-        );
+      );
       return dispatch(updateUserAccountSuccess(userData));
     } catch (error) {
       return dispatch(updateUserAccountError());

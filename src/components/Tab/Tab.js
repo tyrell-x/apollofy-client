@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
-const Tab = (props) =>{
-    return(
-        <>
-            {props.children}
-        </>
-    )
-}
+const Tab = (props) => {
+  return <>{props.children}</>;
+};
 
 export default Tab;

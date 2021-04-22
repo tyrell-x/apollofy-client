@@ -27,7 +27,7 @@ export function makeRequest(
   baseURL = process.env.REACT_APP_API_TEST_BASE_URL,
   baseHeaders = {
     Accept: "application/json",
-    Authorization: `Bearer ${process.env.REACT_APP_API_TEST_KEY}` ,
+    Authorization: `Bearer ${process.env.REACT_APP_API_TEST_KEY}`,
   },
 ) {
   return async function request({

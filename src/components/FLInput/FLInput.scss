@@ -44,7 +44,7 @@ $error-color: rgb(224, 45, 21);
     color: inherit;
     background-color: transparent;
     background-image: none;
-    
+
     svg {
       width: 95% !important;
     }
@@ -106,7 +106,8 @@ $error-color: rgb(224, 45, 21);
       overflow: hidden;
       pointer-events: none;
       transform-origin: left;
-      transition: transform ease-out 0.1s, top ease-out 0.1s,color ease-out 0.1s;
+      transition: transform ease-out 0.1s, top ease-out 0.1s,
+        color ease-out 0.1s;
     }
   }
 
@@ -125,7 +126,6 @@ $error-color: rgb(224, 45, 21);
   }
 
   &.error {
-
     .input-placeholder {
       color: $error-color;
     }

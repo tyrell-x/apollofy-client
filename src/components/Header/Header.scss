@@ -1,23 +1,22 @@
-
-@mixin flex-spaceAround{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: flex-start;
+@mixin flex-spaceAround {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
 }
 
-.header_container{
-    @include flex-spaceAround;
-    background-color: #1b1b1b;
+.header_container {
+  @include flex-spaceAround;
+  background-color: #1b1b1b;
 }
 
-.dropdown-menu{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: flex-start;
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
 }
 
-.logo_apollofy{
-    width: 50px;
+.logo_apollofy {
+  width: 50px;
 }

@@ -68,9 +68,7 @@ function ResetPassword() {
               text={buttonText(isSendingPasswordReset, passwordResetSent)}
             ></Button>
           </form>
-          {passwordResetError && (
-            <section>{passwordResetError}</section>
-          )}
+          {passwordResetError && <section>{passwordResetError}</section>}
         </section>
       </main>
     </>
