@@ -27,10 +27,20 @@ function makeApi(request = makeRequest()) {
     });
   }
 
+  function createTrack({ body, headers = {} }) {
+    return request({
+      url: "/tracks",
+      requestMethod: "POST",
+      body: body,
+      headers: headers,
+    });
+  }
+
   return {
     signUp: signUp,
     signOut: signOut,
     updateUserInfo: updateUserInfo,
+    createTrack: createTrack
   };
 }
 

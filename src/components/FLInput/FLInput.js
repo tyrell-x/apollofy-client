@@ -20,8 +20,6 @@ function FLInput(props) {
   const [active, setActive] = useState(false);
   const [type, setType] = useState(attributes?.type || "text");
 
-  const input = useRef();
-
   useEffect(() => {
     if (error) {
       setHasError(true);
