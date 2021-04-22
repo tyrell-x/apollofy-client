@@ -26,7 +26,7 @@ function SignUp() {
     watch,
     formState: { errors },
   } = useForm();
-  
+
   const onSubmit = (data) => {
     const { email, password, repeatPassword, ...userData } = data;
     dispatch(signUpWithEmailRequest(email, password, userData));

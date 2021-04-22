@@ -79,7 +79,12 @@ function Login() {
               value={password}
               onChange={handleSetPassword}
             />
-            <Button style={{maxWidth: 150}} type="submit" disabled={isSigningUp} text="Log in"></Button>
+            <Button
+              style={{ maxWidth: 150 }}
+              type="submit"
+              disabled={isSigningUp}
+              text="Log in"
+            ></Button>
           </form>
           {signUpError && <section>{signUpError}</section>}
           <button
@@ -106,11 +111,7 @@ function Login() {
           </button>
 
           <button className="link">
-          <Link
-              to={ROUTES.RESET_PASSWORD}
-            >
-              Reset password
-            </Link>
+            <Link to={ROUTES.RESET_PASSWORD}>Reset password</Link>
           </button>
         </section>
       </main>

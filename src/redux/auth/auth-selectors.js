@@ -5,4 +5,7 @@ export const selectProfileState = (state) => state.auth.currentUser;
 
 export const authSelector = createSelector([selectAuthState], (auth) => auth);
 
-export const profileSelector = createSelector([selectProfileState], (currentUser) => currentUser);
+export const profileSelector = createSelector(
+  [selectProfileState],
+  (currentUser) => currentUser,
+);
