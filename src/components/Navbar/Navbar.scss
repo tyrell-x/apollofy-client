@@ -1,20 +1,66 @@
+@import "../../styles/variables.scss";
+
 .main-navbar {
   .navbar {
-    background-color: #242526;
+    background-color: $navBg;
     height: 60px;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
+  }
+  .dropdown-icon-container {
+    padding: 0 20px 0 0;
+  }
+  .dropdown-icon {
+    font-size: 26px;
+    color: white;
+  }
+  .dropdown{
+    position: absolute;
+    top: 58px;
+    width: 300px;
+    transform: translateX(-90%);
+    background-color: $navBg;
+    border: $border;
+    border-radius: $border-radius;
+    padding: 1rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .menu-item {
+      background-color: none;
+      color:white;
+      text-decoration: none;
+      font-size: 20px;
+      height: 50px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      border-radius: $border-radius;
+      transition: background $speed;
+      padding: 0.5rem;
+      .icon-button{
+        color: white;
+        margin-right: 20px;
+        font-size: 25px;
+      }
+    }
+    .menu-item:hover{
+      background-color: #525357;
+    }
   }
 
   .menu-bars {
     margin-left: 1.5rem;
     font-size: 1.5rem;
     background: none;
+    color: white;
   }
 
   .nav-menu {
-    background-color: #242526;
+    background-color: $navBg;
     width: 250px;
     height: 100vh;
     display: flex;
@@ -49,7 +95,7 @@
     }
 
     a:hover {
-      background-color: #606060;
+      background-color: $bg-accent;
     }
   }
 
@@ -58,7 +104,7 @@
   }
 
   .navbar-toggle {
-    background-color: #242526;
+    background-color: $navBg;
     width: 100%;
     height: 60px;
     display: flex;
