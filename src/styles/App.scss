@@ -1,13 +1,13 @@
 @import "./utils.scss";
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 
 .App__container {
-  background: rgb(0,0,0);
+  background: rgb(0, 0, 0);
   //background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5065213585434174) 100%);
   min-height: 100vh;
   color: white;
   margin: 0;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 body {
@@ -24,5 +24,5 @@ body {
 }
 
 button {
-  color: black
+  color: black;
 }

@@ -56,7 +56,8 @@
     width: fit-content;
     text-decoration: none;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       text-decoration: underline;
     }
   }
@@ -76,6 +77,3 @@
     background-image: none;
   }
 }
-
-
-

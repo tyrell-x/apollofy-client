@@ -28,7 +28,7 @@ function makeApi(request = makeRequest()) {
   return {
     signUp: signUp,
     signOut: signOut,
-    getProfileInfo: getProfileInfo
+    getProfileInfo: getProfileInfo,
   };
 }
 
