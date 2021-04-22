@@ -27,11 +27,5 @@
   // align-items: center;
   width: 100%;
 
-  margin-top: 10%;
-}
-
-.tab-buttons {
-  @include flex-row;
-  justify-content: space-around;
-  align-items: center;
+    margin-top: 10%;
 }

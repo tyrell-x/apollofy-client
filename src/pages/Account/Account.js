@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import * as ROUTES from "../../routes";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import "./Account.scss";
 import Header from "../../components/Header";
