@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Dropzone from "../../components/Dropzone";
@@ -17,9 +17,13 @@ function UploadSong() {
     uploaderSelector,
   );
 
-  const [title, setTitle] = useState("");
   const [file, setFile] = useState();
-  const [fileData, setFileData] = useState({})
+  const [fileData, setFileData] = useState({
+    title: "",
+    year: ""
+  });
+  
+  const input = useRef([]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -27,13 +31,17 @@ function UploadSong() {
     dispatch(
       uploadSong({
         track: file,
-        fileData: fileData
-      })
+        fileData: fileData,
+      }),
     );
   }
 
-  function handleSetTitle(e) {
-    setTitle(e.target.value);
+  function handleInput(e) {
+    console.log( [e.target.name])
+    setFileData((data) => ({
+      ...data,
+      [e.target.name]: e.target.value,
+    }));
   }
 
   async function handleSetFile(uploadFile) {
@@ -42,16 +50,34 @@ function UploadSong() {
     setFileData({
       title: trackMetadata.common.title || uploadFile.name,
       year: trackMetadata.common.year,
-      genres: trackMetadata.common.genre
-    })
+      genres: trackMetadata.common.genre,
+    });
+    var event = new Event("input", { bubbles: true });
+    input.current.forEach(input => input.dispatchEvent(event))
   }
 
   return (
     <div className="upload-song">
       <h1>Upload Song</h1>
       <form onSubmit={handleSubmit}>
-        <div className="title-input">
-          <FLInput label="Title" value={fileData.title} onChange={handleSetTitle} />
+        <div className="file-data">
+          <FLInput
+            ref={el => input.current[0] = el}
+            required
+            label="Title"
+            name="title"
+            borderMode="bottom"
+            value={fileData.title}
+            onChange={handleInput}
+          />
+          <FLInput
+            ref={el => input.current[1] = el}
+            label="Year"
+            name="year"
+            borderMode="bottom"
+            value={fileData.year}
+            onChange={handleInput}
+          />
         </div>
         <Dropzone
           fileType={fileTypes.AUDIO}

@@ -1,18 +1,18 @@
-import React, { useRef } from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, forwardRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
 import "./FLInput.scss";
 
-function FLInput(props) {
+export default forwardRef((props, ref) => {
   const {
     label,
     register = () => {},
     name,
     rules,
     error,
+    borderMode = "all",
     ...attributes
   } = props;
 
@@ -25,9 +25,8 @@ function FLInput(props) {
       setHasError(true);
       const timerRef = setTimeout(() => setHasError(false), 4000);
       return () => clearTimeout(timerRef);
-    } else {
-      setHasError(false);
     }
+    setHasError(false);
   }, [error]);
 
   const changeVisibility = useCallback(() => {
@@ -47,10 +46,11 @@ function FLInput(props) {
       <div
         className={`floating-label-input ${active ? "active" : null} ${
           hasError ? "error" : null
-        }`}
+        } border-${borderMode}`}
       >
         <label>
           <input
+            ref={ref}
             {...attributes}
             {...register(name, rules)}
             name={name}
@@ -86,6 +86,4 @@ function FLInput(props) {
       )}
     </div>
   );
-}
-
-export default FLInput;
+});
