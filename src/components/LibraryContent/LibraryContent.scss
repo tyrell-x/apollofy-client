@@ -1,0 +1,29 @@
+.library-background{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.library-bar{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    padding-top: 5%;
+    padding-bottom: 7px;
+    border-bottom: 1px solid white;
+}
+.bar-item{
+    font-size: 20px;
+}
+
+.tabs{
+    color: grey
+}
+
+.library-content{
+    height: 70vh;
+    overflow: scroll;
+}
+
+.active-tabs{
+    color: white;
+}

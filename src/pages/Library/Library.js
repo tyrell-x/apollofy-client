@@ -21,19 +21,20 @@ function Library () {
         getLibraryPlaylists()
     }, [])
     return (
-        <>
+        <div className="library-background">
             <Navbar />
-            <h1>Music</h1>
+            <h1>My Library</h1>
             <LibraryContent toggleTab={toggleTab} toggleState={toggleState} />
-            {tracks.data && tracks.data.map(track =>
-            <LibraryItem 
+            <div className="library-content">
+            {tracks.data && toggleState === 1 && tracks.data.map(track =>
+                <LibraryItem 
                 name={track.name}
                 artist={track.owner.login}
                 image={track.thumbnail}
-            />
+                />
                 )}
-            
-        </>
+            </div>
+        </div>
     )
 }
 

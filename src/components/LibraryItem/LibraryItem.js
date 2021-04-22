@@ -1,11 +1,14 @@
 import React from 'react'
-
+import "./TrackItem.scss"
 function LibraryItem ({name, artist, image}) {
     return (
-        <div>
-            <img src={image}></img>
-            <h2>{name}</h2>
-            <p>{artist}</p>
+        <div className="track-card">
+            <img src={image} className="track-image"></img>
+            <div className="track-details">
+                <p className="track-name">{name}</p>
+                <p className="track-artist">{artist}</p>
+            </div>
+            
         </div>
     )
 }
