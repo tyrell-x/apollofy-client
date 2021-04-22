@@ -25,9 +25,16 @@ function makeApi(request = makeRequest()) {
     });
   }
 
-  function getTracks(headers) {
+  function getTracksLiked(headers) {
     return request({
       url: "/me/tracks/liked",
+      requestMethod: "GET",
+      headers: headers,
+    });
+  }
+  function getTracks(headers) {
+    return request({
+      url: "/tracks",
       requestMethod: "GET",
       headers: headers,
     });
@@ -37,7 +44,8 @@ function makeApi(request = makeRequest()) {
     signUp: signUp,
     signOut: signOut,
     getProfileInfo: getProfileInfo,
-    getTracks: getTracks
+    getTracks: getTracks,
+    getTracksLiked: getTracksLiked
   };
 }
 

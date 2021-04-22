@@ -7,18 +7,26 @@ import LibraryItem from "../../components/LibraryItem"
 function Library () {
     const [toggleState, setToggleState] = useState(1)
     const [tracks, setTracks] = useState([])
+    const [allTracks, setAllTracks] = useState([])
+
 
     const toggleTab = (index) => {
         setToggleState(index)
     }
 
     useEffect(() => {
-        async function getLibraryPlaylists () {
-            const songs = await api.getTracks()
+        async function getLikedTracks () {
+            const songs = await api.getTracksLiked()
             setTracks(songs)
             console.log(tracks)
         }
-        getLibraryPlaylists()
+        getLikedTracks()
+        async function getAllTracks () {
+            const allSongs = await api.getTracks()
+            setAllTracks(allSongs)
+            console.log(allTracks)
+        }
+        getAllTracks()
     }, [])
     return (
         <div className="library-background">
@@ -27,6 +35,13 @@ function Library () {
             <LibraryContent toggleTab={toggleTab} toggleState={toggleState} />
             <div className="library-content">
             {tracks.data && toggleState === 1 && tracks.data.map(track =>
+                <LibraryItem 
+                name={track.name}
+                artist={track.owner.login}
+                image={track.thumbnail}
+                />
+                )}
+            {allTracks.data && toggleState === 3 && allTracks.data.map(track =>
                 <LibraryItem 
                 name={track.name}
                 artist={track.owner.login}
