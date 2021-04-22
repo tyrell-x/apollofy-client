@@ -1,16 +1,18 @@
-import React from "react";
+import TabButton from "../TabButton";
+import "./TabButtons.scss";
 
-const TabButtons = ({ buttons, changeTab, activeTab }) => {
+const TabButtons = ({ labels, changeTab, activeTabLabel }) => {
   return (
     <div className="tab-buttons">
-      {buttons.map((button) => {
+      {labels.map((label) => {
         return (
-          <button
-            className={button === activeTab ? "active" : ""}
-            onClick={() => changeTab(button)}
-          >
-            {button}
-          </button>
+          <TabButton
+            key={label}
+            label={label}
+            activeTabLabel={activeTabLabel}
+            className={label === activeTabLabel ? "active" : ""}
+            changeTab={changeTab}
+          />
         );
       })}
     </div>

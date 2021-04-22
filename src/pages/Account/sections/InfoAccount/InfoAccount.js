@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 import { authSelector } from "../../../../redux/auth/auth-selectors";
 
 import "./InfoAccount.scss";
