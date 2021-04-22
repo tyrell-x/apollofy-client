@@ -24,7 +24,7 @@ function Library () {
         <>
             <Navbar />
             <h1>Music</h1>
-            <LibraryContent onClick={toggleTab} />
+            <LibraryContent toggleTab={toggleTab} toggleState={toggleState} />
             {tracks.data && tracks.data.map(track =>
             <LibraryItem 
                 name={track.name}
