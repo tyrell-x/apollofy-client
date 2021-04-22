@@ -7,7 +7,7 @@ function Library () {
         <>
             <Navbar />
             <h1>Music</h1>
-
+            
         </>
     )
 }
