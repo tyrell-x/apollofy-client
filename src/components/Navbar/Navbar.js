@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { FiSettings } from "react-icons/fi";
-import { CgProfile } from "react-icons/cg";
+import * as FaIcons from "react-icons/fa";
 import { SidebarData } from "./SidebarData";
 import { FaSignOutAlt } from "react-icons/fa";
 import "./Navbar.scss";
-import { signOut } from "../../redux/auth/auth-actions";
-
 import { Link } from "react-router-dom";
+import NavItem from "../NavItem";
+import DropdownMenu from "../DropdownMenu";
 
 function NavItem(props) {
   const [open, setOpen] = useState(false);
