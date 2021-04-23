@@ -46,6 +46,7 @@ export function uploadSong({ track, fileData }) {
         userId: getState().auth.currentUser._id,
         file: track,
         fileType: fileTypes.AUDIO,
+        onUploadProgress: (ee) => console.log(ee)
       });
 
       if (cloudResponse.status >= 400) {
@@ -54,18 +55,6 @@ export function uploadSong({ track, fileData }) {
 
       const { url, duration, format, bytes, bit_rate, channel_layout } = cloudResponse.data;
       const { title, year, genres } = fileData;
-
-      console.log({
-        title: title,
-        year: year,
-        genres: genres,
-        url: url,
-        duration: duration,
-        bytes: bytes,
-        bitRate: bit_rate,
-        isStereo: channel_layout === "stereo",
-        format: format
-      })
 
       const response = await api.createTrack({
         body: {

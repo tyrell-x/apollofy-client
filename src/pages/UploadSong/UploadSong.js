@@ -9,7 +9,9 @@ import { uploadSong } from "../../redux/uploader/uploader-actions";
 import { uploaderSelector } from "../../redux/uploader/uploader-selectors";
 import { fileTypes } from "../../services/cloudinary";
 import * as musicMetadata from "music-metadata-browser";
-import FLInput from "../../components/FLInput/index.js";
+import FLInput from "../../components/FLInput";
+import Navbar from "../../components/Navbar/index.js";
+import Button from "../../components/Button/Button.js";
 
 function UploadSong() {
   const dispatch = useDispatch();
@@ -20,9 +22,9 @@ function UploadSong() {
   const [file, setFile] = useState();
   const [fileData, setFileData] = useState({
     title: "",
-    year: ""
+    year: "",
   });
-  
+
   const input = useRef([]);
 
   function handleSubmit(e) {
@@ -37,7 +39,6 @@ function UploadSong() {
   }
 
   function handleInput(e) {
-    console.log( [e.target.name])
     setFileData((data) => ({
       ...data,
       [e.target.name]: e.target.value,
@@ -45,62 +46,59 @@ function UploadSong() {
   }
 
   async function handleSetFile(uploadFile) {
-    setFile(uploadFile);
-    const trackMetadata = await musicMetadata.parseBlob(uploadFile);
+    console.log(uploadFile[0])
+    setFile(uploadFile[0]);
+    const trackMetadata = await musicMetadata.parseBlob(uploadFile[0]);
+    console.log(trackMetadata);
+
     setFileData({
-      title: trackMetadata.common.title || uploadFile.name,
-      year: trackMetadata.common.year,
-      genres: trackMetadata.common.genre,
+      title: trackMetadata.common.title || uploadFile[0].name || "",
+      year: trackMetadata.common.year || "",
+      genres: trackMetadata.common.genre || [],
     });
     var event = new Event("input", { bubbles: true });
-    input.current.forEach(input => input.dispatchEvent(event))
+    input.current.forEach((input) => input.dispatchEvent(event));
   }
 
   return (
-    <div className="upload-song">
-      <h1>Upload Song</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="file-data">
-          <FLInput
-            ref={el => input.current[0] = el}
-            required
-            label="Title"
-            name="title"
-            borderMode="bottom"
-            value={fileData.title}
-            onChange={handleInput}
+    <>
+      <Navbar />
+      <div className="upload-song">
+        <h1>Upload Song</h1>
+          <Dropzone
+            fileType={fileTypes.AUDIO}
+            onFileSelected={(files) => {
+              handleSetFile(files);
+            }}
           />
-          <FLInput
-            ref={el => input.current[1] = el}
-            label="Year"
-            name="year"
-            borderMode="bottom"
-            value={fileData.year}
-            onChange={handleInput}
-          />
-        </div>
-        <Dropzone
-          fileType={fileTypes.AUDIO}
-          onFileSelected={(files) => {
-            handleSetFile(files[0]);
-          }}
-        />
+        <form onSubmit={handleSubmit}>
+          <div className={`file-data-inputs ${!file ? "hidden" : ""}`}>
+            <FLInput
+              ref={(el) => (input.current[1] = el)}
+              required
+              label="Title"
+              name="title"
+              borderMode="bottom"
+              value={fileData.title}
+              onChange={handleInput}
+            />
+            <FLInput
+              ref={(el) => (input.current[2] = el)}
+              className="year"
+              label="Year"
+              name="year"
+              borderMode="bottom"
+              value={fileData.year}
+              onChange={handleInput}
+            />
+            <Button text="upload" type="submit" disabled={isUploadingSong} className={`upload-button`} />
+          </div>
+          {isUploadingSong && <p className="text-dark">Uploading song...</p>}
+          {uploadSongError && <p className="text-dark">Upload error!</p>}
+        </form>
 
-        <button
-          className="btn btn-primary w-full"
-          type="submit"
-          disabled={isUploadingSong}
-        >
-          Login
-        </button>
-      </form>
-
-      {isUploadingSong && <p className="text-dark">Uploading song...</p>}
-      {uploadSongSuccess && file && (
-        <p className="text-dark">Upload successful!</p>
-      )}
-      {uploadSongError && <p className="text-dark">Upload error!</p>}
-    </div>
+      </div>
+    </>
   );
 }
 

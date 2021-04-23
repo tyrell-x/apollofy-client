@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
-import "./FLInput.scss";
+import "./FLSelect.scss";
 
 export default forwardRef((props, ref) => {
   const {
@@ -12,14 +12,12 @@ export default forwardRef((props, ref) => {
     name,
     rules,
     error,
-    className = "",
     borderMode = "all",
     ...attributes
   } = props;
 
   const [hasError, setHasError] = useState(false);
   const [active, setActive] = useState(false);
-  const [type, setType] = useState(attributes?.type || "text");
 
   useEffect(() => {
     if (error) {
@@ -30,49 +28,32 @@ export default forwardRef((props, ref) => {
     setHasError(false);
   }, [error]);
 
-  const changePasswordVisibility = useCallback(() => {
-    setType((type) => (type === "password" ? "text" : "password"));
-  }, []);
-
   const activate = () => {
     setActive(true);
   };
 
-  const tryDesactivate = (event) => {
-    setActive(!!event.target.value);
-  };
-
   return (
-    <div className={`input-container${className ? " " + className : ""}`}>
+    <div className="select-container">
       <div
         className={`floating-label-input ${active ? "active" : null} ${
           hasError ? "error" : null
         } border-${borderMode}`}
       >
         <label>
-          <input
+          <span className="input-placeholder">
+            {label + (attributes.required || rules?.required ? "*" : "")}
+          </span>
+          <select
             ref={ref}
             {...attributes}
             {...register(name, rules)}
             name={name}
-            onFocus={activate}
-            onBlur={tryDesactivate}
-            onInput={tryDesactivate}
-            type={type}
-          ></input>
-          <span className="input-placeholder">
-            {label + (attributes.required || rules?.required ? "*" : "")}
-          </span>
-          {attributes?.type === "password" && active && (
-            <div className="password-eye" onClick={changePasswordVisibility}>
-              <button type="button">
-                <FontAwesomeIcon
-                  className="far"
-                  icon={type === "password" ? faEye : faEyeSlash}
-                />
-              </button>
-            </div>
-          )}
+            onInput={activate}
+          >
+            <option hidden disabled selected value=""></option>
+            <option>Opcion 1</option>
+            <option>Opcion 2</option>
+          </select>
         </label>
       </div>
       {hasError && error?.type === "required" && (

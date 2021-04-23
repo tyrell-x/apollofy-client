@@ -1,4 +1,3 @@
-import React from "react";
 import { string, func } from "prop-types";
 import { useDropzone } from "react-dropzone";
 import "./Dropzone.scss";
@@ -7,8 +6,8 @@ import { fileTypes } from "../../services/cloudinary";
 function Dropzone({ fileType, onFileSelected }) {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: fileType === fileTypes.AUDIO ? "audio/*" : "image/*",
-    maxFiles: 1,
-    onDropAccepted: onFileSelected,
+    maxFiles: 10,
+    onDropAccepted: onFileSelected
   });
 
   const files = acceptedFiles.map((file) => (
@@ -16,19 +15,18 @@ function Dropzone({ fileType, onFileSelected }) {
   ));
 
   return (
-    <div>
+    <div className="dropzone-container">
       <section>
         <div
           {...getRootProps({ className: "dropzone" })}
         >
           <input {...getInputProps()} />
-          <p>Drag n drop some files here, or click to select files</p>
+          <span className={`drop-text ${acceptedFiles.length && "hidden"}`}>Drag n drop some files here, or click to select files</span>
+          {
+            !!files.length && <ul className="drop-files">{files}</ul>
+          }
         </div>
       </section>
-      <aside>
-        <h4>Files</h4>
-        <ul>{files}</ul>
-      </aside>
     </div>
   );
 }
