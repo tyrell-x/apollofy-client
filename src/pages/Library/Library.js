@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar"
 import api from "../../api-test/api-test"
 import LibraryContent from "../../components/LibraryContent"
 import LibraryItem from "../../components/LibraryItem"
+import TabMenu from '../Library/sections/TabMenu';
 
 function Library () {
     const [toggleState, setToggleState] = useState(1)
@@ -32,24 +33,9 @@ function Library () {
         <div className="library-background">
             <Navbar />
             <h1>My Library</h1>
-            <LibraryContent toggleTab={toggleTab} toggleState={toggleState} />
-            <div className="library-content">
-            {tracks.data && toggleState === 1 && tracks.data.map(track =>
-                <LibraryItem 
-                name={track.name}
-                artist={track.owner.login}
-                image={track.thumbnail}
-                />
-                )}
-            {allTracks.data && toggleState === 3 && allTracks.data.map(track =>
-                <LibraryItem 
-                name={track.name}
-                artist={track.owner.login}
-                image={track.thumbnail}
-                />
-                )}
-            </div>
+            <TabMenu />
         </div>
+        
     )
 }
 
