@@ -40,7 +40,7 @@ function makeApi(request = makeRequest()) {
     signUp: signUp,
     signOut: signOut,
     updateUserInfo: updateUserInfo,
-    createTrack: createTrack
+    createTrack: createTrack,
   };
 }
 

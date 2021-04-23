@@ -5,7 +5,12 @@ export const fileTypes = {
   IMAGE: "image",
 };
 
-export const getFileUrl = ({ userId = "anonymous", file, fileType, onUploadProgress }) => {
+export const getFileUrl = ({
+  userId = "anonymous",
+  file,
+  fileType,
+  onUploadProgress,
+}) => {
   const songUploadPreset = process.env.REACT_APP_CLOUDINARY_TRACK_UPLOAD_PRESET;
   const imageUploadPreset =
     process.env.REACT_APP_CLOUDINARY_IMAGE_UPLOAD_PRESET;

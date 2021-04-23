@@ -5,21 +5,18 @@ import FLInput from "../../components/FLInput";
 import { uploadSong } from "../../redux/uploader/uploader-actions";
 import { uploaderSelector } from "../../redux/uploader/uploader-selectors.js";
 
-
 const SongUploadForm = ({ data }) => {
   const dispatch = useDispatch();
-	const { uploadSongSuccess } = useSelector(
-    uploaderSelector,
-  );
+  const { uploadSongSuccess } = useSelector(uploaderSelector);
 
   const [isUploading, setIsUploading] = useState(false);
   const [fileData, setFileData] = useState(data);
 
-	useEffect(() => {
-		if(uploadSongSuccess) {
-			setIsUploading(false)
-		}
-	}, [uploadSongSuccess])
+  useEffect(() => {
+    if (uploadSongSuccess) {
+      setIsUploading(false);
+    }
+  }, [uploadSongSuccess]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -42,7 +39,7 @@ const SongUploadForm = ({ data }) => {
   return (
     <form className="song-upload-form" onSubmit={handleSubmit}>
       <div className={`file-data-inputs ${!fileData ? "hidden" : ""}`}>
-				<FLInput
+        <FLInput
           required
           label="Artist"
           name="artist"

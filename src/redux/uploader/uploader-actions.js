@@ -46,14 +46,21 @@ export function uploadSong({ fileData }) {
         userId: getState().auth.currentUser._id,
         file: fileData.file,
         fileType: fileTypes.AUDIO,
-        onUploadProgress: (ee) => console.log(ee)
+        onUploadProgress: (ee) => console.log(ee),
       });
 
       if (cloudResponse.status >= 400) {
         return dispatch(uploadSongError(cloudResponse.statusText));
       }
 
-      const { url, duration, format, bytes, bit_rate, channel_layout } = cloudResponse.data;
+      const {
+        url,
+        duration,
+        format,
+        bytes,
+        bit_rate,
+        channel_layout,
+      } = cloudResponse.data;
       const { title, year, genres } = fileData;
 
       const response = await api.createTrack({
@@ -66,7 +73,7 @@ export function uploadSong({ fileData }) {
           bytes: bytes,
           bitRate: bit_rate,
           isStereo: channel_layout === "stereo",
-          format: format
+          format: format,
         },
         headers: {
           Authorization: `Bearer ${userToken}`,

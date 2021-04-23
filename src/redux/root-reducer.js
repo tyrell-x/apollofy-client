@@ -5,7 +5,7 @@ import uploaderReducer from "./uploader/uploader-reducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  uploader: uploaderReducer
+  uploader: uploaderReducer,
 });
 
 export default rootReducer;

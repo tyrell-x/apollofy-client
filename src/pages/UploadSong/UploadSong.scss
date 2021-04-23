@@ -1,56 +1,53 @@
-
-
 .upload-song {
-    margin: 30px;
+  margin: 30px;
 
-    form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    h1 {
-        margin-bottom: 60px;
-    }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .file-data-inputs {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: nowrap;
-        gap: 20px;
-        width: 100%;
-        overflow: hidden;
-        white-space: nowrap;
-        margin-bottom: 40px;
-        max-height: 100px;
-        transition: max-height 0.6s ease-out;
+  h1 {
+    margin-bottom: 60px;
+  }
 
-        &> * {
-            min-width: 140px;
-            max-width: 300px;
-        }
+  .file-data-inputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 20px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-bottom: 40px;
+    max-height: 100px;
+    transition: max-height 0.6s ease-out;
 
-        .year {
-            min-width: 0;
-            width: 70px;
-        }
-
-        &.hidden {
-            max-height: 0;
-        }
+    & > * {
+      min-width: 140px;
+      max-width: 300px;
     }
 
-    .title-input {
-        width: 50%;
-        min-width: 200px;
-        margin: 0 auto;
+    .year {
+      min-width: 0;
+      width: 70px;
     }
 
-    .upload-button {
-        cursor: pointer;
-        height: 50%;
-        width: 150px;
+    &.hidden {
+      max-height: 0;
     }
+  }
 
+  .title-input {
+    width: 50%;
+    min-width: 200px;
+    margin: 0 auto;
+  }
+
+  .upload-button {
+    cursor: pointer;
+    height: 50%;
+    width: 150px;
+  }
 }

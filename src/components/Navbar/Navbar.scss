@@ -15,7 +15,7 @@
     font-size: 26px;
     color: white;
   }
-  .dropdown{
+  .dropdown {
     position: absolute;
     top: 58px;
     width: 300px;
@@ -30,7 +30,7 @@
     align-items: center;
     .menu-item {
       background-color: none;
-      color:white;
+      color: white;
       text-decoration: none;
       font-size: 20px;
       height: 50px;
@@ -41,13 +41,13 @@
       border-radius: $border-radius;
       transition: background $speed;
       padding: 0.5rem;
-      .icon-button{
+      .icon-button {
         color: white;
         margin-right: 20px;
         font-size: 25px;
       }
     }
-    .menu-item:hover{
+    .menu-item:hover {
       background-color: #525357;
     }
   }
