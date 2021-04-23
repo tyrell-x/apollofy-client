@@ -1,25 +1,22 @@
 .tab-button {
+  background-color: transparent;
+
+  button {
+    cursor: pointer;
     background-color: transparent;
-    
-    
-    button {
-        cursor: pointer;
-        background-color: transparent;
-        border: 1px solid transparent;
-        border-width: 0 0 2px 0;
-        transition: border-color 0.2s ease-out;
-        font-size: 20px;
-        color: grey;
-        &.active {
-            color: white;
-            border-color: rgba(255, 166, 0, 0.521);
-        }
-
-        &:focus {
-            outline: none;
-            border-color: orange;
-        }
-
-        
+    border: 1px solid transparent;
+    border-width: 0 0 2px 0;
+    transition: border-color 0.2s ease-out;
+    font-size: 20px;
+    color: grey;
+    &.active {
+      color: white;
+      border-color: rgba(255, 166, 0, 0.521);
     }
+
+    &:focus {
+      outline: none;
+      border-color: orange;
+    }
+  }
 }

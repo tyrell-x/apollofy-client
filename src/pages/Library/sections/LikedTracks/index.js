@@ -1,1 +1,1 @@
-export {default} from "./LikedTracks"
+export { default } from "./LikedTracks";

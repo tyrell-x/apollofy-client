@@ -1,1 +1,1 @@
-export {default} from "./LibraryItem"
+export { default } from "./LibraryItem";

@@ -15,7 +15,7 @@ function TabMenu() {
         <MyPlaylists />
       </Tab>
       <Tab label="All Tracks">
-          <AllTracks />
+        <AllTracks />
       </Tab>
     </Tabs>
   );

@@ -1,1 +1,1 @@
-export {default} from "./AllTracks.js"
+export { default } from "./AllTracks.js";

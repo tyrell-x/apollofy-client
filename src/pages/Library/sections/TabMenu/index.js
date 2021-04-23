@@ -1,1 +1,1 @@
-export {default} from "./TabMenu"
+export { default } from "./TabMenu";

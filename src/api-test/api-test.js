@@ -45,7 +45,7 @@ function makeApi(request = makeRequest()) {
     signOut: signOut,
     getProfileInfo: getProfileInfo,
     getTracks: getTracks,
-    getTracksLiked: getTracksLiked
+    getTracksLiked: getTracksLiked,
   };
 }
 

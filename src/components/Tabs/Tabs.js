@@ -2,7 +2,9 @@ import React, { useRef, useState } from "react";
 import TabButtons from "../TabButtons";
 
 const Tabs = (props) => {
-  const [activeTabLabel, setActiveTabLabel] = useState(props.children[0].props.label);
+  const [activeTabLabel, setActiveTabLabel] = useState(
+    props.children[0].props.label,
+  );
   const content = useRef(props.children[0]);
 
   const changeTab = (label) => {
