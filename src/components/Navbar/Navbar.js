@@ -5,8 +5,8 @@ import * as FaIcons from "react-icons/fa";
 import { SidebarData } from "./SidebarData";
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
-import NavItem from "../NavItem"
-import DropdownMenu from "../DropdownMenu"
+import NavItem from "../NavItem";
+import DropdownMenu from "../DropdownMenu";
 
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
@@ -18,10 +18,8 @@ function Navbar() {
         <Link to="#" className="menu-bars">
           <FaIcons.FaBars onClick={showSidebar} />
         </Link>
-        <NavItem icon={<FiSettings className="dropdown-icon"/>}>
-          <DropdownMenu>
-
-          </DropdownMenu>
+        <NavItem icon={<FiSettings className="dropdown-icon" />}>
+          <DropdownMenu></DropdownMenu>
         </NavItem>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
