@@ -3,18 +3,37 @@ import { getFileUrl, fileTypes } from "../../services/cloudinary";
 import api from "../../api";
 import { getCurrentUserToken } from "../../services/auth";
 
-export const uploadSongRequest = () => ({
+export const setSongsToUpload = (songs) => ({
+  type: UploaderTypes.SET_SONGS_TO_UPLOAD,
+  payload: songs,
+});
+
+export const unsetSongToUpload = (songId) => ({
+  type: UploaderTypes.UNSET_SONG_TO_UPLOAD,
+  payload: songId,
+});
+
+export const uploadSongRequest = (songId) => ({
   type: UploaderTypes.UPLOAD_SONG_REQUEST,
+  payload: songId,
 });
 
-export const uploadSongError = (message) => ({
-  type: UploaderTypes.UPLOAD_SONG_ERROR,
-  payload: message,
+export const uploadSongProgress = (songId, progress) => ({
+  type: UploaderTypes.UPLOAD_SONG_PROGRESS,
+  payload: {
+    songId,
+    progress,
+  },
 });
 
-export const uploadSongSuccess = (songUrl) => ({
+export const uploadSongSuccess = (songId) => ({
   type: UploaderTypes.UPLOAD_SONG_SUCCESS,
-  payload: songUrl,
+  payload: songId
+});
+
+export const uploadSongError = (songId) => ({
+  type: UploaderTypes.UPLOAD_SONG_ERROR,
+  payload: songId
 });
 
 export const uploadImageRequest = () => ({
@@ -31,9 +50,28 @@ export const uploadImageSuccess = (imageUrl) => ({
   payload: imageUrl,
 });
 
-export function uploadSong({ fileData }) {
+export function setSongs(songs) {
+  return async function setSongs(dispatch, getState) {
+    const songObj = songs.reduce((prev, curr) => {
+      return {
+        ...prev,
+        [curr.id]: {
+          data: curr,
+          isUploading: false,
+          progress: 0,
+          failed: false,
+          succeeded: false,
+        }
+      }
+    }, {})
+    dispatch(setSongsToUpload(songObj))
+  };
+}
+
+
+export function uploadSong({ songData }) {
   return async function uploadThunk(dispatch, getState) {
-    dispatch(uploadSongRequest());
+    dispatch(uploadSongRequest(songData.id));
 
     try {
       const userToken = await getCurrentUserToken();
@@ -44,9 +82,9 @@ export function uploadSong({ fileData }) {
 
       const cloudResponse = await getFileUrl({
         userId: getState().auth.currentUser._id,
-        file: fileData.file,
+        file: songData.file,
         fileType: fileTypes.AUDIO,
-        onUploadProgress: (ee) => console.log(ee),
+        onUploadProgress: (progressEvent) => dispatch(uploadSongProgress(songData.id, (progressEvent.loaded/progressEvent.total)*100))
       });
 
       if (cloudResponse.status >= 400) {
@@ -61,7 +99,7 @@ export function uploadSong({ fileData }) {
         bit_rate,
         channel_layout,
       } = cloudResponse.data;
-      const { title, year, genres } = fileData;
+      const { title, year, genres } = songData;
 
       const response = await api.createTrack({
         body: {
@@ -84,7 +122,7 @@ export function uploadSong({ fileData }) {
         return dispatch(uploadSongError(response.errorMessage));
       }
 
-      return dispatch(uploadSongSuccess(url));
+      return dispatch(uploadSongSuccess(songData.id));
     } catch (err) {
       return dispatch(uploadSongError(err.message));
     }

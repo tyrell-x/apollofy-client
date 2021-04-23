@@ -1,10 +1,10 @@
 import React from "react";
 
-import Tab from "../../../../components/Tab";
-import Tabs from "../../../../components/Tabs";
-import EditAccount from "../EditAccount";
-import InfoAccount from "../InfoAccount";
-import ChangePassword from "../ChangePassword";
+import Tab from "../../../components/Tab";
+import Tabs from "../../../components/Tabs";
+import EditAccount from "../sections/EditAccount";
+import InfoAccount from "../sections/InfoAccount";
+import ChangePassword from "../sections/ChangePassword";
 
 function TabMenu() {
   return (

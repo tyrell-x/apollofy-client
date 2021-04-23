@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Dropzone from "../../components/Dropzone";
 
@@ -8,9 +8,21 @@ import { fileTypes } from "../../services/cloudinary";
 import * as musicMetadata from "music-metadata-browser";
 import Navbar from "../../components/Navbar/index.js";
 import SongUploadForm from "../../components/SongUploadForm/index.js";
+import { useDispatch, useSelector } from "react-redux";
+
+import { setSongs} from "../../redux/uploader/uploader-actions"
+import { songsToUploadSelector } from "../../redux/uploader/uploader-selectors.js";
 
 function UploadSong() {
   const [filesData, setFilesData] = useState([]);
+
+  const dispatch = useDispatch()
+
+  const songsToUpload = useSelector(songsToUploadSelector);
+
+  useEffect(() => {
+    console.log(songsToUpload)
+  }, [songsToUpload])
 
   async function handleDropFiles(uploadFiles) {
     const filesData = await Promise.all(
@@ -18,7 +30,7 @@ function UploadSong() {
         const trackMetadata = await musicMetadata.parseBlob(uploadFile);
         return {
           file: uploadFile,
-          key: trackMetadata.common.title + uploadFile.name,
+          id: uploadFile.name,
           artist: trackMetadata.common.artist,
           title: trackMetadata.common.title || uploadFile.name || "",
           year: trackMetadata.common.year || "",
@@ -26,6 +38,7 @@ function UploadSong() {
         };
       }),
     );
+    dispatch(setSongs(filesData))
     setFilesData(filesData);
   }
 
@@ -39,8 +52,8 @@ function UploadSong() {
             handleDropFiles(files);
           }}
         />
-        {filesData.map((fileData) => (
-          <SongUploadForm key={fileData.key} data={fileData} />
+        {filesData.map((songData) => (
+          <SongUploadForm key={songData.id} data={songData} />
         ))}
       </div>
     </>

@@ -3,34 +3,32 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button/Button.js";
 import FLInput from "../../components/FLInput";
 import { uploadSong } from "../../redux/uploader/uploader-actions";
-import { uploaderSelector } from "../../redux/uploader/uploader-selectors.js";
+import { fileUploaderSelector } from "../../redux/uploader/uploader-selectors.js";
 
 const SongUploadForm = ({ data }) => {
   const dispatch = useDispatch();
-  const { uploadSongSuccess } = useSelector(uploaderSelector);
+  const { isUploading = false, progress = 0, failed = false, succeeded = false } = useSelector(fileUploaderSelector(data.key)) || {};
 
-  const [isUploading, setIsUploading] = useState(false);
-  const [fileData, setFileData] = useState(data);
+  const [songData, setsongData] = useState(data);
 
   useEffect(() => {
-    if (uploadSongSuccess) {
-      setIsUploading(false);
-    }
-  }, [uploadSongSuccess]);
+  }, [failed, isUploading, progress])
+
+  useEffect(() => {
+  }, [succeeded])
 
   function handleSubmit(e) {
     e.preventDefault();
 
     dispatch(
       uploadSong({
-        fileData: fileData,
+        songData: songData,
       }),
     );
-    setIsUploading(true);
   }
 
   function handleInput(e) {
-    setFileData((data) => ({
+    setsongData((data) => ({
       ...data,
       [e.target.name]: e.target.value,
     }));
@@ -38,13 +36,13 @@ const SongUploadForm = ({ data }) => {
 
   return (
     <form className="song-upload-form" onSubmit={handleSubmit}>
-      <div className={`file-data-inputs ${!fileData ? "hidden" : ""}`}>
+      <div className={`file-data-inputs ${!songData ? "hidden" : ""}`}>
         <FLInput
           required
           label="Artist"
           name="artist"
           borderMode="bottom"
-          value={fileData.artist}
+          value={songData.artist}
           onChange={handleInput}
         />
         <FLInput
@@ -52,7 +50,7 @@ const SongUploadForm = ({ data }) => {
           label="Title"
           name="title"
           borderMode="bottom"
-          value={fileData.title}
+          value={songData.title}
           onChange={handleInput}
         />
         <FLInput
@@ -60,7 +58,7 @@ const SongUploadForm = ({ data }) => {
           label="Year"
           name="year"
           borderMode="bottom"
-          value={fileData.year}
+          value={songData.year}
           onChange={handleInput}
         />
         <Button

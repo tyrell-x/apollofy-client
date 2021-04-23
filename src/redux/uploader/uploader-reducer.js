@@ -1,41 +1,107 @@
 import * as UploaderTypes from "./uploader-types";
 
 export const UploaderInitialState = {
-  isUploadingSong: false,
-  uploadSongSuccess: false,
-  uploadSongError: null,
-  songUrls: [],
+  songs: {},
+  songsUploading: 0,
+  songsUploadingProgress: 0,
   isUploadingImage: false,
   uploadImageSuccess: false,
-  uploadImageError: null,
+  uploadImageError: false,
   imageUrls: [],
 };
 
 const UploaderReducer = (state = UploaderInitialState, action) => {
   switch (action.type) {
-    case UploaderTypes.UPLOAD_SONG_REQUEST: {
+    case UploaderTypes.SET_SONGS_TO_UPLOAD: {
       return {
         ...state,
-        isUploadingSong: true,
-        uploadSongSuccess: false,
-        uploadSongError: null,
+        songs: action.payload,
       };
     }
-    case UploaderTypes.UPLOAD_SONG_ERROR: {
+    case UploaderTypes.UNSET_SONG_TO_UPLOAD: {
+      const songsCopy = {...state.songs};
+      delete songsCopy[action.payload];
       return {
         ...state,
-        isUploadingSong: false,
-        uploadSongSuccess: false,
-        uploadSongError: action.payload,
+        songs: songsCopy,
+      };
+    }
+    case UploaderTypes.UPLOAD_SONG_REQUEST: {
+      const updatedSongs = {
+        ...state.songs,
+        [action.payload]: {
+          ...state.songs[action.payload],
+          isUploading: true,
+          progress: 0,
+          failed: false,
+          succeeded: false,
+        },
+      };
+      return {
+        ...state,
+        songs: updatedSongs,
+        songsUploading: Object.values(updatedSongs).reduce(
+          (prev, curr) => prev + (curr.isUploading | 0),
+          0,
+        ),
+      };
+    }
+    case UploaderTypes.UPLOAD_SONG_PROGRESS: {
+      const updatedSongs = {
+        ...state.songs,
+        [action.payload.songId]: {
+          ...state.songs[action.payload.songId],
+          progress: action.payload.progress,
+        },
+      };
+      return {
+        ...state,
+        songs: updatedSongs,
+        songsUploadingProgress:
+          Object.values(updatedSongs).reduce(
+            (acc, curr) => acc + (curr.isUploading && curr.progress),
+            0,
+          ) / state.songsUploading,
       };
     }
     case UploaderTypes.UPLOAD_SONG_SUCCESS: {
+      const updatedSongs = {
+        ...state.songs,
+        [action.payload]: {
+          ...state.songs[action.payload],
+          isUploading: false,
+          progress: 100,
+          succeeded: true,
+          failed: false,
+        },
+      }
       return {
         ...state,
-        isUploadingSong: false,
-        uploadSongSuccess: true,
-        uploadSongError: null,
-        songUrls: [...state.songUrls, action.payload],
+        songs: updatedSongs,
+        songsUploading: Object.values(updatedSongs).reduce(
+          (prev, curr) => prev + (curr.isUploading | 0),
+          0,
+        ),
+      };
+    }
+    case UploaderTypes.UPLOAD_SONG_ERROR: {
+      const updatedSongs = {
+        ...state.songs,
+        [action.payload]: {
+          ...state.songs[action.payload],
+          isUploading: false,
+          progress: 0,
+          failed: true,
+          succeeded: false,
+        },
+      }
+      return {
+        ...state,
+        songs: updatedSongs,
+        songsUploading: Object.values(updatedSongs).reduce(
+          (prev, curr) => prev + (curr.isUploading | 0),
+          0,
+        ),
       };
     }
     case UploaderTypes.UPLOAD_IMAGE_REQUEST: {
