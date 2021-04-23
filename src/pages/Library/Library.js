@@ -4,6 +4,7 @@ import api from "../../api-test/api-test";
 import LibraryContent from "../../components/LibraryContent";
 import LibraryItem from "../../components/LibraryItem";
 import TabMenu from "../Library/sections/TabMenu";
+import TrackModal from "../../components/TrackModal"
 
 function Library() {
   const [toggleState, setToggleState] = useState(1);
@@ -31,6 +32,7 @@ function Library() {
       <Navbar />
       <h1>My Library</h1>
       <TabMenu />
+      <TrackModal />
     </div>
   );
 }

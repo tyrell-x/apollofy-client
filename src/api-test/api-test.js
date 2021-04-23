@@ -40,12 +40,21 @@ function makeApi(request = makeRequest()) {
     });
   }
 
+  function getTrackInfo(headers, id) {
+    return request({
+      url: `/tracks/${id}`,
+      requestMethod: "GET",
+      headers: headers,
+    });
+  }
+
   return {
     signUp: signUp,
     signOut: signOut,
     getProfileInfo: getProfileInfo,
     getTracks: getTracks,
     getTracksLiked: getTracksLiked,
+    getTrackInfo: getTrackInfo,
   };
 }
 
