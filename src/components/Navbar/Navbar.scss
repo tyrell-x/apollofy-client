@@ -10,6 +10,15 @@
   }
   .dropdown-icon-container {
     padding: 0 20px 0 0;
+    button {
+      cursor: pointer;
+      background: transparent;
+      &:focus,
+      &:active {
+        border: none;
+        outline: none;
+      }
+    }
   }
   .dropdown-icon {
     font-size: 26px;
@@ -78,7 +87,7 @@
 
   .navText {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     padding: 8px 0px 8px 0px;
 
@@ -108,7 +117,7 @@
     width: 100%;
     height: 60px;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
   }
 

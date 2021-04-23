@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
 import "./styles/App.scss";
-
 import * as ROUTES from "./routes";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
@@ -11,13 +9,11 @@ import Login from "./pages/Login";
 import UploadSong from "./pages/UploadSong";
 import UploadImage from "./pages/UploadImage";
 import ResetPassword from "./pages/ResetPassword";
-
 import { onAuthStateChanged } from "./services/auth";
 import { syncSignIn, signOut } from "./redux/auth/auth-actions";
 import Account from "./pages/Account/Account";
-
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import Library from "./pages/Library";
 function App() {
   const dispatch = useDispatch();
 
@@ -49,6 +45,7 @@ function App() {
         <ProtectedRoute path={ROUTES.ACCOUNT} component={Account} exact />
         <ProtectedRoute path={ROUTES.UPLOAD_SONG} component={UploadSong} />
         <ProtectedRoute path={ROUTES.UPLOAD_IMAGE} component={UploadImage} />
+        <ProtectedRoute path={ROUTES.LIBRARY} component={Library} exact />
       </Switch>
     </div>
   );
