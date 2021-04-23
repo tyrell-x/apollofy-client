@@ -10,7 +10,7 @@ function TabMenu() {
   return (
     <Tabs>
       <Tab label="Account Details">
-        <InfoAccount additionalProp="" />
+        <InfoAccount />
       </Tab>
       <Tab label="Edit Account Details">
         <EditAccount />

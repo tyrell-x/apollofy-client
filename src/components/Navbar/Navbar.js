@@ -3,11 +3,54 @@ import * as AiIcons from "react-icons/ai";
 import { FiSettings } from "react-icons/fi";
 import * as FaIcons from "react-icons/fa";
 import { SidebarData } from "./SidebarData";
+import { FaSignOutAlt } from "react-icons/fa";
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
 import NavItem from "../NavItem";
 import DropdownMenu from "../DropdownMenu";
 
+function NavItem(props) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="dropdown-icon-container">
+      <a href="#" onClick={() => setOpen(!open)}>
+        {props.icon}
+      </a>
+      {open && props.children}
+    </div>
+  );
+}
+function DropdownMenu() {
+  const dispatch = useDispatch();
+  const handleSignOut = () => {
+    dispatch(signOut());
+  };
+
+  function DropdownItem(props) {
+    return (
+      <Link to={props.path} onClick={props.onClick} className="menu-item">
+        <span className="icon-button">{props.leftIcon}</span>
+        {props.children}
+      </Link>
+    );
+  }
+
+  return (
+    <div className="dropdown">
+      <DropdownItem leftIcon={<CgProfile />} path={"/account"}>
+        Account
+      </DropdownItem>
+      <DropdownItem
+        leftIcon={<FaSignOutAlt />}
+        path={"#"}
+        onClick={handleSignOut}
+      >
+        Sign Out
+      </DropdownItem>
+    </div>
+  );
+}
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
@@ -22,6 +65,7 @@ function Navbar() {
           <DropdownMenu></DropdownMenu>
         </NavItem>
       </div>
+
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
         <ul className="nav-menu-items" onClick={showSidebar}>
           <li className="navbar-toggle">
