@@ -160,7 +160,6 @@ export const resetAuthState = () => ({
 });
 
 export function updateUserAccount(userData) {
-  console.log(userData);
   return async function updateUserAccountThunk(dispatch) {
     dispatch(updateUserAccountRequest(userData));
     try {

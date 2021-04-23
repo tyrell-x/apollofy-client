@@ -18,13 +18,11 @@ function Library() {
     async function getLikedTracks() {
       const songs = await api.getTracksLiked();
       setTracks(songs);
-      console.log(tracks);
     }
     getLikedTracks();
     async function getAllTracks() {
       const allSongs = await api.getTracks();
       setAllTracks(allSongs);
-      console.log(allTracks);
     }
     getAllTracks();
   }, []);

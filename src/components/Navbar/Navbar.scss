@@ -10,6 +10,15 @@
   }
   .dropdown-icon-container {
     padding: 0 20px 0 0;
+    button {
+      cursor: pointer;
+      background: transparent;
+      &:focus,
+      &:active {
+        border: none;
+        outline: none;
+      }
+    }
   }
   .dropdown-icon {
     font-size: 26px;

@@ -9,7 +9,6 @@ function LikedTracks() {
     async function getLikedTracks() {
       const songs = await api.getTracksLiked();
       setTracks(songs);
-      console.log(tracks);
     }
     getLikedTracks();
   }, []);
@@ -19,6 +18,7 @@ function LikedTracks() {
       {tracks.data &&
         tracks.data.map((track) => (
           <LibraryItem
+            key={track.id}
             name={track.name}
             artist={track.owner.login}
             image={track.thumbnail}

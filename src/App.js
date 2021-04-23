@@ -11,7 +11,7 @@ import { onAuthStateChanged } from "./services/auth";
 import { syncSignIn, signOut } from "./redux/auth/auth-actions";
 import Account from "./pages/Account/Account";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import Library from "./pages/Library";
 function App() {
   const dispatch = useDispatch();
 

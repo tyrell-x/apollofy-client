@@ -5,9 +5,9 @@ function NavItem(props) {
 
   return (
     <div className="dropdown-icon-container">
-      <a href="#" onClick={() => setOpen(!open)}>
+      <button href="#" onClick={() => setOpen(!open)}>
         {props.icon}
-      </a>
+      </button>
       {open && props.children}
     </div>
   );
