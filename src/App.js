@@ -13,8 +13,8 @@ import ResetPassword from "./pages/ResetPassword";
 import { onAuthStateChanged } from "./services/auth";
 import { syncSignIn, signOut } from "./redux/auth/auth-actions";
 import Account from "./pages/Account/Account";
-
-import ProtectedRoute from "./components/ProtectedRoute"
+import Library from "./pages/Library";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +45,7 @@ function App() {
         <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
         <ProtectedRoute path={ROUTES.HOME} component={Home} exact />
         <ProtectedRoute path={ROUTES.ACCOUNT} component={Account} exact />
+        <ProtectedRoute path={ROUTES.LIBRARY} component={Library} exact />
       </Switch>
     </div>
   );
