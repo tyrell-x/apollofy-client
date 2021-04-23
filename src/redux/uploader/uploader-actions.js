@@ -31,7 +31,7 @@ export const uploadImageSuccess = (imageUrl) => ({
   payload: imageUrl,
 });
 
-export function uploadSong({ track, fileData }) {
+export function uploadSong({ fileData }) {
   return async function uploadThunk(dispatch, getState) {
     dispatch(uploadSongRequest());
 
@@ -44,7 +44,7 @@ export function uploadSong({ track, fileData }) {
 
       const cloudResponse = await getFileUrl({
         userId: getState().auth.currentUser._id,
-        file: track,
+        file: fileData.file,
         fileType: fileTypes.AUDIO,
         onUploadProgress: (ee) => console.log(ee)
       });

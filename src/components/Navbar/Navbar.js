@@ -49,7 +49,7 @@ function DropdownMenu() {
     </div>
   )
 }
-function Navbar() {
+function Navbar({title}) {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
 
@@ -60,12 +60,16 @@ function Navbar() {
         <Link to="#" className="menu-bars">
           <FaIcons.FaBars onClick={showSidebar} />
         </Link>
+
+        <h1>{title}</h1>
+
         <NavItem icon={<FiSettings className="dropdown-icon"/>}>
           <DropdownMenu>
 
           </DropdownMenu>
         </NavItem>
       </div>
+
       
 
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>

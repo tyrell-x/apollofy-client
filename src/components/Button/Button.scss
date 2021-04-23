@@ -3,6 +3,7 @@
   padding: 0.5rem 1rem;
   border-radius: 5px;
   color: rgb(46, 46, 46);
+  transition: background-color 0.2s ease-out;
   user-select: none;
 
   &__text {
@@ -14,10 +15,15 @@
   }
 
   &:hover {
-    background-color: rgb(194, 113, 6) !important;
+    background-color: rgb(194, 113, 6);
   }
 
   &:focus {
     outline: none;
+  }
+
+  &[disabled] {
+    cursor: default;
+    background-color: rgb(168, 168, 168);
   }
 }

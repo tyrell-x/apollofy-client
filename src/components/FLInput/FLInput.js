@@ -30,6 +30,10 @@ export default forwardRef((props, ref) => {
     setHasError(false);
   }, [error]);
 
+  useEffect(() => {
+    setActive(!!attributes.value)
+  }, [attributes.value])
+
   const changePasswordVisibility = useCallback(() => {
     setType((type) => (type === "password" ? "text" : "password"));
   }, []);
