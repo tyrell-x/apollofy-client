@@ -17,7 +17,7 @@ export const updateSongToUpload = (songId, dataToUpdate) => ({
   type: UploaderTypes.UPDATE_SONG_TO_UPLOAD,
   payload: {
     songId,
-    dataToUpdate
+    dataToUpdate,
   },
 });
 
@@ -36,12 +36,12 @@ export const uploadSongProgress = (songId, progress) => ({
 
 export const uploadSongSuccess = (songId) => ({
   type: UploaderTypes.UPLOAD_SONG_SUCCESS,
-  payload: songId
+  payload: songId,
 });
 
 export const uploadSongError = (songId) => ({
   type: UploaderTypes.UPLOAD_SONG_ERROR,
-  payload: songId
+  payload: songId,
 });
 
 export const uploadImageRequest = () => ({
@@ -60,13 +60,17 @@ export const uploadImageSuccess = (imageUrl) => ({
 
 export function setSongs(songs) {
   return async function setSongs(dispatch) {
-    dispatch(setSongsToUpload(songs.map(song => ({
-      data: song,
-      isUploading: false,
-      progress: 0,
-      failed: false,
-      succeeded: false,
-    }))))
+    dispatch(
+      setSongsToUpload(
+        songs.map((song) => ({
+          data: song,
+          isUploading: false,
+          progress: 0,
+          failed: false,
+          succeeded: false,
+        })),
+      ),
+    );
   };
 }
 
@@ -85,9 +89,14 @@ export function uploadSong({ songData }) {
         userId: getState().auth.currentUser._id,
         file: songData.file,
         fileType: fileTypes.AUDIO,
-        onUploadProgress: (progressEvent) => dispatch(uploadSongProgress(songData.id, (progressEvent.loaded/progressEvent.total)*100))
+        onUploadProgress: (progressEvent) =>
+          dispatch(
+            uploadSongProgress(
+              songData.id,
+              (progressEvent.loaded / progressEvent.total) * 100,
+            ),
+          ),
       });
-
 
       if (cloudResponse.status >= 400) {
         return dispatch(uploadSongError(songData.id, cloudResponse.statusText));

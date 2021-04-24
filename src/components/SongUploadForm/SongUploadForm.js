@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { Flipped, spring } from "react-flip-toolkit";
 import { useDispatch } from "react-redux";
 import FLInput from "../../components/FLInput";
 import {
@@ -8,7 +7,9 @@ import {
   uploadSong,
 } from "../../redux/uploader/uploader-actions";
 import ProgressButton from "../ProgressButton/index";
-import anime from 'animejs'
+import anime from "animejs";
+import Button from "../Button/index.js";
+import AnimatedListItem from "../../components/AnimatedListItem/AnimatedListItem.js";
 
 const SongUploadForm = ({ song, upload }) => {
   const dispatch = useDispatch();
@@ -21,10 +22,6 @@ const SongUploadForm = ({ song, upload }) => {
   } = song;
 
   const formRef = useRef(null);
-
-  useEffect(() => {
-    console.log('updating', data.id)
-  }, [data]);
 
   useEffect(() => {
     if (succeeded) {
@@ -64,40 +61,12 @@ const SongUploadForm = ({ song, upload }) => {
     );
   }
 
-  const onAppear = (el, i) => {
-    const {top} = el.getBoundingClientRect()
-    anime({
-      begin: () => {
-        el.style.opacity = null
-      },
-      targets: el,
-      translateY: window.innerHeight/2 - top,
-      direction: 'reverse',
-      duration: 300,
-      easing: 'easeOutSine',
-      endDelay: 75 * i,
-    })
-  }
-
-  const onExit = (el, i, removeElement) => {
-    anime({
-      targets: el,
-      translateY: 100,
-      opacity: 0,
-      duration: 300,
-      easing: 'easeInSine',
-      delay: 75 * i,
-      complete: removeElement,
-    })
-    return removeElement
+  function handleRemove() {
+    dispatch(unsetSongToUpload(data.id));
   }
 
   return (
-    <Flipped
-    key={song.data.id}
-    flipId={song.data.id}
-    onAppear={onAppear}
-    onExit={onExit}>
+    <AnimatedListItem key={song.data.id} flipId={song.data.id}>
       <form className="song-upload-form" onSubmit={handleSubmit} ref={formRef}>
         <div className="file-data-inputs">
           <FLInput
@@ -131,12 +100,19 @@ const SongUploadForm = ({ song, upload }) => {
             text={succeeded ? "uploaded!" : "upload"}
             progress={progress}
             type="submit"
-            disabled={isUploading}
-            className={`upload-button`}
+            disabled={isUploading || succeeded}
+            className="upload-button"
+          />
+          <Button
+            text={"remove"}
+            progress={progress}
+            type="button"
+            onClick={handleRemove}
+            disabled={isUploading || succeeded}
           />
         </div>
       </form>
-    </Flipped>
+    </AnimatedListItem>
   );
 };
 

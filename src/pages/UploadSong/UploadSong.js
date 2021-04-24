@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import Dropzone from "../../components/Dropzone";
 
@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSongs as setSongsToUpload } from "../../redux/uploader/uploader-actions";
 import { songsToUploadSelector } from "../../redux/uploader/uploader-selectors.js";
 import Button from "../../components/Button/index.js";
-import { Flipper } from "react-flip-toolkit";
+import AnimatedList from "../../components/AnimatedList/AnimatedList.js";
 
 function UploadSong() {
   const dispatch = useDispatch();
@@ -66,33 +66,17 @@ function UploadSong() {
             handleDropFiles(files);
           }}
         />
-                  <Button text="Upload All" onClick={updateAll} />
+        <Button text="Upload All" onClick={updateAll} />
 
-        <Flipper
+        <AnimatedList
           flipKey={songsToUpload.map((song) => song.data.id).join("")}
-          spring="noWooble"
-          staggerConfig={{
-            default: {
-              speed: 1,
-            },
-          }}
         >
-          <div className="list">
-            {songsToUpload.map((song) => {
-              if (!song.data.id) {
-                console.warn(song.data.id, `not found id`);
-                return "";
-              }
-              return (
-                <SongUploadForm
-                  key={song.data.id}
-                  song={song}
-                  upload={upload}
-                />
-              );
-            })}
-          </div>
-        </Flipper>
+          {songsToUpload.map((song) => {
+            return (
+              <SongUploadForm key={song.data.id} song={song} upload={upload} />
+            );
+          })}
+        </AnimatedList>
       </div>
     </>
   );

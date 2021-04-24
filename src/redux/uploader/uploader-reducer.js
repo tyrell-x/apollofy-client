@@ -19,17 +19,18 @@ const UploaderReducer = (state = UploaderInitialState, action) => {
       };
     }
     case UploaderTypes.UNSET_SONG_TO_UPLOAD: {
-      const index = state.songs.findIndex(song => song.data.id === action.payload);
+      const index = state.songs.findIndex(
+        (song) => song.data.id === action.payload,
+      );
       return {
         ...state,
         songs: [
           ...state.songs.slice(0, index),
-          ...state.songs.slice(index + 1)
-        ]
+          ...state.songs.slice(index + 1),
+        ],
       };
     }
     case UploaderTypes.UPDATE_SONG_TO_UPLOAD: {
-      const index = state.songs.findIndex(song => song.data.id === action.payload);
       return {
         ...state,
         songs: state.songs.map((song) => {
@@ -39,7 +40,7 @@ const UploaderReducer = (state = UploaderInitialState, action) => {
               data: {
                 ...song.data,
                 ...action.payload.dataToUpdate,
-              }
+              },
             };
           }
           return song;

@@ -50,7 +50,7 @@ export default forwardRef((props, ref) => {
         onFocus={() => {}}
         className="select-input"
         containerAttributes={{
-          onClick: handleInputClick
+          onClick: handleInputClick,
         }}
         {...attributes}
       >

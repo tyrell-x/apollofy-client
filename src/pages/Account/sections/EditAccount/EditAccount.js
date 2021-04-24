@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-// import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { updateUserAccount } from "../../../../redux/auth/auth-actions";
 import { useForm } from "react-hook-form";

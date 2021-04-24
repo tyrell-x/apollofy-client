@@ -17,7 +17,7 @@ function Home() {
             <h1>Hello {currentUser.firstName || currentUser.email}</h1>
             <FLSelect
               style={{
-                width: 200
+                width: 200,
               }}
               label="select"
               options={[

@@ -29,5 +29,5 @@ export const SidebarData = [
     title: "Upload",
     path: ROUTES.UPLOAD_SONG,
     icon: <FaIcons.FaUserAlt />,
-  }
+  },
 ];

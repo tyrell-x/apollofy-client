@@ -10,12 +10,9 @@ function Dropzone({ filePaths, fileType, onFilesDropped }) {
     onDropAccepted: onFilesDropped,
   });
 
-  useEffect(() => {
-  }, [filePaths])
+  useEffect(() => {}, [filePaths]);
 
-  const files = filePaths.map((file) => (
-    <li key={file}>{file}</li>
-  ));
+  const files = filePaths.map((file) => <li key={file}>{file}</li>);
 
   return (
     <div className="dropzone-container">

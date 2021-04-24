@@ -10,15 +10,14 @@ function ProgressButton(props) {
       <Button {...attributes} className={className}>
         {props.children}
         <div className="progress-bar">
-        <div
-          className="progress-bar__filler"
-          style={{
-            width: `${progress}%`
-          }}
-        ></div>
+          <div
+            className="progress-bar__filler"
+            style={{
+              width: `${progress}%`,
+            }}
+          ></div>
         </div>
       </Button>
-      
     </div>
   );
 }
