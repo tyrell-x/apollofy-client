@@ -1,20 +1,19 @@
-import React, { useCallback, useEffect, useState } from "react";
-
-import Dropzone from "../../components/Dropzone";
-
 import "./UploadSong.scss";
 
-import { fileTypes } from "../../services/cloudinary";
+import { useCallback, useEffect, useState } from "react";
 import * as musicMetadata from "music-metadata-browser";
 
-import Navbar from "../../components/Navbar/index.js";
-import SongUploadForm from "../../components/SongUploadForm/index.js";
 import { useDispatch, useSelector } from "react-redux";
-
 import { setSongs as setSongsToUpload } from "../../redux/uploader/uploader-actions";
-import { songsToUploadSelector } from "../../redux/uploader/uploader-selectors.js";
-import Button from "../../components/Button/index.js";
-import AnimatedList from "../../components/AnimatedList/AnimatedList.js";
+import { songsToUploadSelector } from "../../redux/uploader/uploader-selectors";
+
+import Dropzone from "../../components/Dropzone";
+import Navbar from "../../components/Navbar";
+import SongUploadForm from "../../components/SongUploadForm";
+import Button from "../../components/Button";
+import AnimatedList from "../../components/AnimatedList";
+
+import { fileTypes } from "../../services/cloudinary";
 
 function UploadSong() {
   const dispatch = useDispatch();

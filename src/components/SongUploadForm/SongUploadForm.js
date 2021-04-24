@@ -1,15 +1,16 @@
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import FLInput from "../../components/FLInput";
+
 import {
   unsetSongToUpload,
   updateSongToUpload,
   uploadSong,
 } from "../../redux/uploader/uploader-actions";
-import ProgressButton from "../ProgressButton/index";
-import anime from "animejs";
-import Button from "../Button/index.js";
-import AnimatedListItem from "../../components/AnimatedListItem/AnimatedListItem.js";
+
+import FLInput from "../FLInput";
+import Button from "../Button";
+import ProgressButton from "../ProgressButton";
+import AnimatedListItem from "../AnimatedListItem";
 
 const SongUploadForm = ({ song, upload }) => {
   const dispatch = useDispatch();

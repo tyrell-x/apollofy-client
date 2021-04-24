@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import NavItem from "../NavItem";
 import DropdownMenu from "../DropdownMenu";
 
-function Navbar() {
+function Navbar({ title = "" }) {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
 
@@ -18,6 +18,7 @@ function Navbar() {
         <Link to="#" className="menu-bars">
           <FaIcons.FaBars onClick={showSidebar} />
         </Link>
+        <h1>{title}</h1>
         <NavItem icon={<FiSettings className="dropdown-icon" />}>
           <DropdownMenu></DropdownMenu>
         </NavItem>

@@ -4,7 +4,7 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
 import "./FLSelect.scss";
-import FLInput from "../FLInput/index.js";
+import FLInput from "../FLInput";
 
 export default forwardRef((props, ref) => {
   const {
