@@ -13,7 +13,7 @@ function Navbar() {
   const showSidebar = () => setSidebar(!sidebar);
 
   return (
-    <div className="main-navbar">
+    <header className="main-navbar">
       <div className="navbar">
         <Link to="#" className="menu-bars">
           <FaIcons.FaBars onClick={showSidebar} />
@@ -42,7 +42,7 @@ function Navbar() {
           })}
         </ul>
       </nav>
-    </div>
+    </header>
   );
 }
 

@@ -7,12 +7,23 @@ export const uploaderSelector = createSelector(
   (uploader) => uploader,
 );
 
-export const fileUploaderSelector = (fileId) => createSelector(
-  (state) => state.uploader[fileId],
-  (fileUploader) => fileUploader,
-);
+export const songToUploadSelector = (songId) =>
+  createSelector(
+    (state) => state.uploader.songs[songId],
+    (song) => song,
+  );
 
 export const songsToUploadSelector = createSelector(
-  (state) => state.uploader,
-  (songs) => songs,
+  (state) => state.uploader.songs,
+  (songs) => Object.values(songs),
 );
+
+export const songsUploadProgressSelector = createSelector(
+  (state) => state.uploader,
+  (uploader) => uploader.songsUploadingProgress,
+);
+
+export const songPathsToUploadSelector = createSelector(
+  (state) => Object.values(state.uploader.songs).map(song => song.data?.file?.path),
+  (songs) => songs,
+)

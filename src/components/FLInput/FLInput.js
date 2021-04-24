@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback, forwardRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
 import "./FLInput.scss";
 
-export default forwardRef((props, ref) => {
+const FLInput = (props) => {
   const {
     label,
     register = () => {},
@@ -14,6 +14,8 @@ export default forwardRef((props, ref) => {
     error,
     className = "",
     borderMode = "all",
+    containerAttributes = {},
+    children,
     ...attributes
   } = props;
 
@@ -47,7 +49,10 @@ export default forwardRef((props, ref) => {
   };
 
   return (
-    <div className={`input-container${className ? " " + className : ""}`}>
+    <div
+      {...containerAttributes}
+      className={`input-container${className ? " " + className : ""}`}
+    >
       <div
         className={`floating-label-input ${active ? "active" : null} ${
           hasError ? "error" : null
@@ -55,23 +60,22 @@ export default forwardRef((props, ref) => {
       >
         <label>
           <input
-            ref={ref}
-            {...attributes}
             {...register(name, rules)}
             name={name}
             onFocus={activate}
             onBlur={tryDesactivate}
             onInput={tryDesactivate}
             type={type}
+            {...attributes}
           ></input>
           <span className="input-placeholder">
             {label + (attributes.required || rules?.required ? "*" : "")}
           </span>
+          {children}
           {attributes?.type === "password" && active && (
             <div className="password-eye" onClick={changePasswordVisibility}>
               <button type="button">
                 <FontAwesomeIcon
-                  className="far"
                   icon={type === "password" ? faEye : faEyeSlash}
                 />
               </button>
@@ -91,4 +95,6 @@ export default forwardRef((props, ref) => {
       )}
     </div>
   );
-});
+};
+
+export default FLInput;

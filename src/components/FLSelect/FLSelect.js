@@ -1,71 +1,90 @@
-import { useState, useEffect, useCallback, forwardRef } from "react";
+import { useState, forwardRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-regular-svg-icons";
-import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
 import "./FLSelect.scss";
+import FLInput from "../FLInput/index.js";
 
 export default forwardRef((props, ref) => {
   const {
-    label,
-    register = () => {},
     name,
     rules,
     error,
-    borderMode = "all",
+    options = [],
+    multiple = false,
+    allowCreation = false,
+    style,
+    value,
     ...attributes
   } = props;
 
-  const [hasError, setHasError] = useState(false);
-  const [active, setActive] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [textValue, setTextValue] = useState("");
+  const [selectedOptions] = useState([]);
 
-  useEffect(() => {
-    if (error) {
-      setHasError(true);
-      const timerRef = setTimeout(() => setHasError(false), 4000);
-      return () => clearTimeout(timerRef);
+  const handleInputChange = (event) => {
+    if (allowCreation) {
+      setTextValue(event.target.value);
     }
-    setHasError(false);
-  }, [error]);
+  };
 
-  const activate = () => {
-    setActive(true);
+  const handleInputClick = () => {
+    setExpanded((expanded) => !expanded);
+  };
+
+  const handleClickOption = (option) => {
+    setTextValue(option.label);
+  };
+
+  const handleBlur = () => {
+    setExpanded(false);
   };
 
   return (
-    <div className="select-container">
-      <div
-        className={`floating-label-input ${active ? "active" : null} ${
-          hasError ? "error" : null
-        } border-${borderMode}`}
+    <div className="select-container" onBlur={handleBlur} style={style}>
+      <FLInput
+        name={name}
+        value={textValue}
+        onInput={handleInputChange}
+        onFocus={() => {}}
+        className="select-input"
+        containerAttributes={{
+          onClick: handleInputClick
+        }}
+        {...attributes}
       >
-        <label>
-          <span className="input-placeholder">
-            {label + (attributes.required || rules?.required ? "*" : "")}
-          </span>
-          <select
-            ref={ref}
-            {...attributes}
-            {...register(name, rules)}
-            name={name}
-            onInput={activate}
+        {" "}
+        <div className="chevron-container">
+          <FontAwesomeIcon
+            className="chevron"
+            icon={expanded ? faChevronUp : faChevronDown}
+          />
+        </div>
+      </FLInput>
+      <div
+        className={`select-options ${expanded ? "expanded" : ""}`}
+        style={{
+          maxHeight: expanded * options.length * 40,
+        }}
+      >
+        {!options.map((option) => option.label).includes(textValue) ? (
+          <div className="option" onClick={handleClickOption}>
+            {textValue}
+          </div>
+        ) : (
+          ""
+        )}
+        {options.map((option) => (
+          <div
+            className="option"
+            key={option.label}
+            onMouseDown={() => handleClickOption(option)}
           >
-            <option hidden disabled selected value=""></option>
-            <option>Opcion 1</option>
-            <option>Opcion 2</option>
-          </select>
-        </label>
+            {option.label}
+          </div>
+        ))}
       </div>
-      {hasError && error?.type === "required" && (
-        <span className="error-message" role="alert">
-          Required field
-        </span>
-      )}
-      {hasError && error?.type !== "required" && (
-        <span className="error-message" role="alert">
-          {error?.message}
-        </span>
-      )}
     </div>
   );
 });

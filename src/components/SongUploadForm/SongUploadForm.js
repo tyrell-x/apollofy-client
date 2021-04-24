@@ -1,48 +1,66 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Button from "../../components/Button/Button.js";
 import FLInput from "../../components/FLInput";
-import { uploadSong } from "../../redux/uploader/uploader-actions";
-import { fileUploaderSelector } from "../../redux/uploader/uploader-selectors.js";
+import {
+  unsetSongToUpload,
+  updateSongToUpload,
+  uploadSong,
+} from "../../redux/uploader/uploader-actions";
+import { songToUploadSelector } from "../../redux/uploader/uploader-selectors";
+import ProgressButton from "../ProgressButton/index";
 
-const SongUploadForm = ({ data }) => {
+const SongUploadForm = ({ songId, upload }) => {
   const dispatch = useDispatch();
-  const { isUploading = false, progress = 0, failed = false, succeeded = false } = useSelector(fileUploaderSelector(data.key)) || {};
+  const { data = {}, isUploading = false, progress, failed = false, succeeded = false } =
+    useSelector(songToUploadSelector(songId));
 
-  const [songData, setsongData] = useState(data);
-
-  useEffect(() => {
-  }, [failed, isUploading, progress])
+  const formRef = useRef(null);
 
   useEffect(() => {
-  }, [succeeded])
+    if (succeeded) {
+      dispatch(unsetSongToUpload(songId));
+    }
+  });
+
+  useEffect(() => {
+    if(upload && !isUploading) {
+      const form = formRef.current;
+      if (form) {
+        if (typeof form.requestSubmit === 'function') {
+          form.requestSubmit();
+        } else {
+          form.dispatchEvent(new Event('submit', {cancelable: true}));
+        }
+      }
+    }
+  }, [isUploading, upload])
 
   function handleSubmit(e) {
     e.preventDefault();
-
     dispatch(
       uploadSong({
-        songData: songData,
+        songData: data,
       }),
     );
   }
 
   function handleInput(e) {
-    setsongData((data) => ({
-      ...data,
-      [e.target.name]: e.target.value,
-    }));
+    dispatch(
+      updateSongToUpload(songId, {
+        [e.target.name]: e.target.value
+      }),
+    );
   }
 
   return (
-    <form className="song-upload-form" onSubmit={handleSubmit}>
-      <div className={`file-data-inputs ${!songData ? "hidden" : ""}`}>
+    <form className="song-upload-form" onSubmit={handleSubmit} ref={formRef} >
+      <div className="file-data-inputs">
         <FLInput
           required
           label="Artist"
           name="artist"
           borderMode="bottom"
-          value={songData.artist}
+          value={data?.artist || ""}
           onChange={handleInput}
         />
         <FLInput
@@ -50,7 +68,7 @@ const SongUploadForm = ({ data }) => {
           label="Title"
           name="title"
           borderMode="bottom"
-          value={songData.title}
+          value={data?.title || ""}
           onChange={handleInput}
         />
         <FLInput
@@ -58,11 +76,12 @@ const SongUploadForm = ({ data }) => {
           label="Year"
           name="year"
           borderMode="bottom"
-          value={songData.year}
+          value={data?.year || ""}
           onChange={handleInput}
         />
-        <Button
+        <ProgressButton
           text="upload"
+          progress={progress}
           type="submit"
           disabled={isUploading}
           className={`upload-button`}

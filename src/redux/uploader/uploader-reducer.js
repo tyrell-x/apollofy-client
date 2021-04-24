@@ -19,11 +19,37 @@ const UploaderReducer = (state = UploaderInitialState, action) => {
       };
     }
     case UploaderTypes.UNSET_SONG_TO_UPLOAD: {
-      const songsCopy = {...state.songs};
-      delete songsCopy[action.payload];
+      const songsCopy = Object.entries(state.songs).reduce((acc, curr) => {
+        if(curr[1].data.id===action.payload) {
+          return acc;
+        } else  {
+          return {
+            ...acc,
+            [curr[0]]: curr[1]
+          }
+        }
+      }, {})
       return {
         ...state,
-        songs: songsCopy,
+        songs: {
+          ...songsCopy
+        },
+      };
+    }
+    case UploaderTypes.UPDATE_SONG_TO_UPLOAD: {
+      const updatedSongs = {
+        ...state.songs,
+        [action.payload.songId]: {
+          ...state.songs[action.payload.songId],
+          data: {
+            ...state.songs[action.payload.songId].data,
+            ...action.payload.dataToUpdate,
+          }
+        },
+      };
+      return {
+        ...state,
+        songs: updatedSongs
       };
     }
     case UploaderTypes.UPLOAD_SONG_REQUEST: {
@@ -70,7 +96,7 @@ const UploaderReducer = (state = UploaderInitialState, action) => {
         [action.payload]: {
           ...state.songs[action.payload],
           isUploading: false,
-          progress: 100,
+          progress: 0,
           succeeded: true,
           failed: false,
         },

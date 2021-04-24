@@ -72,6 +72,7 @@
     "firebase": "^8.3.1",
     "focus-visible": "^5.2.0",
     "fontawesome": "^5.6.3",
+    "jsmediatags": "^3.9.7",
     "msw": "^0.26.2",
     "music-metadata-browser": "^2.2.6",
     "node-sass": "^5.0.0",

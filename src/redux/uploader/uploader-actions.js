@@ -13,6 +13,15 @@ export const unsetSongToUpload = (songId) => ({
   payload: songId,
 });
 
+export const updateSongToUpload = (songId, dataToUpdate) => ({
+  type: UploaderTypes.UPDATE_SONG_TO_UPLOAD,
+  payload: {
+    songId,
+    dataToUpdate
+  },
+});
+
+
 export const uploadSongRequest = (songId) => ({
   type: UploaderTypes.UPLOAD_SONG_REQUEST,
   payload: songId,
@@ -50,8 +59,12 @@ export const uploadImageSuccess = (imageUrl) => ({
   payload: imageUrl,
 });
 
+export function updateSongData(songId, data) {
+
+}
+
 export function setSongs(songs) {
-  return async function setSongs(dispatch, getState) {
+  return async function setSongs(dispatch) {
     const songObj = songs.reduce((prev, curr) => {
       return {
         ...prev,
@@ -68,7 +81,6 @@ export function setSongs(songs) {
   };
 }
 
-
 export function uploadSong({ songData }) {
   return async function uploadThunk(dispatch, getState) {
     dispatch(uploadSongRequest(songData.id));
@@ -77,7 +89,7 @@ export function uploadSong({ songData }) {
       const userToken = await getCurrentUserToken();
 
       if (!userToken) {
-        return dispatch(uploadSongError("User token null!"));
+        return dispatch(uploadSongError(songData.id, "User token null!"));
       }
 
       const cloudResponse = await getFileUrl({
@@ -87,8 +99,9 @@ export function uploadSong({ songData }) {
         onUploadProgress: (progressEvent) => dispatch(uploadSongProgress(songData.id, (progressEvent.loaded/progressEvent.total)*100))
       });
 
+
       if (cloudResponse.status >= 400) {
-        return dispatch(uploadSongError(cloudResponse.statusText));
+        return dispatch(uploadSongError(songData.id, cloudResponse.statusText));
       }
 
       const {
@@ -124,7 +137,7 @@ export function uploadSong({ songData }) {
 
       return dispatch(uploadSongSuccess(songData.id));
     } catch (err) {
-      return dispatch(uploadSongError(err.message));
+      return dispatch(uploadSongError(songData.id, err.message));
     }
   };
 }
