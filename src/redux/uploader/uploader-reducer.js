@@ -1,7 +1,7 @@
 import * as UploaderTypes from "./uploader-types";
 
 export const UploaderInitialState = {
-  songs: {},
+  songs: [],
   songsUploading: 0,
   songsUploadingProgress: 0,
   isUploadingImage: false,
@@ -19,115 +19,96 @@ const UploaderReducer = (state = UploaderInitialState, action) => {
       };
     }
     case UploaderTypes.UNSET_SONG_TO_UPLOAD: {
-      const songsCopy = Object.entries(state.songs).reduce((acc, curr) => {
-        if(curr[1].data.id===action.payload) {
-          return acc;
-        } else  {
-          return {
-            ...acc,
-            [curr[0]]: curr[1]
-          }
-        }
-      }, {})
+      const index = state.songs.findIndex(song => song.data.id === action.payload);
       return {
         ...state,
-        songs: {
-          ...songsCopy
-        },
+        songs: [
+          ...state.songs.slice(0, index),
+          ...state.songs.slice(index + 1)
+        ]
       };
     }
     case UploaderTypes.UPDATE_SONG_TO_UPLOAD: {
-      const updatedSongs = {
-        ...state.songs,
-        [action.payload.songId]: {
-          ...state.songs[action.payload.songId],
-          data: {
-            ...state.songs[action.payload.songId].data,
-            ...action.payload.dataToUpdate,
-          }
-        },
-      };
+      const index = state.songs.findIndex(song => song.data.id === action.payload);
       return {
         ...state,
-        songs: updatedSongs
+        songs: state.songs.map((song) => {
+          if (song.data.id === action.payload.songId) {
+            return {
+              ...song,
+              data: {
+                ...song.data,
+                ...action.payload.dataToUpdate,
+              }
+            };
+          }
+          return song;
+        }),
       };
     }
     case UploaderTypes.UPLOAD_SONG_REQUEST: {
-      const updatedSongs = {
-        ...state.songs,
-        [action.payload]: {
-          ...state.songs[action.payload],
-          isUploading: true,
-          progress: 0,
-          failed: false,
-          succeeded: false,
-        },
-      };
       return {
         ...state,
-        songs: updatedSongs,
-        songsUploading: Object.values(updatedSongs).reduce(
-          (prev, curr) => prev + (curr.isUploading | 0),
-          0,
-        ),
+        songs: state.songs.map((song) => {
+          if (song.data.id === action.payload) {
+            return {
+              ...song,
+              isUploading: true,
+              progress: 0,
+              failed: false,
+              succeeded: false,
+            };
+          }
+          return song;
+        }),
       };
     }
     case UploaderTypes.UPLOAD_SONG_PROGRESS: {
-      const updatedSongs = {
-        ...state.songs,
-        [action.payload.songId]: {
-          ...state.songs[action.payload.songId],
-          progress: action.payload.progress,
-        },
-      };
       return {
         ...state,
-        songs: updatedSongs,
-        songsUploadingProgress:
-          Object.values(updatedSongs).reduce(
-            (acc, curr) => acc + (curr.isUploading && curr.progress),
-            0,
-          ) / state.songsUploading,
+        songs: state.songs.map((song) => {
+          if (song.data.id === action.payload.songId) {
+            return {
+              ...song,
+              progress: action.payload.progress,
+            };
+          }
+          return song;
+        }),
       };
     }
     case UploaderTypes.UPLOAD_SONG_SUCCESS: {
-      const updatedSongs = {
-        ...state.songs,
-        [action.payload]: {
-          ...state.songs[action.payload],
-          isUploading: false,
-          progress: 0,
-          succeeded: true,
-          failed: false,
-        },
-      }
       return {
         ...state,
-        songs: updatedSongs,
-        songsUploading: Object.values(updatedSongs).reduce(
-          (prev, curr) => prev + (curr.isUploading | 0),
-          0,
-        ),
+        songs: state.songs.map((song) => {
+          if (song.data.id === action.payload) {
+            return {
+              ...song,
+              isUploading: false,
+              progress: 0,
+              succeeded: true,
+              failed: false,
+            };
+          }
+          return song;
+        }),
       };
     }
     case UploaderTypes.UPLOAD_SONG_ERROR: {
-      const updatedSongs = {
-        ...state.songs,
-        [action.payload]: {
-          ...state.songs[action.payload],
-          isUploading: false,
-          progress: 0,
-          failed: true,
-          succeeded: false,
-        },
-      }
       return {
         ...state,
-        songs: updatedSongs,
-        songsUploading: Object.values(updatedSongs).reduce(
-          (prev, curr) => prev + (curr.isUploading | 0),
-          0,
-        ),
+        songs: state.songs.map((song) => {
+          if (song.data.id === action.payload) {
+            return {
+              ...song,
+              isUploading: false,
+              progress: 0,
+              failed: true,
+              succeeded: false,
+            };
+          }
+          return song;
+        }),
       };
     }
     case UploaderTypes.UPLOAD_IMAGE_REQUEST: {

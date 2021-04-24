@@ -1,6 +1,7 @@
 import { useDropzone } from "react-dropzone";
 import "./Dropzone.scss";
 import { fileTypes } from "../../services/cloudinary";
+import { useEffect } from "react";
 
 function Dropzone({ filePaths, fileType, onFilesDropped }) {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
@@ -9,6 +10,8 @@ function Dropzone({ filePaths, fileType, onFilesDropped }) {
     onDropAccepted: onFilesDropped,
   });
 
+  useEffect(() => {
+  }, [filePaths])
 
   const files = filePaths.map((file) => (
     <li key={file}>{file}</li>

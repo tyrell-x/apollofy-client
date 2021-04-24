@@ -14,6 +14,7 @@ const FLInput = (props) => {
     error,
     className = "",
     borderMode = "all",
+    disabled = false,
     containerAttributes = {},
     children,
     ...attributes
@@ -54,9 +55,9 @@ const FLInput = (props) => {
       className={`input-container${className ? " " + className : ""}`}
     >
       <div
-        className={`floating-label-input ${active ? "active" : null} ${
-          hasError ? "error" : null
-        } border-${borderMode}`}
+        className={`floating-label-input ${active ? "active" : ""} ${
+          disabled ? "disabled" : ""
+        } ${hasError ? "error" : ""} border-${borderMode}`}
       >
         <label>
           <input
@@ -65,6 +66,7 @@ const FLInput = (props) => {
             onFocus={activate}
             onBlur={tryDesactivate}
             onInput={tryDesactivate}
+            disabled={disabled}
             type={type}
             {...attributes}
           ></input>

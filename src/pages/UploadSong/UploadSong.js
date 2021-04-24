@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import Dropzone from "../../components/Dropzone";
 
@@ -11,21 +11,17 @@ import Navbar from "../../components/Navbar/index.js";
 import SongUploadForm from "../../components/SongUploadForm/index.js";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setSongs, uploadSong } from "../../redux/uploader/uploader-actions";
-import {
-  songsToUploadSelector,
-  songPathsToUploadSelector
-} from "../../redux/uploader/uploader-selectors.js";
+import { setSongs as setSongsToUpload } from "../../redux/uploader/uploader-actions";
+import { songsToUploadSelector } from "../../redux/uploader/uploader-selectors.js";
 import Button from "../../components/Button/index.js";
+import { Flipper } from "react-flip-toolkit";
 
 function UploadSong() {
   const dispatch = useDispatch();
 
   const songsToUpload = useSelector(songsToUploadSelector);
-  const songPathsToUpload = useSelector(songPathsToUploadSelector);
 
-  useEffect(() => {
-  }, [songsToUpload])
+  useEffect(() => {}, [songsToUpload]);
 
   async function handleDropFiles(songsToUpload) {
     const songsData = await Promise.all(
@@ -41,48 +37,62 @@ function UploadSong() {
             year: trackMetadata.common.year || "",
             genres: trackMetadata.common.genre || [],
           };
-        } catch(err) {
-          console.warn(`for track ${songBlob.name}`, err);
-          return {
-            file: songBlob,
-            id: songBlob.name,
-            bytes: songBlob.size,
-            title: songBlob.name
-          }
+        } catch (err) {
+          console.warn(`corrupt track ${songBlob.name}`, err);
+          return null;
         }
-      })
+      }),
     );
-    dispatch(setSongs(songsData.filter(filesData => filesData)));
+    dispatch(setSongsToUpload(songsData.filter((valid) => valid)));
   }
 
   const [upload, setUpload] = useState(false);
 
-  const updateAll = () => {
+  const updateAll = useCallback(() => {
     setUpload(true);
     setTimeout(() => {
-      setUpload(false)
-    }, 100)
-  }
+      setUpload(false);
+    }, 100);
+  }, []);
 
   return (
     <>
       <Navbar title="Upload Song" />
       <div className="upload-song">
         <Dropzone
-          filePaths={songPathsToUpload}
+          filePaths={songsToUpload.map((song) => song.data.file.path)}
           fileType={fileTypes.AUDIO}
           onFilesDropped={(files) => {
             handleDropFiles(files);
           }}
         />
-        <Button text="Upload All" onClick={updateAll} />
-        {songsToUpload.map((song) => {
-          if (!song?.data?.id) {
-            console.warn(song, `not found id`);
-            return "";
-          }
-          return <SongUploadForm key={song.data.id} songId={song.data.id} upload={upload} />;
-        })}
+                  <Button text="Upload All" onClick={updateAll} />
+
+        <Flipper
+          flipKey={songsToUpload.map((song) => song.data.id).join("")}
+          spring="noWooble"
+          staggerConfig={{
+            default: {
+              speed: 1,
+            },
+          }}
+        >
+          <div className="list">
+            {songsToUpload.map((song) => {
+              if (!song.data.id) {
+                console.warn(song.data.id, `not found id`);
+                return "";
+              }
+              return (
+                <SongUploadForm
+                  key={song.data.id}
+                  song={song}
+                  upload={upload}
+                />
+              );
+            })}
+          </div>
+        </Flipper>
       </div>
     </>
   );

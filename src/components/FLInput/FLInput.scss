@@ -134,6 +134,15 @@ $error-color: rgb(224, 45, 21);
       color: $error-color;
     }
   }
+
+  &.disabled {
+    transform: scale(1);
+    border-color: $input-border-color;
+
+    .input-placeholder {
+      color: $input-placeholder-color;
+    }
+  }
 }
 
 .floating-label-input input:-webkit-autofill,

@@ -21,7 +21,6 @@ export const updateSongToUpload = (songId, dataToUpdate) => ({
   },
 });
 
-
 export const uploadSongRequest = (songId) => ({
   type: UploaderTypes.UPLOAD_SONG_REQUEST,
   payload: songId,
@@ -59,25 +58,15 @@ export const uploadImageSuccess = (imageUrl) => ({
   payload: imageUrl,
 });
 
-export function updateSongData(songId, data) {
-
-}
-
 export function setSongs(songs) {
   return async function setSongs(dispatch) {
-    const songObj = songs.reduce((prev, curr) => {
-      return {
-        ...prev,
-        [curr.id]: {
-          data: curr,
-          isUploading: false,
-          progress: 0,
-          failed: false,
-          succeeded: false,
-        }
-      }
-    }, {})
-    dispatch(setSongsToUpload(songObj))
+    dispatch(setSongsToUpload(songs.map(song => ({
+      data: song,
+      isUploading: false,
+      progress: 0,
+      failed: false,
+      succeeded: false,
+    }))))
   };
 }
 

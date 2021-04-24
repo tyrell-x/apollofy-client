@@ -9,13 +9,18 @@ export const uploaderSelector = createSelector(
 
 export const songToUploadSelector = (songId) =>
   createSelector(
-    (state) => state.uploader.songs[songId],
+    (state) => state.uploader.songs.find((song) => song.data.id === songId),
     (song) => song,
   );
 
 export const songsToUploadSelector = createSelector(
   (state) => state.uploader.songs,
-  (songs) => Object.values(songs),
+  (songs) => songs,
+);
+
+export const songsToUploadIdsSelector = createSelector(
+  (state) => state.uploader.songs,
+  (songs) => songs.map((song) => song.data.id),
 );
 
 export const songsUploadProgressSelector = createSelector(
@@ -24,6 +29,6 @@ export const songsUploadProgressSelector = createSelector(
 );
 
 export const songPathsToUploadSelector = createSelector(
-  (state) => Object.values(state.uploader.songs).map(song => song.data?.file?.path),
+  (state) => state.uploader.songs.map((song) => song.data.file.path),
   (songs) => songs,
-)
+);
