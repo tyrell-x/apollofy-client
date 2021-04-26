@@ -40,10 +40,17 @@ function makeApi(request = makeRequest()) {
     });
   }
 
-  function getTrackInfo(headers, id) {
+  function getTrackInfo(headers, id = 7) {
     return request({
       url: `/tracks/${id}`,
       requestMethod: "GET",
+      headers: headers,
+    });
+  }
+  function likeTrackToggle(headers, id = 7) {
+    return request({
+      url: `/tracks/${id}/like`,
+      requestMethod: "PUT",
       headers: headers,
     });
   }
@@ -55,6 +62,7 @@ function makeApi(request = makeRequest()) {
     getTracks: getTracks,
     getTracksLiked: getTracksLiked,
     getTrackInfo: getTrackInfo,
+    likeTrackToggle: likeTrackToggle
   };
 }
 
