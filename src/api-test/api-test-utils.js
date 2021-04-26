@@ -46,7 +46,6 @@ export function makeRequest(
           ...headers,
         },
         validateStatus: function validateStatus(status) {
-          // Resolve only if the status code is in the 200 range
           return status >= 200 && status < 400;
         },
       }),
