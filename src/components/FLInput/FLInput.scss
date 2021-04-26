@@ -65,6 +65,10 @@ $error-color: rgb(224, 45, 21);
   font-family: monospace;
   transition: transform ease-out 0.1s, border-color ease-out 0.1s;
 
+  &.border-bottom {
+    border-width: 0 0 2px 0;
+  }
+
   * {
     font-family: inherit;
   }
@@ -128,6 +132,15 @@ $error-color: rgb(224, 45, 21);
   &.error {
     .input-placeholder {
       color: $error-color;
+    }
+  }
+
+  &.disabled {
+    transform: scale(1);
+    border-color: $input-border-color;
+
+    .input-placeholder {
+      color: $input-placeholder-color;
     }
   }
 }

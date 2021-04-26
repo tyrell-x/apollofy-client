@@ -6,6 +6,8 @@ import * as ROUTES from "./routes";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import UploadSong from "./pages/UploadSong";
+import UploadImage from "./pages/UploadImage";
 import ResetPassword from "./pages/ResetPassword";
 import { onAuthStateChanged } from "./services/auth";
 import { syncSignIn, signOut } from "./redux/auth/auth-actions";
@@ -41,6 +43,8 @@ function App() {
         <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
         <ProtectedRoute path={ROUTES.HOME} component={Home} exact />
         <ProtectedRoute path={ROUTES.ACCOUNT} component={Account} exact />
+        <ProtectedRoute path={ROUTES.UPLOAD_SONG} component={UploadSong} />
+        <ProtectedRoute path={ROUTES.UPLOAD_IMAGE} component={UploadImage} />
         <ProtectedRoute path={ROUTES.LIBRARY} component={Library} exact />
       </Switch>
     </div>

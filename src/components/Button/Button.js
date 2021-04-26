@@ -3,10 +3,10 @@ import React from "react";
 import "./Button.scss";
 
 function Button(props) {
-  const { text, ...attributes } = props;
+  const { text, className = "", ...attributes } = props;
 
   return (
-    <button {...attributes} className="button">
+    <button {...attributes} className={`button ${className}`}>
       <span className="button__text">{text}</span>
       {props.children}
     </button>
