@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { forwardRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import {
@@ -12,17 +12,18 @@ import Button from "../Button";
 import ProgressButton from "../ProgressButton";
 import AnimatedListItem from "../AnimatedListItem";
 
-const SongUploadForm = ({ song, upload }) => {
-  const dispatch = useDispatch();
+const SongUploadForm = forwardRef((props, ref) => {
   const {
-    data = {},
-    isUploading = false,
-    progress,
-    failed = false,
-    succeeded = false,
-  } = song;
+    song: {
+      data = {},
+      isUploading = false,
+      progress,
+      failed = false,
+      succeeded = false,
+    }
+  } = props;
 
-  const formRef = useRef(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (succeeded) {
@@ -32,21 +33,11 @@ const SongUploadForm = ({ song, upload }) => {
     }
   }, [data.id, dispatch, succeeded]);
 
-  useEffect(() => {
-    if (upload && !isUploading) {
-      const form = formRef.current;
-      if (form) {
-        if (typeof form.requestSubmit === "function") {
-          form.requestSubmit();
-        } else {
-          form.dispatchEvent(new Event("submit", { cancelable: true }));
-        }
-      }
-    }
-  }, [isUploading, upload]);
-
   function handleSubmit(e) {
     e.preventDefault();
+    if(isUploading) {
+      return;
+    }
     dispatch(
       uploadSong({
         songData: data,
@@ -67,8 +58,8 @@ const SongUploadForm = ({ song, upload }) => {
   }
 
   return (
-    <AnimatedListItem key={song.data.id} flipId={song.data.id}>
-      <form className="song-upload-form" onSubmit={handleSubmit} ref={formRef}>
+    <AnimatedListItem key={data.id} flipId={data.id}>
+      <form className="song-upload-form" onSubmit={handleSubmit} ref={ref}>
         <div className="file-data-inputs">
           <FLInput
             required
@@ -115,6 +106,6 @@ const SongUploadForm = ({ song, upload }) => {
       </form>
     </AnimatedListItem>
   );
-};
+});
 
 export default SongUploadForm;

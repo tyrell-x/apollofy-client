@@ -5,6 +5,11 @@ const addPlayerTrack = (tracks) => ({
   payload: tracks,
 });
 
+export const setCurrentlyPlaying = (currentlyPlaying) => ({
+  type: PlayerTypes.SET_CURRENTLY_PLAYING,
+  payload: currentlyPlaying
+});
+
 export const setNextTrack = () => ({
   type: PlayerTypes.SET_NEXT_PLAYER_TRACK
 });
@@ -19,7 +24,6 @@ export const removePlayerTrack = () => ({
 
 export const addTracksToPlayer = (tracksData = []) => {
   return async function addTracks(dispatch, getState) {
-
     dispatch(
       addPlayerTrack(
         tracksData.map((track) => ({

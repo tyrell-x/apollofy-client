@@ -1,6 +1,6 @@
 import "./UploadSong.scss";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import * as musicMetadata from "music-metadata-browser";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -14,11 +14,13 @@ import Button from "../../components/Button";
 import AnimatedList from "../../components/AnimatedList";
 
 import { fileTypes } from "../../services/cloudinary";
+import { useRefs } from "../../hooks/useRefs.js";
 
 function UploadSong() {
   const dispatch = useDispatch();
 
   const songsToUpload = useSelector(songsToUploadSelector);
+  const [uploadFormRefs, registerForm, resetRefs] = useRefs();
 
   async function handleDropFiles(songsToUpload) {
     const songsData = await Promise.all(
@@ -43,14 +45,15 @@ function UploadSong() {
     dispatch(setSongsToUpload(songsData.filter((valid) => valid)));
   }
 
-  const [upload, setUpload] = useState(false);
+  useEffect(() => resetRefs, [resetRefs, songsToUpload])
 
-  const updateAll = useCallback(() => {
-    setUpload(true);
-    setTimeout(() => {
-      setUpload(false);
-    }, 100);
-  }, []);
+  const uploadAll = useCallback(() => {
+    Object.values(uploadFormRefs.current).forEach((form) =>
+      typeof form.requestSubmit === "function"
+        ? form.requestSubmit()
+        : form.dispatchEvent(new Event("submit", { cancelable: true })),
+    );
+  }, [uploadFormRefs]);
 
   return (
     <>
@@ -63,14 +66,18 @@ function UploadSong() {
             handleDropFiles(files);
           }}
         />
-        <Button text="Upload All" onClick={updateAll} />
+        <Button text="Upload All" onClick={uploadAll} />
 
         <AnimatedList
           flipKey={songsToUpload.map((song) => song.data.id).join("")}
         >
           {songsToUpload.map((song) => {
             return (
-              <SongUploadForm key={song.data.id} song={song} upload={upload} />
+              <SongUploadForm
+                ref={registerForm(song.data.id)}
+                key={song.data.id}
+                song={song}
+              />
             );
           })}
         </AnimatedList>

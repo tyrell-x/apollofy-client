@@ -2,7 +2,7 @@ import * as PlayersTypes from "./player-types";
 
 export const PlayerInitialState = {
   tracks: [],
-  currentTrack: 0
+  currentTrackIndex: 0
 };
 
 const PlayerReducer = (state = PlayerInitialState, action) => {
@@ -17,14 +17,14 @@ const PlayerReducer = (state = PlayerInitialState, action) => {
     case PlayersTypes.SET_NEXT_PLAYER_TRACK: {
       return {
         ...state,
-        currentTrack: (state.currentTrack + 1) % state.tracks.length
+        currentTrackIndex: (state.currentTrackIndex + 1) % state.tracks.length
       }
     }
 
     case PlayersTypes.SET_PREVIOUS_PLAYER_TRACK: {
       return {
         ...state,
-        currentTrack: state.currentTrack ? (state.currentTrack - 1) : (state.tracks.length -1)
+        currentTrackIndex: state.currentTrackIndex ? (state.currentTrackIndex - 1) : (state.tracks.length -1)
       }
     }
 
@@ -32,6 +32,13 @@ const PlayerReducer = (state = PlayerInitialState, action) => {
       return {
         ...state,
         tracks: [...state.tracks, ...action.payload],
+      };
+    }
+
+    case PlayersTypes.SET_CURRENTLY_PLAYING: {
+      return {
+        ...state,
+        currentlyPlaying: action.payload
       };
     }
 
