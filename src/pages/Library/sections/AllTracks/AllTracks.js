@@ -10,7 +10,6 @@ function AllTracks() {
     async function getAllTracks() {
       const allSongs = await api.getTracks();
       setAllTracks(allSongs);
-      console.log(allTracks);
     }
     getAllTracks();
   }, []);

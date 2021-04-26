@@ -1,0 +1,50 @@
+$input-color: #cacaca;
+$input-background-color: #e4e4e4;
+$input-placeholder-color: #797979b6;
+$input-border-color: rgb(133, 133, 133);
+$input-height: 50px;
+$active-color: rgb(224, 130, 21);
+$error-color: rgb(224, 45, 21);
+
+.select-input {
+  * {
+    cursor: pointer !important;
+  }
+
+  .chevron-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+
+    .chevron {
+      font-size: 19px;
+    }
+  }
+
+  input {
+    caret-color: transparent;
+  }
+}
+
+.select-options {
+  padding-top: 10px;
+  margin: 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: monospace;
+  overflow: hidden;
+  transition: max-height 0.8s;
+
+  .option {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-width: 0 0 2px 0;
+    width: fit-content;
+
+    &:hover {
+      border-color: orange;
+    }
+  }
+}

@@ -6,6 +6,7 @@ import MusicPlayer from "../../components/MusicPlayer/index.js";
 
 function Home() {
   const { currentUser } = useSelector(authSelector);
+
   return (
     <main>
       <Navbar />
