@@ -20,8 +20,6 @@ function UploadSong() {
 
   const songsToUpload = useSelector(songsToUploadSelector);
 
-  useEffect(() => {}, [songsToUpload]);
-
   async function handleDropFiles(songsToUpload) {
     const songsData = await Promise.all(
       songsToUpload.map(async (songBlob) => {

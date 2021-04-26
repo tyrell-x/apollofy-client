@@ -1,28 +1,36 @@
 import * as PlayersTypes from "./player-types";
 
-export const PlayersInitialState = {
-  tracks: [{
-    data: {
-      id: 2,
-      url: "weewrewre.com"
-    },
-    timesPlayed: 0
-  }], 
-  playingTrack: {
-    
-  }
+export const PlayerInitialState = {
+  tracks: [],
+  currentTrack: 0
 };
 
-const PlayersReducer = (state = PlayersInitialState, action) => {
+const PlayerReducer = (state = PlayerInitialState, action) => {
   switch (action.type) {
     case PlayersTypes.ADD_PLAYER_TRACK: {
       return {
+        ...state,
         tracks: [...state.tracks, ...action.payload],
       };
     }
 
+    case PlayersTypes.SET_NEXT_PLAYER_TRACK: {
+      return {
+        ...state,
+        currentTrack: (state.currentTrack + 1) % state.tracks.length
+      }
+    }
+
+    case PlayersTypes.SET_PREVIOUS_PLAYER_TRACK: {
+      return {
+        ...state,
+        currentTrack: state.currentTrack ? (state.currentTrack - 1) : (state.tracks.length -1)
+      }
+    }
+
     case PlayersTypes.REMOVE_PLAYER_TRACK: {
       return {
+        ...state,
         tracks: [...state.tracks, ...action.payload],
       };
     }
@@ -33,4 +41,4 @@ const PlayersReducer = (state = PlayersInitialState, action) => {
   }
 };
 
-export default PlayersReducer;
+export default PlayerReducer;
