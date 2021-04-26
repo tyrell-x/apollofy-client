@@ -3,7 +3,9 @@ import "./TrackItem.scss";
 import {BsThreeDotsVertical} from "react-icons/bs"
 import TrackModal from "../../components/TrackModal"
 import * as FiIcons from "react-icons/fi"
+import * as BsIcons from "react-icons/bs"
 import api from "../../api-test/api-test"
+import ButtonTrackOptions from "../ButtonTrackOptions"
 
 function LibraryItem({ name, artist, image, id, liked, likeState, setLikeState }) {
   
@@ -19,13 +21,20 @@ function LibraryItem({ name, artist, image, id, liked, likeState, setLikeState }
           <p className="track-name">{name}</p>
           <p className="track-artist">{artist}</p>
         </div>
-        <ButtonTrackOptions id={id} likeState={likeState} setLikeState={setLikeState}liked={liked}/>
+        <div>
+        <LikeOptions id={id} likeState={likeState} setLikeState={setLikeState}liked={liked}/>
+        <button>
+        <ButtonTrackOptions id={id} image={image} name={name} artist={artist} likeState={likeState} setLikeState={setLikeState}liked={liked}/>
+        </button>
+        
+        </div>
+        
       </div>
     </div>
   );
 }
 
-function ButtonTrackOptions({id, liked, likeState, setLikeState}) {
+function LikeOptions({id, liked, likeState, setLikeState}) {
 
   const likeTrack = async (event) => {
     let heartIconFill = event.currentTarget.firstChild.attributes.fill
@@ -45,6 +54,7 @@ function ButtonTrackOptions({id, liked, likeState, setLikeState}) {
     <>
       <button id={id} onClick={likeTrack} className="track-options">
         <FiIcons.FiHeart style={liked ? likeStyle : unlikeStyle} />
+
       </button>
     </>
   )

@@ -36,3 +36,17 @@
 
   }
 }
+
+.track-options-modal{
+  position: absolute;
+  bottom: 0;
+  left:0;
+  height: 80vh;
+  width: 100vw;
+  background-color: $navBg;
+  opacity: 90%;
+  img{
+    opacity: 100%;
+    width: 50vw;
+  }
+}
