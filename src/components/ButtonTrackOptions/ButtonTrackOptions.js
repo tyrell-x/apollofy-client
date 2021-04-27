@@ -3,7 +3,7 @@ import * as BsIcons from "react-icons/bs"
 import TrackModal from "../TrackModal"
 
 
-function ButtonTrackOptions({ name, artist, image, id, liked, likeState, setLikeState }) {
+function ButtonTrackOptions({ name, artist, image, id, liked, likeState, setLikeState, deleteState, setDeleteState }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -21,6 +21,8 @@ function ButtonTrackOptions({ name, artist, image, id, liked, likeState, setLike
       setOpen={setOpen}
       name={name}
       artist={artist}
+      deleteState={deleteState}
+      setDeleteState={setDeleteState}
       /> : ""}
     </div>
   );

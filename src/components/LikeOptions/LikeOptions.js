@@ -5,7 +5,7 @@ import api from "../../api-test/api-test";
 
 function LikeOptions({id, liked, likeState, setLikeState}) {
 
-    const likeTrack = async (event) => {
+    const likeTrack = async () => {
       const like = await api.likeTrackToggle("", id)
       console.log(like)
       setLikeState(like)

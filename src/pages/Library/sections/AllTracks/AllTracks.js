@@ -8,7 +8,8 @@ const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png"
 function AllTracks() {
   const [allTracks, setAllTracks] = useState([]);
   const [likeState, setLikeState] = useState(false)
-  console.log(allTracks)
+  const [deleteState, setDeleteState] = useState(false)
+
   useEffect(() => {
     async function getAllTracks() {
       const allSongs = await api.getTracks();
@@ -24,6 +25,8 @@ function AllTracks() {
           <LibraryItem
             likeState={likeState}
             setLikeState={setLikeState}
+            deleteState={deleteState}
+            setDeleteState={setDeleteState}
             id={track.id}
             key={track.id}
             name={track.name}

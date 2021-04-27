@@ -55,6 +55,14 @@ function makeApi(request = makeRequest()) {
     });
   }
 
+  function deleteTrack(headers, id) {
+    return request({
+      url: `/tracks/${id}`,
+      requestMethod: "DELETE",
+      headers: headers,
+    });
+  }
+
   return {
     signUp: signUp,
     signOut: signOut,
@@ -62,7 +70,8 @@ function makeApi(request = makeRequest()) {
     getTracks: getTracks,
     getTracksLiked: getTracksLiked,
     getTrackInfo: getTrackInfo,
-    likeTrackToggle: likeTrackToggle
+    likeTrackToggle: likeTrackToggle,
+    deleteTrack: deleteTrack
   };
 }
 

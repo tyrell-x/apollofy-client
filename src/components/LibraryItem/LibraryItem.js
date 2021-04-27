@@ -7,7 +7,7 @@ import * as BsIcons from "react-icons/bs"
 import api from "../../api-test/api-test"
 import ButtonTrackOptions from "../ButtonTrackOptions"
 
-function LibraryItem({ name, artist, image, id, liked, likeState, setLikeState }) {
+function LibraryItem({ name, artist, image, id, liked, likeState, setLikeState, deleteState, setDeleteState }) {
   
   
   
@@ -24,7 +24,17 @@ function LibraryItem({ name, artist, image, id, liked, likeState, setLikeState }
         <div>
         <LikeOptions id={id} likeState={likeState} setLikeState={setLikeState}liked={liked}/>
         <button>
-        <ButtonTrackOptions id={id} image={image} name={name} artist={artist} likeState={likeState} setLikeState={setLikeState}liked={liked}/>
+        <ButtonTrackOptions 
+        id={id} 
+        image={image} 
+        name={name} 
+        artist={artist} 
+        likeState={likeState} 
+        setLikeState={setLikeState}
+        liked={liked}
+        deleteState={deleteState}
+        setDeleteState={setDeleteState}
+        />
         </button>
         
         </div>

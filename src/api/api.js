@@ -36,6 +36,44 @@ function makeApi(request = makeRequest()) {
     });
   }
 
+  function getProfileInfo(headers) {
+    return request({
+      url: "/account",
+      requestMethod: "GET",
+      headers: headers,
+    });
+  }
+
+  function getTracksLiked(headers) {
+    return request({
+      url: "/me/tracks/liked",
+      requestMethod: "GET",
+      headers: headers,
+    });
+  }
+  function getTracks(headers) {
+    return request({
+      url: "/tracks",
+      requestMethod: "GET",
+      headers: headers,
+    });
+  }
+
+  function getTrackInfo(headers, id = 7) {
+    return request({
+      url: `/tracks/${id}`,
+      requestMethod: "GET",
+      headers: headers,
+    });
+  }
+  function likeTrackToggle(headers, id = 7) {
+    return request({
+      url: `/tracks/${id}/like`,
+      requestMethod: "PUT",
+      headers: headers,
+    });
+  }
+
   return {
     signUp: signUp,
     signOut: signOut,
