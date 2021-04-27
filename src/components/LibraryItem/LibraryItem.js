@@ -6,31 +6,29 @@ import * as FiIcons from "react-icons/fi"
 import * as BsIcons from "react-icons/bs"
 import api from "../../api-test/api-test"
 import ButtonTrackOptions from "../ButtonTrackOptions"
+import {useDispatch, useSelector} from "react-redux"
+import {selectTrackIds, selectTrack} from "../../redux/tracks/track-selectors"
+const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png"
 
-function LibraryItem({ name, artist, image, id, liked, likeState, setLikeState, deleteState, setDeleteState }) {
-  
+function LibraryItem({ id, likeState, setLikeState }) {
+  const {name, owner:{login}, thumbnail} = useSelector(selectTrack(id))
+
   return (
-    <div className="track-card">
+    <div className="track-card" id={id}>
       <div className="img">
-        <img src={image} alt="track" className="track-image"></img>
+        <img src={thumbnail ? thumbnail : defaultImage} alt="track" className="track-image"></img>
       </div>
       <div className="track-content">
         <div className="track-details">
           <p className="track-name">{name}</p>
-          <p className="track-artist">{artist}</p>
+          <p className="track-artist">{login}</p>
         </div>
         <div>
-        <LikeOptions id={id} likeState={likeState} setLikeState={setLikeState}liked={liked}/>
+        <LikeOptions id={id} likeState={likeState} setLikeState={setLikeState}/>
         <ButtonTrackOptions 
-        id={id} 
-        image={image} 
-        name={name} 
-        artist={artist} 
+        id={id}  
         likeState={likeState} 
         setLikeState={setLikeState}
-        liked={liked}
-        deleteState={deleteState}
-        setDeleteState={setDeleteState}
         />
         
         </div>

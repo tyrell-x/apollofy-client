@@ -2,46 +2,33 @@ import React, { useState, useEffect } from "react";
 import "../../../../components/LibraryContent/LibraryContent.scss";
 import LibraryItem from "../../../../components/LibraryItem";
 import api from "../../../../api-test/api-test";
-import {getTracksData, getTracksLiked} from "../../../../redux/tracks/tracksActions"
+import {fetchTracksLiked} from "../../../../redux/tracks/track-actions"
 import {useDispatch, useSelector} from "react-redux"
-import {tracksSelector, likedTracksSelector} from "../../../../redux/tracks/tracksSelectors"
+import {selectTrackIds, selectTrack} from "../../../../redux/tracks/track-selectors"
+import {trackTypes} from "../../../../redux/tracks/track-types"
 const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png"
 
 function LikedTracks() {
   const dispatch = useDispatch()
-  const tracksRedux = useSelector(tracksSelector)
-  const likedTracksRedux = useSelector(likedTracksSelector)
-
-  const [tracks, setTracks] = useState([]);
+  const likedTracksIds = useSelector(selectTrackIds(trackTypes.LIKED))
   const [likeState, setLikeState] = useState(false)
+  
   useEffect(() => {
-    dispatch(getTracksData())
-    dispatch(getTracksLiked())
-    async function getLikedTracks() {
-      const songs = await api.getTracksLiked();
-      setTracks(songs);
-    }
-    getLikedTracks();
+    dispatch(fetchTracksLiked())
+
   }, []);
 
-  useEffect(() => {
-    dispatch(getTracksLiked())
-    console.log(likedTracksRedux)
-  }, [tracksRedux])
+
 
   return (
     <div className="library-content">
-      {tracksRedux.data &&
-        tracksRedux.data.map((track) => (
+      {likedTracksIds &&
+        likedTracksIds.map((id) => (
           <LibraryItem
             likeState={likeState}
             setLikeState={setLikeState}
-            id={track.id}
-            key={track.id}
-            name={track.name}
-            artist={track.owner.login}
-            image={track.thumbnail !== null ? track.thumbnail : defaultImage}
-            liked={track.liked}
+            id={id}
+            key={id}
           />
         ))}
     </div>

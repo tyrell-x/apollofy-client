@@ -40,14 +40,14 @@ function makeApi(request = makeRequest()) {
     });
   }
 
-  function getTrackInfo(headers, id = 7) {
+  function getTrackInfo(headers, id) {
     return request({
       url: `/tracks/${id}`,
       requestMethod: "GET",
       headers: headers,
     });
   }
-  function likeTrackToggle(headers, id = 7) {
+  function likeTrackToggle(headers, id) {
     return request({
       url: `/tracks/${id}/like`,
       requestMethod: "PUT",
