@@ -9,8 +9,6 @@ import ButtonTrackOptions from "../ButtonTrackOptions"
 
 function LibraryItem({ name, artist, image, id, liked, likeState, setLikeState, deleteState, setDeleteState }) {
   
-  
-  
   return (
     <div className="track-card">
       <div className="img">
