@@ -21,7 +21,6 @@ function LibraryItem({ name, artist, image, id, liked, likeState, setLikeState, 
         </div>
         <div>
         <LikeOptions id={id} likeState={likeState} setLikeState={setLikeState}liked={liked}/>
-        <button>
         <ButtonTrackOptions 
         id={id} 
         image={image} 
@@ -33,7 +32,6 @@ function LibraryItem({ name, artist, image, id, liked, likeState, setLikeState, 
         deleteState={deleteState}
         setDeleteState={setDeleteState}
         />
-        </button>
         
         </div>
         
