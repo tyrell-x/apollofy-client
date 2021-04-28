@@ -76,6 +76,26 @@ export const TrackInitState = {
           },
         };
       }
+      case TrackTypes.UPDATE_LIKED_TRACK: {
+        const {id, liked} = action.payload
+        return {
+          ...state,
+          byID: {
+            ...state.byID,
+            [id]: {
+              ...state.byID[id],
+               liked: liked
+              }
+          },
+          ids: {
+            ...state.ids,
+            LIKED: liked ? [
+              ...state.ids.LIKED,
+              id
+            ] : state.ids.LIKED.filter(trackId => id !== trackId)
+          }
+        }
+      }
       default: {
         return state;
       }

@@ -2,13 +2,14 @@ import React from "react";
 import "../LibraryItem/TrackItem.scss";
 import * as FiIcons from "react-icons/fi";
 import api from "../../api-test/api-test";
+import {useDispatch, useSelector} from "react-redux"
+import {selectTrackIds, selectTrack} from "../../redux/tracks/track-selectors"
+import {toggleLikedTrack} from "../../redux/tracks/track-actions"
 
-function LikeOptions({id, liked, likeState, setLikeState}) {
-
+function LikeOptions({id, liked}) {
+  const dispatch = useDispatch()
     const likeTrack = async () => {
-      const like = await api.likeTrackToggle("", id)
-      console.log(like)
-      setLikeState(like)
+      dispatch(toggleLikedTrack(id))
     }
     const likeStyle = {
       fill:"red", stroke:"red"

@@ -6,7 +6,6 @@ import {fetchTracksLiked} from "../../../../redux/tracks/track-actions"
 import {useDispatch, useSelector} from "react-redux"
 import {selectTrackIds, selectTrack} from "../../../../redux/tracks/track-selectors"
 import {trackTypes} from "../../../../redux/tracks/track-types"
-const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png"
 
 function LikedTracks() {
   const dispatch = useDispatch()

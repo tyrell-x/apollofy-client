@@ -24,7 +24,7 @@ function AllTracks() {
         allTrackIds.map((id) => (
           <LibraryItem
             id={id}
-            key={id+Math.random()}
+            key={id}
           />
         ))}
     </div>

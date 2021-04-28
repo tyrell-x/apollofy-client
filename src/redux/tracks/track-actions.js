@@ -26,12 +26,14 @@ export const fetchTracksError = (message) => ({
   payload: message,
 });
 
-export const updateTrack = (id) => ({
-  type: TrackTypes.UPDATE_TRACK,
+export const updateLikedTrack = (id, liked) => ({
+  type: TrackTypes.UPDATE_LIKED_TRACK,
   payload: {
-    
+    id: id,
+    liked: liked
   }
 })
+
 
 export const fetchTracks = () => {
   return async (dispatch) => {
@@ -75,6 +77,19 @@ export const fetchTracksLiked = () => {
       dispatch(fetchTracksError(error))
     }
   }
+}
+
+export const toggleLikedTrack = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await api.likeTrackToggle("", id)
+      console.log(response)
+      dispatch(updateLikedTrack(id, response.data.liked))
+    } catch(error) {
+
+    }
+  }
+
 }
 
 export const fetchTracksOwned = () => {
