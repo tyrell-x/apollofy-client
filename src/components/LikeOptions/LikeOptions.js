@@ -1,7 +1,7 @@
 import React from "react";
 import "../LibraryItem/TrackItem.scss";
 import * as FiIcons from "react-icons/fi";
-import api from "../../api-test/api-test";
+import api from "../../api/api";
 import {useDispatch, useSelector} from "react-redux"
 import {selectTrackIds, selectTrack} from "../../redux/tracks/track-selectors"
 import {toggleLikedTrack} from "../../redux/tracks/track-actions"

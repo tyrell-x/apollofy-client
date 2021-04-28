@@ -1,7 +1,7 @@
 import React from "react";
 import "../LibraryItem/TrackItem.scss";
 import * as MdIcons from "react-icons/md";
-import api from "../../api-test/api-test";
+import api from "../../api/api";
 
 function DeleteOptions({id, deleteState, setDeleteState}) {
 

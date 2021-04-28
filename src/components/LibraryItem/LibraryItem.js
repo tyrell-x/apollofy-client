@@ -4,7 +4,7 @@ import {BsThreeDotsVertical} from "react-icons/bs"
 import TrackModal from "../../components/TrackModal"
 import * as FiIcons from "react-icons/fi"
 import * as BsIcons from "react-icons/bs"
-import api from "../../api-test/api-test"
+import api from "../../api/api"
 import ButtonTrackOptions from "../ButtonTrackOptions"
 import {useDispatch, useSelector} from "react-redux"
 import {selectTrackIds, selectTrack} from "../../redux/tracks/track-selectors"
@@ -26,7 +26,7 @@ function LibraryItem({ id }) {
         </div>
         <div>
           <LikeOptions id={id} liked={liked}/>
-          <ButtonTrackOptions id={id} />
+          <ButtonTrackOptions id={id} liked={liked} />
         </div>
       </div>
     </div>

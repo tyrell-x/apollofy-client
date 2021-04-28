@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from "react"
 import * as AiIcons from "react-icons/ai";
-import api from "../../api-test/api-test"
+import api from "../../api/api"
 import * as FiIcons from "react-icons/fi"
 import LikeOptions from "../LikeOptions"
 import DeleteOptions from "../DeleteOptions"
+import {selectTrack} from "../../redux/tracks/track-selectors"
+import {useSelector} from "react-redux"
 
-function TrackModal({id, image, name, artist, liked, likeState, setLikeState, deleteState, setDeleteState,setOpen}){
+function TrackModal({id, open, setOpen}){
+    const {thumbnail, name, owner:{login}, liked} = useSelector(selectTrack(id))
     const [edit, setEdit] = useState(false)
     const [title, setTitle] = useState("")
 
@@ -27,13 +30,13 @@ function TrackModal({id, image, name, artist, liked, likeState, setLikeState, de
                 <AiIcons.AiOutlineClose />
             </div>
             <div className="options-image">
-                <img src={image}></img>
+                <img src={thumbnail}></img>
             </div>
             <div>
                 { !edit ?
                 <div>
                     <p>{name}</p>
-                    <p>{artist}</p>
+                    <p>{login}</p>
                     <button onClick={editDetails}>Edit</button>
                 </div>
                 :
@@ -45,13 +48,9 @@ function TrackModal({id, image, name, artist, liked, likeState, setLikeState, de
                 <LikeOptions 
                 id={id}
                 liked={liked}
-                likeState={likeState}
-                setLikeState={setLikeState}
                 />
                 <DeleteOptions
                 id={id}
-                deleteState={deleteState}
-                setDeleteState={setDeleteState}
                 />
                 <p>Add to Playlist</p>
                 <p>Share</p>

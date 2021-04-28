@@ -1,7 +1,8 @@
 import * as TrackTypes from "./track-types";
 import { trackTypes } from "./track-types";
-import api from "../../api-test"
+import api from "../../api"
 import { normalizeTracks, track } from "../../schema/track-schema";
+import * as auth from "../../services/auth";
 
 export const fetchTracksRequest = () => ({
   type: TrackTypes.FETCH_TRACKS_REQUEST,
@@ -60,6 +61,7 @@ export const fetchTracksLiked = () => {
   return async (dispatch) => {
     dispatch(fetchTracksRequest())
     try {
+      const token = await auth.getCurrentUserToken();
       const response = await api.getTracksLiked()
       console.log(response)
       if(response.data) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../../../components/LibraryContent/LibraryContent.scss";
 import LibraryItem from "../../../../components/LibraryItem";
-import api from "../../../../api-test/api-test";
+import api from "../../../../api/api";
 import {fetchTracksLiked} from "../../../../redux/tracks/track-actions"
 import {useDispatch, useSelector} from "react-redux"
 import {selectTrackIds, selectTrack} from "../../../../redux/tracks/track-selectors"
@@ -24,8 +24,6 @@ function LikedTracks() {
       {likedTracksIds &&
         likedTracksIds.map((id) => (
           <LibraryItem
-            likeState={likeState}
-            setLikeState={setLikeState}
             id={id}
             key={id}
           />

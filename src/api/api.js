@@ -4,7 +4,7 @@ function makeApi(request = makeRequest()) {
   function signUp(user, headers) {
     return request({
       body: user,
-      url: "/sign-up",
+      url: "/user/me/sign-up",
       requestMethod: "POST",
       headers: headers,
     });
@@ -12,7 +12,7 @@ function makeApi(request = makeRequest()) {
 
   function signOut(headers) {
     return request({
-      url: "/sign-out",
+      url: "/user/me/sign-out",
       requestMethod: "POST",
       headers: headers,
     });
@@ -20,7 +20,7 @@ function makeApi(request = makeRequest()) {
 
   function updateUserInfo(headers, userInfo) {
     return request({
-      url: "/edit-profile",
+      url: "/user/me/edit",
       requestMethod: "PATCH",
       headers: headers,
       body: userInfo,
@@ -29,7 +29,7 @@ function makeApi(request = makeRequest()) {
 
   function createTrack({ body, headers = {} }) {
     return request({
-      url: "/tracks",
+      url: "/track",
       requestMethod: "POST",
       body: body,
       headers: headers,
@@ -46,29 +46,29 @@ function makeApi(request = makeRequest()) {
 
   function getTracksLiked(headers) {
     return request({
-      url: "/me/tracks/liked",
+      url: "/user/me/tracks/liked",
       requestMethod: "GET",
       headers: headers,
     });
   }
   function getTracks(headers) {
     return request({
-      url: "/tracks",
+      url: "/track",
       requestMethod: "GET",
       headers: headers,
     });
   }
 
-  function getTrackInfo(headers, id = 7) {
+  function getTrackInfo(headers, id) {
     return request({
-      url: `/tracks/${id}`,
+      url: `/track/${id}`,
       requestMethod: "GET",
       headers: headers,
     });
   }
-  function likeTrackToggle(headers, id = 7) {
+  function likeTrackToggle(headers, id) {
     return request({
-      url: `/tracks/${id}/like`,
+      url: `/user/me/liketrack/?id=${id}`,
       requestMethod: "PUT",
       headers: headers,
     });
@@ -79,6 +79,11 @@ function makeApi(request = makeRequest()) {
     signOut: signOut,
     updateUserInfo: updateUserInfo,
     createTrack: createTrack,
+    getProfileInfo: getProfileInfo,
+    getTracksLiked: getTracksLiked,
+    getTracks: getTracks,
+    getTrackInfo: getTrackInfo,
+    likeTrackToggle: likeTrackToggle
   };
 }
 
