@@ -1,16 +1,25 @@
 import "./TrackCard.scss";
 import ButtonTrackOptions from "../ButtonTrackOptions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectTrack,
 } from "../../redux/tracks/track-selectors";
-import LikeTrackButton from "../LikeTrackButton";
-import AnimatedListItem from "../AnimatedListItem/index.js";
+import {
+  toggleLikeTrack,
+} from "../../redux/tracks/track-actions";
+import LikeButton from "../LikeButton";
+import AnimatedListItem from "../AnimatedListItem";
 
 const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png";
 
 function TrackCard({ id }) {
+  const dispatch = useDispatch()
+
   const { name, title, ownedBy, thumbnail = defaultImage, liked } = useSelector(selectTrack(id));
+
+  const onLikeButtonClick = () => {
+    dispatch(toggleLikeTrack(id))
+  }
 
   return (
     <AnimatedListItem key={id} flipId={id}>
@@ -28,7 +37,7 @@ function TrackCard({ id }) {
           </div>
         </div>
         <div className="action-buttons">
-            <LikeTrackButton id={id} liked={liked} />
+            <LikeButton liked={liked} onClick={onLikeButtonClick} />
             <ButtonTrackOptions id={id} liked={liked} />
         </div>
       </div>

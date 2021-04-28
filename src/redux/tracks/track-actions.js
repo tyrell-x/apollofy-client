@@ -3,7 +3,7 @@ import { trackTypes } from "./track-types";
 import api from "../../api";
 import { normalizeTracks, track } from "../../schema/track-schema";
 import * as auth from "../../services/auth";
-import { signOutSuccess } from "../auth/auth-actions.js";
+import { signOutSuccess } from "../auth/auth-actions";
 
 export const fetchTracksRequest = () => ({
   type: TrackTypes.FETCH_TRACKS_REQUEST,

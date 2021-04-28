@@ -1,11 +1,14 @@
 import {useState} from "react"
 import * as AiIcons from "react-icons/ai";
-import LikeTrackButton from "../LikeTrackButton"
-import DeleteOptions from "../DeleteTrackButton"
+import LikeButton from "../LikeButton"
+import DeleteButton from "../DeleteButton"
 import {selectTrack} from "../../redux/tracks/track-selectors"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
+import { toggleLikeTrack } from "../../redux/tracks/track-actions";
 
 function EditTrack({id, closeModal}){
+    const dispatch = useDispatch()
+    
     const {thumbnail, name, title, ownedBy, liked} = useSelector(selectTrack(id))
     const [edit, setEdit] = useState(false)
     
@@ -21,6 +24,12 @@ function EditTrack({id, closeModal}){
         console.log("changes submitted")
         setEdit(!edit)
     }
+
+    const onLikeButtonClick = () => {
+        //TODO: Submit form for upload
+        dispatch(toggleLikeTrack(id))
+    }
+    
     return(
         <>
             <div onClick={()=>closeModal()}>
@@ -42,13 +51,11 @@ function EditTrack({id, closeModal}){
                     <button onClick={submitChanges}>Submit Changes</button>
                 </div>
                 }
-                <LikeTrackButton 
-                id={id}
+                <LikeButton 
+                onClick={onLikeButtonClick} 
                 liked={liked}
                 />
-                <DeleteOptions
-                id={id}
-                />
+                <DeleteButton/>
                 <p>Add to Playlist</p>
                 <p>Share</p>
             </div>

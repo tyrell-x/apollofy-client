@@ -3,7 +3,7 @@ import TrackCard from "../../../../components/TrackCard";
 import { fetchLikedTracks } from "../../../../redux/tracks/track-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLikedTrackIds } from "../../../../redux/tracks/track-selectors";
-import AnimatedList from "../../../../components/AnimatedList/index.js";
+import AnimatedList from "../../../../components/AnimatedList";
 
 function LikedTracks() {
   const dispatch = useDispatch();

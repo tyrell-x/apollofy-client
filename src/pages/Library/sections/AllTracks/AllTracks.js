@@ -7,9 +7,9 @@ import {
   selectTrackCollection,
 } from "../../../../redux/tracks/track-selectors";
 import { trackTypes } from "../../../../redux/tracks/track-types";
-import AnimatedList from "../../../../components/AnimatedList/index.js";
-import Button from "../../../../components/Button/index.js";
-import FLInput from "../../../../components/FLInput/index.js";
+import AnimatedList from "../../../../components/AnimatedList";
+import Button from "../../../../components/Button";
+import FLInput from "../../../../components/FLInput";
 
 function AllTracks() {
   const dispatch = useDispatch();

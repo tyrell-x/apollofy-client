@@ -2,7 +2,7 @@ import React from "react";
 import * as MdIcons from "react-icons/md";
 import api from "../../api/api";
 
-function DeleteOptions({id, deleteState, setDeleteState}) {
+function DeleteButton({id, deleteState, setDeleteState}) {
 
     const deleteOneTrack = async () => {
       const delTrack = await api.deleteTrack("", id)
@@ -17,4 +17,4 @@ function DeleteOptions({id, deleteState, setDeleteState}) {
     )
   }
 
-export default DeleteOptions
+export default DeleteButton
