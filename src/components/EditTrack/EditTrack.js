@@ -1,7 +1,7 @@
 import {useState} from "react"
 import * as AiIcons from "react-icons/ai";
-import LikeOptions from "../LikeOptions"
-import DeleteOptions from "../DeleteOptions"
+import LikeTrackButton from "../LikeTrackButton"
+import DeleteOptions from "../DeleteTrackButton"
 import {selectTrack} from "../../redux/tracks/track-selectors"
 import {useSelector} from "react-redux"
 
@@ -42,7 +42,7 @@ function EditTrack({id, closeModal}){
                     <button onClick={submitChanges}>Submit Changes</button>
                 </div>
                 }
-                <LikeOptions 
+                <LikeTrackButton 
                 id={id}
                 liked={liked}
                 />

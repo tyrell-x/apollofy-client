@@ -2,6 +2,7 @@
 
 .track-card {
   display: flex;
+  justify-content: space-around;
   overflow: hidden;
   height: 5em;
 
@@ -10,23 +11,35 @@
     width: 80px;
     height: inherit;
     background-color: transparent;
-    
-    img{
+
+    img {
       height: 100%;
       border-top-left-radius: 1em;
       border-bottom-left-radius: 1em;
       width: 5em;
     }
   }
+
   background-color: $navBg;
   border-radius: 1em;
   align-items: center;
-  .track-content{
-    display:flex;
-    justify-content: space-between;
-    width: 75%;
+
+  .track-content {
+    width: 100%;
+    margin-left: 1em;
     align-items: center;
-    button{
+  }
+
+  .track-details {
+    max-width: 60%;
+  }
+
+  .action-buttons {
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+
+    button {
       cursor: pointer;
       outline: none;
       background: transparent;
@@ -34,16 +47,12 @@
       font-size: 20px;
     }
   }
-  .track-details {
-    padding-left: 1em;
-    max-width: 60%;
-  }
 }
 
-.track-options-modal{
+.track-options-modal {
   position: absolute;
   bottom: 0;
-  left:0;
+  left: 0;
   height: 85vh;
   width: 100vw;
   background-color: $navBg;
@@ -51,7 +60,7 @@
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 
-  img{
+  img {
     opacity: 100%;
     width: 50vw;
     border-radius: 20px;

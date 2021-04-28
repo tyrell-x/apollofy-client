@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import * as BsIcons from "react-icons/bs"
 import EditTrack from "../EditTrack"
 import Modal from 'react-modal';
@@ -20,10 +20,9 @@ const customStyles = {
   Modal.defaultStyles.overlay.backgroundColor = 'rgba(200, 200, 200, 0.4)';
 
 
-function ButtonTrackOptions({ id, liked}) {
-  const [open, setOpen] = useState(false);
+function ButtonTrackOptions({ id }) {
 
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
   function openModal() {
     setIsOpen(true);
   }

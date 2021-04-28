@@ -1,11 +1,26 @@
 .library-content {
   height: 65vh;
   overflow: overlay;
-  
+
+  .filter-inputs {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 30px;
+		
+		& > * {
+			margin: 10px;
+		}
+
+		.input-container {
+			width: 300px;
+		}
+	}
+
   .list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px;
   }
 }

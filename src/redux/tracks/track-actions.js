@@ -27,7 +27,7 @@ export const fetchTracksError = (message) => ({
   payload: message,
 });
 
-export const updateLikedTrack = (id, liked) => ({
+export const updateLikeTrack = (id, liked) => ({
   type: TrackTypes.UPDATE_LIKED_TRACK,
   payload: {
     id: id,
@@ -65,7 +65,7 @@ export const fetchTracks = () => {
   };
 };
 
-export const fetchTracksLiked = () => {
+export const fetchLikedTracks = () => {
   return async (dispatch) => {
     dispatch(fetchTracksRequest());
     try {
@@ -73,10 +73,10 @@ export const fetchTracksLiked = () => {
       if (!token) {
         return dispatch(signOutSuccess());
       }
-      const response = await api.getTracks({
+      const response = await api.getLikedTracks({
         Authorization: `Bearer ${token}`,
       });
-      const mapped = response.data.data.slice(0, 30)
+      const mapped = response.data.data.slice(0, 30).map(track => ({...track, liked:true}))
       if (response.data) {
         const normalizedTracks = normalizeTracks(mapped);
         console.log(normalizedTracks);
@@ -96,7 +96,7 @@ export const fetchTracksLiked = () => {
   };
 };
 
-export const fetchTracksOwned = () => {
+export const fetchOwnedTracks = () => {
   return async (dispatch) => {
     dispatch(fetchTracksRequest());
     try {
@@ -119,7 +119,7 @@ export const fetchTracksOwned = () => {
   };
 };
 
-export const toggleLikedTrack = (id) => {
+export const toggleLikeTrack = (id) => {
   return async (dispatch) => {
     try {
       const token = await auth.getCurrentUserToken();
@@ -131,7 +131,7 @@ export const toggleLikedTrack = (id) => {
         Authorization: `Bearer ${token}`,
       }, id);
 
-      dispatch(updateLikedTrack(id, response.data.data.liked));
+      dispatch(updateLikeTrack(id, response.data.data.liked));
     } catch (error) {}
   };
 };

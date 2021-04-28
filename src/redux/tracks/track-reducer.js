@@ -13,7 +13,8 @@ export const TrackInitState = {
 
 const TrackReducer = (state = TrackInitState, action) => {
   switch (action.type) {
-    case "FILTER_LIKED": {
+    //TEST
+    case "FILTER_LIKED_IN_ALL_COLLECTION": {
       const filterByLiked = action.payload;
       return {
         ...state,

@@ -25,7 +25,7 @@ function makeApi(request = makeRequest()) {
     });
   }
 
-  function getTracksLiked(headers) {
+  function getLikedTracks(headers) {
     return request({
       url: "/me/tracks/liked",
       requestMethod: "GET",
@@ -68,7 +68,7 @@ function makeApi(request = makeRequest()) {
     signOut: signOut,
     getProfileInfo: getProfileInfo,
     getTracks: getTracks,
-    getTracksLiked: getTracksLiked,
+    getLikedTracks: getLikedTracks,
     getTrackInfo: getTrackInfo,
     likeTrackToggle: likeTrackToggle,
     deleteTrack: deleteTrack

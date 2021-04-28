@@ -2,8 +2,10 @@
   display: flex;
   justify-content: space-around;
   text-align: center;
-  padding-top: 5%;
-  padding-bottom: 7px;
-  border-bottom: 1px solid white;
   font-family: "Lato", sans-serif;
+
+  & > * {
+    flex: 1 1 100%;
+    padding-bottom: 8px;
+  }
 }
