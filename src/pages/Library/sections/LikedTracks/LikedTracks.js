@@ -10,12 +10,10 @@ import {trackTypes} from "../../../../redux/tracks/track-types"
 function LikedTracks() {
   const dispatch = useDispatch()
   const likedTracksIds = useSelector(selectTrackIds(trackTypes.LIKED))
-  const [likeState, setLikeState] = useState(false)
   
   useEffect(() => {
     dispatch(fetchTracksLiked())
-
-  }, []);
+  }, [])
 
 
 

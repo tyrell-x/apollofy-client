@@ -12,7 +12,7 @@ import LikeOptions from "../LikeOptions"
 const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png"
 
 function LibraryItem({ id }) {
-  const {name, owner:{login}, thumbnail, liked} = useSelector(selectTrack(id))
+  const {name, ownedBy, thumbnail, liked} = useSelector(selectTrack(id))
 
   return (
     <div className="track-card" id={id}>
@@ -22,7 +22,7 @@ function LibraryItem({ id }) {
       <div className="track-content">
         <div className="track-details">
           <p className="track-name">{name}</p>
-          <p className="track-artist">{login}</p>
+          <p className="track-artist">{ownedBy}</p>
         </div>
         <div>
           <LikeOptions id={id} liked={liked}/>
