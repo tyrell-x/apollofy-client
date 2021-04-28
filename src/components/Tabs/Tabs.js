@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import AnimatedListItem from "../AnimatedListItem";
 import TabButtons from "../TabButtons";
 
 const Tabs = (props) => {
@@ -22,7 +23,11 @@ const Tabs = (props) => {
         labels={props.children.map((child) => child.props.label)}
         changeTab={changeTab}
       />
-      <div className="tab-content">{content.current}</div>
+      <div className="tab-content">
+        <AnimatedListItem>
+          {content.current}
+        </AnimatedListItem>
+      </div>
     </div>
   );
 };

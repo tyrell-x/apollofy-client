@@ -1,32 +1,51 @@
-import React, { useState, useEffect } from "react";
-import "../../../../components/LibraryContent/LibraryContent.scss";
+import React, { useEffect, useRef, useState } from "react";
 import LibraryItem from "../../../../components/LibraryItem";
-import api from "../../../../api/api";
-import {fetchTracks} from "../../../../redux/tracks/track-actions"
-import {useDispatch, useSelector} from "react-redux"
-import {selectTrackIds, selectTrack} from "../../../../redux/tracks/track-selectors"
-import {trackTypes} from "../../../../redux/tracks/track-types"
+import { fetchTracks } from "../../../../redux/tracks/track-actions";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAllTracks, selectTrackCollection } from "../../../../redux/tracks/track-selectors";
+import { trackTypes } from "../../../../redux/tracks/track-types";
+import AnimatedList from "../../../../components/AnimatedList/index.js";
+import Button from "../../../../components/Button/index.js";
+import FLInput from "../../../../components/FLInput/index.js";
 
-const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png"
+function AllTracks() {
+  const dispatch = useDispatch();
 
+  const allTracks = useSelector(selectAllTracks);
+  const filteredTracksSelected = useSelector(selectTrackCollection(trackTypes.ALL))
+  const [filteredTracks, setFilteredTracks] = useState(filteredTracksSelected);
 
-function AllTracks() {  
-  const dispatch = useDispatch()
-  const allTrackIds = useSelector(selectTrackIds(trackTypes.ALL))
+  const toggleLiked = useRef(true);
 
   useEffect(() => {
-    dispatch(fetchTracks())
+    dispatch(fetchTracks());
   }, []);
+
+  useEffect(() => {
+    setFilteredTracks(filteredTracksSelected)
+  }, [filteredTracksSelected])
+
+  const applyLikedFilter = () => {
+    dispatch({
+      type: "FILTER_LIKED",
+      payload: toggleLiked.current
+    })
+    toggleLiked.current = !toggleLiked.current
+  }
+
+  const applyNameFilter = (e) => {
+    setFilteredTracks(allTracks.filter(track => track.title.includes(e.target.value)).map(track => track._id))
+  }
 
   return (
     <div className="library-content">
-      {
-        allTrackIds.map((id) => (
-          <LibraryItem
-            id={id}
-            key={id}
-          />
+      <Button onClick={applyLikedFilter}>FILTER LIKED</Button>
+      <FLInput onInput={applyNameFilter} label="filter by name" />
+      <AnimatedList flipKey={(filteredTracks || []).join("")}>
+        {(filteredTracks || []).map((id) => (
+          <LibraryItem id={id} key={id} />
         ))}
+      </AnimatedList>
     </div>
   );
 }

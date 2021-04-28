@@ -1,0 +1,11 @@
+.library-content {
+  height: 65vh;
+  overflow: overlay;
+  
+  .list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 10px;
+  }
+}

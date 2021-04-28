@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from "react";
+import "./Library.scss";
+
 import Navbar from "../../components/Navbar";
 import TabMenu from "../Library/sections/TabMenu";
-import {fetchTracks} from "../../redux/tracks/track-actions"
-import {useDispatch} from "react-redux"
 
 function Library() {
-  const dispatch = useDispatch()
-
   return (
     <div className="library-background">
-      <Navbar />
-      <h1>My Library</h1>
+      <Navbar title="My Library" />
       <TabMenu />
-      
     </div>
   );
 }

@@ -68,8 +68,8 @@ function makeApi(request = makeRequest()) {
   }
   function likeTrackToggle(headers, id) {
     return request({
-      url: `/user/me/liketrack/?id=${id}`,
-      requestMethod: "PUT",
+      url: `/user/me/liketrack?trackId=${id}`,
+      requestMethod: "POST",
       headers: headers,
     });
   }

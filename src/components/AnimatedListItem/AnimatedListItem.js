@@ -9,7 +9,7 @@ function AnimatedListItem({ children, ...props }) {
         el.style.opacity = null;
       },
       targets: el,
-      translateY: (window.innerHeight / 1.7 - top - 80) * 0.4,
+      translateY: 60,
       direction: "reverse",
       duration: 300,
       easing: "easeOutSine",

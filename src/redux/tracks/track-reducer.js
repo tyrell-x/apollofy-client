@@ -8,15 +8,25 @@ export const TrackInitState = {
   trackLoadingError: null,
   trackFetched: false,
   byID: {},
-  ids: {
-    ALL: [],
-    LIKED: [],
-    OWNED: [],
-  },
+  ids: {},
 };
 
 const TrackReducer = (state = TrackInitState, action) => {
   switch (action.type) {
+    case "FILTER_LIKED": {
+      const filterByLiked = action.payload;
+      return {
+        ...state,
+        ids: {
+          ...state.ids,
+          ALL: filterByLiked
+            ? Object.values(state.byID)
+                .filter((track) => track.liked)
+                .map((track) => track._id)
+            : Object.values(state.byID).map((track) => track._id),
+        },
+      };
+    }
     case TrackTypes.FETCH_TRACKS_REQUEST: {
       return {
         ...state,
@@ -85,12 +95,6 @@ const TrackReducer = (state = TrackInitState, action) => {
             ...state.byID[id],
             liked: liked,
           },
-        },
-        ids: {
-          ...state.ids,
-          LIKED: liked
-            ? [...state.ids.LIKED, id]
-            : state.ids.LIKED.filter((trackId) => id !== trackId),
         },
       };
     }
