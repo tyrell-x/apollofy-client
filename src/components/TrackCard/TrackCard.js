@@ -1,20 +1,37 @@
 import "./TrackCard.scss";
-import ButtonTrackOptions from "../ButtonTrackOptions";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTrack } from "../../redux/tracks/track-selectors";
 import { deleteTrack, toggleLikeTrack } from "../../redux/tracks/track-actions";
 import LikeButton from "../LikeButton";
 import AnimatedListItem from "../AnimatedListItem";
 import DeleteButton from "../DeleteButton/index.js";
-import Button from "../Button/index.js";
 import {
   addTrackToPlayer,
   removeTrackFromPlayer,
-  removeTrackToPlayer,
 } from "../../redux/player/player-actions.js";
 import { isTrackInPlayer } from "../../redux/player/player-selectors.js";
+import Dropdown from "../Dropdown";
+import Modal from "react-modal";
+import EditTrack from "../EditTrack/index.js";
+import { useState } from "react";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    width: "500px",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "black",
+    borderRadius: "5px",
+  },
+};
 
 const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png";
+
+Modal.setAppElement("#root");
+Modal.defaultStyles.overlay.backgroundColor = "rgba(200, 200, 200, 0.4)";
 
 function TrackCard({ id }) {
   const dispatch = useDispatch();
@@ -40,6 +57,17 @@ function TrackCard({ id }) {
     }
   };
 
+  const [modalIsOpen, setIsOpen] = useState(false);
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
+
   return (
     <AnimatedListItem key={id} flipId={id}>
       <div className="track-card" id={id}>
@@ -53,12 +81,31 @@ function TrackCard({ id }) {
           </div>
         </div>
         <div className="action-buttons">
-          <Button onClick={toggleTrackInPlayer}>
-            {trackInPlayer ? "Remove track" : "Add track"}
-          </Button>
-          <DeleteButton onClick={onDeleteButtonClick}></DeleteButton>
           <LikeButton liked={liked} onClick={onLikeButtonClick} />
-          <ButtonTrackOptions id={id} liked={liked} />
+          <Dropdown isOpen={dropdownIsOpen} setIsOpen={setDropdownIsOpen}>
+            <button onClick={toggleTrackInPlayer}>
+              {trackInPlayer
+                ? "Remove track from player"
+                : "Add track to player"}
+            </button>
+            <div
+              onClick={() => {
+                openModal();
+                setDropdownIsOpen(false);
+              }}
+            >
+              Edit
+              <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                style={customStyles}
+              >
+                <EditTrack id={id} closeModal={() => closeModal()} />
+              </Modal>
+            </div>
+            <button onClick={toggleTrackInPlayer}>BOTON nuevo</button>
+            <DeleteButton onClick={onDeleteButtonClick}></DeleteButton>
+          </Dropdown>
         </div>
       </div>
     </AnimatedListItem>

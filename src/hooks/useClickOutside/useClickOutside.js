@@ -9,11 +9,10 @@ const useClickOutside = (handler) => {
       }
     };
     document.addEventListener("mousedown", maybeHandler);
-    console.log("prueba");
     return () => {
       document.removeEventListener("mousedown", maybeHandler);
     };
-  }, []);
+  }, [handler]);
 
   return domNode;
 };

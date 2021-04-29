@@ -3,7 +3,6 @@
 .track-card {
   display: flex;
   justify-content: space-around;
-  overflow: hidden;
   height: 5em;
 
   .track-image {
@@ -39,7 +38,7 @@
     align-items: center;
     margin-right: 16px;
 
-    button {
+    & > button {
       cursor: pointer;
       outline: none;
       background: transparent;

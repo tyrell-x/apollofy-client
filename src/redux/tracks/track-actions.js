@@ -1,7 +1,7 @@
 import * as TrackTypes from "./track-types";
 import { trackTypes } from "./track-types";
 import api from "../../api";
-import { normalizeTracks, track } from "../../schema/track-schema";
+import { normalizeTracks } from "../../schema/track-schema";
 import * as auth from "../../services/auth";
 import { signOutSuccess } from "../auth/auth-actions";
 
@@ -96,7 +96,6 @@ export const fetchLikedTracks = () => {
         .map((track) => ({ ...track, liked: true }));
       if (response.data) {
         const normalizedTracks = normalizeTracks(mapped);
-        console.log(normalizedTracks);
         dispatch(
           fetchTracksSuccess({
             fetchType: trackTypes.LIKED,

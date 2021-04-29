@@ -117,13 +117,6 @@ const TrackReducer = (state = TrackInitState, action) => {
     case TrackTypes.REMOVE_TRACK: {
       const { id } = action.payload;
       const { [id]: omit, ...updatedTracksById } = state.tracksById;
-
-      console.log({
-        ...state.tracksById,
-      });
-      console.log({
-        ...updatedTracksById,
-      });
       return {
         ...state,
         tracksById: updatedTracksById,
