@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable spaced-comment */
-import * as PlaylistType from "./playlist-types";
+import * as PlaylistType from "./playlists-types";
 
 export const PlaylistInitState = {
   playlistCreation: false,
@@ -13,7 +13,7 @@ export const PlaylistInitState = {
   playlistLoading: false,
   playlistLoadingError: null,
   playlistFetched: false,
-  playlistsByID: {},
+  playlistsById: {},
 };
 
 const PlaylistReducer = (state = PlaylistInitState, action) => {
@@ -81,8 +81,8 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
         playlistsLoading: false,
         playlistsLoadingError: null,
         playlistsFetched: true,
-        playlistsByID: {
-          ...state.playlistsByID,
+        playlistsById: {
+          ...state.playlistsById,
           ...action.payload.playlists,
         },
       };
@@ -102,15 +102,15 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
       };
     }
     case PlaylistType.FETCH_PLAYLIST_SUCCESS: {
-      const {id, playlist} = action.payload.playlist;
+      const { id, playlist } = action.payload.playlist;
 
       return {
         ...state,
         playlistLoading: false,
         playlistLoadingError: null,
         playlistFetched: true,
-        playlistsByID: {
-          ...state.playlistsByID,
+        playlistsById: {
+          ...state.playlistsById,
           [id]: {
             ...playlist,
           },

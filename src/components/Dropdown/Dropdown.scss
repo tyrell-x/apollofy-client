@@ -1,45 +1,44 @@
-
 .dropdown-card {
-    position: relative;
-    width: 0;
-    height: 0;
+  position: relative;
+  width: 0;
+  height: 0;
 
-    & * {
-        font-size: 16px;
-    }
+  & * {
+    font-size: 16px;
+  }
 
-    button {
-        cursor: pointer;
-        outline: none;
-        background: transparent;
-        color: white;
-    }
+  button {
+    cursor: pointer;
+    outline: none;
+    background: transparent;
+    color: white;
+  }
 }
 
 .dropdown-content {
-    position: relative;
-    background-color: #535353;
-    border-radius: 5px;
-    border: 2px solid #c8794159;
-    z-index: 1;
-    transform: translateX(-100%);
-    width: max-content;
-    overflow: hidden;
+  position: relative;
+  background-color: #535353;
+  border-radius: 5px;
+  border: 2px solid #c8794159;
+  z-index: 1;
+  transform: translateX(-100%);
+  width: max-content;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .dropdown-item {
+    width: 100%;
+    height: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    cursor: pointer;
 
-    .dropdown-item {
-        width: 100%;
-        height: 40px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-
-        &:hover {
-            background-color: #eb85008e;
-        }
+    &:hover {
+      background-color: #eb85008e;
     }
+  }
 }

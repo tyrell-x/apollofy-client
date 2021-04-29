@@ -23,8 +23,8 @@ const filterPlaylistSelector = (filterFn) => (playlist) => {
 export const selectFilteredPlaylistsIds = (filterFn = () => true) =>
   createSelector(
     (state) => state.playlists.playlistsById,
-    (playlist) =>
-      Object.entries(playlist)
+    (playlists) =>
+      Object.entries(playlists)
         .filter((playlist) => filterPlaylistSelector(filterFn)(playlist[1]))
         .map((playlist) => playlist[0]),
   );

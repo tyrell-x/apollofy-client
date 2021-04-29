@@ -1,4 +1,4 @@
-import * as PlaylistTypes from "./playlist-types";
+import * as PlaylistTypes from "./playlists-types";
 
 import { signOutSuccess } from "../auth/auth-actions";
 
@@ -89,12 +89,9 @@ export function fetchAllPlaylists() {
 
       const normalizedData = normalizePlaylists(res.data.data);
       console.log(normalizedData);
-      return;
       return dispatch(
         fetchPlaylistsSuccess({
-          playlistsByID: normalizedData.entities.playlists,
-          trackByID: normalizedData.entities.tracks,
-          playlistIds: normalizedData.result,
+          ...normalizedData.entities.playlists,
         }),
       );
     } catch (err) {
