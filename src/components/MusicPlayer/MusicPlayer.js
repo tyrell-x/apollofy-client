@@ -13,8 +13,8 @@ export default function Player() {
   const currentTrack = useSelector(playingTrackSelector);
 
   useEffect(() => {
-    console.log(currentTrack)
-  }, [currentTrack])
+    console.log(currentTrack);
+  }, [currentTrack]);
 
   /*
   useEffect(() => {

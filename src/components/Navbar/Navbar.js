@@ -7,16 +7,16 @@ import "./Navbar.scss";
 import { Link } from "react-router-dom";
 import NavItem from "../NavItem";
 import DropdownMenu from "../DropdownMenu";
-import useClickOutside from "../../hooks/useClickOutside"
+import useClickOutside from "../../hooks/useClickOutside";
 
 function Navbar({ title = "" }) {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
 
   const menuRef = useClickOutside(() => {
-    setSidebar(false)
-  })
-  
+    setSidebar(false);
+  });
+
   return (
     <header className="main-navbar">
       <div className="navbar">

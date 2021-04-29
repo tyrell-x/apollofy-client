@@ -1,1 +1,1 @@
-export {default} from "./ButtonTrackOptions"
+export { default } from "./ButtonTrackOptions";

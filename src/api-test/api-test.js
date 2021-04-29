@@ -71,7 +71,7 @@ function makeApi(request = makeRequest()) {
     getLikedTracks: getLikedTracks,
     getTrackInfo: getTrackInfo,
     likeTrackToggle: likeTrackToggle,
-    deleteTrack: deleteTrack
+    deleteTrack: deleteTrack,
   };
 }
 

@@ -31,15 +31,15 @@ const TrackReducer = (state = TrackInitState, action) => {
       };
     }
     case TrackTypes.UPDATE_TRACK: {
-      const {id, track} = action.payload;
+      const { id, track } = action.payload;
       return {
         ...state,
         tracksById: {
           ...state.tracksById,
           [id]: {
             ...state.tracksById[id],
-            ...track
-          }
+            ...track,
+          },
         },
       };
     }
@@ -116,14 +116,14 @@ const TrackReducer = (state = TrackInitState, action) => {
     }
     case TrackTypes.REMOVE_TRACK: {
       const { id } = action.payload;
-      const { [id]: omit, ...updatedTracksById} = state.tracksById 
+      const { [id]: omit, ...updatedTracksById } = state.tracksById;
 
       console.log({
-        ...state.tracksById
-      })
+        ...state.tracksById,
+      });
       console.log({
-        ...updatedTracksById
-      })
+        ...updatedTracksById,
+      });
       return {
         ...state,
         tracksById: updatedTracksById,

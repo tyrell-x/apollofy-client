@@ -41,14 +41,14 @@ export const editTrack = (id, data) => ({
     id: id,
     track: data,
   },
-})
+});
 
 export const removeTrack = (id) => ({
   type: TrackTypes.REMOVE_TRACK,
   payload: {
-    id: id
+    id: id,
   },
-})
+});
 
 export const fetchTracks = () => {
   return async (dispatch) => {
@@ -62,7 +62,7 @@ export const fetchTracks = () => {
       const response = await api.getTracks({
         Authorization: `Bearer ${token}`,
       });
-      const mapped = response.data.data.slice(0, 30)
+      const mapped = response.data.data.slice(0, 30);
       if (response.data) {
         const normalizedTracks = normalizeTracks(mapped);
         dispatch(
@@ -91,7 +91,9 @@ export const fetchLikedTracks = () => {
       const response = await api.getLikedTracks({
         Authorization: `Bearer ${token}`,
       });
-      const mapped = response.data.data.slice(0, 30).map(track => ({...track, liked:true}))
+      const mapped = response.data.data
+        .slice(0, 30)
+        .map((track) => ({ ...track, liked: true }));
       if (response.data) {
         const normalizedTracks = normalizeTracks(mapped);
         console.log(normalizedTracks);
@@ -142,9 +144,12 @@ export const toggleLikeTrack = (id) => {
       if (!token) {
         return dispatch(signOutSuccess());
       }
-      const response = await api.likeTrackToggle({
-        Authorization: `Bearer ${token}`,
-      }, id);
+      const response = await api.likeTrackToggle(
+        {
+          Authorization: `Bearer ${token}`,
+        },
+        id,
+      );
 
       dispatch(updateLikeTrack(id, response.data.data.liked));
     } catch (error) {}
@@ -166,7 +171,7 @@ export const updateTrack = (id, data) => {
       dispatch(editTrack(id, response.data.data));
     } catch (error) {}
   };
-}
+};
 
 export const deleteTrack = (id) => {
   return async (dispatch) => {
@@ -184,4 +189,4 @@ export const deleteTrack = (id) => {
       dispatch(removeTrack(id));
     } catch (error) {}
   };
-}
+};

@@ -8,13 +8,13 @@ export default function Bar() {
     highRefreshRate: true,
   });
 
-  const bar = useRef(null)
+  const bar = useRef(null);
 
   const updateTrackProgress = (event) => {
     const { width, left } = bar.current.getBoundingClientRect();
-    const percentageClicked = (event.clientX - left)/width;
-    seek(duration*percentageClicked)
-  }
+    const percentageClicked = (event.clientX - left) / width;
+    seek(duration * percentageClicked);
+  };
 
   return (
     <div className="bar-container">
@@ -32,7 +32,7 @@ export default function Bar() {
           style={{ left: `${percentComplete}%` }}
         />
       </div>
-      <span>{ getCounter(duration)}</span>
+      <span>{getCounter(duration)}</span>
     </div>
   );
 }

@@ -24,9 +24,7 @@ const Tabs = (props) => {
         changeTab={changeTab}
       />
       <div className="tab-content">
-        <AnimatedListItem>
-          {content.current}
-        </AnimatedListItem>
+        <AnimatedListItem>{content.current}</AnimatedListItem>
       </div>
     </div>
   );

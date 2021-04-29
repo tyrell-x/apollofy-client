@@ -17,9 +17,7 @@ const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png";
 function EditTrack({ id, closeModal }) {
   const dispatch = useDispatch();
 
-  const { thumbnail = defaultImage, title } = useSelector(
-    selectTrack(id),
-  );
+  const { thumbnail = defaultImage, title } = useSelector(selectTrack(id));
 
   const {
     register,
@@ -27,14 +25,14 @@ function EditTrack({ id, closeModal }) {
     watch,
     formState: { errors },
   } = useForm({
-      defaultValues: {
-          title: title
-      }
+    defaultValues: {
+      title: title,
+    },
   });
 
   const onSubmit = async (data) => {
-    dispatch(updateTrack(id, data))
-    closeModal()
+    dispatch(updateTrack(id, data));
+    closeModal();
   };
 
   return (
@@ -46,18 +44,18 @@ function EditTrack({ id, closeModal }) {
         <img alt="thumbnail" src={thumbnail}></img>
       </div>
       <div className="track-inputs">
-        <FLInput 
-        name="title"
-        label="title"
-        borderMode="bottom" 
-        register={register}
-        rules={{
+        <FLInput
+          name="title"
+          label="title"
+          borderMode="bottom"
+          register={register}
+          rules={{
             maxLength: {
-            value: 20,
-            message: "Max length (20)",
+              value: 20,
+              message: "Max length (20)",
             },
-        }}
-        error={errors?.title}
+          }}
+          error={errors?.title}
         />
       </div>
       <Button type="submit">Submit Changes</Button>

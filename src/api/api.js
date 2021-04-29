@@ -102,7 +102,7 @@ function makeApi(request = makeRequest()) {
     getTracks: getTracks,
     getTrackInfo: getTrackInfo,
     likeTrackToggle: likeTrackToggle,
-    editTrack: editTrack
+    editTrack: editTrack,
   };
 }
 

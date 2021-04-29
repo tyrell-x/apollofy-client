@@ -1,10 +1,10 @@
-import "./Controls.scss"
+import "./Controls.scss";
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAudioPlayer } from "react-use-audio-player";
 import {
-    setCurrentlyPlaying,
+  setCurrentlyPlaying,
   setNextTrack,
   setPreviousTrack,
 } from "../../redux/player/player-actions.js";
@@ -16,7 +16,10 @@ import {
   faAngleDoubleRight,
   faAngleDoubleLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { currentlyPlayingSelector, playingTrackSelector } from "../../redux/player/player-selectors.js";
+import {
+  currentlyPlayingSelector,
+  playingTrackSelector,
+} from "../../redux/player/player-selectors.js";
 
 export default function Controls() {
   const dispatch = useDispatch();
@@ -43,7 +46,7 @@ export default function Controls() {
     }
   }, [currentTrack]);
 
-  useEffect(() => dispatch(setCurrentlyPlaying(false)), [])
+  useEffect(() => dispatch(setCurrentlyPlaying(false)), []);
 
   const playNext = () => {
     stop();

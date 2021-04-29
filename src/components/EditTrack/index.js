@@ -1,1 +1,1 @@
-export {default} from "./EditTrack"
+export { default } from "./EditTrack";

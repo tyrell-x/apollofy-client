@@ -14,5 +14,5 @@ export const REMOVE_TRACK = "REMOVE_TRACK";
 export const trackTypes = {
   ALL: "ALL",
   LIKED: "LIKED",
-  OWNED: "OWNED"
+  OWNED: "OWNED",
 };

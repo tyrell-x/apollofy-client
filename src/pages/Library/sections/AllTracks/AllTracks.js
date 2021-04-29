@@ -2,9 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import TrackCard from "../../../../components/TrackCard";
 import { fetchTracks } from "../../../../redux/tracks/track-actions";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectAllTracks
-} from "../../../../redux/tracks/track-selectors";
+import { selectAllTracks } from "../../../../redux/tracks/track-selectors";
 import AnimatedList from "../../../../components/AnimatedList";
 import Button from "../../../../components/Button";
 import FLInput from "../../../../components/FLInput";
@@ -16,8 +14,8 @@ function AllTracks() {
   const [filteredTracks, setFilteredTracks] = useState(allTracks);
 
   useEffect(() => {
-    setFilteredTracks(allTracks)
-  }, [allTracks])
+    setFilteredTracks(allTracks);
+  }, [allTracks]);
 
   useEffect(() => {
     dispatch(fetchTracks());
@@ -34,8 +32,7 @@ function AllTracks() {
 
   const applyNameFilter = (e) => {
     setFilteredTracks(
-      allTracks
-        .filter((track) => track.title.includes(e.target.value))
+      allTracks.filter((track) => track.title.includes(e.target.value)),
     );
   };
 

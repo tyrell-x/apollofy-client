@@ -3,19 +3,19 @@
   overflow: overlay;
 
   .filter-inputs {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 30px;
-		
-		& > * {
-			margin: 10px;
-		}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
 
-		.input-container {
-			width: 300px;
-		}
-	}
+    & > * {
+      margin: 10px;
+    }
+
+    .input-container {
+      width: 300px;
+    }
+  }
 
   .list {
     display: flex;

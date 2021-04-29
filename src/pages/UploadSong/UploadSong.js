@@ -45,7 +45,7 @@ function UploadSong() {
     dispatch(setSongsToUpload(songsData.filter((valid) => valid)));
   }
 
-  useEffect(() => resetRefs, [resetRefs, songsToUpload])
+  useEffect(() => resetRefs, [resetRefs, songsToUpload]);
 
   const uploadAll = useCallback(() => {
     Object.values(uploadFormRefs.current).forEach((form) =>
