@@ -11,6 +11,9 @@ import {
 import LikeButton from "../LikeButton";
 import AnimatedListItem from "../AnimatedListItem";
 import DeleteButton from "../DeleteButton/index.js";
+import Button from "../Button/index.js";
+import { addTrackToPlayer, removeTrackFromPlayer, removeTrackToPlayer } from "../../redux/player/player-actions.js";
+import { isTrackInPlayer } from "../../redux/player/player-selectors.js";
 
 const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png";
 
@@ -19,12 +22,22 @@ function TrackCard({ id }) {
 
   const { name, title, ownedBy, thumbnail = defaultImage, liked } = useSelector(selectTrack(id)) || {};
 
+  const trackInPlayer = useSelector(isTrackInPlayer(id))
+
   const onLikeButtonClick = () => {
     dispatch(toggleLikeTrack(id))
   }
 
   const onDeleteButtonClick = () => {
     dispatch(deleteTrack(id))
+  }
+
+  const toggleTrackInPlayer = () => {
+    if(trackInPlayer) {
+      dispatch(removeTrackFromPlayer(id))
+    } else {
+      dispatch(addTrackToPlayer(id))
+    }
   }
 
   return (
@@ -43,6 +56,7 @@ function TrackCard({ id }) {
           </div>
         </div>
         <div className="action-buttons">
+            <Button onClick={toggleTrackInPlayer}>{trackInPlayer ? "Remove track" : "Add track"}</Button>
             <DeleteButton onClick={onDeleteButtonClick}></DeleteButton>
             <LikeButton liked={liked} onClick={onLikeButtonClick} />
             <ButtonTrackOptions id={id} liked={liked} />

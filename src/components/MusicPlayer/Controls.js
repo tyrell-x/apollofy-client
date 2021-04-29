@@ -16,13 +16,13 @@ import {
   faAngleDoubleRight,
   faAngleDoubleLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { currentTrackSelector, playerTracksSelector } from "../../redux/player/player-selectors.js";
+import { currentlyPlayingSelector, playingTrackSelector } from "../../redux/player/player-selectors.js";
 
 export default function Controls() {
   const dispatch = useDispatch();
 
-  const { currentlyPlaying } = useSelector(playerTracksSelector);
-  const currentTrack = useSelector(currentTrackSelector);
+  const currentlyPlaying = useSelector(currentlyPlayingSelector);
+  const currentTrack = useSelector(playingTrackSelector);
 
   const {
     play,
@@ -36,7 +36,7 @@ export default function Controls() {
   useEffect(() => {
     if (currentTrack) {
       load({
-        src: currentTrack.data.url,
+        src: currentTrack.url,
         autoplay: currentlyPlaying,
         onend: () => dispatch(setNextTrack()),
       });
