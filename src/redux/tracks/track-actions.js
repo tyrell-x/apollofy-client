@@ -11,13 +11,13 @@ export const fetchTracksRequest = () => ({
 
 export const fetchTracksSuccess = ({
   fetchType = trackTypes.ALL,
-  byID,
-  ids,
+  tracksById,
+  trackCollections,
 }) => ({
   type: TrackTypes.FETCH_TRACKS_SUCCESS,
   payload: {
-    byID: byID,
-    ids: ids,
+    tracksById: tracksById,
+    trackCollections: trackCollections,
     type: fetchType,
   },
 });
@@ -28,12 +28,27 @@ export const fetchTracksError = (message) => ({
 });
 
 export const updateLikeTrack = (id, liked) => ({
-  type: TrackTypes.UPDATE_LIKED_TRACK,
+  type: TrackTypes.UPDATE_LIKE_TRACK,
   payload: {
     id: id,
     liked: liked,
   },
 });
+
+export const editTrack = (id, data) => ({
+  type: TrackTypes.UPDATE_TRACK,
+  payload: {
+    id: id,
+    track: data,
+  },
+})
+
+export const removeTrack = (id) => ({
+  type: TrackTypes.REMOVE_TRACK,
+  payload: {
+    id: id
+  },
+})
 
 export const fetchTracks = () => {
   return async (dispatch) => {
@@ -52,8 +67,8 @@ export const fetchTracks = () => {
         const normalizedTracks = normalizeTracks(mapped);
         dispatch(
           fetchTracksSuccess({
-            byID: normalizedTracks.entities.tracks,
-            ids: normalizedTracks.result,
+            tracksById: normalizedTracks.entities.tracks,
+            trackCollections: normalizedTracks.result,
           }),
         );
       } else {
@@ -83,8 +98,8 @@ export const fetchLikedTracks = () => {
         dispatch(
           fetchTracksSuccess({
             fetchType: trackTypes.LIKED,
-            byID: normalizedTracks.entities.tracks,
-            ids: normalizedTracks.result,
+            tracksById: normalizedTracks.entities.tracks,
+            trackCollections: normalizedTracks.result,
           }),
         );
       } else {
@@ -106,8 +121,8 @@ export const fetchOwnedTracks = () => {
         dispatch(
           fetchTracksSuccess({
             fetchType: trackTypes.OWNED,
-            byID: normalizedTracks.entities.tracks,
-            ids: normalizedTracks.result,
+            tracksById: normalizedTracks.entities.tracks,
+            trackCollections: normalizedTracks.result,
           }),
         );
       } else {
@@ -135,3 +150,38 @@ export const toggleLikeTrack = (id) => {
     } catch (error) {}
   };
 };
+
+export const updateTrack = (id, data) => {
+  return async (dispatch) => {
+    try {
+      const token = await auth.getCurrentUserToken();
+
+      if (!token) {
+        return dispatch(signOutSuccess());
+      }
+      const response = await api.editTrack(id, data, {
+        Authorization: `Bearer ${token}`,
+      });
+
+      dispatch(editTrack(id, response.data.data));
+    } catch (error) {}
+  };
+}
+
+export const deleteTrack = (id) => {
+  return async (dispatch) => {
+    try {
+      const token = await auth.getCurrentUserToken();
+
+      if (!token) {
+        return dispatch(signOutSuccess());
+      }
+
+      const response = await api.deleteTrack(id, {
+        Authorization: `Bearer ${token}`,
+      });
+
+      dispatch(removeTrack(id));
+    } catch (error) {}
+  };
+}

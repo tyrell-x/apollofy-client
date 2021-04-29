@@ -48,28 +48,3 @@
     }
   }
 }
-
-.track-options-modal {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 85vh;
-  width: 100vw;
-  background-color: $navBg;
-  opacity: 95%;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-
-  img {
-    opacity: 100%;
-    width: 50vw;
-    border-radius: 20px;
-  }
-}
-
-.track-image {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: #222222;
-}

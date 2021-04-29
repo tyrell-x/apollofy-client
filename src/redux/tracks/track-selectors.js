@@ -7,19 +7,19 @@ export const selectTracksStore = createSelector(
 
 export const selectTrack = (id) =>
   createSelector(
-    (state) => state.tracks.byID[id],
+    (state) => state.tracks.tracksById[id],
     (track) => track,
   );
 
 export const selectAllTracks = createSelector(
-  (state) => state.tracks.byID,
+  (state) => state.tracks.tracksById,
   (tracksObj) => Object.values(tracksObj),
 );
 
 export const selectTrackCollection = (name) =>
   createSelector(
-    (state) => state.tracks.ids[name],
-    (ids) => ids,
+    (state) => state.tracks.trackCollections[name],
+    (trackCollections) => trackCollections,
   );
 
 const filterTrackSelector = (filterFn) => (track) => {
@@ -28,7 +28,7 @@ const filterTrackSelector = (filterFn) => (track) => {
 
 export const selectFilteredTrackIds = (filterFn = () => true) =>
   createSelector(
-    (state) => state.tracks.byID,
+    (state) => state.tracks.tracksById,
     (tracks) =>
       Object.entries(tracks)
         .filter((track) => filterTrackSelector(filterFn)(track[1]))

@@ -6,7 +6,10 @@ export const FETCH_TRACK_REQUEST = "FETCH_TRACK_REQUEST";
 export const FETCH_TRACK_ERROR = "FETCH_TRACK_ERROR";
 export const FETCH_TRACK_SUCCESS = "FETCH_TRACK_SUCCESS";
 
-export const UPDATE_LIKED_TRACK = "UPDATE_LIKED_TRACK";
+export const UPDATE_LIKE_TRACK = "UPDATE_LIKE_TRACK";
+export const UPDATE_TRACK = "UPDATE_TRACK";
+
+export const REMOVE_TRACK = "REMOVE_TRACK";
 
 export const trackTypes = {
   ALL: "ALL",

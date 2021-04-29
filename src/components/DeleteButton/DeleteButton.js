@@ -2,15 +2,11 @@ import React from "react";
 import * as MdIcons from "react-icons/md";
 import api from "../../api/api";
 
-function DeleteButton({id, deleteState, setDeleteState}) {
+function DeleteButton({...attributes}) {
 
-    const deleteOneTrack = async () => {
-      const delTrack = await api.deleteTrack("", id)
-      console.log(delTrack)
-    }
     return (
       <>
-        <button id={id} onClick={deleteOneTrack} className="track-options">
+        <button {...attributes} className="track-options">
           <MdIcons.MdDelete  />
         </button>
       </>

@@ -5,20 +5,26 @@ import {
   selectTrack,
 } from "../../redux/tracks/track-selectors";
 import {
+  deleteTrack,
   toggleLikeTrack,
 } from "../../redux/tracks/track-actions";
 import LikeButton from "../LikeButton";
 import AnimatedListItem from "../AnimatedListItem";
+import DeleteButton from "../DeleteButton/index.js";
 
 const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png";
 
 function TrackCard({ id }) {
   const dispatch = useDispatch()
 
-  const { name, title, ownedBy, thumbnail = defaultImage, liked } = useSelector(selectTrack(id));
+  const { name, title, ownedBy, thumbnail = defaultImage, liked } = useSelector(selectTrack(id)) || {};
 
   const onLikeButtonClick = () => {
     dispatch(toggleLikeTrack(id))
+  }
+
+  const onDeleteButtonClick = () => {
+    dispatch(deleteTrack(id))
   }
 
   return (
@@ -37,6 +43,7 @@ function TrackCard({ id }) {
           </div>
         </div>
         <div className="action-buttons">
+            <DeleteButton onClick={onDeleteButtonClick}></DeleteButton>
             <LikeButton liked={liked} onClick={onLikeButtonClick} />
             <ButtonTrackOptions id={id} liked={liked} />
         </div>

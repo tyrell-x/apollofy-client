@@ -7,8 +7,10 @@ export const TrackInitState = {
   trackLoading: false,
   trackLoadingError: null,
   trackFetched: false,
-  byID: {},
-  ids: {},
+  tracksById: {},
+  trackCollections: {
+    ALBUM_1: [32, 3, 4, 7],
+  },
 };
 
 const TrackReducer = (state = TrackInitState, action) => {
@@ -18,13 +20,26 @@ const TrackReducer = (state = TrackInitState, action) => {
       const filterByLiked = action.payload;
       return {
         ...state,
-        ids: {
-          ...state.ids,
+        trackCollections: {
+          ...state.trackCollections,
           ALL: filterByLiked
-            ? Object.values(state.byID)
+            ? Object.values(state.tracksById)
                 .filter((track) => track.liked)
                 .map((track) => track._id)
-            : Object.values(state.byID).map((track) => track._id),
+            : Object.values(state.tracksById).map((track) => track._id),
+        },
+      };
+    }
+    case TrackTypes.UPDATE_TRACK: {
+      const {id, track} = action.payload;
+      return {
+        ...state,
+        tracksById: {
+          ...state.tracksById,
+          [id]: {
+            ...state.tracksById[id],
+            ...track
+          }
         },
       };
     }
@@ -49,13 +64,13 @@ const TrackReducer = (state = TrackInitState, action) => {
         tracksLoading: false,
         tracksFetched: true,
         tracksLoadingError: null,
-        byID: {
-          ...state.byID,
-          ...action.payload.byID,
+        tracksById: {
+          ...state.tracksById,
+          ...action.payload.tracksById,
         },
-        ids: {
-          ...state.ids,
-          [fetchType]: [...action.payload.ids],
+        trackCollections: {
+          ...state.trackCollections,
+          [fetchType]: [...action.payload.trackCollections],
         },
       };
     }
@@ -80,23 +95,38 @@ const TrackReducer = (state = TrackInitState, action) => {
         trackLoading: false,
         trackFetched: true,
         trackLoadingError: null,
-        byID: {
-          ...state.byID,
+        tracksById: {
+          ...state.tracksById,
           [trackID]: action.payload,
         },
       };
     }
-    case TrackTypes.UPDATE_LIKED_TRACK: {
+    case TrackTypes.UPDATE_LIKE_TRACK: {
       const { id, liked } = action.payload;
       return {
         ...state,
-        byID: {
-          ...state.byID,
+        tracksById: {
+          ...state.tracksById,
           [id]: {
-            ...state.byID[id],
+            ...state.tracksById[id],
             liked: liked,
           },
         },
+      };
+    }
+    case TrackTypes.REMOVE_TRACK: {
+      const { id } = action.payload;
+      const { [id]: omit, ...updatedTracksById} = state.tracksById 
+
+      console.log({
+        ...state.tracksById
+      })
+      console.log({
+        ...updatedTracksById
+      })
+      return {
+        ...state,
+        tracksById: updatedTracksById,
       };
     }
     default: {

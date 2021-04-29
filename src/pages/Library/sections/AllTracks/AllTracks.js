@@ -3,10 +3,8 @@ import TrackCard from "../../../../components/TrackCard";
 import { fetchTracks } from "../../../../redux/tracks/track-actions";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectAllTracks,
-  selectTrackCollection,
+  selectAllTracks
 } from "../../../../redux/tracks/track-selectors";
-import { trackTypes } from "../../../../redux/tracks/track-types";
 import AnimatedList from "../../../../components/AnimatedList";
 import Button from "../../../../components/Button";
 import FLInput from "../../../../components/FLInput";
@@ -15,18 +13,15 @@ function AllTracks() {
   const dispatch = useDispatch();
 
   const allTracks = useSelector(selectAllTracks);
-  const filteredTracksSelected = useSelector(
-    selectTrackCollection(trackTypes.ALL),
-  );
-  const [filteredTracks, setFilteredTracks] = useState(filteredTracksSelected);
+  const [filteredTracks, setFilteredTracks] = useState(allTracks);
+
+  useEffect(() => {
+    setFilteredTracks(allTracks)
+  }, [allTracks])
 
   useEffect(() => {
     dispatch(fetchTracks());
   }, []);
-
-  useEffect(() => {
-    setFilteredTracks(filteredTracksSelected);
-  }, [filteredTracksSelected]);
 
   const toggleLiked = useRef(true);
   const applyLikedFilter = () => {
@@ -41,7 +36,6 @@ function AllTracks() {
     setFilteredTracks(
       allTracks
         .filter((track) => track.title.includes(e.target.value))
-        .map((track) => track._id),
     );
   };
 
@@ -57,8 +51,8 @@ function AllTracks() {
         <h3 style={{ color: "#ff8300cc" }}> // Filtros de prueba</h3>
       </div>
       <AnimatedList flipKey={(filteredTracks || []).join("")}>
-        {(filteredTracks || []).map((id) => (
-          <TrackCard id={id} key={id} />
+        {(filteredTracks || []).map((track) => (
+          <TrackCard id={track._id} key={track._id} />
         ))}
       </AnimatedList>
     </div>

@@ -36,6 +36,14 @@ function makeApi(request = makeRequest()) {
     });
   }
 
+  function deleteTrack(id, headers) {
+    return request({
+      url: `/track?_id=${id}`,
+      requestMethod: "DELETE",
+      headers: headers,
+    });
+  }
+
   function getProfileInfo(headers) {
     return request({
       url: "/account",
@@ -55,6 +63,15 @@ function makeApi(request = makeRequest()) {
     return request({
       url: "/track",
       requestMethod: "GET",
+      headers: headers,
+    });
+  }
+
+  function editTrack(id, data, headers) {
+    return request({
+      url: `/track/edit/${id}`,
+      requestMethod: "PATCH",
+      body: data,
       headers: headers,
     });
   }
@@ -79,11 +96,13 @@ function makeApi(request = makeRequest()) {
     signOut: signOut,
     updateUserInfo: updateUserInfo,
     createTrack: createTrack,
+    deleteTrack: deleteTrack,
     getProfileInfo: getProfileInfo,
     getLikedTracks: getLikedTracks,
     getTracks: getTracks,
     getTrackInfo: getTrackInfo,
-    likeTrackToggle: likeTrackToggle
+    likeTrackToggle: likeTrackToggle,
+    editTrack: editTrack
   };
 }
 

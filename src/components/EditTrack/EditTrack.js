@@ -1,66 +1,68 @@
-import {useState} from "react"
+import "./EditTrack.scss";
+
+import { useState } from "react";
 import * as AiIcons from "react-icons/ai";
-import LikeButton from "../LikeButton"
-import DeleteButton from "../DeleteButton"
-import {selectTrack} from "../../redux/tracks/track-selectors"
-import {useDispatch, useSelector} from "react-redux"
-import { toggleLikeTrack } from "../../redux/tracks/track-actions";
+import LikeButton from "../LikeButton";
+import DeleteButton from "../DeleteButton";
+import { selectTrack } from "../../redux/tracks/track-selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleLikeTrack, updateTrack } from "../../redux/tracks/track-actions";
+import FLInput from "../FLInput/index.js";
+import Button from "../Button/index.js";
+import { useForm } from "react-hook-form";
+import api from "../../api/api.js";
 
-function EditTrack({id, closeModal}){
-    const dispatch = useDispatch()
-    
-    const {thumbnail, name, title, ownedBy, liked} = useSelector(selectTrack(id))
-    const [edit, setEdit] = useState(false)
-    
-    const [edittedTitle, setTitle] = useState(title)
+const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png";
 
-    const editDetails = () => {
-        setEdit(!edit)
-    }
-    const editTitle = (e) => {
-        setTitle(e.target.value)
-    }
-    const submitChanges = () => {
-        console.log("changes submitted")
-        setEdit(!edit)
-    }
+function EditTrack({ id, closeModal }) {
+  const dispatch = useDispatch();
 
-    const onLikeButtonClick = () => {
-        //TODO: Submit form for upload
-        dispatch(toggleLikeTrack(id))
-    }
-    
-    return(
-        <>
-            <div onClick={()=>closeModal()}>
-                <AiIcons.AiOutlineClose />
-            </div>
-            <div className="options-image">
-                <img alt="thumbnail" src={thumbnail}></img>
-            </div>
-            <div>
-                { !edit ?
-                <div>
-                    <p>{name}</p>
-                    <p>{ownedBy}</p>
-                    <button onClick={editDetails}>Edit</button>
-                </div>
-                :
-                <div>
-                    <input placeholder={name} onChange={editTitle}></input>
-                    <button onClick={submitChanges}>Submit Changes</button>
-                </div>
-                }
-                <LikeButton 
-                onClick={onLikeButtonClick} 
-                liked={liked}
-                />
-                <DeleteButton/>
-                <p>Add to Playlist</p>
-                <p>Share</p>
-            </div>
-        </>
-    )
-} 
+  const { thumbnail = defaultImage, title } = useSelector(
+    selectTrack(id),
+  );
 
-export default EditTrack
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+      defaultValues: {
+          title: title
+      }
+  });
+
+  const onSubmit = async (data) => {
+    dispatch(updateTrack(id, data))
+    closeModal()
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="edit-track">
+      <button className="close-button" onClick={() => closeModal()}>
+        <AiIcons.AiOutlineClose />
+      </button>
+      <div className="track-image">
+        <img alt="thumbnail" src={thumbnail}></img>
+      </div>
+      <div className="track-inputs">
+        <FLInput 
+        name="title"
+        label="title"
+        borderMode="bottom" 
+        register={register}
+        rules={{
+            maxLength: {
+            value: 20,
+            message: "Max length (20)",
+            },
+        }}
+        error={errors?.title}
+        />
+      </div>
+      <Button type="submit">Submit Changes</Button>
+    </form>
+  );
+}
+
+export default EditTrack;
