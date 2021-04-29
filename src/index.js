@@ -6,6 +6,8 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import reportWebVitals from "./reportWebVitals";
 
+import { AudioPlayerProvider } from "react-use-audio-player";
+
 import store, { persistor } from "./redux/store";
 
 import App from "./App";
@@ -13,11 +15,13 @@ import App from "./App";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <App />
-        </PersistGate>
-      </Provider>
+      <AudioPlayerProvider>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <App />
+          </PersistGate>
+        </Provider>
+      </AudioPlayerProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root"),
