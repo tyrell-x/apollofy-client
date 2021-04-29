@@ -1,1 +1,1 @@
-export { default } from "./SongUploadForm.js";
+export { default } from "./SongUploadForm";

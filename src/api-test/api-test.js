@@ -25,7 +25,7 @@ function makeApi(request = makeRequest()) {
     });
   }
 
-  function getTracksLiked(headers) {
+  function getLikedTracks(headers) {
     return request({
       url: "/me/tracks/liked",
       requestMethod: "GET",
@@ -40,12 +40,38 @@ function makeApi(request = makeRequest()) {
     });
   }
 
+  function getTrackInfo(headers, id) {
+    return request({
+      url: `/tracks/${id}`,
+      requestMethod: "GET",
+      headers: headers,
+    });
+  }
+  function likeTrackToggle(headers, id) {
+    return request({
+      url: `/tracks/${id}/like`,
+      requestMethod: "PUT",
+      headers: headers,
+    });
+  }
+
+  function deleteTrack(headers, id) {
+    return request({
+      url: `/tracks/${id}`,
+      requestMethod: "DELETE",
+      headers: headers,
+    });
+  }
+
   return {
     signUp: signUp,
     signOut: signOut,
     getProfileInfo: getProfileInfo,
     getTracks: getTracks,
-    getTracksLiked: getTracksLiked,
+    getLikedTracks: getLikedTracks,
+    getTrackInfo: getTrackInfo,
+    likeTrackToggle: likeTrackToggle,
+    deleteTrack: deleteTrack,
   };
 }
 

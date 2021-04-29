@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import * as AiIcons from "react-icons/ai";
 import { FiSettings } from "react-icons/fi";
 import * as FaIcons from "react-icons/fa";
@@ -7,10 +7,15 @@ import "./Navbar.scss";
 import { Link } from "react-router-dom";
 import NavItem from "../NavItem";
 import DropdownMenu from "../DropdownMenu";
+import useClickOutside from "../../hooks/useClickOutside";
 
 function Navbar({ title = "" }) {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
+
+  const menuRef = useClickOutside(() => {
+    setSidebar(false);
+  });
 
   return (
     <header className="main-navbar">
@@ -25,7 +30,7 @@ function Navbar({ title = "" }) {
       </div>
 
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
-        <ul className="nav-menu-items" onClick={showSidebar}>
+        <ul ref={menuRef} className="nav-menu-items" onClick={showSidebar}>
           <li className="navbar-toggle">
             <Link to="#" className="menu-bars">
               <AiIcons.AiOutlineClose />

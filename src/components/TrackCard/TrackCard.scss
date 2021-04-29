@@ -1,0 +1,49 @@
+@import "../../styles/variables.scss";
+
+.track-card {
+  display: flex;
+  justify-content: space-around;
+  height: 5em;
+
+  .track-image {
+    position: relative;
+    width: 80px;
+    height: inherit;
+    background-color: transparent;
+
+    img {
+      height: 100%;
+      border-top-left-radius: 1em;
+      border-bottom-left-radius: 1em;
+      width: 5em;
+    }
+  }
+
+  background-color: $navBg;
+  border-radius: 1em;
+  align-items: center;
+
+  .track-content {
+    width: 100%;
+    margin-left: 1em;
+    align-items: center;
+  }
+
+  .track-details {
+    max-width: 60%;
+  }
+
+  .action-buttons {
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+
+    & > button {
+      cursor: pointer;
+      outline: none;
+      background: transparent;
+      color: white;
+      font-size: 20px;
+    }
+  }
+}

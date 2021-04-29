@@ -12,6 +12,7 @@
 body {
   margin: 0;
   background: rgb(0, 0, 0);
+  color: #dfdfdf;
   min-height: 100vh;
 }
 
@@ -26,4 +27,20 @@ body {
 
 button {
   color: black;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

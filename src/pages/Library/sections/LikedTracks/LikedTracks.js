@@ -1,29 +1,24 @@
-import React, { useState, useEffect } from "react";
-import "../../../../components/LibraryContent/LibraryContent.scss";
-import LibraryItem from "../../../../components/LibraryItem";
-import api from "../../../../api-test/api-test";
+import React, { useEffect } from "react";
+import TrackCard from "../../../../components/TrackCard";
+import { fetchLikedTracks } from "../../../../redux/tracks/track-actions";
+import { useDispatch, useSelector } from "react-redux";
+import { selectLikedTrackIds } from "../../../../redux/tracks/track-selectors";
+import AnimatedList from "../../../../components/AnimatedList";
+
 function LikedTracks() {
-  const [tracks, setTracks] = useState([]);
+  const dispatch = useDispatch();
+  const likedTracksIds = useSelector(selectLikedTrackIds);
 
   useEffect(() => {
-    async function getLikedTracks() {
-      const songs = await api.getTracksLiked();
-      setTracks(songs);
-    }
-    getLikedTracks();
+    dispatch(fetchLikedTracks());
   }, []);
 
   return (
     <div className="library-content">
-      {tracks.data &&
-        tracks.data.map((track) => (
-          <LibraryItem
-            key={track.id}
-            name={track.name}
-            artist={track.owner.login}
-            image={track.thumbnail}
-          />
-        ))}
+      <AnimatedList flipKey={likedTracksIds.join("")}>
+        {likedTracksIds &&
+          likedTracksIds.map((id) => <TrackCard id={id} key={id} />)}
+      </AnimatedList>
     </div>
   );
 }

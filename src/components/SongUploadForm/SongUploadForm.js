@@ -20,7 +20,7 @@ const SongUploadForm = forwardRef((props, ref) => {
       progress,
       failed = false,
       succeeded = false,
-    }
+    },
   } = props;
 
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const SongUploadForm = forwardRef((props, ref) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if(isUploading) {
+    if (isUploading) {
       return;
     }
     dispatch(

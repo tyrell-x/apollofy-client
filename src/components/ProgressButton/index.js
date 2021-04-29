@@ -1,1 +1,1 @@
-export { default } from "./ProgressButton.js";
+export { default } from "./ProgressButton";

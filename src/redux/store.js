@@ -11,7 +11,7 @@ import rootReducer from "./root-reducer";
 const persistConfig = {
   key: "apollofy-music-project-client",
   storage,
-  blacklist: ["uploader"],
+  blacklist: ["uploader", "player"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

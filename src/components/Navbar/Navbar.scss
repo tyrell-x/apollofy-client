@@ -7,7 +7,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 1;
   }
+
   .dropdown-icon-container {
     padding: 0 20px 0 0;
     button {
@@ -20,10 +22,12 @@
       }
     }
   }
+
   .dropdown-icon {
     font-size: 26px;
     color: white;
   }
+
   .dropdown {
     position: absolute;
     top: 58px;
@@ -37,6 +41,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
     .menu-item {
       background-color: none;
       color: white;
@@ -50,12 +55,14 @@
       border-radius: $border-radius;
       transition: background $speed;
       padding: 0.5rem;
+
       .icon-button {
         color: white;
         margin-right: 20px;
         font-size: 25px;
       }
     }
+
     .menu-item:hover {
       background-color: #525357;
     }
@@ -75,6 +82,7 @@
     display: flex;
     justify-content: center;
     position: fixed;
+    z-index: 1;
     top: 0;
     left: -100%;
     transition: 850ms;
