@@ -2,7 +2,7 @@ import { createSelector } from "reselect";
 
 export const selectTracksStore = createSelector(
   [(state) => state.tracks],
-  (tracksState) => tracksState,
+  (tracksStore) => tracksStore,
 );
 
 export const selectTrack = (id) =>
