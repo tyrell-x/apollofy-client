@@ -21,7 +21,9 @@ function App() {
     let unsubscribeFromAuth = null;
 
     unsubscribeFromAuth = onAuthStateChanged((user) => {
+      console.log(user);
       if (user) {
+        console.log(user);
         dispatch(syncSignIn());
       } else {
         dispatch(signOut());

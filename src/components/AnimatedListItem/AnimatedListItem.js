@@ -2,7 +2,6 @@ import { Flipped } from "react-flip-toolkit";
 import anime from "animejs";
 
 function AnimatedListItem({ children, ...props }) {
-
   const onAppear = (el, index) => {
     anime({
       begin: () => {
@@ -27,7 +26,7 @@ function AnimatedListItem({ children, ...props }) {
       delay: 30 * index,
       complete: () => removeElement(),
     });
-    return removeElement
+    return removeElement;
   };
 
   return (

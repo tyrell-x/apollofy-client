@@ -22,18 +22,14 @@ function AllTracks() {
 
   const applyNameFilter = (e) => {
     setFilteredTracks(
-      filt => allTracks.filter((track) => track.title.includes(e.target.value)),
+      allTracks.filter((track) => track.title.includes(e.target.value)),
     );
   };
 
   return (
     <div className="library-content">
       <div className="filter-inputs">
-        <FLInput
-          borderMode="bottom"
-          onInput={applyNameFilter}
-          label="Search"
-        />
+        <FLInput borderMode="bottom" onInput={applyNameFilter} label="Search" />
       </div>
       <AnimatedList flipKey={(filteredTracks || []).join("")}>
         {(filteredTracks || []).map((track) => (

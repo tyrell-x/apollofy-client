@@ -1,19 +1,18 @@
 import { Flipper } from "react-flip-toolkit";
 
 function AnimatedList({ children, ...props }) {
-
   const handleEnterUpdateDelete = async ({
     hideEnteringElements,
     animateEnteringElements,
     animateExitingElements,
-    animateFlippedElements
+    animateFlippedElements,
   }) => {
     hideEnteringElements();
     animateExitingElements();
     animateFlippedElements();
     setTimeout(() => {
       animateEnteringElements();
-    }, 60)
+    }, 60);
   };
 
   return (

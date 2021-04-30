@@ -42,7 +42,7 @@ function TrackCard({ id }) {
   const trackInPlayer = useSelector(isTrackInPlayer(id));
 
   const onLikeButtonClick = () => {
-    dispatch(toggleLikeTrack(id));
+    dispatch(toggleLikeTrack(id, !liked));
   };
 
   const onDeleteButtonClick = () => {
@@ -103,7 +103,6 @@ function TrackCard({ id }) {
                 <EditTrack id={id} closeModal={() => closeModal()} />
               </Modal>
             </div>
-            <button onClick={toggleTrackInPlayer}>BOTON nuevo</button>
             <DeleteButton onClick={onDeleteButtonClick}></DeleteButton>
           </Dropdown>
         </div>

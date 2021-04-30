@@ -1,4 +1,5 @@
 import axios from "axios";
+import * as auth from "../services/auth";
 
 export function createDefaultResponse() {
   return {
@@ -35,6 +36,7 @@ export function makeRequest(
     body = {},
     headers = {},
   }) {
+    const token = await auth.getCurrentUserToken();
     return normalizeResponse(
       httpClient({
         url: baseURL + url,
@@ -43,6 +45,7 @@ export function makeRequest(
         headers: {
           ...baseHeaders,
           ...headers,
+          Authorization: `Bearer ${token}`,
         },
         validateStatus: function validateStatus(status) {
           // Resolve only if the status code is in the 200 range

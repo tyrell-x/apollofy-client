@@ -8,8 +8,7 @@ export const TrackInitState = {
   trackLoadingError: null,
   trackFetched: false,
   tracksById: {},
-  trackCollections: {
-  },
+  trackCollections: {},
 };
 
 const TrackReducer = (state = TrackInitState, action) => {

@@ -31,7 +31,7 @@ export const selectFilteredTrackIds = (filterFn = () => true) =>
         .map((track) => track[0]),
   );
 
-  export const selectFilteredTrackIdsAndName = (filterFn = () => true) =>
+export const selectFilteredTrackIdsAndName = (filterFn = () => true) =>
   createSelector(
     (state) => state.tracks.tracksById,
     (tracks) =>
@@ -39,7 +39,7 @@ export const selectFilteredTrackIds = (filterFn = () => true) =>
         .filter((track) => filterFn(track[1]))
         .map((track) => ({
           id: track[0],
-          title: track[1].title
+          title: track[1].title,
         })),
   );
 
