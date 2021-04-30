@@ -1,11 +1,8 @@
 import * as PlaylistTypes from "./playlists-types";
 
-import { signOutSuccess } from "../auth/auth-actions";
-
 import playlistApi from "../../api/playlist-api";
 import { normalizePlaylists } from "../../schema/playlist-schema";
 
-import { getCurrentUserToken } from "../../services/auth";
 
 export const playlistCreateRequest = () => ({
   type: PlaylistTypes.CREATE_PLAYLIST_REQUEST,
