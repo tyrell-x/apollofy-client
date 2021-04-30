@@ -14,6 +14,7 @@ import Dropdown from "../Dropdown";
 import Modal from "react-modal";
 import EditTrack from "../EditTrack/index.js";
 import { useState } from "react";
+import { Draggable } from "react-beautiful-dnd"
 
 const customStyles = {
   content: {
@@ -69,8 +70,10 @@ function TrackCard({ id }) {
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
   return (
+    <Draggable key={id} draggableId={id} index={index}>
+      {(provided) => (
     <AnimatedListItem key={id} flipId={id}>
-      <div className="track-card" id={id}>
+      <div className="track-card" id={id} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
         <div className="track-image">
           <img src={thumbnail ? thumbnail : defaultImage} alt="track" />
         </div>
@@ -109,6 +112,8 @@ function TrackCard({ id }) {
         </div>
       </div>
     </AnimatedListItem>
+    )}
+    </Draggable>
   );
 }
 

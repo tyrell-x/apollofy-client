@@ -1,3 +1,4 @@
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import React, { useEffect, useRef, useState } from "react";
 import TrackCard from "../../../../components/TrackCard";
 import { fetchTracks } from "../../../../redux/tracks/track-actions";
@@ -9,9 +10,19 @@ import FLInput from "../../../../components/FLInput";
 
 function AllTracks() {
   const dispatch = useDispatch();
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+  }
 
   const allTracks = useSelector(selectAllTracks);
   const [filteredTracks, setFilteredTracks] = useState(allTracks);
+  const [tracks, updatetracks] = useState(allTrackslist);
+
+  const items = Array.from(tracks);
+  const [reorderedItem] = items.splice(result.source.index, 1);
+
+  items.splice(result.destination.index, 0, reorderedItem);
+  updatetracks(items);
 
   useEffect(() => {
     setFilteredTracks(allTracks);
@@ -47,11 +58,22 @@ function AllTracks() {
         />
         <h3 style={{ color: "#ff8300cc" }}> // Filtros de prueba</h3>
       </div>
-      <AnimatedList flipKey={(filteredTracks || []).join("")}>
-        {(filteredTracks || []).map((track) => (
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+      <Droppable droppableId="tracks">
+      {(provided) => (
+      <AnimatedList flipKey={(filteredTracks || []).join("")} className="list tracks" {...provided.droppableProps} ref={provided.innerRef}>
+      
+        {tracks(filteredTracks || []).map((track) => (
           <TrackCard id={track._id} key={track._id} />
+          
         ))}
+      
+      {provided.placeholder}
       </AnimatedList>
+      
+      )}
+      </Droppable>
+      </DragDropContext>
     </div>
   );
 }
