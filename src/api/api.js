@@ -34,7 +34,7 @@ function makeApi(request = makeRequest()) {
 
   function deleteTrack(id) {
     return request({
-      url: `/track?_id=${id}`,
+      url: `/track/${id}`,
       requestMethod: "DELETE",
     });
   }

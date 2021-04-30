@@ -128,6 +128,8 @@ export const toggleLikeTrack = (id, liked) => {
     try {
       const response = await api.likeTrackToggle(id, liked);
 
+      console.log(response);
+
       dispatch(updateLikeTrack(id, response.data));
     } catch (error) {}
   };

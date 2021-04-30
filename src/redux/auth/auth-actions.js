@@ -94,13 +94,7 @@ export function signOut() {
   return async function signOutThunk(dispatch) {
     dispatch(signOutRequest());
 
-    const response = await api.signOut();
-
-    if (response.errorMessage) {
-      return dispatch(signOutError(response.errorMessage));
-    }
-
-    auth.signOut();
+    await auth.signOut();
 
     return dispatch(signOutSuccess());
   };
