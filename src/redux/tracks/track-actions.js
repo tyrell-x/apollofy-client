@@ -62,7 +62,8 @@ export const fetchTracks = () => {
       const response = await api.getTracks({
         Authorization: `Bearer ${token}`,
       });
-      const mapped = response.data.data.slice(0, 30);
+      console.log(response)
+      const mapped = response.data.slice(0, 30);
       if (response.data) {
         const normalizedTracks = normalizeTracks(mapped);
         dispatch(
@@ -91,7 +92,7 @@ export const fetchLikedTracks = () => {
       const response = await api.getLikedTracks({
         Authorization: `Bearer ${token}`,
       });
-      const mapped = response.data.data
+      const mapped = response.data
         .slice(0, 30)
         .map((track) => ({ ...track, liked: true }));
       if (response.data) {
@@ -150,7 +151,7 @@ export const toggleLikeTrack = (id) => {
         id,
       );
 
-      dispatch(updateLikeTrack(id, response.data.data.liked));
+      dispatch(updateLikeTrack(id, response.data));
     } catch (error) {}
   };
 };

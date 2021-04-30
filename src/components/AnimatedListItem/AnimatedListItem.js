@@ -2,8 +2,8 @@ import { Flipped } from "react-flip-toolkit";
 import anime from "animejs";
 
 function AnimatedListItem({ children, ...props }) {
+
   const onAppear = (el, index) => {
-    const { top } = el.getBoundingClientRect();
     anime({
       begin: () => {
         el.style.opacity = null;
@@ -13,7 +13,7 @@ function AnimatedListItem({ children, ...props }) {
       direction: "reverse",
       duration: 300,
       easing: "easeOutSine",
-      endDelay: 75 * index,
+      endDelay: 30 * index,
     });
   };
 
@@ -24,10 +24,10 @@ function AnimatedListItem({ children, ...props }) {
       opacity: 0,
       duration: 300,
       easing: "easeInSine",
-      delay: 75 * index,
-      complete: removeElement,
+      delay: 30 * index,
+      complete: () => removeElement(),
     });
-    return removeElement;
+    return removeElement
   };
 
   return (

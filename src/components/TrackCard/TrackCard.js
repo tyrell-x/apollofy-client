@@ -13,7 +13,7 @@ import { isTrackInPlayer } from "../../redux/player/player-selectors.js";
 import Dropdown from "../Dropdown";
 import Modal from "react-modal";
 import EditTrack from "../EditTrack/index.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const customStyles = {
   content: {
