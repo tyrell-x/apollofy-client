@@ -1,13 +1,92 @@
 @import "../../styles/variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
 
 .main-navbar {
   .navbar {
-    background-color: $navBg;
-    height: 60px;
+    background: $navBg;
+    height: 96px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     z-index: 1;
+
+    .logo {
+      user-select: none;
+      font-family: 'Jockey One', sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 36px;
+      line-height: 50px;
+      margin-left: 50px;
+      color: #FF8933;
+    }
+
+    .nav-items {
+      display: flex;
+      gap: 66px;
+      margin-left: 120px;
+
+      a {
+        text-decoration: none;
+        color: rgb(212, 212, 212);
+        transition: color 0.3s;
+
+        &:hover, &:focus {
+          color: white;
+        }
+
+        &.active {
+          color: white;
+          text-decoration: underline;
+          text-decoration-color: #FF8933;
+        }
+      }
+      
+      .nav-item {
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-style: normal;
+        font-weight: 800;
+        font-size: 24px;
+        line-height: 29px;
+        color: inherit;
+
+        i {
+          font-size: 34px;
+        }
+
+      }
+    }
+
+    .finder {
+      width: 240px;
+      font-family: Lato;
+      margin-left: auto;
+      margin-right: 56px;
+
+      .search-icon {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        font-size: 24px;
+      }
+    }
+
+    .account-button {
+      cursor: pointer;
+      user-select: none;
+      background-color: #888888;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 56px;
+    }
   }
 
   .dropdown-icon-container {
@@ -127,9 +206,5 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-  }
-
-  span {
-    margin-left: 16px;
   }
 }

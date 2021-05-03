@@ -70,9 +70,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         isSigningOut: false,
         signOutError: null,
         isAuthenticated: false,
-        currentUser: {
-          email: null,
-        },
+        currentUser: {},
       };
     }
 

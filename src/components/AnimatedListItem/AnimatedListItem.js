@@ -12,7 +12,7 @@ function AnimatedListItem({ children, ...props }) {
       translateY: 60,
       direction: "reverse",
       duration: 300,
-      easing: "easeOutSine",
+      easing: "easeInSine",
       endDelay: 75 * index,
     });
   };
