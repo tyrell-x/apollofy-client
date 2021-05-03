@@ -8,28 +8,11 @@ export const TrackInitState = {
   trackLoadingError: null,
   trackFetched: false,
   tracksById: {},
-  trackCollections: {
-    ALBUM_1: [32, 3, 4, 7],
-  },
+  trackCollections: {},
 };
 
 const TrackReducer = (state = TrackInitState, action) => {
   switch (action.type) {
-    //TEST
-    case "FILTER_LIKED_IN_ALL_COLLECTION": {
-      const filterByLiked = action.payload;
-      return {
-        ...state,
-        trackCollections: {
-          ...state.trackCollections,
-          ALL: filterByLiked
-            ? Object.values(state.tracksById)
-                .filter((track) => track.liked)
-                .map((track) => track._id)
-            : Object.values(state.tracksById).map((track) => track._id),
-        },
-      };
-    }
     case TrackTypes.UPDATE_TRACK: {
       const { id, track } = action.payload;
       return {

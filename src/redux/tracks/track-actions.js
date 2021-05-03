@@ -54,15 +54,9 @@ export const fetchTracks = () => {
   return async (dispatch) => {
     dispatch(fetchTracksRequest());
     try {
-      const token = await auth.getCurrentUserToken();
-
-      if (!token) {
-        return dispatch(signOutSuccess());
-      }
-      const response = await api.getTracks({
-        Authorization: `Bearer ${token}`,
-      });
-      const mapped = response.data.data.slice(0, 30);
+      const response = await api.getTracks();
+      console.log(response);
+      const mapped = response.data.slice(0, 10);
       if (response.data) {
         const normalizedTracks = normalizeTracks(mapped);
         dispatch(
@@ -84,15 +78,9 @@ export const fetchLikedTracks = () => {
   return async (dispatch) => {
     dispatch(fetchTracksRequest());
     try {
-      const token = await auth.getCurrentUserToken();
-      if (!token) {
-        return dispatch(signOutSuccess());
-      }
-      const response = await api.getLikedTracks({
-        Authorization: `Bearer ${token}`,
-      });
-      const mapped = response.data.data
-        .slice(0, 30)
+      const response = await api.getLikedTracks();
+      const mapped = response.data
+        .slice(0, 10)
         .map((track) => ({ ...track, liked: true }));
       if (response.data) {
         const normalizedTracks = normalizeTracks(mapped);
@@ -135,22 +123,14 @@ export const fetchOwnedTracks = () => {
   };
 };
 
-export const toggleLikeTrack = (id) => {
+export const toggleLikeTrack = (id, liked) => {
   return async (dispatch) => {
     try {
-      const token = await auth.getCurrentUserToken();
+      const response = await api.likeTrackToggle(id, liked);
 
-      if (!token) {
-        return dispatch(signOutSuccess());
-      }
-      const response = await api.likeTrackToggle(
-        {
-          Authorization: `Bearer ${token}`,
-        },
-        id,
-      );
+      console.log(response);
 
-      dispatch(updateLikeTrack(id, response.data.data.liked));
+      dispatch(updateLikeTrack(id, response.data));
     } catch (error) {}
   };
 };
@@ -158,14 +138,7 @@ export const toggleLikeTrack = (id) => {
 export const updateTrack = (id, data) => {
   return async (dispatch) => {
     try {
-      const token = await auth.getCurrentUserToken();
-
-      if (!token) {
-        return dispatch(signOutSuccess());
-      }
-      const response = await api.editTrack(id, data, {
-        Authorization: `Bearer ${token}`,
-      });
+      const response = await api.editTrack(id, data);
 
       dispatch(editTrack(id, response.data.data));
     } catch (error) {}
@@ -175,15 +148,7 @@ export const updateTrack = (id, data) => {
 export const deleteTrack = (id) => {
   return async (dispatch) => {
     try {
-      const token = await auth.getCurrentUserToken();
-
-      if (!token) {
-        return dispatch(signOutSuccess());
-      }
-
-      const response = await api.deleteTrack(id, {
-        Authorization: `Bearer ${token}`,
-      });
+      await api.deleteTrack(id);
 
       dispatch(removeTrack(id));
     } catch (error) {}

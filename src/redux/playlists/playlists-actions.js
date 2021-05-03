@@ -1,11 +1,8 @@
 import * as PlaylistTypes from "./playlists-types";
 
-import { signOutSuccess } from "../auth/auth-actions";
-
 import playlistApi from "../../api/playlist-api";
 import { normalizePlaylists } from "../../schema/playlist-schema";
 
-import { getCurrentUserToken } from "../../services/auth";
 
 export const playlistCreateRequest = () => ({
   type: PlaylistTypes.CREATE_PLAYLIST_REQUEST,
@@ -72,23 +69,13 @@ export function fetchAllPlaylists() {
     dispatch(fetchPlaylistRequest());
 
     try {
-      const userToken = await getCurrentUserToken();
-
-      if (!userToken) {
-        console.log(userToken);
-        return dispatch(signOutSuccess());
-      }
-
-      const res = await playlistApi.getAllPlaylists({
-        Authorization: `Bearer ${userToken}`,
-      });
+      const res = await playlistApi.getAllPlaylists();
 
       if (res.errorMessage) {
         return dispatch(fetchPlaylistsError(res.errorMessage));
       }
 
-      const normalizedData = normalizePlaylists(res.data.data);
-      console.log(normalizedData);
+      const normalizedData = normalizePlaylists(res.data);
       return dispatch(
         fetchPlaylistsSuccess({
           ...normalizedData.entities.playlists,
@@ -105,20 +92,11 @@ export function createPlaylist({ title, thumbnail, publicAccessible }) {
     dispatch(playlistCreateRequest());
 
     try {
-      const userToken = await getCurrentUserToken();
-
-      if (!userToken) {
-        return dispatch(signOutSuccess());
-      }
-
       const res = await playlistApi.createPlaylist({
         body: {
           title: title,
           thumbnail: thumbnail,
           publicAccessible: publicAccessible,
-        },
-        headers: {
-          Authorization: `Bearer ${userToken}`,
         },
       });
 

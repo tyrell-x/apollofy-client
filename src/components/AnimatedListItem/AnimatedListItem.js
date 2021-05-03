@@ -3,7 +3,6 @@ import anime from "animejs";
 
 function AnimatedListItem({ children, ...props }) {
   const onAppear = (el, index) => {
-    const { top } = el.getBoundingClientRect();
     anime({
       begin: () => {
         el.style.opacity = null;
@@ -12,8 +11,8 @@ function AnimatedListItem({ children, ...props }) {
       translateY: 60,
       direction: "reverse",
       duration: 300,
-      easing: "easeInSine",
-      endDelay: 75 * index,
+      easing: "easeOutSine",
+      endDelay: 30 * index,
     });
   };
 
@@ -24,8 +23,8 @@ function AnimatedListItem({ children, ...props }) {
       opacity: 0,
       duration: 300,
       easing: "easeInSine",
-      delay: 75 * index,
-      complete: removeElement,
+      delay: 30 * index,
+      complete: () => removeElement(),
     });
     return removeElement;
   };
