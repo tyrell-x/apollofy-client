@@ -48,7 +48,7 @@ function makeApi(request = makeRequest()) {
 
   function getLikedTracks() {
     return request({
-      url: "/user/me/tracks/liked",
+      url: "/track/liked",
       requestMethod: "GET",
     });
   }
@@ -75,7 +75,7 @@ function makeApi(request = makeRequest()) {
   }
   function likeTrackToggle(id, liked) {
     return request({
-      url: `/user/me/liketrack?trackId=${id}&liked=${liked}`,
+      url: `/track/liked?id=${id}${liked ? "&liked=true" : ""}`,
       requestMethod: "POST",
     });
   }
