@@ -7,6 +7,7 @@ import PlaylistCard from "../../../../components/PlaylistCard";
 import { fetchAllPlaylists } from "../../../../redux/playlists/playlists-actions.js";
 import { selectAllPlaylistsIds } from "../../../../redux/playlists/playlists-selectors.js";
 import Button from "../../../../components/Button/index.js";
+
 function MyPlaylists() {
   const dispatch = useDispatch();
   const allPlaylistIds = useSelector(selectAllPlaylistsIds);
@@ -20,18 +21,22 @@ function MyPlaylists() {
       <div className="playlists-header">
         <Button>Create Playlist</Button>
       </div>
-      <div className="yourplaylists-container">
-        <div className="yourplaylists">
-          {(allPlaylistIds || []).map((id) => (
-            <PlaylistCard id={id} key={id} />
-          ))}
+      <div className="playlists">
+        <div className="playlists-container">
+          <h3>Owned Playlists</h3>
+          <div className="yourplaylists">
+            {(allPlaylistIds || []).map((id) => (
+              <PlaylistCard id={id} key={id} />
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="followedplaylists-container">
-        <div className="followedplaylists">
-          {(allPlaylistIds || []).map((id) => (
-            <PlaylistCard id={id} key={id} />
-          ))}
+        <div className="playlists-container">
+          <h3>Followed Playlists</h3>
+          <div className="followedplaylists">
+            {(allPlaylistIds || []).map((id) => (
+              <PlaylistCard id={id} key={id} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

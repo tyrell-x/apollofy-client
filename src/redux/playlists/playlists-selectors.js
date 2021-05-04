@@ -8,7 +8,7 @@ export const selectPlaylistStore = createSelector(
 export const selectPlaylist = (id) =>
   createSelector(
     (state) => state.playlists.playlistsById[id],
-    (playlists) => playlists,
+    (playlists) => playlists || {},
   );
 
 export const selectAllPlaylists = createSelector(

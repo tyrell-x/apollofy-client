@@ -15,7 +15,8 @@ import Account from "./pages/Account/Account";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Library from "./pages/Library";
 import Navbar from "./components/Navbar";
-import MusicPlayer from "./components/MusicPlayer/index.js";
+import MusicPlayer from "./components/MusicPlayer";
+import Playlist from "./pages/Playlist";
 function App() {
   const dispatch = useDispatch();
 
@@ -23,9 +24,7 @@ function App() {
     let unsubscribeFromAuth = null;
 
     unsubscribeFromAuth = onAuthStateChanged((user) => {
-      console.log(user);
       if (user) {
-        console.log(user);
         dispatch(syncSignIn());
       } else {
         dispatch(signOut());
@@ -51,6 +50,7 @@ function App() {
         <ProtectedRoute path={ROUTES.UPLOAD_SONG} component={UploadSong} />
         <ProtectedRoute path={ROUTES.UPLOAD_IMAGE} component={UploadImage} />
         <ProtectedRoute path={ROUTES.LIBRARY} component={Library} exact />
+        <ProtectedRoute path={`${ROUTES.PLAYLIST}/:id`} component={Playlist} exact />
       </Switch>
       <MusicPlayer />
     </div>

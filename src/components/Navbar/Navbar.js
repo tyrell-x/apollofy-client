@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import * as AiIcons from "react-icons/ai";
-import { FiSettings } from "react-icons/fi";
 import * as FaIcons from "react-icons/fa";
 import { SidebarData } from "./SidebarData";
 import "./Navbar.scss";
@@ -8,15 +7,12 @@ import { Link } from "react-router-dom";
 import NavItem from "../NavItem";
 import DropdownMenu from "../DropdownMenu";
 import useClickOutside from "../../hooks/useClickOutside";
-import FLInput from "../FLInput";
 import * as ROUTES from "../../routes";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { authSelector } from "../../redux/auth/auth-selectors";
 
 function Navbar() {
-
-
   const location = useLocation();
 
   const [sidebar, setSidebar] = useState(false);
@@ -32,7 +28,7 @@ function Navbar() {
   }
   return (
     <header className="main-navbar">
-      <div className="navbar">
+      <div className={`navbar ${location.pathname.startsWith(ROUTES.PLAYLIST) ? "playlist" : ""}`}>
         <div id="menu-button">
           <button to="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />

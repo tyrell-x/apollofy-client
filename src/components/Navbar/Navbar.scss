@@ -3,11 +3,15 @@
 
 .main-navbar {
   .navbar {
-    background: $navBg;
+    background-color: black;
     height: 96px;
     display: flex;
     align-items: center;
     z-index: 1;
+
+    &.playlist {
+      background-color: #1e2026;
+    }
 
     .menu-bars {
       margin-left: 1.5rem;
