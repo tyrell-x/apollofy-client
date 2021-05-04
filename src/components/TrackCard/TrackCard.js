@@ -11,6 +11,7 @@ import {
 } from "../../redux/player/player-actions.js";
 import { isTrackInPlayer } from "../../redux/player/player-selectors.js";
 import Dropdown from "../Dropdown";
+import AddToPlaylist from "../AddToPlaylist"
 import Modal from "react-modal";
 import EditTrack from "../EditTrack/index.js";
 import { useState } from "react";
@@ -65,6 +66,14 @@ function TrackCard({ id }) {
   function closeModal() {
     setIsOpen(false);
   }
+  const [playlistModalIsOpen, setPlaylistModalIsOpen] = useState(false);
+  function openPlaylistModal() {
+    setPlaylistModalIsOpen(true);
+  }
+
+  function closePlaylistModal() {
+    setPlaylistModalIsOpen(false);
+  }
 
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
@@ -103,7 +112,22 @@ function TrackCard({ id }) {
                 <EditTrack id={id} closeModal={() => closeModal()} />
               </Modal>
             </div>
-            <button onClick={toggleTrackInPlayer}>BOTON nuevo</button>
+            <div
+              onClick={() => {
+                openPlaylistModal();
+                setDropdownIsOpen(false);
+              }}
+            >
+              Add to Playlist
+              <Modal
+                isOpen={playlistModalIsOpen}
+                onRequestClose={closePlaylistModal}
+                style={customStyles}
+              >
+                <AddToPlaylist id={id} closePlaylistModal={() => closePlaylistModal()} />
+              </Modal>
+            </div>
+            <button onClick={toggleTrackInPlayer}>Boton Nuevo</button>
             <DeleteButton onClick={onDeleteButtonClick}></DeleteButton>
           </Dropdown>
         </div>
