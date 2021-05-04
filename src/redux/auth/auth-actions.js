@@ -71,6 +71,7 @@ export function signInWithEmailRequest(email, password) {
 
 export function syncSignIn() {
   return async function syncSignInThunk(dispatch, getState) {
+    await auth.getCurrentUserToken();
     const response = await api.signUp(getState().auth.currentUser);
 
     if (response.errorMessage) {
