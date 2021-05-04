@@ -14,7 +14,7 @@ import Dropdown from "../Dropdown";
 import AddToPlaylist from "../AddToPlaylist"
 import Modal from "react-modal";
 import EditTrack from "../EditTrack/index.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const customStyles = {
   content: {
@@ -43,7 +43,7 @@ function TrackCard({ id }) {
   const trackInPlayer = useSelector(isTrackInPlayer(id));
 
   const onLikeButtonClick = () => {
-    dispatch(toggleLikeTrack(id));
+    dispatch(toggleLikeTrack(id, !liked));
   };
 
   const onDeleteButtonClick = () => {

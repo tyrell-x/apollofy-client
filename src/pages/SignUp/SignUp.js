@@ -28,8 +28,8 @@ function SignUp() {
   } = useForm();
 
   const onSubmit = (data) => {
-    const { email, password, repeatPassword, ...userData } = data;
-    dispatch(signUpWithEmailRequest(email, password, userData));
+    const { repeatPassword, ...userData } = data;
+    dispatch(signUpWithEmailRequest(userData));
   };
 
   useEffect(() => {

@@ -12,7 +12,7 @@ export function useRefs() {
 
   const resetRefs = useCallback(() => {
     refs.current = {};
-  });
+  }, []);
 
   return [refs, register, resetRefs];
 }
