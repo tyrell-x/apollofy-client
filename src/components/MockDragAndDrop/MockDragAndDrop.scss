@@ -30,12 +30,12 @@
   }
 }
 
-.characters {
+.singers {
   list-style: none;
   padding-left: 0;
 }
 
-.characters div {
+.singers div {
   display: flex;
   align-items: center;
   border: solid 2px #d0d0d0;
@@ -63,7 +63,7 @@ p.artist-name {
   right: 0;
 }
 
-.characters-thumb {
+.singers-thumb {
   overflow: hidden;
   flex-shrink: 0;
   width: 5em;
@@ -73,7 +73,7 @@ p.artist-name {
   margin: .5em .2em;
 }
 
-.characters-thumb img {
+.singers-thumb img {
   display: block;
   width: 100%;
   height: auto;

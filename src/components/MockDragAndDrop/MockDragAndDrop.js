@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import './MockDragAndDrop.scss';
 
+//This is the data of the column that we will apply dragAndDrop
 const theOnes = [
   
   {
@@ -32,17 +33,17 @@ const theOnes = [
 ]
 
 function MockDragAndDrop() {
-  const [characters, updateCharacters] = useState(theOnes);
+  const [singers, updateSingers] = useState(theOnes);
   console.log(theOnes)
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
     console.log(result)
-    const items = Array.from(characters);
+    const items = Array.from(singers);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-
-    updateCharacters(items);
+    console.log(result.destination.index)
+    updateSingers(items);
   }
 
 
@@ -53,15 +54,15 @@ function MockDragAndDrop() {
       <header className="Singers-header">
         <h1>The Ones</h1>
         <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId="characters">
+          <Droppable droppableId="singers">
             {(provided) => (
-              <ul className="characters" {...provided.droppableProps} ref={provided.innerRef}>
-                {characters.map(({id, name, thumb}, index) => {
+              <div className="singers" {...provided.droppableProps} ref={provided.innerRef}>
+                {singers.map(({id, name, thumb}, index) => {
                   return (
                     <Draggable key={id} draggableId={id} index={index}>
                       {(provided) => (
                         <div className = "Singer-Card" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                          <div className="characters-thumb">
+                          <div className="singers-thumb">
                             <img src={thumb} alt={`${name} Thumb`} />
                           </div>
                           <p className="artist-name">
@@ -73,7 +74,7 @@ function MockDragAndDrop() {
                   );
                 })}
                 {provided.placeholder}
-              </ul>
+              </div>
             )}
           </Droppable>
         </DragDropContext>
