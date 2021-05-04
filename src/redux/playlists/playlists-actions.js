@@ -3,7 +3,6 @@ import * as PlaylistTypes from "./playlists-types";
 import playlistApi from "../../api/playlist-api";
 import { normalizePlaylists } from "../../schema/playlist-schema";
 
-
 export const playlistCreateRequest = () => ({
   type: PlaylistTypes.CREATE_PLAYLIST_REQUEST,
 });
