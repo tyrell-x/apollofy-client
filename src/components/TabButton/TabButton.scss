@@ -1,14 +1,15 @@
 .tab-button {
   background-color: transparent;
-  border: 1px solid rgb(73, 73, 73);
-  border-width: 0 0 2px 0;
-  transition: border-color 0.2s ease-out;
 
   button {
+    border: 4px solid transparent;
+    border-width: 0 0 4px 0;
+    transition: border-color 0.2s ease-out;  
     cursor: pointer;
     background-color: transparent;
-    font-size: 20px;
+    font-size: 26px;
     color: grey;
+    font-weight: 400;
 
     &:focus {
       outline: none;
@@ -17,11 +18,11 @@
   }
 
   &.active {
-    border-color: rgba(255, 166, 0, 0.521);
 
     button {
+      border-color: rgba(255, 166, 0, 0.521);
       color: white;
-      font-weight: 600;
+      font-weight: 800;
     }
   }
 }

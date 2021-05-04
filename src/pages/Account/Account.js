@@ -12,7 +12,6 @@ function Account() {
 
   return (
     <>
-      <Navbar />
       <main className="main_container">
         <div className="main_container__profileImg">
           <img

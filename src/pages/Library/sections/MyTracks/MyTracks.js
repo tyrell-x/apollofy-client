@@ -6,7 +6,7 @@ import { selectAllTracks } from "../../../../redux/tracks/track-selectors";
 import AnimatedList from "../../../../components/AnimatedList";
 import FLInput from "../../../../components/FLInput";
 
-function AllTracks() {
+function MyTracks() {
   const dispatch = useDispatch();
 
   const allTracks = useSelector(selectAllTracks);
@@ -40,4 +40,4 @@ function AllTracks() {
   );
 }
 
-export default AllTracks;
+export default MyTracks;

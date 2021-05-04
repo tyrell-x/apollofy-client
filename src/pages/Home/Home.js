@@ -9,14 +9,10 @@ function Home() {
 
   return (
     <main>
-      <Navbar />
       <section>
         <div>
           <h1>Hello {currentUser.firstName || currentUser.email}</h1>
         </div>
-      </section>
-      <section>
-        <MusicPlayer />
       </section>
     </main>
   );

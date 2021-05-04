@@ -11,8 +11,12 @@ import useClickOutside from "../../hooks/useClickOutside";
 import FLInput from "../FLInput";
 import * as ROUTES from "../../routes";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { authSelector } from "../../redux/auth/auth-selectors";
 
-function Navbar({ title = "" }) {
+function Navbar() {
+
+
   const location = useLocation();
 
   const [sidebar, setSidebar] = useState(false);
@@ -22,16 +26,23 @@ function Navbar({ title = "" }) {
     setSidebar(false);
   });
 
+  const { isAuthenticated } = useSelector(authSelector);
+  if(!isAuthenticated) {
+    return <></>
+  }
   return (
     <header className="main-navbar">
       <div className="navbar">
+        <div id="menu-button">
+          <button to="#" className="menu-bars">
+            <FaIcons.FaBars onClick={showSidebar} />
+          </button>
+        </div>
         <div className="logo">APOLLOFY</div>
         <div className="nav-items">
           <Link
             to={ROUTES.HOME}
-            className={
-              location.pathname === ROUTES.HOME ? "active" : ""
-            }
+            className={location.pathname === ROUTES.HOME ? "active" : ""}
           >
             <div className="nav-item">
               <i>
@@ -67,27 +78,28 @@ function Navbar({ title = "" }) {
               <span>Explore</span>
             </div>
           </Link>
+          <Link
+            to={ROUTES.UPLOAD_SONG}
+            className={
+              location.pathname.startsWith(ROUTES.UPLOAD_SONG) ? "active" : ""
+            }
+          >
+            <div className="nav-item">
+              <i>
+                <AiIcons.AiOutlineUpload />
+              </i>
+              <span>Upload</span>
+            </div>
+          </Link>
         </div>
-
-        <FLInput borderMode="bottom" className="finder" label="Search">
-          <i className="search-icon">
-            <AiIcons.AiOutlineSearch />
-          </i>
-        </FLInput>
-        <div className="account-button">
-          <i>
-            <AiIcons.AiOutlineUser />
-          </i>
-        </div>
+        <button className="account-button">
+            <NavItem icon={<AiIcons.AiOutlineUser className="dropdown-icon" />}>
+              <DropdownMenu></DropdownMenu>
+            </NavItem>
+        </button>
       </div>
+
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
-        <Link to="#" className="menu-bars">
-          <FaIcons.FaBars onClick={showSidebar} />
-        </Link>
-        <h1>{title}</h1>
-        <NavItem icon={<FiSettings className="dropdown-icon" />}>
-          <DropdownMenu></DropdownMenu>
-        </NavItem>
         <ul ref={menuRef} className="nav-menu-items" onClick={showSidebar}>
           <li className="navbar-toggle">
             <Link to="#" className="menu-bars">

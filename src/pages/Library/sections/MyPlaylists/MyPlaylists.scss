@@ -1,0 +1,11 @@
+.followedplaylists,
+.yourplaylists {
+  margin: 28px 10px;
+  display: flex;
+  gap: 40px;
+}
+
+.playlists-header {
+  display: flex;
+  justify-content: flex-end;
+}

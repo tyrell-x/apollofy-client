@@ -4,7 +4,7 @@ const useClickOutside = (handler) => {
   const domNode = useRef();
   useEffect(() => {
     const maybeHandler = (event) => {
-      if (!domNode.current.contains(event.target)) {
+      if (!domNode.current?.contains(event.target)) {
         handler();
       }
     };

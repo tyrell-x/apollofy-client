@@ -57,7 +57,6 @@ function UploadSong() {
 
   return (
     <>
-      <Navbar title="Upload Song" />
       <div className="upload-song">
         <Dropzone
           filePaths={songsToUpload.map((song) => song.data.file.path)}

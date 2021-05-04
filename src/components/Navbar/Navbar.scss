@@ -9,6 +9,13 @@
     align-items: center;
     z-index: 1;
 
+    .menu-bars {
+      margin-left: 1.5rem;
+      font-size: 1.5rem;
+      background: none;
+      color: white;
+    }
+
     .logo {
       user-select: none;
       font-family: 'Jockey One', sans-serif;
@@ -35,9 +42,7 @@
         }
 
         &.active {
-          color: white;
-          text-decoration: underline;
-          text-decoration-color: #FF8933;
+          color: #FF8933;
         }
       }
       
@@ -60,21 +65,9 @@
       }
     }
 
-    .finder {
-      width: 240px;
-      font-family: Lato;
+    .account-button {
       margin-left: auto;
       margin-right: 56px;
-
-      .search-icon {
-        display: flex;
-        align-items: center;
-        height: 100%;
-        font-size: 24px;
-      }
-    }
-
-    .account-button {
       cursor: pointer;
       user-select: none;
       background-color: #888888;
@@ -90,7 +83,6 @@
   }
 
   .dropdown-icon-container {
-    padding: 0 20px 0 0;
     button {
       cursor: pointer;
       background: transparent;
@@ -112,7 +104,7 @@
     top: 58px;
     width: 300px;
     transform: translateX(-90%);
-    background-color: $navBg;
+    background: $navBg;
     border: $border;
     border-radius: $border-radius;
     padding: 1rem;
@@ -146,14 +138,6 @@
       background-color: #525357;
     }
   }
-
-  .menu-bars {
-    margin-left: 1.5rem;
-    font-size: 1.5rem;
-    background: none;
-    color: white;
-  }
-
   .nav-menu {
     background-color: $navBg;
     width: 250px;
@@ -206,5 +190,18 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+  }
+}
+
+
+@media (max-width: 1300px) {
+  .nav-item span {
+    display: none;
+  }
+}
+
+@media (min-width: 1000px) {
+  #menu-button {
+    display: none;
   }
 }

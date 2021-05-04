@@ -14,6 +14,8 @@ import { syncSignIn, signOut } from "./redux/auth/auth-actions";
 import Account from "./pages/Account/Account";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Library from "./pages/Library";
+import Navbar from "./components/Navbar";
+import MusicPlayer from "./components/MusicPlayer/index.js";
 function App() {
   const dispatch = useDispatch();
 
@@ -39,6 +41,7 @@ function App() {
 
   return (
     <div className="App__container">
+      <Navbar />
       <Switch>
         <Route path={ROUTES.SIGN_UP} component={SignUp} />
         <Route path={ROUTES.LOGIN} component={Login} />
@@ -49,6 +52,7 @@ function App() {
         <ProtectedRoute path={ROUTES.UPLOAD_IMAGE} component={UploadImage} />
         <ProtectedRoute path={ROUTES.LIBRARY} component={Library} exact />
       </Switch>
+      <MusicPlayer />
     </div>
   );
 }

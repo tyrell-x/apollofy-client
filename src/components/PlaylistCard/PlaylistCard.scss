@@ -1,0 +1,52 @@
+
+
+.playlist-card {
+    width: 220px;
+    height: 220px;
+
+    .frontface {
+        border-radius: 5px;
+        width: 220px;
+        height: 220px;
+    }
+
+    .backface {
+        font-size: 13px;
+        padding: 15px;
+        padding-left: 0;
+        border-radius: 5px;
+        color: rgb(32, 32, 32);
+        background-color: white;
+        width: 220px;
+        height: 220px;            
+        overflow: hidden;
+
+        .playlist-tracks {
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 70%;
+
+            li {
+                width: 100%;
+            }
+        }
+    }
+
+    .flippable {
+        transition: transform 0.3s;
+    }
+
+    .playlist-info {
+        transition: margin-top 0.3s;
+    }
+
+    &:hover {
+        .flippable {
+            transform: scale(1.1);
+        }
+
+        .playlist-info {
+            margin-top: 14px;
+        }
+    }
+}

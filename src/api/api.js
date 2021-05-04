@@ -62,7 +62,7 @@ function makeApi(request = makeRequest()) {
   function editTrack(id, track) {
     return request({
       url: `/track/edit/${id}`,
-      requestMethod: "PATCH",
+      requestMethod: "PUT",
       body: track,
     });
   }
@@ -75,7 +75,7 @@ function makeApi(request = makeRequest()) {
   }
   function likeTrackToggle(id, liked) {
     return request({
-      url: `/user/me/liketrack?trackId=${id}&liked=${liked}`,
+      url: `/user/me/liketrack?trackId=${id}${liked ? "&liked=true" : ""}`,
       requestMethod: "POST",
     });
   }
