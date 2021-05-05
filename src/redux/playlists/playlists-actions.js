@@ -1,11 +1,9 @@
 import * as PlaylistTypes from "./playlists-types";
 
-import { signOutSuccess } from "../auth/auth-actions";
-
 import playlistApi from "../../api/playlist-api";
 import { normalizePlaylists } from "../../schema/playlist-schema";
-
-import { getCurrentUserToken } from "../../services/auth";
+import { normalizeTracks } from "../../schema/track-schema.js";
+import { addTracks } from "../tracks/track-actions.js";
 
 export const playlistCreateRequest = () => ({
   type: PlaylistTypes.CREATE_PLAYLIST_REQUEST,
@@ -72,27 +70,32 @@ export function fetchAllPlaylists() {
     dispatch(fetchPlaylistRequest());
 
     try {
-      const userToken = await getCurrentUserToken();
-
-      if (!userToken) {
-        console.log(userToken);
-        return dispatch(signOutSuccess());
-      }
-
-      const res = await playlistApi.getAllPlaylists({
-        Authorization: `Bearer ${userToken}`,
-      });
+      const res = await playlistApi.getAllPlaylists();
 
       if (res.errorMessage) {
         return dispatch(fetchPlaylistsError(res.errorMessage));
       }
 
-      const normalizedData = normalizePlaylists(res.data.data);
-      console.log(normalizedData);
+      const normalizedData = normalizePlaylists(res.data);
+
+      const tracks = normalizeTracks(
+        res.data.flatMap((playlist) => playlist.tracks),
+      ).entities.tracks;
+      dispatch(addTracks(tracks));
+
+      const playlists = Object.fromEntries(
+        Object.entries(normalizedData.entities.playlists).map(
+          ([key, value]) => [
+            key,
+            {
+              ...value,
+              tracks: value.tracks.map((track) => track._id),
+            },
+          ],
+        ),
+      );
       return dispatch(
-        fetchPlaylistsSuccess({
-          ...normalizedData.entities.playlists,
-        }),
+        fetchPlaylistsSuccess(playlists),
       );
     } catch (err) {
       return dispatch(fetchPlaylistError(err));
@@ -105,20 +108,11 @@ export function createPlaylist({ title, thumbnail, publicAccessible }) {
     dispatch(playlistCreateRequest());
 
     try {
-      const userToken = await getCurrentUserToken();
-
-      if (!userToken) {
-        return dispatch(signOutSuccess());
-      }
-
       const res = await playlistApi.createPlaylist({
         body: {
           title: title,
           thumbnail: thumbnail,
           publicAccessible: publicAccessible,
-        },
-        headers: {
-          Authorization: `Bearer ${userToken}`,
         },
       });
 

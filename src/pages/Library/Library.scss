@@ -1,6 +1,8 @@
+.library {
+  margin: 0 60px;
+}
+
 .library-content {
-  height: 65vh;
-  overflow: overlay;
 
   .filter-inputs {
     display: flex;
@@ -24,3 +26,4 @@
     margin: 10px;
   }
 }
+

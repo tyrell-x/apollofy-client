@@ -1,100 +1,89 @@
 import { makeRequest } from "./api-utils";
 
 function makeApi(request = makeRequest()) {
-  function signUp(user, headers) {
+  function signUp(user) {
     return request({
       body: user,
       url: "/user/me/sign-up",
       requestMethod: "POST",
-      headers: headers,
     });
   }
 
-  function signOut(headers) {
+  function signOut() {
     return request({
       url: "/user/me/sign-out",
       requestMethod: "POST",
-      headers: headers,
     });
   }
 
-  function updateUserInfo(headers, userInfo) {
+  function updateUser(user) {
     return request({
       url: "/user/me/edit",
       requestMethod: "PATCH",
-      headers: headers,
-      body: userInfo,
+      body: user,
     });
   }
 
-  function createTrack({ body, headers = {} }) {
+  function createTrack(track) {
     return request({
       url: "/track",
       requestMethod: "POST",
-      body: body,
-      headers: headers,
+      body: track,
     });
   }
 
-  function deleteTrack(id, headers) {
+  function deleteTrack(id) {
     return request({
-      url: `/track?_id=${id}`,
+      url: `/track/${id}`,
       requestMethod: "DELETE",
-      headers: headers,
     });
   }
 
-  function getProfileInfo(headers) {
+  function getProfileInfo() {
     return request({
       url: "/account",
       requestMethod: "GET",
-      headers: headers,
     });
   }
 
-  function getLikedTracks(headers) {
+  function getLikedTracks() {
     return request({
-      url: "/user/me/tracks/liked",
+      url: "/track/liked",
       requestMethod: "GET",
-      headers: headers,
     });
   }
-  function getTracks(headers) {
+  function getTracks() {
     return request({
       url: "/track",
       requestMethod: "GET",
-      headers: headers,
     });
   }
 
-  function editTrack(id, data, headers) {
+  function editTrack(id, track) {
     return request({
       url: `/track/edit/${id}`,
-      requestMethod: "PATCH",
-      body: data,
-      headers: headers,
+      requestMethod: "PUT",
+      body: track,
     });
   }
 
-  function getTrackInfo(headers, id) {
+  function getTrackInfo(id) {
     return request({
       url: `/track/${id}`,
       requestMethod: "GET",
-      headers: headers,
     });
   }
-  function likeTrackToggle(headers, id) {
+  function likeTrackToggle(id, liked) {
     return request({
-      url: `/user/me/liketrack?trackId=${id}`,
+      url: `/track/liked?id=${id}${liked ? "&liked=true" : ""}`,
       requestMethod: "POST",
-      headers: headers,
     });
   }
 
   return {
     signUp: signUp,
     signOut: signOut,
-    updateUserInfo: updateUserInfo,
+    updateUser: updateUser,
     createTrack: createTrack,
     deleteTrack: deleteTrack,
     getProfileInfo: getProfileInfo,

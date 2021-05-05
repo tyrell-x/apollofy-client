@@ -8,3 +8,4 @@ export const PROFILE = "/profile";
 export const LIBRARY = "/library";
 export const UPLOAD_SONG = "/upload-song";
 export const UPLOAD_IMAGE = "/upload-image";
+export const PLAYLIST = "/playlist";

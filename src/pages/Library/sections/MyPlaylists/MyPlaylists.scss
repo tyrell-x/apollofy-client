@@ -1,0 +1,19 @@
+.playlists {
+  overflow-y: overlay;
+
+  .playlists-container + .playlists-container {
+    margin-top: 40px;
+  }
+}
+
+.followedplaylists,
+.yourplaylists {
+  margin: 28px 10px;
+  display: flex;
+  gap: 40px;
+}
+
+.playlists-header {
+  display: flex;
+  justify-content: flex-end;
+}

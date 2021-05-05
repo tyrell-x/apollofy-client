@@ -45,11 +45,11 @@ export function signInWithGoogleRequest() {
   };
 }
 
-export function signUpWithEmailRequest(email, password, user = {}) {
+export function signUpWithEmailRequest(user) {
   return async function signUpThunk(dispatch) {
     dispatch(signUpRequest());
     try {
-      await auth.signUpWithEmailAndPassword(email, password);
+      await auth.signUpWithEmailAndPassword(user.email, user.password);
       dispatch(setUserInfo(user));
     } catch (error) {
       dispatch(signUpError(error.message));
@@ -62,6 +62,7 @@ export function signInWithEmailRequest(email, password) {
     dispatch(signUpRequest());
     try {
       await auth.signInWithEmailAndPassword(email, password);
+      dispatch(setUserInfo({ email, password }));
     } catch (error) {
       dispatch(signUpError(error.message));
     }
@@ -70,22 +71,14 @@ export function signInWithEmailRequest(email, password) {
 
 export function syncSignIn() {
   return async function syncSignInThunk(dispatch, getState) {
-    const token = await auth.getCurrentUserToken();
-
-    if (!token) {
-      return dispatch(signOutSuccess());
-    }
-
-    const response = await api.signUp(getState().auth.currentUser, {
-      Authorization: `Bearer ${token}`,
-    });
+    await auth.getCurrentUserToken();
+    const response = await api.signUp(getState().auth.currentUser);
 
     if (response.errorMessage) {
       return dispatch(signUpError(response.errorMessage));
     }
 
-    dispatch(setUserInfo(response.data.data));
-
+    dispatch(setUserInfo(response.data));
     return dispatch(signUpSuccess());
   };
 }
@@ -102,21 +95,7 @@ export function signOut() {
   return async function signOutThunk(dispatch) {
     dispatch(signOutRequest());
 
-    const token = await auth.getCurrentUserToken();
-
-    if (!token) {
-      return dispatch(signOutSuccess());
-    }
-
-    const response = await api.signOut({
-      Authorization: `Bearer ${token}`,
-    });
-
-    if (response.errorMessage) {
-      return dispatch(signOutError(response.errorMessage));
-    }
-
-    auth.signOut();
+    await auth.signOut();
 
     return dispatch(signOutSuccess());
   };
@@ -163,13 +142,7 @@ export function updateUserAccount(userData) {
   return async function updateUserAccountThunk(dispatch) {
     dispatch(updateUserAccountRequest(userData));
     try {
-      const token = await auth.getCurrentUserToken();
-      await api.updateUserInfo(
-        {
-          Authorization: `Bearer ${token}`,
-        },
-        userData,
-      );
+      await api.updateUser({}, userData);
       return dispatch(updateUserAccountSuccess(userData));
     } catch (error) {
       return dispatch(updateUserAccountError());

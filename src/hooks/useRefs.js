@@ -5,14 +5,18 @@ export function useRefs() {
 
   const register = useCallback(
     (refName) => (ref) => {
-      refs.current[refName] = ref;
+      refs.current = {
+        ...refs.current,
+        [refName]: ref
+      };
+      console.log(refs.current)
     },
-    [],
+    [refs],
   );
 
   const resetRefs = useCallback(() => {
     refs.current = {};
-  });
+  }, []);
 
-  return [refs, register, resetRefs];
+  return [refs.current, register, resetRefs];
 }
