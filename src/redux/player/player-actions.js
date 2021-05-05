@@ -1,5 +1,10 @@
 import * as PlayerTypes from "./player-types";
 
+const setTracksInPlayerAct = (tracks) => ({
+  type: PlayerTypes.SET_TRACKS_IN_PLAYER,
+  payload: tracks
+})
+
 const insertTracksToPlayer = (tracks) => ({
   type: PlayerTypes.ADD_TRACK_TO_PLAYER,
   payload: tracks,
@@ -24,6 +29,19 @@ export const setNextTrack = () => ({
 export const setPreviousTrack = () => ({
   type: PlayerTypes.SET_PREVIOUS_TRACK_IN_PLAYER,
 });
+
+export const setTracksInPlayer = (tracksIds = []) => {
+  return async function addTracks(dispatch) {
+    dispatch(
+      setTracksInPlayerAct(
+        tracksIds.map((id) => ({
+          id: id,
+          timesPlayed: 0,
+        })),
+      ),
+    );
+  };
+};
 
 export const addTrackToPlayer = (trackId) => {
   return async function addTracks(dispatch) {

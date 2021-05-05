@@ -19,14 +19,25 @@
         width: 220px;
         height: 220px;            
         overflow: hidden;
+        text-align: center;
 
         .playlist-tracks {
             overflow-y: auto;
             overflow-x: hidden;
-            height: 70%;
+            height: 60%;
 
             li {
                 width: 100%;
+            }
+        }
+
+        .playlist-page-button {
+            display: flex;
+            justify-content: center;
+
+            a {
+                color: black;
+                text-decoration: none;
             }
         }
     }
@@ -36,6 +47,8 @@
     }
 
     .playlist-info {
+        color: #bebebe;
+        margin-top: 2px;
         transition: margin-top 0.3s;
     }
 

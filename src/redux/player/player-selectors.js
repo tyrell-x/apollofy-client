@@ -14,8 +14,15 @@ export const playingTrackSelector = createSelector(
   (id, playerTracks, allTracks) => allTracks[playerTracks[id]?.id],
 );
 
+export const tracksPlayingSelector = createSelector(
+  [
+    (state) => state.player.tracks,
+  ],
+  (tracks) => tracks.length,
+);
+
 export const currentlyPlayingSelector = createSelector(
-  (state) => state.player.tracks.currentlyPlaying,
+  (state) => state.player.currentlyPlaying,
   (currentlyPlaying) => currentlyPlaying,
 );
 

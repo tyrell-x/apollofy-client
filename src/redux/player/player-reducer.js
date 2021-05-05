@@ -8,6 +8,15 @@ export const PlayerInitialState = {
 
 const PlayerReducer = (state = PlayerInitialState, action) => {
   switch (action.type) {
+    case PlayersTypes.SET_TRACKS_IN_PLAYER: {
+      const tracks = [...action.payload]
+      return {
+        ...state,
+        currentlyPlaying: true,
+        tracks: tracks,
+      };
+    }
+
     case PlayersTypes.ADD_TRACK_TO_PLAYER: {
       const tracks = [...action.payload].filter(
         (track) => !state.tracks.map((track) => track.id).includes(track.id),

@@ -1,6 +1,6 @@
 import "./UploadSong.scss";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import * as musicMetadata from "music-metadata-browser";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,6 @@ function UploadSong() {
   const dispatch = useDispatch();
 
   const songsToUpload = useSelector(songsToUploadSelector);
-  const [uploadFormRefs, registerForm, resetRefs] = useRefs();
 
   async function handleDropFiles(songsToUpload) {
     const songsData = await Promise.all(
@@ -45,15 +44,26 @@ function UploadSong() {
     dispatch(setSongsToUpload(songsData.filter((valid) => valid)));
   }
 
-  useEffect(() => resetRefs, [resetRefs, songsToUpload]);
+  const elRefs = useRef([]);
 
-  const uploadAll = useCallback(() => {
-    Object.values(uploadFormRefs.current).forEach((form) =>
-      typeof form.requestSubmit === "function"
-        ? form.requestSubmit()
-        : form.dispatchEvent(new Event("submit", { cancelable: true })),
-    );
-  }, [uploadFormRefs]);
+  useEffect(() => {
+    elRefs.current = elRefs.current.slice(0, songsToUpload.length);
+  }, [songsToUpload]);
+
+  const uploadAll = () => {
+    Object.values(elRefs.current).forEach((form) => {
+      form.requestSubmit();
+      return;
+      /*
+      if (form.requestSubmit === "function") {
+        console.log('eoo')
+        form.requestSubmit();
+      } else {
+        form.dispatchEvent(new Event("submit", { cancelable: true }));
+      }
+      */
+    });
+  };
 
   return (
     <>
@@ -70,10 +80,10 @@ function UploadSong() {
         <AnimatedList
           flipKey={songsToUpload.map((song) => song.data.id).join("")}
         >
-          {songsToUpload.map((song) => {
+          {songsToUpload.map((song, i) => {
             return (
               <SongUploadForm
-                ref={registerForm(song.data.id)}
+                ref={el => elRefs.current[i] = el}
                 key={song.data.id}
                 song={song}
               />

@@ -12,7 +12,7 @@ function Account() {
 
   return (
     <>
-      <main className="main_container">
+      <div className="main_container">
         <div className="main_container__profileImg">
           <img
             alt="profile"
@@ -24,7 +24,7 @@ function Account() {
           <button>Change Image</button>
         </div>
         <TabMenu />
-      </main>
+      </div>
     </>
   );
 }

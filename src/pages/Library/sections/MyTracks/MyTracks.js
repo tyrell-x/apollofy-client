@@ -10,10 +10,10 @@ function MyTracks() {
   const dispatch = useDispatch();
 
   const allTracks = useSelector(selectAllTracks);
-  const [filteredTracks, setFilteredTracks] = useState(allTracks);
+  const [filteredTracks, setFilteredTracks] = useState(allTracks.slice(0, 7));
 
   useEffect(() => {
-    setFilteredTracks(allTracks);
+    setFilteredTracks(allTracks.slice(0, 7));
   }, [allTracks]);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function MyTracks() {
 
   const applyNameFilter = (e) => {
     setFilteredTracks(
-      allTracks.filter((track) => track.title.includes(e.target.value)),
+      allTracks.slice(0, 7).filter((track) => track.title.includes(e.target.value)),
     );
   };
 

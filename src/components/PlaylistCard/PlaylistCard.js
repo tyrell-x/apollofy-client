@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import * as ROUTES from "../../routes";
 
 const defaultImage =
-  "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/artistic-album-cover-design-template-d12ef0296af80b58363dc0deef077ecc_screen.jpg?ts=1561488440";
+  "https://i.etsystatic.com/17942801/r/il/32d310/2418661138/il_570xN.2418661138_lnxd.jpg";
 
 export default function PlaylistCard({ id }) {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -40,13 +40,14 @@ export default function PlaylistCard({ id }) {
             <div
               className="frontface"
               style={{
-                backgroundImage: `url(${defaultImage})`,
+                backgroundImage: `url(${playlist.thumbnail || defaultImage})`,
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
               }}
             ></div>
             <div className="backface">
+              <h3>{playlist.title}</h3>
               <div className="playlist-tracks">
                 <ol>
                   {playlist.tracks.map((track) => (

@@ -8,7 +8,11 @@ export const selectPlaylistStore = createSelector(
 export const selectPlaylist = (id) =>
   createSelector(
     (state) => state.playlists.playlistsById[id],
-    (playlists) => playlists || {},
+    (state) => state.tracks.tracksById,
+    (playlist, tracks) => ({
+      ...(playlist || {}),
+      tracks: ((playlist || {}).tracks || []).map(id => tracks[id])
+    }),
   );
 
 export const selectAllPlaylists = createSelector(

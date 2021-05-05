@@ -7,14 +7,19 @@ import PlaylistCard from "../../../../components/PlaylistCard";
 import { fetchAllPlaylists } from "../../../../redux/playlists/playlists-actions.js";
 import { selectAllPlaylistsIds } from "../../../../redux/playlists/playlists-selectors.js";
 import Button from "../../../../components/Button/index.js";
+import { onAuthStateChanged } from "../../../../services/auth/auth.js";
 
 function MyPlaylists() {
   const dispatch = useDispatch();
   const allPlaylistIds = useSelector(selectAllPlaylistsIds);
 
   useEffect(() => {
-    dispatch(fetchAllPlaylists());
-  }, []);
+    onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(fetchAllPlaylists());
+      }
+    });
+  }, [dispatch]);
 
   return (
     <div className="library-content">
