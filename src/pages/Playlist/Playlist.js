@@ -90,7 +90,7 @@ function Playlist() {
                )}
                </Draggable>
         );
-        ))}
+        )}
         {provided.placeholder}
         </div>
         )}

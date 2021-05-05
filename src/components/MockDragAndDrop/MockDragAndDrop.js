@@ -59,7 +59,7 @@ function MockDragAndDrop() {
               <div className="singers" {...provided.droppableProps} ref={provided.innerRef}>
                 {singers.map(({id, name, thumb}, index) => {
                   return (
-                    <Draggable key={id} draggableId={id} index={index}>
+                    <Draggable key={id} draggableId={id} index={index}>q
                       {(provided) => (
                         <div className = "Singer-Card" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                           <div className="singers-thumb">
