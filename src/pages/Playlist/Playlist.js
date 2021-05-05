@@ -13,11 +13,14 @@ import { setTracksInPlayer } from "../../redux/player/player-actions.js";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "../../services/auth/auth.js";
 import { fetchAllPlaylists } from "../../redux/playlists/playlists-actions.js";
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const defaultImage =
   "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
 
 function Playlist() {
+
+  const [tracks, updateTracks] = useState(playlist.tracks);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,6 +37,16 @@ function Playlist() {
 
   const playPlaylist = () => {
     dispatch(setTracksInPlayer(playlist.tracks.map(track => track._id)))
+  }
+
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+    console.log(result)
+    const items = Array.from(tracks);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    console.log(result.destination.index)
+    updateTracks(items);
   }
 
   return (
@@ -54,8 +67,14 @@ function Playlist() {
         </div>
       </div>
       <div className="tracks">
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="tracks">
+        {(provided) => (
+              <div className="singers" {...provided.droppableProps} ref={provided.innerRef}>
         {playlist.tracks.map((track) => (
-          <div key={track._id} className="track">
+        <Draggable key={id} draggableId={id} index={index}>
+          {(provided) => (
+          <div key={track._id} className="track"  ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
             <div className="image">
               <img src={track.thumbnail} alt="track" height="100%"></img>
             </div>
@@ -68,7 +87,15 @@ function Playlist() {
             <div className="actions">
             </div>
           </div>
+               )}
+               </Draggable>
+        );
         ))}
+        {provided.placeholder}
+        </div>
+        )}
+        </Droppable>
+        </DragDropContext>
       </div>
     </div>
   );
