@@ -49,29 +49,27 @@ function ResetPassword() {
   }
 
   return (
-    <>
-      <main className="resetpassword">
-        <section className="resetpassword__wrapper">
-          <form className="resetpassword__form" onSubmit={handleSubmit}>
-            <FLInput
-              required
-              label="email"
-              type="text"
-              id="email"
-              className="form-input"
-              value={email}
-              onChange={handleSetEmail}
-            ></FLInput>
-            <Button
-              type="submit"
-              disabled={isSendingPasswordReset || passwordResetSent}
-              text={buttonText(isSendingPasswordReset, passwordResetSent)}
-            ></Button>
-          </form>
-          {passwordResetError && <section>{passwordResetError}</section>}
-        </section>
-      </main>
-    </>
+    <div className="resetpassword">
+      <section className="resetpassword__wrapper">
+        <form className="resetpassword__form" onSubmit={handleSubmit}>
+          <FLInput
+            required
+            label="email"
+            type="text"
+            id="email"
+            className="form-input"
+            value={email}
+            onChange={handleSetEmail}
+          ></FLInput>
+          <Button
+            type="submit"
+            disabled={isSendingPasswordReset || passwordResetSent}
+            text={buttonText(isSendingPasswordReset, passwordResetSent)}
+          ></Button>
+        </form>
+        {passwordResetError && <section>{passwordResetError}</section>}
+      </section>
+    </div>
   );
 }
 
