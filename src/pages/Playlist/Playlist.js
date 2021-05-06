@@ -10,7 +10,7 @@ import {
   faPlay
 } from "@fortawesome/free-solid-svg-icons";
 import { setTracksInPlayer } from "../../redux/player/player-actions.js";
-import { useEffect } from "react";
+import { useEffect, useState} from "react";
 import { onAuthStateChanged } from "../../services/auth/auth.js";
 import { fetchAllPlaylists } from "../../redux/playlists/playlists-actions.js";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -71,7 +71,7 @@ function Playlist() {
         <Droppable droppableId="tracks">
           {(provided) => (
               <div className="singers" {...provided.droppableProps} ref={provided.innerRef}>
-                {playlist.tracks.map((track) => (
+                {playlist.tracks.map((track, index) => (
                 <Draggable key={id} draggableId={id} index={index}>
                   {(provided) => (
                     <div key={track._id} className="track"  ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
