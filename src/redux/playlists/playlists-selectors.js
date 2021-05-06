@@ -12,7 +12,7 @@ export const selectPlaylist = (id) =>
   );
 
 export const selectAllPlaylists = createSelector(
-  (state) => state.tracks.tracksById,
+  (state) => state.playlists.playlistsById,
   (tracksObj) => Object.values(tracksObj),
 );
 

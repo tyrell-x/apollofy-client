@@ -9,8 +9,18 @@ function makeApi(request = makeRequest()) {
     });
   }
 
+  function postInPlaylist(headers, id, body) {
+    return request({
+      url: `/playlist/track?id=${id}`,
+      requestMethod: "POST",
+      headers: headers,
+      body: body,
+    });
+  }
+
   return {
     getAllPlaylists: getAllPlaylists,
+    postInPlaylist: postInPlaylist
   };
 }
 
