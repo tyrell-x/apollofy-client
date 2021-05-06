@@ -10,6 +10,7 @@ import FLInput from "../FLInput/index.js";
 import Button from "../Button/index.js";
 import { useForm } from "react-hook-form";
 import api from "../../api/playlist-api"
+import CreatePlaylist from "../CreatePlaylist/CreatePlaylist";
 const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png";
 
 function AddToPlaylist({ id, closePlaylistModal }) {
@@ -30,7 +31,7 @@ function AddToPlaylist({ id, closePlaylistModal }) {
   return (
       
     <div className="add-to-playlist-container">
-        {createPlaylist ? "Hola" : 
+        {createPlaylist ? <CreatePlaylist closeModal={()=>setCreatePlaylist(false)}/> : 
         <> 
         <div className="add-to-playlist">
             <button className="close-button" onClick={() => closePlaylistModal()}>

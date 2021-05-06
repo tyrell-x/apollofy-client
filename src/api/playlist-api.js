@@ -17,10 +17,19 @@ function makeApi(request = makeRequest()) {
       body: body,
     });
   }
+  function createPlaylist(headers, body) {
+    return request({
+      url: `/playlist/`,
+      requestMethod: "POST",
+      headers: headers,
+      body: body,
+    });
+  }
 
   return {
     getAllPlaylists: getAllPlaylists,
-    postInPlaylist: postInPlaylist
+    postInPlaylist: postInPlaylist,
+    createPlaylist: createPlaylist
   };
 }
 

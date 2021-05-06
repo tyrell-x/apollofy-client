@@ -1,6 +1,6 @@
 import "./MyPlaylists.scss";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PlaylistCard from "../../../../components/PlaylistCard";
 
@@ -8,11 +8,17 @@ import { fetchAllPlaylists } from "../../../../redux/playlists/playlists-actions
 import { selectAllPlaylistsIds } from "../../../../redux/playlists/playlists-selectors.js";
 import Button from "../../../../components/Button/index.js";
 import { onAuthStateChanged } from "../../../../services/auth/auth.js";
+import CreatePlaylist from "../../../../components/CreatePlaylist"
 
 function MyPlaylists() {
   const dispatch = useDispatch();
   const allPlaylistIds = useSelector(selectAllPlaylistsIds);
+  const [createPlaylist, setCreatePlaylist] = useState(false)
 
+  function closeModal() {
+    setCreatePlaylist(false)
+    dispatch(fetchAllPlaylists());
+  }
   useEffect(() => {
     onAuthStateChanged((user) => {
       if (user) {
@@ -20,11 +26,18 @@ function MyPlaylists() {
       }
     });
   }, [dispatch]);
-
+  console.log(createPlaylist)
   return (
     <div className="library-content">
       <div className="playlists-header">
-        <Button>Create Playlist</Button>
+        <Button onClick={()=>setCreatePlaylist(true)}>
+          Create Playlist
+        </Button>
+        {createPlaylist ? 
+          <div className="create-playlist-bg">
+            <CreatePlaylist closeModal={()=> closeModal()}/> 
+          </div>
+          : ""}
       </div>
       <div className="playlists">
         <div className="playlists-container">
