@@ -1,17 +1,96 @@
 @import "../../styles/variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
 
 .main-navbar {
   .navbar {
-    background-color: $navBg;
-    height: 60px;
+    background-color: black;
+    height: 96px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     z-index: 1;
+
+    &.playlist {
+      background-color: #1e2026;
+    }
+
+    .menu-bars {
+      margin-left: 1.5rem;
+      font-size: 1.5rem;
+      background: none;
+      color: white;
+    }
+
+    .logo {
+      user-select: none;
+      font-family: 'Jockey One', sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 36px;
+      line-height: 50px;
+      margin-left: 50px;
+      color: #FF8933;
+    }
+
+    .nav-items {
+      display: flex;
+      gap: 66px;
+      margin-left: 120px;
+
+      a {
+        text-decoration: none;
+        color: rgb(212, 212, 212);
+        transition: color 0.3s;
+
+        &:hover, &:focus {
+          color: white;
+        }
+
+        &.active {
+          color: #FF8933;
+        }
+      }
+      
+      .nav-item {
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-style: normal;
+        font-weight: 800;
+        font-size: 24px;
+        line-height: 29px;
+        color: inherit;
+
+        i {
+          font-size: 34px;
+        }
+
+      }
+    }
+
+    .account-button {
+      margin-left: auto;
+      margin-right: 56px;
+      cursor: pointer;
+      user-select: none;
+      background-color: #888888;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 56px;
+    }
   }
 
   .dropdown-icon-container {
-    padding: 0 20px 0 0;
     button {
       cursor: pointer;
       background: transparent;
@@ -33,7 +112,7 @@
     top: 58px;
     width: 300px;
     transform: translateX(-90%);
-    background-color: $navBg;
+    background: $navBg;
     border: $border;
     border-radius: $border-radius;
     padding: 1rem;
@@ -67,14 +146,6 @@
       background-color: #525357;
     }
   }
-
-  .menu-bars {
-    margin-left: 1.5rem;
-    font-size: 1.5rem;
-    background: none;
-    color: white;
-  }
-
   .nav-menu {
     background-color: $navBg;
     width: 250px;
@@ -128,8 +199,17 @@
     justify-content: flex-start;
     align-items: center;
   }
+}
 
-  span {
-    margin-left: 16px;
+
+@media (max-width: 1300px) {
+  .nav-item span {
+    display: none;
+  }
+}
+
+@media (min-width: 1000px) {
+  #menu-button {
+    display: none;
   }
 }

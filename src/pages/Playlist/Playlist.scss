@@ -1,0 +1,118 @@
+
+.playlist-page {
+    min-height: calc(100vh - 96px);
+    min-width: 100vw;
+    padding: 58px;
+    background-color: #383c45;
+
+    .summary {
+        display: flex;
+        gap: 40px;
+
+        .image {
+            border-radius: 5px;
+        }
+
+        .details {
+            align-self: flex-end;
+
+            .type {
+                font-family: Jockey One;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 30px;
+                color: #FF8933;
+                margin: 0;
+            }
+
+            .title {
+                font-family: Jockey One;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 64px;
+                text-transform: uppercase;
+                color: #FFFFFF;
+                margin: 0;
+            }
+
+            .actions {
+                margin: 10px 0;
+
+                .button {
+                    background-color: rgba(255, 255, 255, 0.15);
+                    color: white;
+                    border-radius: 30%;
+                    font-size: 20px;
+                    font-weight: 600;
+
+                    .play-text {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    .tracks {
+        margin: 50px 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 34px;
+
+        .track {
+            cursor: pointer;
+            height: 80px;
+            width: 100%;
+            display: flex;
+            border-bottom: 0.5px solid #8F8F8F;
+
+            .image {
+                height: 100%;
+                margin: 0 32px;
+                justify-self: flex-start;
+            }
+
+            .details {
+                margin-right: auto;
+                align-self: flex-end;
+                margin-bottom: 12px;
+
+                .title {
+                    font-weight: bold;
+                }
+
+                .artist {
+                    margin-top: 10px;
+                    color: #8F8F8F;
+                }
+            }
+
+            .owner {
+                margin-left: auto;
+                margin-right: auto;
+                align-self: flex-end;
+                margin-bottom: 12px;
+                color: #8F8F8F;
+            }
+
+            .duration {
+                margin-left: auto;
+                margin-right: auto;
+                align-self: flex-end;
+                margin-bottom: 12px;
+                color: #8F8F8F;
+            }
+
+            .actions {
+                display: flex;
+                gap: 8px;
+                margin-right: 15px;
+                justify-self: flex-end;
+                align-self: flex-end;
+                margin-bottom: 12px;
+                color: #8F8F8F;
+
+            }
+        }
+    }
+}

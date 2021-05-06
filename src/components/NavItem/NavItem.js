@@ -10,9 +10,9 @@ function NavItem(props) {
 
   return (
     <div ref={modalRef} className="dropdown-icon-container">
-      <button href="#" onClick={() => setOpen(!open)}>
+      <div href="#" onClick={() => setOpen(!open)}>
         {props.icon}
-      </button>
+      </div>
       {open && props.children}
     </div>
   );

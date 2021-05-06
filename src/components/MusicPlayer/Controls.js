@@ -44,9 +44,11 @@ export default function Controls() {
         onend: () => dispatch(setNextTrack()),
       });
     }
-  }, [currentTrack]);
+  }, [currentTrack, currentlyPlaying, dispatch, load]);
 
-  useEffect(() => dispatch(setCurrentlyPlaying(false)), []);
+  useEffect(() => dispatch(setCurrentlyPlaying(false)), [dispatch]);
+
+  useEffect(() => () => stop(), []);
 
   const playNext = () => {
     stop();

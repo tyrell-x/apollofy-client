@@ -30,7 +30,7 @@ const TrackReducer = (state = TrackInitState, action) => {
       return {
         ...state,
         tracksLoading: true,
-        tracksLoadingError: null,
+        tracksLoadingError: null
       };
     }
     case TrackTypes.FETCH_TRACKS_ERROR: {
@@ -81,6 +81,16 @@ const TrackReducer = (state = TrackInitState, action) => {
         tracksById: {
           ...state.tracksById,
           [trackID]: action.payload,
+        },
+      };
+    }
+    case TrackTypes.ADD_TRACKS: {
+      const { tracks } = action.payload;
+      return {
+        ...state,
+        tracksById: {
+          ...state.tracksById,
+          ...tracks,
         },
       };
     }

@@ -56,66 +56,64 @@ function Login() {
   }
 
   return (
-    <>
-      <main className="login">
-        <section className="login__wrapper">
-          <div className="login__logo">
-            <img alt="App Logo" src={AppLogo}></img>
-          </div>
-          <form className="login-form" onSubmit={handleSubmit}>
-            <FLInput
-              label="email"
-              type="text"
-              id="email"
-              required
-              value={email}
-              onChange={handleSetEmail}
-            />
-            <FLInput
-              label="password"
-              type="password"
-              id="password"
-              required
-              value={password}
-              onChange={handleSetPassword}
-            />
-            <Button
-              style={{ maxWidth: 150 }}
-              type="submit"
-              disabled={isSigningUp}
-              text="Log in"
-            ></Button>
-          </form>
-          {signUpError && <section>{signUpError}</section>}
-          <button
-            className="google_sigin"
-            onClick={handleLoginWithGoogle}
+    <div className="login">
+      <section className="login__wrapper">
+        <div className="login__logo">
+          <img alt="App Logo" src={AppLogo}></img>
+        </div>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <FLInput
+            label="email"
+            type="text"
+            id="email"
+            required
+            value={email}
+            onChange={handleSetEmail}
+          />
+          <FLInput
+            label="password"
+            type="password"
+            id="password"
+            required
+            value={password}
+            onChange={handleSetPassword}
+          />
+          <Button
+            style={{ maxWidth: 150 }}
+            type="submit"
             disabled={isSigningUp}
-          >
-            <img
-              alt="google icon"
-              src={GoogleIcon}
-              style={{
-                height: "40px",
-                display: "inline-block",
-                marginRight: "20px",
-              }}
-            ></img>
-            <span>Sign in with Google</span>
-          </button>
+            text="Log in"
+          ></Button>
+        </form>
+        {signUpError && <section>{signUpError}</section>}
+        <button
+          className="google_sigin"
+          onClick={handleLoginWithGoogle}
+          disabled={isSigningUp}
+        >
+          <img
+            alt="google icon"
+            src={GoogleIcon}
+            style={{
+              height: "40px",
+              display: "inline-block",
+              marginRight: "20px",
+            }}
+          ></img>
+          <span>Sign in with Google</span>
+        </button>
 
-          <button className="link">
-            <Link to={ROUTES.SIGN_UP} disabled={isSigningUp}>
-              Sign Up
-            </Link>
-          </button>
+        <button className="link">
+          <Link to={ROUTES.SIGN_UP} disabled={isSigningUp}>
+            Sign Up
+          </Link>
+        </button>
 
-          <button className="link">
-            <Link to={ROUTES.RESET_PASSWORD}>Reset password</Link>
-          </button>
-        </section>
-      </main>
-    </>
+        <button className="link">
+          <Link to={ROUTES.RESET_PASSWORD}>Reset password</Link>
+        </button>
+      </section>
+    </div>
   );
 }
 

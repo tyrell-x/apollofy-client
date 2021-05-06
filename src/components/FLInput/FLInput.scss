@@ -10,6 +10,7 @@ $error-color: rgb(224, 45, 21);
   display: flex;
   flex-direction: column;
   width: 100%;
+  font-family: monospace;
   position: relative;
 }
 
@@ -62,7 +63,6 @@ $error-color: rgb(224, 45, 21);
   border-radius: 5px;
   border: 2px solid black;
   border-color: $input-border-color;
-  font-family: monospace;
   transition: transform ease-out 0.1s, border-color ease-out 0.1s;
 
   &.border-bottom {

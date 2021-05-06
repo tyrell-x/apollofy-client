@@ -1,22 +1,49 @@
-import React, { useEffect, useState } from "react";
+import "./MyPlaylists.scss";
+
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PlaylistCard from "./PlaylistCard";
+import PlaylistCard from "../../../../components/PlaylistCard";
 
 import { fetchAllPlaylists } from "../../../../redux/playlists/playlists-actions.js";
 import { selectAllPlaylistsIds } from "../../../../redux/playlists/playlists-selectors.js";
+import Button from "../../../../components/Button/index.js";
+import { onAuthStateChanged } from "../../../../services/auth/auth.js";
+
 function MyPlaylists() {
   const dispatch = useDispatch();
   const allPlaylistIds = useSelector(selectAllPlaylistsIds);
 
   useEffect(() => {
-    dispatch(fetchAllPlaylists());
-  }, []);
+    onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(fetchAllPlaylists());
+      }
+    });
+  }, [dispatch]);
 
   return (
     <div className="library-content">
-      {(allPlaylistIds || []).map((id) => (
-        <PlaylistCard id={id} key={id} />
-      ))}
+      <div className="playlists-header">
+        <Button>Create Playlist</Button>
+      </div>
+      <div className="playlists">
+        <div className="playlists-container">
+          <h3>Owned Playlists</h3>
+          <div className="yourplaylists">
+            {(allPlaylistIds || []).map((id) => (
+              <PlaylistCard id={id} key={id} />
+            ))}
+          </div>
+        </div>
+        <div className="playlists-container">
+          <h3>Followed Playlists</h3>
+          <div className="followedplaylists">
+            {(allPlaylistIds || []).map((id) => (
+              <PlaylistCard id={id} key={id} />
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

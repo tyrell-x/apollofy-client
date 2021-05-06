@@ -14,6 +14,9 @@ import { syncSignIn, signOut } from "./redux/auth/auth-actions";
 import Account from "./pages/Account/Account";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Library from "./pages/Library";
+import Navbar from "./components/Navbar";
+import MusicPlayer from "./components/MusicPlayer";
+import Playlist from "./pages/Playlist";
 function App() {
   const dispatch = useDispatch();
 
@@ -21,9 +24,7 @@ function App() {
     let unsubscribeFromAuth = null;
 
     unsubscribeFromAuth = onAuthStateChanged((user) => {
-      console.log(user);
       if (user) {
-        console.log(user);
         dispatch(syncSignIn());
       } else {
         dispatch(signOut());
@@ -39,16 +40,25 @@ function App() {
 
   return (
     <div className="App__container">
-      <Switch>
-        <Route path={ROUTES.SIGN_UP} component={SignUp} />
-        <Route path={ROUTES.LOGIN} component={Login} />
-        <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
-        <ProtectedRoute path={ROUTES.HOME} component={Home} exact />
-        <ProtectedRoute path={ROUTES.ACCOUNT} component={Account} exact />
-        <ProtectedRoute path={ROUTES.UPLOAD_SONG} component={UploadSong} />
-        <ProtectedRoute path={ROUTES.UPLOAD_IMAGE} component={UploadImage} />
-        <ProtectedRoute path={ROUTES.LIBRARY} component={Library} exact />
-      </Switch>
+      <Navbar />
+      <main>
+        <Switch>
+          <Route path={ROUTES.SIGN_UP} component={SignUp} />
+          <Route path={ROUTES.LOGIN} component={Login} />
+          <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
+          <ProtectedRoute path={ROUTES.HOME} component={Home} exact />
+          <ProtectedRoute path={ROUTES.ACCOUNT} component={Account} exact />
+          <ProtectedRoute path={ROUTES.UPLOAD_SONG} component={UploadSong} />
+          <ProtectedRoute path={ROUTES.UPLOAD_IMAGE} component={UploadImage} />
+          <ProtectedRoute path={ROUTES.LIBRARY} component={Library} exact />
+          <ProtectedRoute
+            path={`${ROUTES.PLAYLIST}/:id`}
+            component={Playlist}
+            exact
+          />
+        </Switch>
+      </main>
+      <MusicPlayer />
     </div>
   );
 }

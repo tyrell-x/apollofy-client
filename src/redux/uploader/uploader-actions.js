@@ -113,20 +113,15 @@ export function uploadSong({ songData }) {
       const { title, year, genres } = songData;
 
       const response = await api.createTrack({
-        body: {
-          title: title,
-          year: year,
-          genreNames: genres,
-          url: url,
-          duration: duration,
-          bytes: bytes,
-          bitRate: bit_rate,
-          isStereo: channel_layout === "stereo",
-          format: format,
-        },
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
+        title: title,
+        year: year,
+        genreNames: genres,
+        url: url,
+        duration: duration,
+        bytes: bytes,
+        bitRate: bit_rate,
+        isStereo: channel_layout === "stereo",
+        format: format,
       });
 
       if (response.errorMessage) {

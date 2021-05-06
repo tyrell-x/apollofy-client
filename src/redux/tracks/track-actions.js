@@ -2,8 +2,13 @@ import * as TrackTypes from "./track-types";
 import { trackTypes } from "./track-types";
 import api from "../../api";
 import { normalizeTracks } from "../../schema/track-schema";
-import * as auth from "../../services/auth";
-import { signOutSuccess } from "../auth/auth-actions";
+
+export const addTracks = (tracks) => ({
+  type: TrackTypes.ADD_TRACKS,
+  payload: {
+    tracks: tracks
+  }
+});
 
 export const fetchTracksRequest = () => ({
   type: TrackTypes.FETCH_TRACKS_REQUEST,

@@ -41,115 +41,113 @@ function SignUp() {
   }
 
   return (
-    <>
-      <main className="signup">
-        <section className="signup__wrapper">
-          <form className="signup__form" onSubmit={handleSubmit(onSubmit)}>
-            <div
-              style={{
-                display: "flex",
-                gap: "10px",
-              }}
-            >
-              <FLInput
-                name="firstName"
-                register={register}
-                rules={{
-                  maxLength: {
-                    value: 20,
-                    message: "Max length (20)",
-                  },
-                }}
-                error={errors?.firstName}
-                label="first name"
-              />
-
-              <FLInput
-                name="familyName"
-                register={register}
-                rules={{
-                  maxLength: {
-                    value: 20,
-                    message: "Max length (20)",
-                  },
-                }}
-                error={errors?.lastName}
-                label="last name"
-              />
-            </div>
+    <div className="signup">
+      <section className="signup__wrapper">
+        <form className="signup__form" onSubmit={handleSubmit(onSubmit)}>
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+            }}
+          >
             <FLInput
-              name="email"
+              name="firstName"
               register={register}
               rules={{
-                required: true,
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Entered value does not match email format",
-                },
-                maxLength: {
-                  value: 30,
-                  message: "Max length (30)",
-                },
-              }}
-              error={errors?.email}
-              label="email"
-            />
-            <FLInput
-              name="password"
-              register={register}
-              rules={{
-                required: true,
-                minLength: {
-                  value: 6,
-                  message: "Min length (6)",
-                },
-                maxLength: {
-                  value: 20,
-                  message: "Min length (20)",
-                },
-              }}
-              label="password"
-              type="password"
-            />
-            <FLInput
-              name="repeatPassword"
-              register={register}
-              rules={{
-                validate: (value) =>
-                  value === watch("password") || "Las contraseñas no coinciden",
-              }}
-              error={errors?.repeatPassword}
-              label="repeat password"
-              type="password"
-            />
-            <FLInput
-              name="phoneNumber"
-              register={register}
-              rules={{
-                pattern: {
-                  value: /^-?[0-9]\d*\.?\d*$/,
-                  message: "Must be composed of numbers",
-                },
                 maxLength: {
                   value: 20,
                   message: "Max length (20)",
                 },
               }}
-              label="phone number"
+              error={errors?.firstName}
+              label="first name"
             />
-            <Button
-              style={{
-                maxWidth: 150,
+
+            <FLInput
+              name="familyName"
+              register={register}
+              rules={{
+                maxLength: {
+                  value: 20,
+                  message: "Max length (20)",
+                },
               }}
-              type="submit"
-              text="Sign up"
-              disabled={isSigningUp}
-            ></Button>
-          </form>
-          {signUpError && <section className="mt-4">{signUpError}</section>}
-        </section>
-      </main>
-    </>
+              error={errors?.lastName}
+              label="last name"
+            />
+          </div>
+          <FLInput
+            name="email"
+            register={register}
+            rules={{
+              required: true,
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Entered value does not match email format",
+              },
+              maxLength: {
+                value: 30,
+                message: "Max length (30)",
+              },
+            }}
+            error={errors?.email}
+            label="email"
+          />
+          <FLInput
+            name="password"
+            register={register}
+            rules={{
+              required: true,
+              minLength: {
+                value: 6,
+                message: "Min length (6)",
+              },
+              maxLength: {
+                value: 20,
+                message: "Min length (20)",
+              },
+            }}
+            label="password"
+            type="password"
+          />
+          <FLInput
+            name="repeatPassword"
+            register={register}
+            rules={{
+              validate: (value) =>
+                value === watch("password") || "Las contraseñas no coinciden",
+            }}
+            error={errors?.repeatPassword}
+            label="repeat password"
+            type="password"
+          />
+          <FLInput
+            name="phoneNumber"
+            register={register}
+            rules={{
+              pattern: {
+                value: /^-?[0-9]\d*\.?\d*$/,
+                message: "Must be composed of numbers",
+              },
+              maxLength: {
+                value: 20,
+                message: "Max length (20)",
+              },
+            }}
+            label="phone number"
+          />
+          <Button
+            style={{
+              maxWidth: 150,
+            }}
+            type="submit"
+            text="Sign up"
+            disabled={isSigningUp}
+          ></Button>
+        </form>
+        {signUpError && <section className="mt-4">{signUpError}</section>}
+      </section>
+    </div>
   );
 }
 

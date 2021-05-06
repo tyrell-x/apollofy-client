@@ -2,7 +2,8 @@ import * as PlaylistTypes from "./playlists-types";
 
 import playlistApi from "../../api/playlist-api";
 import { normalizePlaylists } from "../../schema/playlist-schema";
-
+import { normalizeTracks } from "../../schema/track-schema.js";
+import { addTracks } from "../tracks/track-actions.js";
 
 export const playlistCreateRequest = () => ({
   type: PlaylistTypes.CREATE_PLAYLIST_REQUEST,
@@ -76,10 +77,25 @@ export function fetchAllPlaylists() {
       }
 
       const normalizedData = normalizePlaylists(res.data);
+
+      const tracks = normalizeTracks(
+        res.data.flatMap((playlist) => playlist.tracks),
+      ).entities.tracks;
+      dispatch(addTracks(tracks));
+
+      const playlists = Object.fromEntries(
+        Object.entries(normalizedData.entities.playlists).map(
+          ([key, value]) => [
+            key,
+            {
+              ...value,
+              tracks: value.tracks.map((track) => track._id),
+            },
+          ],
+        ),
+      );
       return dispatch(
-        fetchPlaylistsSuccess({
-          ...normalizedData.entities.playlists,
-        }),
+        fetchPlaylistsSuccess(playlists),
       );
     } catch (err) {
       return dispatch(fetchPlaylistError(err));
