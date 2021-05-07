@@ -20,7 +20,11 @@ const defaultImage =
 
 function Playlist() {
 
-  const [tracks, updateTracks] = useState(playlist.tracks);
+  // const trackList = playlist.tracks
+  // // console.log(trackList)
+
+  // const [tracks, updateTracks] = useState(trackList);
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,6 +38,8 @@ function Playlist() {
   const { id } = useParams();
 
   const playlist = useSelector(selectPlaylist(id));
+  const [tracks, updateTracks] = useState(playlist.tracks);
+  console.log(playlist.tracks)
 
   const playPlaylist = () => {
     dispatch(setTracksInPlayer(playlist.tracks.map(track => track._id)))
@@ -70,27 +76,40 @@ function Playlist() {
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="tracks">
           {(provided) => (
-              <div className="singers" {...provided.droppableProps} ref={provided.innerRef}>
-                {playlist.tracks.map((track, index) => (
-                <Draggable key={id} draggableId={id} index={index}>
-                  {(provided) => (
-                    <div key={track._id} className="track"  ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                      <div className="image">
-                        <img src={track.thumbnail} alt="track" height="100%"></img>
-                      </div>
-                      <div className="details">
-                        <div className="title">{track.title}</div>
-                        <div className="artist">{track.artist || "anonymous"}</div>
-                      </div>
-                      <div className="owner">{track.owned ? "Owned" : ""}</div>
-                      <div className="duration">{getCounter(track.duration)}</div>
-                      <div className="actions"></div>
-                    </div>
-                  )}
-                </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
+              <div className="tracks" {...provided.droppableProps} ref={provided.innerRef}>
+                {playlist.tracks.map((track, index) => {
+                  return (
+                  <Draggable key={id} draggableId={id} index={index}>
+                        {(provided) => (
+                          <div 
+                            key={track._id} 
+                            className="track"  
+                            ref={provided.innerRef} 
+                            {...provided.draggableProps} 
+                            {...provided.dragHandleProps}>
+                            <div>
+                            
+                              <div className="image">
+                                <img src={track.thumbnail} alt="track" height="100%"></img>
+                              </div>
+
+                              <div className="details">
+                                <div className="title">{track.title}</div>
+                                <div className="artist">{track.artist || "anonymous"}</div>
+                              </div>
+
+                              <div className="owner">{track.owned ? "Owned" : ""}</div>
+                              <div className="duration">{getCounter(track.duration)}</div>
+                              <div className="actions"></div>
+
+                            </div>
+                          </div>
+                        )}
+                    </Draggable>
+                      )
+                    })}
+                  {provided.placeholder}
+                </div>
           )};
         </Droppable>
         </DragDropContext>

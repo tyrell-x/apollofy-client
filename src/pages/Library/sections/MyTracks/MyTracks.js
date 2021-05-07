@@ -10,7 +10,7 @@ function MyTracks() {
   const dispatch = useDispatch();
 
   const allTracks = useSelector(selectAllTracks);
-  const [filteredTracks, setFilteredTracks] = useState(allTracks.slice(0, 7));
+  const [filteredTracks, setFilteredTracks] = useState(allTracks.slice(0, 8));
 
   useEffect(() => {
     setFilteredTracks(allTracks.slice(0, 7));
