@@ -117,7 +117,7 @@ export function sendPasswordResetEmail(email) {
       await auth.sendPasswordResetEmail(email);
       return dispatch(sendPasswordResetEmailSuccess());
     } catch (error) {
-      dispatch(sendPasswordResetEmailError(error.message));
+      dispatch(sendPasswordResetEmailError());
     }
   };
 }
