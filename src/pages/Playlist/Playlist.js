@@ -78,7 +78,7 @@ function Playlist() {
                 // DIV OF THE TRACK
                 <Draggable key={track._id} draggableId={track._id} index={index}>
                   {(provided) => (
-                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                    <div className = "track" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                       <div className="image">
                         <img src={track.thumbnail} alt="track" height="100%"></img>
                       </div>
@@ -96,8 +96,11 @@ function Playlist() {
 
                 // DIV OF THE TRACK
               ))}
+            {provided.placeholder}
             </div>
+            
           )}
+          
         </Droppable>
       </DragDropContext>
       
