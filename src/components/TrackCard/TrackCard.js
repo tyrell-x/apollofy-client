@@ -2,6 +2,7 @@ import "./TrackCard.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTrack } from "../../redux/tracks/track-selectors";
 import { deleteTrack, toggleLikeTrack } from "../../redux/tracks/track-actions";
+import {fetchAllPlaylists} from "../../redux/playlists/playlists-actions"
 import LikeButton from "../LikeButton";
 import AnimatedListItem from "../AnimatedListItem";
 import DeleteButton from "../DeleteButton/index.js";
@@ -11,20 +12,18 @@ import {
 } from "../../redux/player/player-actions.js";
 import { isTrackInPlayer } from "../../redux/player/player-selectors.js";
 import Dropdown from "../Dropdown";
+import AddToPlaylist from "../AddToPlaylist"
 import Modal from "react-modal";
 import EditTrack from "../EditTrack/index.js";
 import { useEffect, useState } from "react";
-
+import CreatePlaylist  from "../CreatePlaylist"
 const customStyles = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    width: "500px",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "black",
-    borderRadius: "5px",
+    position: "0",
+    height: "100vh",
+    width: "100vw",
+    backgroundColor: "#030303",
+    border: "none",
   },
 };
 
@@ -65,7 +64,19 @@ function TrackCard({ id }) {
   function closeModal() {
     setIsOpen(false);
   }
+  const [playlistModalIsOpen, setPlaylistModalIsOpen] = useState(false);
+  function openPlaylistModal() {
+    setPlaylistModalIsOpen(true);
+  }
+  function closePlaylistModal() {
+    setPlaylistModalIsOpen((state) => {
+      console.log(state)
+      return !state
+    });
+    console.log(playlistModalIsOpen)
+  }
 
+  
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
   return (
@@ -103,6 +114,22 @@ function TrackCard({ id }) {
                 <EditTrack id={id} closeModal={() => closeModal()} />
               </Modal>
             </div>
+            <div
+              onClick={() => {
+                openPlaylistModal();
+                setDropdownIsOpen(false);
+              }}
+            >
+              Add to Playlist
+              <Modal
+                isOpen={playlistModalIsOpen}
+                onRequestClose={closePlaylistModal}
+                style={customStyles}
+              >
+                <AddToPlaylist id={id} closePlaylistModal={() => closePlaylistModal()} />
+              </Modal>
+            </div>
+            <button onClick={toggleTrackInPlayer}>Boton Nuevo</button>
             <DeleteButton onClick={onDeleteButtonClick}></DeleteButton>
           </Dropdown>
         </div>
