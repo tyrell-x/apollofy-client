@@ -1,3 +1,4 @@
+
 .add-to-playlist-container{
     font-family: "Lato", sans-serif;
     height: 100%;
@@ -6,7 +7,9 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    margin-top:20vh;
+    padding-top:15vh;
+    padding-bottom: 10vh;
+    background: black;
     .add-to-playlist{
         display: flex;
         flex-direction: column;
@@ -55,6 +58,7 @@
     .list-of-playlists{
         width: 100%;
         max-width: 500px;
+        overflow: scroll;
         .playlist{
             display:flex;
             flex-direction: row;

@@ -1,14 +1,9 @@
 import "./AddToPlaylist.scss";
 import { useState, useEffect } from "react";
 import * as AiIcons from "react-icons/ai";
-import { selectTrack } from "../../redux/tracks/track-selectors";
 import { useDispatch, useSelector } from "react-redux";
 import {fetchAllPlaylists} from "../../redux/playlists/playlists-actions"
-import {selectAllPlaylistsIds, selectAllPlaylists} from "../../redux/playlists/playlists-selectors"
-import { toggleLikeTrack, updateTrack } from "../../redux/tracks/track-actions";
-import FLInput from "../FLInput/index.js";
-import Button from "../Button/index.js";
-import { useForm } from "react-hook-form";
+import {selectAllPlaylists} from "../../redux/playlists/playlists-selectors"
 import api from "../../api/playlist-api"
 import CreatePlaylist from "../CreatePlaylist/CreatePlaylist";
 const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png";
@@ -21,11 +16,10 @@ function AddToPlaylist({ id, closePlaylistModal }) {
   useEffect(() => {
     dispatch(fetchAllPlaylists());
   }, []);
-  console.log(playlists)
 
   async function addToPlaylist  (e) {
-    console.log(e.currentTarget.id)
     await api.postInPlaylist("", e.currentTarget.id, {"trackId": id })
+    setTimeout(()=>closePlaylistModal(), 500)
   }
 
   return (

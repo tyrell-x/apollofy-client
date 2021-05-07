@@ -2,7 +2,6 @@ import "./TrackCard.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTrack } from "../../redux/tracks/track-selectors";
 import { deleteTrack, toggleLikeTrack } from "../../redux/tracks/track-actions";
-import {fetchAllPlaylists} from "../../redux/playlists/playlists-actions"
 import LikeButton from "../LikeButton";
 import AnimatedListItem from "../AnimatedListItem";
 import DeleteButton from "../DeleteButton/index.js";
@@ -15,8 +14,7 @@ import Dropdown from "../Dropdown";
 import AddToPlaylist from "../AddToPlaylist"
 import Modal from "react-modal";
 import EditTrack from "../EditTrack/index.js";
-import { useEffect, useState } from "react";
-import CreatePlaylist  from "../CreatePlaylist"
+import {  useState } from "react";
 const customStyles = {
   content: {
     position: "0",
@@ -65,15 +63,11 @@ function TrackCard({ id }) {
     setIsOpen(false);
   }
   const [playlistModalIsOpen, setPlaylistModalIsOpen] = useState(false);
-  function openPlaylistModal() {
-    setPlaylistModalIsOpen(true);
-  }
   function closePlaylistModal() {
     setPlaylistModalIsOpen((state) => {
       console.log(state)
       return !state
     });
-    console.log(playlistModalIsOpen)
   }
 
   
@@ -116,22 +110,20 @@ function TrackCard({ id }) {
             </div>
             <div
               onClick={() => {
-                openPlaylistModal();
+                setPlaylistModalIsOpen(true)
                 setDropdownIsOpen(false);
               }}
             >
               Add to Playlist
-              <Modal
-                isOpen={playlistModalIsOpen}
-                onRequestClose={closePlaylistModal}
-                style={customStyles}
-              >
-                <AddToPlaylist id={id} closePlaylistModal={() => closePlaylistModal()} />
-              </Modal>
             </div>
             <button onClick={toggleTrackInPlayer}>Boton Nuevo</button>
             <DeleteButton onClick={onDeleteButtonClick}></DeleteButton>
           </Dropdown>
+          {playlistModalIsOpen ? 
+          <div className="playlist-modal-bg">
+            <AddToPlaylist id={id} closePlaylistModal={() => closePlaylistModal()}/> 
+          </div>
+          : ""}
         </div>
       </div>
     </AnimatedListItem>
