@@ -33,13 +33,13 @@ function Playlist() {
   const playlist = useSelector(selectPlaylist(id));
   const {tracks} = playlist
   const trackList = tracks
-  const [tracksPlaylist, updatePlaylistOrder] = useState(trackList);
+  const [tracksPlaylist, updatePlaylistOrder] = useState(tracks);
   console.log(trackList)
   console.log(tracks)
 
 
   const playPlaylist = () => {
-    dispatch(setTracksInPlayer(tracks.map(track => track._id)))
+    dispatch(setTracksInPlayer(tracksPlaylist.map(track => track._id)))
   }
 
   //UPDATE on Drag End
@@ -48,12 +48,8 @@ function Playlist() {
     const items = Array.from(tracksPlaylist);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-    console.log(tracksPlaylist)
-    console.log(typeof(items))
-    console.log(reorderedItem)
-    console.log(result.source)
-    console.log(items)
     updatePlaylistOrder(items);
+    fetchAllPlaylists();
   }
 
   return (
