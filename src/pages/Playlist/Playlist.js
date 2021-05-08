@@ -31,23 +31,28 @@ function Playlist() {
   const { id } = useParams();
 
   const playlist = useSelector(selectPlaylist(id));
-  const initialTracksPlaylist = playlist.tracks
-  const [tracksPlaylist, updatePlaylistOrder] = useState(playlist.tracks);
+  const {tracks} = playlist
+  const trackList = tracks
+  const [tracksPlaylist, updatePlaylistOrder] = useState(trackList);
+  console.log(trackList)
+  console.log(tracks)
 
-  console.log(initialTracksPlaylist)
 
   const playPlaylist = () => {
-    dispatch(setTracksInPlayer(playlist.tracks.map(track => track._id)))
+    dispatch(setTracksInPlayer(tracks.map(track => track._id)))
   }
 
   //UPDATE on Drag End
   function handleOnDragEnd(result) {
     if (!result.destination) return;
-
     const items = Array.from(tracksPlaylist);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-
+    console.log(tracksPlaylist)
+    console.log(typeof(items))
+    console.log(reorderedItem)
+    console.log(result.source)
+    console.log(items)
     updatePlaylistOrder(items);
   }
 
@@ -74,7 +79,7 @@ function Playlist() {
         <Droppable droppableId="playlist">
           {(provided) => (
             <div className="tracks" {...provided.droppableProps} ref={provided.innerRef}>
-              {playlist.tracks.map((track, index) => (
+              {tracksPlaylist.map((track, index) => (
                 // DIV OF THE TRACK
                 <Draggable key={track._id} draggableId={track._id} index={index}>
                   {(provided) => (

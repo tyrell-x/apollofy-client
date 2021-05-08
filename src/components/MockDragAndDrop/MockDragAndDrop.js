@@ -43,6 +43,7 @@ function MockDragAndDrop() {
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     console.log(result.destination.index)
+    console.log(typeof(items))
     updateSingers(items);
   }
 
