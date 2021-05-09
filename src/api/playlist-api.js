@@ -17,6 +17,16 @@ function makeApi(request = makeRequest()) {
       body: body,
     });
   }
+
+  function updatePlaylist(headers, id, body) {
+    return request({
+      url: `/playlist?id=${id}`,
+      requestMethod: "PATCH",
+      headers: headers,
+      body: body,
+    });
+  }
+
   function createPlaylist(headers, body) {
     return request({
       url: `/playlist/`,
@@ -29,6 +39,7 @@ function makeApi(request = makeRequest()) {
   return {
     getAllPlaylists: getAllPlaylists,
     postInPlaylist: postInPlaylist,
+    updatePlaylist: updatePlaylist,
     createPlaylist: createPlaylist
   };
 }

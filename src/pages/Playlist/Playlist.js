@@ -1,5 +1,5 @@
 import "./Playlist.scss";
-
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { selectPlaylist } from "../../redux/playlists/playlists-selectors.js";
@@ -10,9 +10,9 @@ import {
   faPlay
 } from "@fortawesome/free-solid-svg-icons";
 import { setTracksInPlayer } from "../../redux/player/player-actions.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "../../services/auth/auth.js";
-import { fetchAllPlaylists } from "../../redux/playlists/playlists-actions.js";
+import { fetchAllPlaylists, updatePlaylist } from "../../redux/playlists/playlists-actions.js";
 
 const defaultImage =
   "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
@@ -28,12 +28,24 @@ function Playlist() {
     });
   }, [dispatch]);
 
-  const { id } = useParams();
 
+  const { id } = useParams();
   const playlist = useSelector(selectPlaylist(id));
+  const {tracks} = playlist
+  const [tracksPlaylist, updatePlaylistOrder] = useState(tracks);
+
 
   const playPlaylist = () => {
-    dispatch(setTracksInPlayer(playlist.tracks.map(track => track._id)))
+    dispatch(setTracksInPlayer(tracksPlaylist.map(track => track._id)))
+  }
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+    const items = Array.from(tracks);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    updatePlaylistOrder(items);
+    updatePlaylist(items);
+    fetchAllPlaylists()
   }
 
   return (
@@ -53,24 +65,39 @@ function Playlist() {
           </div>
         </div>
       </div>
-      <div className="tracks">
-        {playlist.tracks.map((track) => (
-          <div key={track._id} className="track">
-            <div className="image">
-              <img src={track.thumbnail} alt="track" height="100%"></img>
+      <h2>The list</h2>
+
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="playlist">
+          {(provided) => (
+            <div className="tracks" {...provided.droppableProps} ref={provided.innerRef}>
+              {tracksPlaylist.map((track, index) => (
+                // DIV OF THE TRACK
+                <Draggable key={track._id} draggableId={track._id} index={index}>
+                  {(provided) => (
+                    <div className = "track" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                      <div className="image">
+                        <img src={track.thumbnail} alt="track" height="100%"></img>
+                      </div>
+                      <div className="details">
+                        <div className="title">{track.title}</div>
+                        <div className="artist">{track.artist || "anonymous"}</div>
+                      </div>
+                      <div className="owner">{track.owned ? "Owned" : ""}</div>
+                      <div className="duration">{getCounter(track.duration)}</div>
+                      <div className="actions">
+                      </div>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+            {provided.placeholder}
             </div>
-            <div className="details">
-              <div className="title">{track.title}</div>
-              <div className="artist">{track.artist || "anonymous"}</div>
-            </div>
-            <div className="owner">{track.owned ? "Owned" : ""}</div>
-            <div className="duration">{getCounter(track.duration)}</div>
-            <div className="actions">
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+      
+    </div> //PLAYLIST PAGE CLOSING DIV
   );
 }
 
