@@ -14,13 +14,6 @@ function Home() {
         <div>
           <h1>Hello {currentUser.firstName || currentUser.email}</h1>
         </div>
-        <div>
-          <h2>Mock Drag And Drop</h2>
-          <MockDragAndDrop>
-            
-          </MockDragAndDrop>
-
-        </div>
 
       </section>
     </div>

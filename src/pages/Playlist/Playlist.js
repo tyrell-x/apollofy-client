@@ -12,7 +12,7 @@ import {
 import { setTracksInPlayer } from "../../redux/player/player-actions.js";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "../../services/auth/auth.js";
-import { fetchAllPlaylists } from "../../redux/playlists/playlists-actions.js";
+import { fetchAllPlaylists, updatePlaylist } from "../../redux/playlists/playlists-actions.js";
 
 const defaultImage =
   "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
@@ -28,14 +28,16 @@ function Playlist() {
     });
   }, [dispatch]);
 
+
+
+
   const { id } = useParams();
 
   const playlist = useSelector(selectPlaylist(id));
   const {tracks} = playlist
-  const trackList = tracks
   const [tracksPlaylist, updatePlaylistOrder] = useState(tracks);
-  console.log(trackList)
   console.log(tracks)
+  console.log(tracksPlaylist)
 
 
   const playPlaylist = () => {
@@ -45,11 +47,15 @@ function Playlist() {
   //UPDATE on Drag End
   function handleOnDragEnd(result) {
     if (!result.destination) return;
-    const items = Array.from(tracksPlaylist);
+    const items = Array.from(tracks);
+    console.log(items)
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     updatePlaylistOrder(items);
-    fetchAllPlaylists();
+    updatePlaylist(items);
+    console.log(items) // it changes order
+    fetchAllPlaylists()
+    console.log(tracks)
   }
 
   return (

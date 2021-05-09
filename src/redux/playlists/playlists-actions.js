@@ -127,21 +127,23 @@ export function createPlaylist({ title, thumbnail, publicAccessible }) {
   };
 }
 
-/*
+
 export function updatePlaylist(playlist) {
   return async function updatePlaylistThunk(dispatch) {
     dispatch(playlistUpdateRequest());
 
-    const res = await api.updatePlaylist(playlist);
+    const res = await playlistApi.updatePlaylist(playlist);
 
     if (res.isSuccessful) {
       dispatch(playlistUpdateSuccess(res.data));
+      console.log('I did update the order')
     } else {
       dispatch(playlistUpdateError(res.errorMessage));
+      console.log('I did not update the order')
     }
   };
 }
-*/
+
 /*
 export function fetchOwnPlaylists() {
   return async function fetchPlaylistsThunk(dispatch) {
