@@ -13,6 +13,7 @@ import { setTracksInPlayer } from "../../redux/player/player-actions.js";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "../../services/auth/auth.js";
 import { fetchAllPlaylists, updatePlaylist } from "../../redux/playlists/playlists-actions.js";
+import { PlaylistOptions } from "../../components/PlaylistOptions/index"
 
 const defaultImage =
   "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
@@ -66,6 +67,7 @@ function Playlist() {
         </div>
       </div>
       <h2>The list</h2>
+      <PlaylistOptions/>
 
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="playlist">

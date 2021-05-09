@@ -1,13 +1,58 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DeleteButton from "../DeleteButton/index.js";
 import Dropdown from "../Dropdown";
 import Modal from "react-modal";
 import EditTrack from "../EditTrack/index.js";
 import { signOut } from "../../redux/auth/auth-actions";
+import { useState } from "react";
+import { deleteTrack, } from "../../redux/tracks/track-actions";
+import {
+  addTrackToPlayer,
+  removeTrackFromPlayer,
+} from "../../redux/player/player-actions.js";
+import { isTrackInPlayer } from "../../redux/player/player-selectors.js";
 
 
-function PlaylistOptions() {
+Modal.setAppElement("#root");
+Modal.defaultStyles.overlay.backgroundColor = "rgba(200, 200, 200, 0.4)";
+
+function PlaylistOptions({id}) {
+  //Use States
+  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const trackInPlayer = useSelector(isTrackInPlayer(id));
+
+  //Separate functions
+  function openModal() {
+    setIsOpen(true);
+  }
+  function closeModal() {
+    setIsOpen(false);
+  }
+  const onDeleteButtonClick = () => {
+    dispatch(deleteTrack(id));
+  };
+
+  const toggleTrackInPlayer = () => {
+    if (trackInPlayer) {
+      dispatch(removeTrackFromPlayer(id));
+    } else {
+      dispatch(addTrackToPlayer(id));
+    }
+  };
+
+  //Style mock
+  const customStyles = {
+    content: {
+      position: "0",
+      height: "100vh",
+      width: "100vw",
+      backgroundColor: "#030303",
+      border: "none",
+    },
+  };
+
   const dispatch = useDispatch();
   const handleSignOut = () => {
     dispatch(signOut());
@@ -62,4 +107,4 @@ function PlaylistOptions() {
   );
 }
 
-export default DropdownMenu;
+export default PlaylistOptions;
