@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DeleteButton from "../DeleteButton/index.js";
-import Dropdown from "../Dropdown";
+import DropdownPlaylistOptions from "../DropdownPlaylistOptions";
 import Modal from "react-modal";
 import EditTrack from "../EditTrack/index.js";
 import { signOut } from "../../redux/auth/auth-actions";
@@ -12,14 +12,14 @@ import {
   removeTrackFromPlayer,
 } from "../../redux/player/player-actions.js";
 import { isTrackInPlayer } from "../../redux/player/player-selectors.js";
-
+import "./PlaylistOptions.scss" 
 
 Modal.setAppElement("#root");
 Modal.defaultStyles.overlay.backgroundColor = "rgba(200, 200, 200, 0.4)";
 
 function PlaylistOptions({id}) {
   //Use States
-  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
+  const [dropdownPlaylistOptionsIsOpen, setDropdownPlaylistOptionsIsOpen] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const trackInPlayer = useSelector(isTrackInPlayer(id));
 
@@ -58,13 +58,13 @@ function PlaylistOptions({id}) {
     dispatch(signOut());
   };
   return (
-    <div className="playlistOptions dropdown">
-          <Dropdown isOpen={dropdownIsOpen} setIsOpen={setDropdownIsOpen}>
+    <div className="playlistOptions dropdownPlaylistOptions">
+          <DropdownPlaylistOptions isOpen={dropdownPlaylistOptionsIsOpen} setIsOpen={setDropdownPlaylistOptionsIsOpen}>
             {/* EDIT PLAYLIST DETAILS */}
             <div
               onClick={() => {
                 openModal();
-                setDropdownIsOpen(false);
+                setDropdownPlaylistOptionsIsOpen(false);
               }}
             >
               Edit Playlist
@@ -82,7 +82,7 @@ function PlaylistOptions({id}) {
             <div
               onClick={() => {
                 openModal();
-                setDropdownIsOpen(false);
+                setDropdownPlaylistOptionsIsOpen(false);
               }}
             >
               Edit Playlist
@@ -102,7 +102,7 @@ function PlaylistOptions({id}) {
 
               {/* DELETE PLAYLIST PLAYLIST */}
             <DeleteButton onClick={onDeleteButtonClick}></DeleteButton>
-          </Dropdown>
+          </DropdownPlaylistOptions>
     </div>
   );
 }
