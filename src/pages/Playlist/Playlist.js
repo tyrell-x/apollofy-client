@@ -34,8 +34,6 @@ function Playlist() {
   const playlist = useSelector(selectPlaylist(id));
   const {tracks} = playlist
   const [tracksPlaylist, updatePlaylistOrder] = useState(tracks);
-  console.log(tracks)
-  console.log(tracksPlaylist)
 
 
   const playPlaylist = () => {
@@ -45,14 +43,11 @@ function Playlist() {
   function handleOnDragEnd(result) {
     if (!result.destination) return;
     const items = Array.from(tracks);
-    console.log(items)
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     updatePlaylistOrder(items);
     updatePlaylist(items);
-    console.log(items) // it changes order
     fetchAllPlaylists()
-    console.log(tracks)
   }
  
 
@@ -77,7 +72,6 @@ function Playlist() {
           </div>
         </div>
       </div>
-      <h2>The list</h2>
 
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="playlist">
