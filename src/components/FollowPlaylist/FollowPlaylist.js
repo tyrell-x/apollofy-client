@@ -1,16 +1,21 @@
-import React, {useState, useEffect} from 'react'
-import "./FollowPlaylist.scss"
+import React, { useState, useEffect } from "react";
+import { dispatch, useDispatch } from "react-redux";
+import { followPlaylist } from "../../redux/playlists/playlists-actions";
+import "./FollowPlaylist.scss";
 
-function FollowPlaylist () {
-    const [follow, setFollow] = useState(false)
-    const followToggle = () => {
-        setFollow(!follow)
-    }
-    return (
-        <button className={follow ? "following-button" : "follow-button"} onClick={()=>followToggle()}>
-            {follow ? "Following" : "Follow"}
-        </button>
-    )
+function FollowPlaylist({ id, followed }) {
+  const dispatch = useDispatch();
+  const followToggle = () => {
+    dispatch(followPlaylist(id, !followed));
+  };
+  return (
+    <button
+      className={followed ? "following-button" : "follow-button"}
+      onClick={() => followToggle()}
+    >
+      {followed ? "Following" : "Follow"}
+    </button>
+  );
 }
 
-export default FollowPlaylist
+export default FollowPlaylist;

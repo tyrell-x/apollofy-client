@@ -1,1 +1,1 @@
-export {default} from "./FollowPlaylist"
+export { default } from "./FollowPlaylist";
