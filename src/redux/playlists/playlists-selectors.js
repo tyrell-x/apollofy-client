@@ -11,13 +11,18 @@ export const selectPlaylist = (id) =>
     (state) => state.tracks.tracksById,
     (playlist, tracks) => ({
       ...(playlist || {}),
-      tracks: ((playlist || {}).tracks || []).map(id => tracks[id])
+      tracks: ((playlist || {}).tracks || []).map((id) => tracks[id]),
     }),
   );
 
 export const selectAllPlaylists = createSelector(
-  (state) => state.tracks.tracksById,
+  (state) => state.playlists.playlistsById,
   (tracksObj) => Object.values(tracksObj),
+);
+
+export const selectOwnedPlaylists = createSelector(
+  (state) => state.playlists.playlistsById,
+  (tracksObj) => Object.values(tracksObj).filter((playlist) => playlist.owned),
 );
 
 const filterPlaylistSelector = (filterFn) => (playlist) => {

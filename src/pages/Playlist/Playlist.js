@@ -6,9 +6,7 @@ import { selectPlaylist } from "../../redux/playlists/playlists-selectors.js";
 import { getCounter } from "../../utils/utils.js";
 import Button from "../../components/Button/index.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlay
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { setTracksInPlayer } from "../../redux/player/player-actions.js";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "../../services/auth/auth.js";
@@ -33,22 +31,26 @@ function Playlist() {
   const playlist = useSelector(selectPlaylist(id));
 
   const playPlaylist = () => {
-    dispatch(setTracksInPlayer(playlist.tracks.map(track => track._id)))
-  }
+    dispatch(setTracksInPlayer(playlist.tracks.map((track) => track._id)));
+  };
 
   return (
     <div className="playlist-page">
       <div className="summary">
         <div className="image">
-          <img src={playlist.thumbnail || defaultImage} height="280" alt="playlist"></img>
+          <img
+            src={playlist.thumbnail || defaultImage}
+            height="280"
+            alt="playlist"
+          ></img>
         </div>
         <div className="details">
           <h5 className="type">PLAYLIST</h5>
           <h4 className="title">{playlist.title}</h4>
           <div className="actions">
             <Button onClick={playPlaylist}>
-            <FontAwesomeIcon icon={faPlay} />
-            <span className="play-text">Play</span>
+              <FontAwesomeIcon icon={faPlay} />
+              <span className="play-text">Play</span>
             </Button>
           </div>
         </div>
@@ -65,8 +67,7 @@ function Playlist() {
             </div>
             <div className="owner">{track.owned ? "Owned" : ""}</div>
             <div className="duration">{getCounter(track.duration)}</div>
-            <div className="actions">
-            </div>
+            <div className="actions"></div>
           </div>
         ))}
       </div>
