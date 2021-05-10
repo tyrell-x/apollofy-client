@@ -45,3 +45,6 @@ export const selectLikedPlaylistsIds = selectFilteredPlaylistsIds(
 export const selectOwnedPlaylistsIds = selectFilteredPlaylistsIds(
   (playlist) => playlist.owned,
 );
+export const selectFollowedPlaylistsIds = selectFilteredPlaylistsIds(
+  (playlist) => playlist.followed,
+);
