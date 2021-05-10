@@ -2,7 +2,7 @@ import "./TrackCard.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTrack } from "../../redux/tracks/track-selectors";
 import { deleteTrack, toggleLikeTrack } from "../../redux/tracks/track-actions";
-import {fetchAllPlaylists} from "../../redux/playlists/playlists-actions"
+import { fetchAllPlaylists } from "../../redux/playlists/playlists-actions";
 import LikeButton from "../LikeButton";
 import AnimatedListItem from "../AnimatedListItem";
 import DeleteButton from "../DeleteButton/index.js";
@@ -71,7 +71,6 @@ function TrackCard({ id }) {
     });
   }
 
-  
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
   return (

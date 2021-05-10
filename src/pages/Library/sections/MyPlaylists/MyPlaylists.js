@@ -29,7 +29,7 @@ function MyPlaylists() {
       }
     });
   }, [dispatch]);
-  console.log(createPlaylist)
+  console.log(createPlaylist);
   return (
     <div className="library-content">
       <div className="playlists-header">
