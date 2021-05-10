@@ -11,6 +11,7 @@ import { setTracksInPlayer } from "../../redux/player/player-actions.js";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "../../services/auth/auth.js";
 import { fetchAllPlaylists, updatePlaylist } from "../../redux/playlists/playlists-actions.js";
+import FollowPlaylist from "../../components/FollowPlaylist";
 
 const defaultImage =
   "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
@@ -69,6 +70,7 @@ function Playlist() {
               <FontAwesomeIcon icon={faPlay} />
               <span className="play-text">Play</span>
             </Button>
+            <FollowPlaylist id={id} followed={playlist.followed} />
           </div>
         </div>
       </div>

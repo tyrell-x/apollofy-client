@@ -23,11 +23,17 @@ function makeApi(request = makeRequest()) {
       body: playlist,
     });
   }
-
+  function followPlaylist(id, followed) {
+    return request({
+      url: `/playlist/follow?id=${id}${followed ? "&followed=true" : ""}`,
+      requestMethod: "POST",
+    });
+  }
   return {
     getAllPlaylists: getAllPlaylists,
     addTrackToPlaylist: addTrackToPlaylist,
     createPlaylist: createPlaylist,
+    followPlaylist: followPlaylist,
   };
 }
 

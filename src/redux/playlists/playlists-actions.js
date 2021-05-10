@@ -70,6 +70,11 @@ export const updateTracksInPlaylist = (trackId, playlistId) => ({
   payload: { playlistId, trackId },
 });
 
+export const updatePlaylistFollowing = (id, followed) => ({
+  type: PlaylistTypes.UPDATE_PLAYLIST_FOLLOWING,
+  payload: { id, followed },
+});
+
 export function fetchAllPlaylists() {
   return async function fetchPlaylistsThunk(dispatch) {
     dispatch(fetchPlaylistRequest());
@@ -127,6 +132,13 @@ export function addTrackToPlaylist(trackId, playlistId) {
   };
 }
 
+export function followPlaylist(id, follow) {
+  return async function followPlaylistThunk(dispatch) {
+    await playlistApi.followPlaylist(id, follow);
+    dispatch(updatePlaylistFollowing(id, follow));
+  };
+}
+/*
 export function updatePlaylist(playlist) {
   return async function updatePlaylistThunk(dispatch) {
     dispatch(playlistUpdateRequest());

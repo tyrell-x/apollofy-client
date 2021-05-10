@@ -136,6 +136,19 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
         },
       };
     }
+    case PlaylistType.UPDATE_PLAYLIST_FOLLOWING: {
+      const { id, followed } = action.payload;
+      return {
+        ...state,
+        playlistsById: {
+          ...state.playlistsById,
+          [id]: {
+            ...state.playlistsById[id],
+            followed: followed,
+          },
+        },
+      };
+    }
     default: {
       return { ...state };
     }
