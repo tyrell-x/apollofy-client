@@ -10,10 +10,6 @@ function LikedTracks() {
   const likedTracksIds = useSelector(selectLikedTrackIds);
 
   useEffect(() => {
-    console.log(likedTracksIds);
-  }, [likedTracksIds]);
-
-  useEffect(() => {
     dispatch(fetchLikedTracks());
   }, []);
 

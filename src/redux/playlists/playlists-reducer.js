@@ -61,10 +61,15 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
       };
     }
     case PlaylistType.UPDATE_PLAYLIST_SUCCESS: {
+      const { playlist } = action.payload;
       return {
         ...state,
         playlistUpdate: false,
         playlistUpdateError: null,
+        playlistsById: {
+          ...state.playlistsById,
+          [playlist._id]: playlist,
+        },
       };
     }
     case PlaylistType.FETCH_PLAYLISTS_REQUEST: {

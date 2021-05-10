@@ -16,7 +16,6 @@ function CreatePlaylist({ closeModal }) {
     dispatch(createPlaylist({ title: title }));
     closeModal();
   }
-  console.log(title);
   return (
     <div className="create-playlist-container">
       <div className="close-button">

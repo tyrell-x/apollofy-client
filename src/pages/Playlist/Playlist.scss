@@ -4,6 +4,11 @@
   padding: 58px;
   background-color: #383c45;
 
+  hr {
+    width: 100%;
+    outline-color: #ff8933;
+  }
+
   .summary {
     display: flex;
     gap: 40px;
@@ -56,7 +61,6 @@
     margin: 50px 10px;
     display: flex;
     flex-direction: column;
-    gap: 34px;
 
     .track {
       cursor: pointer;
@@ -64,6 +68,7 @@
       width: 100%;
       display: flex;
       border-bottom: 0.5px solid #8f8f8f;
+      margin: 1em 0;
 
       .image {
         height: 100%;

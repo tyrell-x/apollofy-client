@@ -66,7 +66,6 @@ function TrackCard({ id }) {
   const [playlistModalIsOpen, setPlaylistModalIsOpen] = useState(false);
   function closePlaylistModal() {
     setPlaylistModalIsOpen((state) => {
-      console.log(state);
       return !state;
     });
   }

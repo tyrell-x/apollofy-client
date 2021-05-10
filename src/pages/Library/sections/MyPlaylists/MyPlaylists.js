@@ -18,7 +18,6 @@ function MyPlaylists() {
   const [createPlaylist, setCreatePlaylist] = useState(false);
   const ownedPlaylistIds = useSelector(selectOwnedPlaylistsIds);
   const followedPlaylistIds = useSelector(selectFollowedPlaylistsIds);
-  console.log(ownedPlaylistIds, followedPlaylistIds);
   function closeModal() {
     setCreatePlaylist(false);
   }
@@ -29,7 +28,6 @@ function MyPlaylists() {
       }
     });
   }, [dispatch]);
-  console.log(createPlaylist);
   return (
     <div className="library-content">
       <div className="playlists-header">

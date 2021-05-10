@@ -33,21 +33,20 @@ function Playlist() {
   const { id } = useParams();
 
   const playlist = useSelector(selectPlaylist(id));
-  const { tracks } = playlist;
-  const [tracksPlaylist, updatePlaylistOrder] = useState(tracks);
 
   const playPlaylist = () => {
     dispatch(setTracksInPlayer(playlist.tracks.map((track) => track._id)));
   };
-  //UPDATE on Drag End
+
   function handleOnDragEnd(result) {
     if (!result.destination) return;
-    const items = Array.from(tracks);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    updatePlaylistOrder(items);
-    updatePlaylist(items);
-    fetchAllPlaylists();
+    const reorderedTracks = Array.from(
+      playlist.tracks.map((track) => track._id),
+    );
+    const [reorderedItem] = reorderedTracks.splice(result.source.index, 1);
+    reorderedTracks.splice(result.destination.index, 0, reorderedItem);
+
+    dispatch(updatePlaylist({ ...playlist, tracks: reorderedTracks }));
   }
 
   return (
@@ -72,7 +71,6 @@ function Playlist() {
           </div>
         </div>
       </div>
-
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="playlist">
           {(provided) => (
@@ -81,8 +79,7 @@ function Playlist() {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {tracksPlaylist.map((track, index) => (
-                // DIV OF THE TRACK
+              {playlist.tracks.map((track, index) => (
                 <Draggable
                   key={track._id}
                   draggableId={track._id}
@@ -116,15 +113,13 @@ function Playlist() {
                     </div>
                   )}
                 </Draggable>
-
-                // DIV OF THE TRACK
               ))}
               {provided.placeholder}
             </div>
           )}
         </Droppable>
       </DragDropContext>
-    </div> //PLAYLIST PAGE CLOSING DIV
+    </div>
   );
 }
 
