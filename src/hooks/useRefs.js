@@ -7,9 +7,9 @@ export function useRefs() {
     (refName) => (ref) => {
       refs.current = {
         ...refs.current,
-        [refName]: ref
+        [refName]: ref,
       };
-      console.log(refs.current)
+      console.log(refs.current);
     },
     [refs],
   );

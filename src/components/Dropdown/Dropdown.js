@@ -14,7 +14,7 @@ function Dropdown(props) {
 
   return (
     <>
-      <div href="#" onClick={toggleOpened}>
+      <div className="three-dots" href="#" onClick={toggleOpened}>
         <BsIcons.BsThreeDotsVertical />
       </div>
       <div

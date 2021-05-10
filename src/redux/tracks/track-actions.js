@@ -6,8 +6,8 @@ import { normalizeTracks } from "../../schema/track-schema";
 export const addTracks = (tracks) => ({
   type: TrackTypes.ADD_TRACKS,
   payload: {
-    tracks: tracks
-  }
+    tracks: tracks,
+  },
 });
 
 export const fetchTracksRequest = () => ({
