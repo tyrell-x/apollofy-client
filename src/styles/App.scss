@@ -2,7 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 
 .App__container {
-  background: linear-gradient(180deg, #000000 0%, rgba(168, 168, 168, 0.24) 100%), #1E2026;
+  background: linear-gradient(
+      180deg,
+      #000000 0%,
+      rgba(168, 168, 168, 0.24) 100%
+    ),
+    #1e2026;
   min-height: 100vh;
   color: white;
   font-family: "Lato", sans-serif;

@@ -11,20 +11,17 @@ import {
 } from "../../redux/player/player-actions.js";
 import { isTrackInPlayer } from "../../redux/player/player-selectors.js";
 import Dropdown from "../Dropdown";
+import AddToPlaylist from "../AddToPlaylist";
 import Modal from "react-modal";
 import EditTrack from "../EditTrack/index.js";
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 const customStyles = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    width: "500px",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "black",
-    borderRadius: "5px",
+    position: "0",
+    height: "100vh",
+    width: "100vw",
+    backgroundColor: "#030303",
+    border: "none",
   },
 };
 
@@ -65,6 +62,13 @@ function TrackCard({ id }) {
   function closeModal() {
     setIsOpen(false);
   }
+  const [playlistModalIsOpen, setPlaylistModalIsOpen] = useState(false);
+  function closePlaylistModal() {
+    setPlaylistModalIsOpen((state) => {
+      console.log(state);
+      return !state;
+    });
+  }
 
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
@@ -103,8 +107,27 @@ function TrackCard({ id }) {
                 <EditTrack id={id} closeModal={() => closeModal()} />
               </Modal>
             </div>
+            <div
+              onClick={() => {
+                setPlaylistModalIsOpen(true);
+                setDropdownIsOpen(false);
+              }}
+            >
+              Add to Playlist
+            </div>
+            <button onClick={toggleTrackInPlayer}>Boton Nuevo</button>
             <DeleteButton onClick={onDeleteButtonClick}></DeleteButton>
           </Dropdown>
+          {playlistModalIsOpen ? (
+            <div className="playlist-modal-bg">
+              <AddToPlaylist
+                id={id}
+                closePlaylistModal={() => closePlaylistModal()}
+              />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </AnimatedListItem>

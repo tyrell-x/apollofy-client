@@ -1,9 +1,9 @@
 @import "../../styles/variables.scss";
-@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Jockey+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pangolin&display=swap");
 
 .main-navbar {
   .navbar {
@@ -26,13 +26,13 @@
 
     .logo {
       user-select: none;
-      font-family: 'Jockey One', sans-serif;
+      font-family: "Jockey One", sans-serif;
       font-weight: 400;
       font-style: normal;
       font-size: 36px;
       line-height: 50px;
       margin-left: 50px;
-      color: #FF8933;
+      color: #ff8933;
     }
 
     .nav-items {
@@ -45,15 +45,16 @@
         color: rgb(212, 212, 212);
         transition: color 0.3s;
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
           color: white;
         }
 
         &.active {
-          color: #FF8933;
+          color: #ff8933;
         }
       }
-      
+
       .nav-item {
         cursor: pointer;
         user-select: none;
@@ -69,7 +70,6 @@
         i {
           font-size: 34px;
         }
-
       }
     }
 
@@ -200,7 +200,6 @@
     align-items: center;
   }
 }
-
 
 @media (max-width: 1300px) {
   .nav-item span {

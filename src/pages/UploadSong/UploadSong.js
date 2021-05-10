@@ -83,7 +83,7 @@ function UploadSong() {
           {songsToUpload.map((song, i) => {
             return (
               <SongUploadForm
-                ref={el => elRefs.current[i] = el}
+                ref={(el) => (elRefs.current[i] = el)}
                 key={song.data.id}
                 song={song}
               />

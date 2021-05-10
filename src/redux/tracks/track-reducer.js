@@ -30,7 +30,7 @@ const TrackReducer = (state = TrackInitState, action) => {
       return {
         ...state,
         tracksLoading: true,
-        tracksLoadingError: null
+        tracksLoadingError: null,
       };
     }
     case TrackTypes.FETCH_TRACKS_ERROR: {

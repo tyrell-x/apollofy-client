@@ -9,7 +9,7 @@ export const PlayerInitialState = {
 const PlayerReducer = (state = PlayerInitialState, action) => {
   switch (action.type) {
     case PlayersTypes.SET_TRACKS_IN_PLAYER: {
-      const tracks = [...action.payload]
+      const tracks = [...action.payload];
       return {
         ...state,
         currentlyPlaying: true,

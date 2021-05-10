@@ -22,7 +22,9 @@ function MyTracks() {
 
   const applyNameFilter = (e) => {
     setFilteredTracks(
-      allTracks.slice(0, 7).filter((track) => track.title.includes(e.target.value)),
+      allTracks
+        .slice(0, 7)
+        .filter((track) => track.title.includes(e.target.value)),
     );
   };
 

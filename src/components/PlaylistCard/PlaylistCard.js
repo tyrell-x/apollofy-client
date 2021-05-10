@@ -51,7 +51,7 @@ export default function PlaylistCard({ id }) {
               <div className="playlist-tracks">
                 <ol>
                   {playlist.tracks.map((track) => (
-                    <li key={track.id}>{track.title}</li>
+                    <li key={track._id}>{track.title}</li>
                   ))}
                 </ol>
               </div>

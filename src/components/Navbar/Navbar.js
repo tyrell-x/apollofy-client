@@ -23,12 +23,16 @@ function Navbar() {
   });
 
   const { isAuthenticated } = useSelector(authSelector);
-  if(!isAuthenticated) {
-    return <></>
+  if (!isAuthenticated) {
+    return <></>;
   }
   return (
     <header className="main-navbar">
-      <div className={`navbar ${location.pathname.startsWith(ROUTES.PLAYLIST) ? "playlist" : ""}`}>
+      <div
+        className={`navbar ${
+          location.pathname.startsWith(ROUTES.PLAYLIST) ? "playlist" : ""
+        }`}
+      >
         <div id="menu-button">
           <button to="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />
@@ -89,9 +93,9 @@ function Navbar() {
           </Link>
         </div>
         <button className="account-button">
-            <NavItem icon={<AiIcons.AiOutlineUser className="dropdown-icon" />}>
-              <DropdownMenu></DropdownMenu>
-            </NavItem>
+          <NavItem icon={<AiIcons.AiOutlineUser className="dropdown-icon" />}>
+            <DropdownMenu></DropdownMenu>
+          </NavItem>
         </button>
       </div>
 
