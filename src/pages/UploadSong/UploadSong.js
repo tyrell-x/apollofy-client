@@ -54,14 +54,6 @@ function UploadSong() {
     Object.values(elRefs.current).forEach((form) => {
       form.requestSubmit();
       return;
-      /*
-      if (form.requestSubmit === "function") {
-        console.log('eoo')
-        form.requestSubmit();
-      } else {
-        form.dispatchEvent(new Event("submit", { cancelable: true }));
-      }
-      */
     });
   };
 

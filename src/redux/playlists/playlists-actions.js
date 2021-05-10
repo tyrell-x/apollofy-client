@@ -138,21 +138,19 @@ export function followPlaylist(id, follow) {
     dispatch(updatePlaylistFollowing(id, follow));
   };
 }
-/*
+
 export function updatePlaylist(playlist) {
   return async function updatePlaylistThunk(dispatch) {
     dispatch(playlistUpdateRequest());
-
-    const res = await api.updatePlaylist(playlist);
-
-    if (res.isSuccessful) {
-      dispatch(playlistUpdateSuccess(res.data));
-    } else {
-      dispatch(playlistUpdateError(res.errorMessage));
+    dispatch(playlistUpdateSuccess(playlist));
+    try {
+      const res = await playlistApi.updatePlaylist(playlist);
+    } catch (err) {
+      dispatch(playlistUpdateError(err));
     }
   };
 }
-*/
+
 /*
 export function fetchOwnPlaylists() {
   return async function fetchPlaylistsThunk(dispatch) {

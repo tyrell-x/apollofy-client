@@ -9,7 +9,6 @@ export function useRefs() {
         ...refs.current,
         [refName]: ref,
       };
-      console.log(refs.current);
     },
     [refs],
   );
