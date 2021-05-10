@@ -126,7 +126,7 @@ export function addTrackToPlaylist(trackId, playlistId) {
     dispatch(updateTracksInPlaylist(trackId, playlistId));
   };
 }
-/*
+
 export function updatePlaylist(playlist) {
   return async function updatePlaylistThunk(dispatch) {
     dispatch(playlistUpdateRequest());

@@ -39,7 +39,7 @@ function Playlist() {
 
 
   const playPlaylist = () => {
-    dispatch(setTracksInPlayer(playlist.tracks.map((track) => track._id)));  }
+    dispatch(setTracksInPlayer(playlist.tracks.map((track) => track._id)));  
   };
   //UPDATE on Drag End
   function handleOnDragEnd(result) {
@@ -54,7 +54,6 @@ function Playlist() {
     fetchAllPlaylists()
     console.log(tracks)
   }
-    dispatch(setTracksInPlayer(playlist.tracks.map((track) => track._id)));
  
 
   return (
@@ -116,6 +115,6 @@ function Playlist() {
       
     </div> //PLAYLIST PAGE CLOSING DIV
   );
-
+                  }
 
 export default Playlist;

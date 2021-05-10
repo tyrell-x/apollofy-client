@@ -12,18 +12,10 @@ import {
 } from "../../redux/player/player-actions.js";
 import { isTrackInPlayer } from "../../redux/player/player-selectors.js";
 import Dropdown from "../Dropdown";
-<<<<<<< HEAD
-import AddToPlaylist from "../AddToPlaylist"
-import Modal from "react-modal";
-import EditTrack from "../EditTrack/index.js";
-import { useEffect, useState } from "react";
-import CreatePlaylist  from "../CreatePlaylist"
-=======
 import AddToPlaylist from "../AddToPlaylist";
 import Modal from "react-modal";
 import EditTrack from "../EditTrack/index.js";
 import { useState } from "react";
->>>>>>> 2f312819e2de71baa37ab7fb5dabf2217df68c61
 const customStyles = {
   content: {
     position: "0",
@@ -72,23 +64,11 @@ function TrackCard({ id }) {
     setIsOpen(false);
   }
   const [playlistModalIsOpen, setPlaylistModalIsOpen] = useState(false);
-<<<<<<< HEAD
-  function openPlaylistModal() {
-    setPlaylistModalIsOpen(true);
-  }
-  function closePlaylistModal() {
-    setPlaylistModalIsOpen((state) => {
-      console.log(state)
-      return !state
-    });
-    console.log(playlistModalIsOpen)
-=======
   function closePlaylistModal() {
     setPlaylistModalIsOpen((state) => {
       console.log(state);
       return !state;
     });
->>>>>>> 2f312819e2de71baa37ab7fb5dabf2217df68c61
   }
 
   
@@ -131,25 +111,11 @@ function TrackCard({ id }) {
             </div>
             <div
               onClick={() => {
-<<<<<<< HEAD
-                openPlaylistModal();
-=======
                 setPlaylistModalIsOpen(true);
->>>>>>> 2f312819e2de71baa37ab7fb5dabf2217df68c61
                 setDropdownIsOpen(false);
               }}
             >
               Add to Playlist
-<<<<<<< HEAD
-              <Modal
-                isOpen={playlistModalIsOpen}
-                onRequestClose={closePlaylistModal}
-                style={customStyles}
-              >
-                <AddToPlaylist id={id} closePlaylistModal={() => closePlaylistModal()} />
-              </Modal>
-=======
->>>>>>> 2f312819e2de71baa37ab7fb5dabf2217df68c61
             </div>
             <button onClick={toggleTrackInPlayer}>Boton Nuevo</button>
             <DeleteButton onClick={onDeleteButtonClick}></DeleteButton>
