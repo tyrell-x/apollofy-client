@@ -11,10 +11,10 @@ import {
 } from "../../redux/player/player-actions.js";
 import { isTrackInPlayer } from "../../redux/player/player-selectors.js";
 import Dropdown from "../Dropdown";
-import AddToPlaylist from "../AddToPlaylist"
+import AddToPlaylist from "../AddToPlaylist";
 import Modal from "react-modal";
 import EditTrack from "../EditTrack/index.js";
-import {  useState } from "react";
+import { useState } from "react";
 const customStyles = {
   content: {
     position: "0",
@@ -65,12 +65,11 @@ function TrackCard({ id }) {
   const [playlistModalIsOpen, setPlaylistModalIsOpen] = useState(false);
   function closePlaylistModal() {
     setPlaylistModalIsOpen((state) => {
-      console.log(state)
-      return !state
+      console.log(state);
+      return !state;
     });
   }
 
-  
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
   return (
@@ -110,7 +109,7 @@ function TrackCard({ id }) {
             </div>
             <div
               onClick={() => {
-                setPlaylistModalIsOpen(true)
+                setPlaylistModalIsOpen(true);
                 setDropdownIsOpen(false);
               }}
             >
@@ -119,11 +118,16 @@ function TrackCard({ id }) {
             <button onClick={toggleTrackInPlayer}>Boton Nuevo</button>
             <DeleteButton onClick={onDeleteButtonClick}></DeleteButton>
           </Dropdown>
-          {playlistModalIsOpen ? 
-          <div className="playlist-modal-bg">
-            <AddToPlaylist id={id} closePlaylistModal={() => closePlaylistModal()}/> 
-          </div>
-          : ""}
+          {playlistModalIsOpen ? (
+            <div className="playlist-modal-bg">
+              <AddToPlaylist
+                id={id}
+                closePlaylistModal={() => closePlaylistModal()}
+              />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </AnimatedListItem>

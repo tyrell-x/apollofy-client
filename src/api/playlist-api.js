@@ -9,27 +9,25 @@ function makeApi(request = makeRequest()) {
     });
   }
 
-  function postInPlaylist(headers, id, body) {
+  function addTrackToPlaylist(trackId, playlistId) {
     return request({
-      url: `/playlist/track?id=${id}`,
+      url: `/playlist/track?id=${playlistId}&track=true`,
       requestMethod: "POST",
-      headers: headers,
-      body: body,
+      body: { trackId },
     });
   }
-  function createPlaylist(headers, body) {
+  function createPlaylist(playlist) {
     return request({
       url: `/playlist/`,
       requestMethod: "POST",
-      headers: headers,
-      body: body,
+      body: playlist,
     });
   }
 
   return {
     getAllPlaylists: getAllPlaylists,
-    postInPlaylist: postInPlaylist,
-    createPlaylist: createPlaylist
+    addTrackToPlaylist: addTrackToPlaylist,
+    createPlaylist: createPlaylist,
   };
 }
 

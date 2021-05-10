@@ -15,9 +15,7 @@ export const playingTrackSelector = createSelector(
 );
 
 export const tracksPlayingSelector = createSelector(
-  [
-    (state) => state.player.tracks,
-  ],
+  [(state) => state.player.tracks],
   (tracks) => tracks.length,
 );
 

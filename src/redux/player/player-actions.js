@@ -2,8 +2,8 @@ import * as PlayerTypes from "./player-types";
 
 const setTracksInPlayerAct = (tracks) => ({
   type: PlayerTypes.SET_TRACKS_IN_PLAYER,
-  payload: tracks
-})
+  payload: tracks,
+});
 
 const insertTracksToPlayer = (tracks) => ({
   type: PlayerTypes.ADD_TRACK_TO_PLAYER,
