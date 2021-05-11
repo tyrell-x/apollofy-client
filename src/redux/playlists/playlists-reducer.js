@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable spaced-comment */
 import * as PlaylistType from "./playlists-types";
+import { trackTypes } from "../tracks/track-types";
 
 export const PlaylistInitState = {
   playlistCreation: false,
@@ -34,10 +35,15 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
       };
     }
     case PlaylistType.CREATE_PLAYLIST_SUCCESS: {
+      const { playlist } = action.payload;
       return {
         ...state,
         playlistCreation: false,
         playlistCreationError: null,
+        playlistsById: {
+          ...state.playlistsById,
+          [playlist._id]: playlist,
+        },
       };
     }
     case PlaylistType.UPDATE_PLAYLIST_REQUEST: {
@@ -55,10 +61,15 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
       };
     }
     case PlaylistType.UPDATE_PLAYLIST_SUCCESS: {
+      const { playlist } = action.payload;
       return {
         ...state,
         playlistUpdate: false,
         playlistUpdateError: null,
+        playlistsById: {
+          ...state.playlistsById,
+          [playlist._id]: playlist,
+        },
       };
     }
     case PlaylistType.FETCH_PLAYLISTS_REQUEST: {
@@ -113,6 +124,32 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
           ...state.playlistsById,
           [id]: {
             ...playlist,
+          },
+        },
+      };
+    }
+    case PlaylistType.UPDATE_PLAYLIST_TRACKS: {
+      const { trackId, playlistId } = action.payload;
+      return {
+        ...state,
+        playlistsById: {
+          ...state.playlistsById,
+          [playlistId]: {
+            ...state.playlistsById[playlistId],
+            tracks: [...state.playlistsById[playlistId].tracks, trackId],
+          },
+        },
+      };
+    }
+    case PlaylistType.UPDATE_PLAYLIST_FOLLOWING: {
+      const { id, followed } = action.payload;
+      return {
+        ...state,
+        playlistsById: {
+          ...state.playlistsById,
+          [id]: {
+            ...state.playlistsById[id],
+            followed: followed,
           },
         },
       };

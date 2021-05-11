@@ -54,14 +54,6 @@ function UploadSong() {
     Object.values(elRefs.current).forEach((form) => {
       form.requestSubmit();
       return;
-      /*
-      if (form.requestSubmit === "function") {
-        console.log('eoo')
-        form.requestSubmit();
-      } else {
-        form.dispatchEvent(new Event("submit", { cancelable: true }));
-      }
-      */
     });
   };
 
@@ -83,7 +75,7 @@ function UploadSong() {
           {songsToUpload.map((song, i) => {
             return (
               <SongUploadForm
-                ref={el => elRefs.current[i] = el}
+                ref={(el) => (elRefs.current[i] = el)}
                 key={song.data.id}
                 song={song}
               />

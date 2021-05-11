@@ -9,38 +9,39 @@ function makeApi(request = makeRequest()) {
     });
   }
 
-  function postInPlaylist(headers, id, body) {
+  function addTrackToPlaylist(trackId, playlistId) {
     return request({
-      url: `/playlist/track?id=${id}`,
+      url: `/playlist/track?id=${playlistId}&track=true`,
       requestMethod: "POST",
-      headers: headers,
-      body: body,
+      body: { trackId },
     });
   }
-
-  function updatePlaylist(headers, id, body) {
+  function updatePlaylist(playlist) {
     return request({
-      url: `/playlist?id=${id}`,
-      requestMethod: "PATCH",
-      headers: headers,
-      body: body,
+      url: `/playlist/edit/${playlist._id}`,
+      requestMethod: "PUT",
+      body: playlist,
     });
   }
-
-  function createPlaylist(headers, body) {
+  function createPlaylist(playlist) {
     return request({
       url: `/playlist/`,
       requestMethod: "POST",
-      headers: headers,
-      body: body,
+      body: playlist,
     });
   }
-
+  function followPlaylist(id, followed) {
+    return request({
+      url: `/playlist/follow?id=${id}${followed ? "&followed=true" : ""}`,
+      requestMethod: "POST",
+    });
+  }
   return {
     getAllPlaylists: getAllPlaylists,
-    postInPlaylist: postInPlaylist,
+    addTrackToPlaylist: addTrackToPlaylist,
+    createPlaylist: createPlaylist,
+    followPlaylist: followPlaylist,
     updatePlaylist: updatePlaylist,
-    createPlaylist: createPlaylist
   };
 }
 

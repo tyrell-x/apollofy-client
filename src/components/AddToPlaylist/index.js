@@ -1,1 +1,1 @@
-export {default} from "./AddToPlaylist"
+export { default } from "./AddToPlaylist";

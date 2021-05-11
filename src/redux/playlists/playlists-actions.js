@@ -16,10 +16,10 @@ export const playlistCreateError = (message) => ({
   },
 });
 
-export const playlistCreateSuccess = (playlists) => ({
+export const playlistCreateSuccess = (playlist) => ({
   type: PlaylistTypes.CREATE_PLAYLIST_SUCCESS,
   payload: {
-    playlists,
+    playlist,
   },
 });
 
@@ -65,6 +65,16 @@ export const fetchPlaylistSuccess = (id, playlist) => ({
   payload: { id, playlist },
 });
 
+export const updateTracksInPlaylist = (trackId, playlistId) => ({
+  type: PlaylistTypes.UPDATE_PLAYLIST_TRACKS,
+  payload: { playlistId, trackId },
+});
+
+export const updatePlaylistFollowing = (id, followed) => ({
+  type: PlaylistTypes.UPDATE_PLAYLIST_FOLLOWING,
+  payload: { id, followed },
+});
+
 export function fetchAllPlaylists() {
   return async function fetchPlaylistsThunk(dispatch) {
     dispatch(fetchPlaylistRequest());
@@ -94,49 +104,49 @@ export function fetchAllPlaylists() {
           ],
         ),
       );
-      return dispatch(
-        fetchPlaylistsSuccess(playlists),
-      );
+      return dispatch(fetchPlaylistsSuccess(playlists));
     } catch (err) {
       return dispatch(fetchPlaylistError(err));
     }
   };
 }
 
-export function createPlaylist({ title, thumbnail, publicAccessible }) {
+export function createPlaylist({ title }) {
   return async function createThunk(dispatch) {
     dispatch(playlistCreateRequest());
-
     try {
-      const res = await playlistApi.createPlaylist({
-        body: {
-          title: title,
-          thumbnail: thumbnail,
-          publicAccessible: publicAccessible,
-        },
-      });
-
+      const res = await playlistApi.createPlaylist({ title: title });
       if (res.errorMessage) {
         return dispatch(playlistCreateError(res.errorMessage));
       }
-
       return dispatch(playlistCreateSuccess(res.data));
     } catch (err) {
       return dispatch(playlistCreateError(err));
     }
   };
 }
+export function addTrackToPlaylist(trackId, playlistId) {
+  return async function addTrackToPlaylistThunk(dispatch) {
+    const response = await playlistApi.addTrackToPlaylist(trackId, playlistId);
+    dispatch(updateTracksInPlaylist(trackId, playlistId));
+  };
+}
 
+export function followPlaylist(id, follow) {
+  return async function followPlaylistThunk(dispatch) {
+    await playlistApi.followPlaylist(id, follow);
+    dispatch(updatePlaylistFollowing(id, follow));
+  };
+}
 
 export function updatePlaylist(playlist) {
   return async function updatePlaylistThunk(dispatch) {
     dispatch(playlistUpdateRequest());
-    const res = await playlistApi.updatePlaylist(playlist);
-
-    if (res.isSuccessful) {
-      dispatch(playlistUpdateSuccess(res.data));
-    } else {
-      dispatch(playlistUpdateError(res.errorMessage));
+    dispatch(playlistUpdateSuccess(playlist));
+    try {
+      const res = await playlistApi.updatePlaylist(playlist);
+    } catch (err) {
+      dispatch(playlistUpdateError(err));
     }
   };
 }

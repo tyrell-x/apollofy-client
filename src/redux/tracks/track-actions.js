@@ -6,8 +6,8 @@ import { normalizeTracks } from "../../schema/track-schema";
 export const addTracks = (tracks) => ({
   type: TrackTypes.ADD_TRACKS,
   payload: {
-    tracks: tracks
-  }
+    tracks: tracks,
+  },
 });
 
 export const fetchTracksRequest = () => ({
@@ -60,7 +60,6 @@ export const fetchTracks = () => {
     dispatch(fetchTracksRequest());
     try {
       const response = await api.getTracks();
-      console.log(response);
       const mapped = response.data.slice(0, 10);
       if (response.data) {
         const normalizedTracks = normalizeTracks(mapped);
@@ -132,8 +131,6 @@ export const toggleLikeTrack = (id, liked) => {
   return async (dispatch) => {
     try {
       const response = await api.likeTrackToggle(id, liked);
-
-      console.log(response);
 
       dispatch(updateLikeTrack(id, response.data));
     } catch (error) {}
