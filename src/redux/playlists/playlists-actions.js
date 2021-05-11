@@ -111,6 +111,27 @@ export function fetchAllPlaylists() {
   };
 }
 
+export const playlistDeleteRequest = (message) => ({
+  type: PlaylistTypes.DELETE_PLAYLIST_REQUEST,
+  payload: {
+    message,
+  }
+});
+
+export const playlistDeleteError = (message) => ({
+  type: PlaylistTypes.DELETE_PLAYLIST_ERROR,
+  payload: {
+    message,
+  },
+});
+
+export const playlistDeleteSuccess = (message) => ({
+  type: PlaylistTypes.DELETE_PLAYLIST_SUCCESS,
+  payload: {
+    message
+  },
+});
+
 export function createPlaylist({ title }) {
   return async function createThunk(dispatch) {
     dispatch(playlistCreateRequest());
@@ -151,6 +172,17 @@ export function updatePlaylist(playlist) {
   };
 }
 
+export function deletePlaylist(playlistId) {
+  return async function deletePlaylistThunk(dispatch) {
+    dispatch(playlistDeleteRequest());
+    dispatch(playlistDeleteSuccess(playlistId));
+    try {
+      const res = await playlistApi.deletePlaylist(playlistId);
+    } catch (err) {
+      dispatch(playlistDeleteError(err));
+    }
+  };
+}
 /*
 export function fetchOwnPlaylists() {
   return async function fetchPlaylistsThunk(dispatch) {

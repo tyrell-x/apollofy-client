@@ -13,6 +13,7 @@ import { onAuthStateChanged } from "../../services/auth/auth.js";
 import {
   fetchAllPlaylists,
   updatePlaylist,
+  deletePlaylist
 } from "../../redux/playlists/playlists-actions.js";
 import FollowPlaylist from "../../components/FollowPlaylist";
 import PlaylistOptions from "../../components/PlaylistOptions";
@@ -70,7 +71,7 @@ function Playlist() {
               <span className="play-text">Play</span>
             </Button>
             {/* HERE GOES ACTION ELIMINATE */}
-            <Button onClick={playPlaylist} className = "trash-button">
+            <Button onClick={deletePlaylist(playlist._id)} className = "trash-button">
               <FontAwesomeIcon icon={faTrash} />
             </Button>
             {/* HERE GOES ACTION SEND */}

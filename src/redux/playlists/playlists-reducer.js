@@ -8,6 +8,8 @@ export const PlaylistInitState = {
   playlistCreationError: null,
   playlistUpdate: false,
   playlistUpdateError: null,
+  playlistDelete: false,
+  playlistDeleteError: null,
   playlistsLoading: false,
   playlistsLoadingError: null,
   playlistsFetched: false,
@@ -70,6 +72,27 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
           ...state.playlistsById,
           [playlist._id]: playlist,
         },
+      };
+    }
+    case PlaylistType.DELETE_PLAYLIST_REQUEST: {
+      return {
+        ...state,
+        playlistDelete: true,
+        playlistDeleteError: null,
+      };
+    }
+    case PlaylistType.DELETE_PLAYLIST_ERROR: {
+      return {
+        ...state,
+        playlistDelete: false,
+        playlistDeleteError: action.payload,
+      };
+    }
+    case PlaylistType.DELETE_PLAYLIST_SUCCESS: {
+      return {
+        ...state,
+        playlistDelete: true,
+        playlistDeleteError: null
       };
     }
     case PlaylistType.FETCH_PLAYLISTS_REQUEST: {

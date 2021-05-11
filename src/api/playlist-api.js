@@ -36,12 +36,19 @@ function makeApi(request = makeRequest()) {
       requestMethod: "POST",
     });
   }
+  function deletePlaylist(playlistId) {
+    return request({
+      url: `/playlist/${playlistId}`,
+      requestMethod: "DELETE",
+    });
+  }
   return {
     getAllPlaylists: getAllPlaylists,
     addTrackToPlaylist: addTrackToPlaylist,
     createPlaylist: createPlaylist,
     followPlaylist: followPlaylist,
     updatePlaylist: updatePlaylist,
+    deletePlaylist: deletePlaylist
   };
 }
 
