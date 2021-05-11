@@ -12,6 +12,7 @@
   .summary {
     display: flex;
     gap: 40px;
+    width: max-content;
 
     .image {
       border-radius: 5px;
@@ -19,6 +20,7 @@
 
     .details {
       align-self: flex-end;
+      
 
       .type {
         font-family: Jockey One;
@@ -41,13 +43,38 @@
 
       .actions {
         margin: 10px 0;
-
-        .button {
+        display: flex;
+        align-items: center;
+        align-content: space-around;
+        
+        .options-button, .trash-button, .send-button{
           background-color: rgba(255, 255, 255, 0.15);
+          color: white;
+          border-radius: 50%;
+          font-size: 20px;
+          font-weight: 600;
+          width: 2em;
+          height: 2em;
+          display: flex;
+          align-items: center;
+          align-content: center;
+          text-align: center;
+          justify-content: center;
+          margin: 0 0.2em;
+          cursor: pointer;
+        }
+
+
+        .play-button {
+          background-color: rgba(255, 255, 255, 0.15);
+          display: flex;
+          width: fit-content;
           color: white;
           border-radius: 30%;
           font-size: 20px;
           font-weight: 600;
+          margin-right: 0.4em;
+          
 
           .play-text {
             margin-left: 10px;

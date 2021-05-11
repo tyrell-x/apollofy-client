@@ -6,7 +6,7 @@ import { selectPlaylist } from "../../redux/playlists/playlists-selectors.js";
 import { getCounter } from "../../utils/utils.js";
 import Button from "../../components/Button/index.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPaperPlane, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { setTracksInPlayer } from "../../redux/player/player-actions.js";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "../../services/auth/auth.js";
@@ -15,6 +15,7 @@ import {
   updatePlaylist,
 } from "../../redux/playlists/playlists-actions.js";
 import FollowPlaylist from "../../components/FollowPlaylist";
+import PlaylistOptions from "../../components/PlaylistOptions";
 
 const defaultImage =
   "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
@@ -33,8 +34,6 @@ function Playlist() {
 
   const { id } = useParams();
   const playlist = useSelector(selectPlaylist(id));
-  const {tracks} = playlist
-  const [tracksPlaylist, updatePlaylistOrder] = useState(tracks);
 
 
   const playPlaylist = () => {
@@ -66,10 +65,20 @@ function Playlist() {
           <h5 className="type">PLAYLIST</h5>
           <h4 className="title">{playlist.title}</h4>
           <div className="actions">
-            <Button onClick={playPlaylist}>
+            <Button onClick={playPlaylist} className = "play-button">
               <FontAwesomeIcon icon={faPlay} />
               <span className="play-text">Play</span>
             </Button>
+            {/* HERE GOES ACTION ELIMINATE */}
+            <Button onClick={playPlaylist} className = "trash-button">
+              <FontAwesomeIcon icon={faTrash} />
+            </Button>
+            {/* HERE GOES ACTION SEND */}
+            <Button onClick={playPlaylist} className = "send-button">
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </Button>
+            {/* HERE GOES ACTION OPTIONS */}
+            <PlaylistOptions/>
             <FollowPlaylist id={id} followed={playlist.followed} />
           </div>
         </div>

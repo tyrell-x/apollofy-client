@@ -67,7 +67,7 @@ function PlaylistOptions({id}) {
                 setDropdownPlaylistOptionsIsOpen(false);
               }}
             >
-              Edit Playlist
+              Edit Details
               <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
@@ -85,7 +85,7 @@ function PlaylistOptions({id}) {
                 setDropdownPlaylistOptionsIsOpen(false);
               }}
             >
-              Edit Playlist
+              About Author
               <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
@@ -94,14 +94,6 @@ function PlaylistOptions({id}) {
                 <EditTrack id={id} closeModal={() => closeModal()} />
               </Modal>
             </div>
-
-
-              {/* SHARE PLAYLIST */}
-              <button onClick={toggleTrackInPlayer}>SHARE PLAYLIST</button>
-
-
-              {/* DELETE PLAYLIST PLAYLIST */}
-            <DeleteButton onClick={onDeleteButtonClick}></DeleteButton>
           </DropdownPlaylistOptions>
     </div>
   );

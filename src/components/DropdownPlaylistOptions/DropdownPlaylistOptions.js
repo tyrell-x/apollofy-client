@@ -14,7 +14,7 @@ function DropdownPlaylistOptions(props) {
 
   return (
     <>
-      <div href="#" onClick={toggleOpened}>
+      <div href="#" onClick={toggleOpened} className="options-button">
         <BsIcons.BsThreeDotsVertical />
       </div>
       <div
@@ -26,9 +26,9 @@ function DropdownPlaylistOptions(props) {
       >
         <div className="dropdownPlaylistOptions-content">
           {children.map((child, index) => (
-            <div key={index} className="dropdownPlaylistOptions-item">
+            <button key={index} className="dropdownPlaylistOptions-item">
               {child}
-            </div>
+            </button>
           ))}
         </div>
       </div>

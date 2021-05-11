@@ -1,1 +1,1 @@
-export { default as PlaylistOptions } from "./PlaylistOptions";
+export { default} from "./PlaylistOptions";
