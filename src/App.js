@@ -12,6 +12,7 @@ import ResetPassword from "./pages/ResetPassword";
 import { onAuthStateChanged } from "./services/auth";
 import { syncSignIn, signOut } from "./redux/auth/auth-actions";
 import Account from "./pages/Account/Account";
+import Profile from "./pages/Profile/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Library from "./pages/Library";
 import Navbar from "./components/Navbar";
@@ -48,6 +49,7 @@ function App() {
           <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
           <ProtectedRoute path={ROUTES.HOME} component={Home} exact />
           <ProtectedRoute path={ROUTES.ACCOUNT} component={Account} exact />
+          <ProtectedRoute path={ROUTES.PROFILE} component={Profile} />
           <ProtectedRoute path={ROUTES.UPLOAD_SONG} component={UploadSong} />
           <ProtectedRoute path={ROUTES.UPLOAD_IMAGE} component={UploadImage} />
           <ProtectedRoute path={ROUTES.LIBRARY} component={Library} exact />

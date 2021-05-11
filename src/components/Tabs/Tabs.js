@@ -4,7 +4,7 @@ import TabButtons from "../TabButtons";
 
 const Tabs = (props) => {
   const [activeTabLabel, setActiveTabLabel] = useState(
-    props.children[0].props.label,
+    props.children[0].props.label
   );
   const content = useRef(props.children[0]);
 
