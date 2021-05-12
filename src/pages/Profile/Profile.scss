@@ -3,7 +3,7 @@
     justify-content: center;
     background: rgba(196, 196, 196, 0.20);
     height: 25vh;
-}
+    
 .profile-container{
     display: flex;
     flex-direction: row;
@@ -22,6 +22,7 @@
         img{
             border: 4px solid white;
             border-radius: 100px;
+            width: 100%;
         }
     }
     .profile-info{
@@ -52,5 +53,15 @@
             color: orange;
             cursor: pointer;
         }
+    }
+}
+}
+
+.library-tabs-profile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .main_container__nav{
+        max-width: 1400px;
     }
 }
