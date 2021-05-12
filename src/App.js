@@ -41,6 +41,7 @@ function App() {
   return (
     <div className="App__container">
       <Navbar />
+      <MusicPlayer />
       <main>
         <Switch>
           <Route path={ROUTES.SIGN_UP} component={SignUp} />
@@ -58,7 +59,6 @@ function App() {
           />
         </Switch>
       </main>
-      <MusicPlayer />
     </div>
   );
 }

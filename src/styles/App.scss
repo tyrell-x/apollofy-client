@@ -20,6 +20,14 @@ body {
   min-height: 100vh;
 }
 
+main {
+  transition: padding-bottom 0.3s ease-in-out;
+}
+
+.music-player-container.filled ~ main {
+  padding-bottom: 120px;
+}
+
 *,
 ::before,
 ::after {
