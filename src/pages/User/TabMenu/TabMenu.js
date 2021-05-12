@@ -7,7 +7,7 @@ import UserCard from "../../../components/UserCard"
 function TabMenu({followers, following}) {
   return (
     <Tabs>
-      <Tab label="My Playlists">
+      <Tab label="Playlists">
         <MyPlaylists />
       </Tab>
       <Tab label={followers ? followers.length + " Followers": "Followers"}>

@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react'
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import TabMenu from "./TabMenu"
 import {useDispatch, useSelector} from 'react-redux'
 import {fetchProfileInfo} from "../../redux/profile/profile-actions"
-import profileApi from "../../api/profile-api";
 import { onAuthStateChanged } from "../../services/auth/auth.js";
 
-import "./Profile.scss"
+import "./User.scss"
 
-function Profile () {
+function User () {
+    const { id } = useParams()
     const profile = useSelector(state => state.profile.profileInfo)
     const dispatch = useDispatch()
     useEffect(()=> {
@@ -33,11 +33,6 @@ function Profile () {
                         <p className="profile-info-email">{profile.email}</p>
                     </div>
                 </div>
-                <div className="edit-profile-button-container">
-                    <Link to="/account">
-                    <button className="edit-profile-button">Edit Profile</button>
-                    </Link>
-                </div>
             </div>
         </div>
         <div className="library-tabs library-tabs-profile">
@@ -47,4 +42,4 @@ function Profile () {
     )
 }
 
-export default Profile
+export default User

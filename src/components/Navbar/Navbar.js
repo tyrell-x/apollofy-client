@@ -30,7 +30,7 @@ function Navbar() {
     <header className="main-navbar">
       <div
         className={`navbar ${
-          location.pathname.startsWith(ROUTES.PLAYLIST) ? "playlist" : ""
+          (location.pathname.startsWith(ROUTES.PLAYLIST) || location.pathname.startsWith(ROUTES.PROFILE) )  ? "playlist" : "" 
         }`}
       >
         <div id="menu-button">
