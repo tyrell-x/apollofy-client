@@ -24,6 +24,8 @@ import {
 import FollowPlaylist from "../../components/FollowPlaylist";
 import PlaylistOptions from "../../components/PlaylistOptions";
 import { useCopyToClipboard } from "../../hooks/useCopyToClipboard/useCopyToClipboard";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 const defaultImage =
   "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
@@ -105,6 +107,7 @@ function Playlist() {
               <FontAwesomeIcon icon={faTrash} />
             </Button>
             {/* HERE GOES ACTION SEND */}
+            
             <Button
               className="send-button"
               onClick={() => handleCopy(playlistLink)}

@@ -8,6 +8,7 @@ export const useCopyToClipboard = function (resetInterval = null) {
     if (typeof text === "string" || typeof text == "number") {
       copy(text.toString());
       setCopied(true);
+      alert("Playlist link succesfully copied to clipboard")
     } else {
       setCopied(false);
       console.error(
