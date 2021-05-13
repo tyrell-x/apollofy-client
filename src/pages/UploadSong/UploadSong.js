@@ -20,6 +20,7 @@ function UploadSong() {
   const dispatch = useDispatch();
 
   const songsToUpload = useSelector(songsToUploadSelector);
+  console.log(songsToUpload);
 
   async function handleDropFiles(songsToUpload) {
     const songsData = await Promise.all(

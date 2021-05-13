@@ -11,21 +11,11 @@ function Account() {
   const profile = useSelector((state) => state.auth.currentUser);
 
   return (
-    <>
-      <div className="main_container">
-        <div className="main_container__profileImg">
-          <img
-            alt="profile"
-            src={
-              profile.pictureUrl ? profile.pictureUrl : DEFAULT_PROFILE_IMAGE
-            }
-            className="main_container__icon"
-          ></img>
-          <button>Change Image</button>
-        </div>
+    <div className="account">
+      <div className="tab-menu">
         <TabMenu />
       </div>
-    </>
+    </div>
   );
 }
 

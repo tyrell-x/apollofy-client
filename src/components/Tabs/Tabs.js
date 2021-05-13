@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import AnimatedListItem from "../AnimatedListItem";
 import TabButtons from "../TabButtons";
+import "./Tabs.scss"
 
 const Tabs = (props) => {
   const [activeTabLabel, setActiveTabLabel] = useState(

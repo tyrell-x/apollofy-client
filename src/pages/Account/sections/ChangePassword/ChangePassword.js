@@ -27,11 +27,8 @@ function ChangePassword(props) {
   };
 
   return (
-    <>
-      <main className="changePassword">
-        <section className="Login__wrapper">
-          <hr className="mt-1 mb-4" />
-          <form onSubmit={handleSubmit}>
+      <div className="changePassword">
+          <form onSubmit={handleSubmit} className="form">
             <FLInput
               name="current"
               id="currentPassword"
@@ -82,12 +79,7 @@ function ChangePassword(props) {
               text="Change Password"
             />
           </form>
-          <section className="mt-4">
-            <hr className="mt-1 mb-4" />
-          </section>
-        </section>
-      </main>
-    </>
+      </div>
   );
 }
 

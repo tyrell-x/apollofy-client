@@ -1,89 +1,68 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateUserAccount } from "../../../../redux/auth/auth-actions";
+import { updateUserAccount, updateUserAccountError } from "../../../../redux/auth/auth-actions";
 import { useForm } from "react-hook-form";
 
 import Button from "../../../../components/Button";
 import FLInput from "../../../../components/FLInput";
 import "./EditAccount.scss";
+import { useSelector } from "react-redux";
+import { selectProfileState } from "../../../../redux/auth/auth-selectors"
+import FLSelect from "../../../../components/FLSelect/FLSelect";
 
 function EditAccount() {
   const dispatch = useDispatch();
 
   useEffect(() => {});
   const {
-    register,
     handleSubmit,
-    formState: { errors },
   } = useForm();
+
+  const user = useSelector(selectProfileState);
+
+  const [ data, setData ] = useState(user);
+
+  const handleInput = e => {
+    setData((currentData) => {
+      currentData[e.target.name] = e.target.value
+      return {
+        ...currentData
+      };
+    });
+  };
 
   const onSubmit = (data) => {
     const { ...userData } = data;
     dispatch(updateUserAccount(userData));
   };
 
+
   return (
     <section className="edit-account">
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <FLInput
-          register={register}
           name="firstName"
-          rules={{
-            maxLength: {
-              value: 20,
-              message: "Max length (20)",
-            },
-          }}
-          error={errors?.firstName}
+          value={data?.firstName || ""}
+          onChange={handleInput}
           label="First Name"
         />
         <FLInput
-          register={register}
           name="lastName"
-          rules={{
-            maxLength: {
-              value: 20,
-              message: "Max length (20)",
-            },
-          }}
-          error={errors?.lastName}
+          value={data?.lastName || ""}
+          onChange={handleInput}
           label="Last Name"
         />
         <FLInput
-          register={register}
           name="email"
-          rules={{
-            maxLength: {
-              value: 20,
-              message: "Max length (20)",
-            },
-          }}
-          error={errors?.email}
+          value={data?.email || ""}
+          onChange={handleInput}
           label="Email"
         />
         <FLInput
-          register={register}
           name="phoneNumber"
-          rules={{
-            maxLength: {
-              value: 20,
-              message: "Max length (20)",
-            },
-          }}
-          error={errors?.phoneNumber}
+          value={data?.phoneNumber || ""}
+          onChange={handleInput}
           label="PhoneNumber"
-        />
-        <FLInput
-          register={register}
-          name="country"
-          rules={{
-            maxLength: {
-              value: 20,
-              message: "Max length (20)",
-            },
-          }}
-          error={errors?.country}
-          label="Country"
         />
         <Button
           style={{

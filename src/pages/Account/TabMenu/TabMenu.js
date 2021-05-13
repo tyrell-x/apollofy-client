@@ -9,9 +9,6 @@ import ChangePassword from "../sections/ChangePassword";
 function TabMenu() {
   return (
     <Tabs>
-      <Tab label="Account Details">
-        <InfoAccount />
-      </Tab>
       <Tab label="Edit Account Details">
         <EditAccount />
       </Tab>
