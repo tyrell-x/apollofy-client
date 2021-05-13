@@ -1,7 +1,7 @@
 import React from "react";
 import copy from "copy-to-clipboard";
 
-export default function useCopyToClipboard(resetInterval = null) {
+export const useCopyToClipboard = function(resetInterval = null) {
   const [isCopied, setCopied] = React.useState(false);
 
   function handleCopy(text) {
