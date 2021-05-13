@@ -1,7 +1,7 @@
 import React from "react";
 import copy from "copy-to-clipboard";
 
-export const useCopyToClipboard = function(resetInterval = null) {
+export const useCopyToClipboard = function (resetInterval = null) {
   const [isCopied, setCopied] = React.useState(false);
 
   function handleCopy(text) {
@@ -11,10 +11,10 @@ export const useCopyToClipboard = function(resetInterval = null) {
     } else {
       setCopied(false);
       console.error(
-        `Cannot copy typeof ${typeof text} to clipboard, must be a string or number.`
+        `Cannot copy typeof ${typeof text} to clipboard, must be a string or number.`,
       );
     }
   }
 
   return [isCopied, handleCopy];
-}
+};

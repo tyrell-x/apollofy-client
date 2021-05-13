@@ -56,7 +56,7 @@ function makeApi(request = makeRequest()) {
     followPlaylist: followPlaylist,
     updatePlaylist: updatePlaylist,
     editPlaylist: editPlaylist,
-    deletePlaylist: deletePlaylist
+    deletePlaylist: deletePlaylist,
   };
 }
 

@@ -6,21 +6,23 @@ import Modal from "react-modal";
 import EditPlaylist from "../EditPlaylist/index.js";
 import { signOut } from "../../redux/auth/auth-actions";
 import { useState } from "react";
-import { deleteTrack, } from "../../redux/tracks/track-actions";
+import { deleteTrack } from "../../redux/tracks/track-actions";
 import {
   addTrackToPlayer,
   removeTrackFromPlayer,
 } from "../../redux/player/player-actions.js";
 import { isTrackInPlayer } from "../../redux/player/player-selectors.js";
-import "./PlaylistOptions.scss" 
-
+import "./PlaylistOptions.scss";
 
 Modal.setAppElement("#root");
 Modal.defaultStyles.overlay.backgroundColor = "rgba(200, 200, 200, 0.4)";
 
-function PlaylistOptions({id}) {
+function PlaylistOptions({ id }) {
   //Use States
-  const [dropdownPlaylistOptionsIsOpen, setDropdownPlaylistOptionsIsOpen] = useState(false);
+  const [
+    dropdownPlaylistOptionsIsOpen,
+    setDropdownPlaylistOptionsIsOpen,
+  ] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const trackInPlayer = useSelector(isTrackInPlayer(id));
 
@@ -60,42 +62,45 @@ function PlaylistOptions({id}) {
   };
   return (
     <div className="playlistOptions dropdownPlaylistOptions">
-          <DropdownPlaylistOptions isOpen={dropdownPlaylistOptionsIsOpen} setIsOpen={setDropdownPlaylistOptionsIsOpen}>
-            {/* EDIT PLAYLIST DETAILS */}
-            <div
-              onClick={() => {
-                openModal();
-                setDropdownPlaylistOptionsIsOpen(false);
-              }}
-            >
-              Edit Details
-              <Modal className="modalEditPlaylist"
-                isOpen={modalIsOpen}
-                onRequestClose={closeModal}
-                style={customStyles}
-              >
-                <EditPlaylist id={id} closeModal={() => closeModal()} />
-              </Modal>
-            </div>
+      <DropdownPlaylistOptions
+        isOpen={dropdownPlaylistOptionsIsOpen}
+        setIsOpen={setDropdownPlaylistOptionsIsOpen}
+      >
+        {/* EDIT PLAYLIST DETAILS */}
+        <div
+          onClick={() => {
+            openModal();
+            setDropdownPlaylistOptionsIsOpen(false);
+          }}
+        >
+          Edit Details
+          <Modal
+            className="modalEditPlaylist"
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+          >
+            <EditPlaylist id={id} closeModal={() => closeModal()} />
+          </Modal>
+        </div>
 
-
-            {/* SEE MORE INFORMATION ABOUT THE CREATOR */}
-            <div
-              onClick={() => {
-                openModal();
-                setDropdownPlaylistOptionsIsOpen(false);
-              }}
-            >
-              About Author
-              <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={closeModal}
-                style={customStyles}
-              >
-                <EditPlaylist id={id} closeModal={() => closeModal()} />
-              </Modal>
-            </div>
-          </DropdownPlaylistOptions>
+        {/* SEE MORE INFORMATION ABOUT THE CREATOR */}
+        <div
+          onClick={() => {
+            openModal();
+            setDropdownPlaylistOptionsIsOpen(false);
+          }}
+        >
+          About Author
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+          >
+            <EditPlaylist id={id} closeModal={() => closeModal()} />
+          </Modal>
+        </div>
+      </DropdownPlaylistOptions>
     </div>
   );
 }

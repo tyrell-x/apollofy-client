@@ -70,7 +70,6 @@ function TrackCard({ id }) {
     });
   }
 
-  
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
   return (

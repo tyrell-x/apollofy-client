@@ -11,7 +11,7 @@ export default function useCopyToClipboard(resetInterval = null) {
     } else {
       setCopied(false);
       console.error(
-        `Cannot copy typeof ${typeof text} to clipboard, must be a string or number.`
+        `Cannot copy typeof ${typeof text} to clipboard, must be a string or number.`,
       );
     }
   }

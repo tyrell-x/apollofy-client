@@ -115,7 +115,7 @@ export const playlistDeleteRequest = (message) => ({
   type: PlaylistTypes.DELETE_PLAYLIST_REQUEST,
   payload: {
     message,
-  }
+  },
 });
 
 export const playlistDeleteError = (message) => ({
@@ -128,14 +128,14 @@ export const playlistDeleteError = (message) => ({
 export const playlistDeleteSuccess = (message) => ({
   type: PlaylistTypes.DELETE_PLAYLIST_SUCCESS,
   payload: {
-    message
+    message,
   },
 });
 
 export const playlistDeletePostSuccess = (message) => ({
   type: PlaylistTypes.DELETE_PLAYLIST_POST_SUCCESS,
   payload: {
-    message
+    message,
   },
 });
 
@@ -176,13 +176,13 @@ export function followPlaylist(id, follow) {
 }
 
 export function updatePlaylist(playlist) {
-  console.log(playlist)
+  console.log(playlist);
   return async function updatePlaylistThunk(dispatch) {
     dispatch(playlistUpdateRequest());
     dispatch(playlistUpdateSuccess(playlist));
     try {
       const res = await playlistApi.updatePlaylist(playlist);
-      console.log(res)
+      console.log(res);
       dispatch(editPlaylist(playlist._id, res.data));
     } catch (err) {
       dispatch(playlistUpdateError(err));
@@ -192,20 +192,17 @@ export function updatePlaylist(playlist) {
 
 export function deletePlaylist(playlistId) {
   return async function deletePlaylistThunk(dispatch) {
-    
     dispatch(playlistDeleteRequest());
-    
+
     try {
-      
       const res = await playlistApi.deletePlaylist(playlistId);
       dispatch(playlistDeleteSuccess(playlistId));
-      console.log(res)
+      console.log(res);
     } catch (err) {
       dispatch(playlistDeleteError(err));
     }
   };
 }
-
 
 /*
 export function fetchOwnPlaylists() {

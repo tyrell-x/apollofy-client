@@ -87,27 +87,29 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
         ...state,
         playlistDelete: false,
         playlistDeleteError: action.payload,
-        playlistDeleteSuccess: false
+        playlistDeleteSuccess: false,
       };
     }
     case PlaylistType.DELETE_PLAYLIST_SUCCESS: {
-      const { [action.payload.message]:_, ...playlistsById} = state.playlistsById;
+      const {
+        [action.payload.message]: _,
+        ...playlistsById
+      } = state.playlistsById;
 
       return {
         ...state,
         playlistDelete: true,
         playlistDeleteError: null,
         playlistDeleteSuccess: true,
-        playlistsById: playlistsById
+        playlistsById: playlistsById,
       };
     }
     case PlaylistType.DELETE_PLAYLIST_POST_SUCCESS: {
-
       return {
         ...state,
         playlistDelete: false,
         playlistDeleteError: null,
-        playlistDeleteSuccess: false
+        playlistDeleteSuccess: false,
       };
     }
     case PlaylistType.FETCH_PLAYLISTS_REQUEST: {
