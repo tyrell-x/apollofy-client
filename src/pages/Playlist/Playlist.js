@@ -10,11 +10,10 @@ import {
   faPlay,
   faPaperPlane,
   faTrash,
-  faSatellite,
   faClipboard,
 } from "@fortawesome/free-solid-svg-icons";
 import { setTracksInPlayer } from "../../redux/player/player-actions.js";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { onAuthStateChanged } from "../../services/auth/auth.js";
 import {
   fetchAllPlaylists,
@@ -24,8 +23,6 @@ import {
 import FollowPlaylist from "../../components/FollowPlaylist";
 import PlaylistOptions from "../../components/PlaylistOptions";
 import { useCopyToClipboard } from "../../hooks/useCopyToClipboard/useCopyToClipboard";
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
 
 const defaultImage =
   "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
@@ -42,9 +39,7 @@ function Playlist() {
   );
   const [isCopied, handleCopy] = useCopyToClipboard();
 
-  console.log(playlistLink);
   useEffect(() => {
-    console.log(deleteSuccess);
     if (deleteSuccess) {
       history.push("/library");
     }
@@ -67,9 +62,6 @@ function Playlist() {
 
   const handleDeletePlaylist = () => {
     dispatch(deletePlaylist(id));
-  };
-  const handlePostDeletePlaylist = () => {
-    dispatch(deletePostSuccess());
   };
 
   function handleOnDragEnd(result) {
