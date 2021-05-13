@@ -174,10 +174,13 @@ export function updatePlaylist(playlist) {
 
 export function deletePlaylist(playlistId) {
   return async function deletePlaylistThunk(dispatch) {
+    
     dispatch(playlistDeleteRequest());
     dispatch(playlistDeleteSuccess(playlistId));
     try {
+      
       const res = await playlistApi.deletePlaylist(playlistId);
+      console.log(res)
     } catch (err) {
       dispatch(playlistDeleteError(err));
     }

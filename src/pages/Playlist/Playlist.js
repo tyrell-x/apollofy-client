@@ -41,6 +41,10 @@ function Playlist() {
     dispatch(setTracksInPlayer(playlist.tracks.map((track) => track._id)));
   };
 
+  const handleDeletePlaylist = () => {
+    dispatch(deletePlaylist(id));
+  };
+
   function handleOnDragEnd(result) {
     if (!result.destination) return;
     const reorderedTracks = Array.from(
@@ -71,11 +75,12 @@ function Playlist() {
               <span className="play-text">Play</span>
             </Button>
             {/* HERE GOES ACTION ELIMINATE */}
-            <Button onClick={deletePlaylist(playlist._id)} className = "trash-button">
+            {/* Only show if you own the playlist */}
+            <Button onClick={handleDeletePlaylist} className = "trash-button">
               <FontAwesomeIcon icon={faTrash} />
             </Button>
             {/* HERE GOES ACTION SEND */}
-            <Button onClick={playPlaylist} className = "send-button">
+            <Button className = "send-button">
               <FontAwesomeIcon icon={faPaperPlane} />
             </Button>
             {/* HERE GOES ACTION OPTIONS */}
