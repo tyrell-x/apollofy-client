@@ -8,7 +8,7 @@ import Button from "../../components/Button/index.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { setTracksInPlayer } from "../../redux/player/player-actions.js";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { onAuthStateChanged } from "../../services/auth/auth.js";
 import {
   fetchAllPlaylists,

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateUserAccount, updateUserAccountError } from "../../../../redux/auth/auth-actions";
+import { updateUserAccount } from "../../../../redux/auth/auth-actions";
 
 import Button from "../../../../components/Button";
 import FLInput from "../../../../components/FLInput";

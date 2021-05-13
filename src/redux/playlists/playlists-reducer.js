@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable spaced-comment */
 import * as PlaylistType from "./playlists-types";
-import { trackTypes } from "../tracks/track-types";
 
 export const PlaylistInitState = {
   playlistCreation: false,

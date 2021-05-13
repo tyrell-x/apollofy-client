@@ -18,7 +18,6 @@ const SongUploadForm = forwardRef((props, ref) => {
       data = {},
       isUploading = false,
       progress,
-      failed = false,
       succeeded = false,
     },
   } = props;

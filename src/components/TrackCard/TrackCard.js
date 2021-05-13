@@ -2,7 +2,6 @@ import "./TrackCard.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTrack } from "../../redux/tracks/track-selectors";
 import { deleteTrack, toggleLikeTrack } from "../../redux/tracks/track-actions";
-import { fetchAllPlaylists } from "../../redux/playlists/playlists-actions";
 import LikeButton from "../LikeButton";
 import AnimatedListItem from "../AnimatedListItem";
 import DeleteButton from "../DeleteButton/index.js";
@@ -34,7 +33,7 @@ Modal.defaultStyles.overlay.backgroundColor = "rgba(200, 200, 200, 0.4)";
 function TrackCard({ id }) {
   const dispatch = useDispatch();
 
-  const { name, title, ownedBy, thumbnail = defaultImage, liked } =
+  const { name, title, thumbnail = defaultImage, liked } =
     useSelector(selectTrack(id)) || {};
 
   const trackInPlayer = useSelector(isTrackInPlayer(id));

@@ -1,6 +1,6 @@
 import "./UploadSong.scss";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import * as musicMetadata from "music-metadata-browser";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -8,13 +8,11 @@ import { setSongs as setSongsToUpload } from "../../redux/uploader/uploader-acti
 import { songsToUploadSelector } from "../../redux/uploader/uploader-selectors";
 
 import Dropzone from "../../components/Dropzone";
-import Navbar from "../../components/Navbar";
 import SongUploadForm from "../../components/SongUploadForm";
 import Button from "../../components/Button";
 import AnimatedList from "../../components/AnimatedList";
 
 import { fileTypes } from "../../services/cloudinary";
-import { useRefs } from "../../hooks/useRefs.js";
 
 function UploadSong() {
   const dispatch = useDispatch();

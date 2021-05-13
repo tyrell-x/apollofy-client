@@ -1,6 +1,6 @@
 import "./Controls.scss";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAudioPlayer } from "react-use-audio-player";
 import {
@@ -31,7 +31,6 @@ export default function Controls() {
     play,
     pause,
     stop,
-    volume,
     load,
     playing: wasPlaying,
   } = useAudioPlayer();

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import PlaylistCard from "../../../../components/PlaylistCard";
 import { fetchAllPlaylists } from "../../../../redux/playlists/playlists-actions.js";
 import {
-  selectAllPlaylistsIds,
   selectOwnedPlaylistsIds,
   selectFollowedPlaylistsIds,
 } from "../../../../redux/playlists/playlists-selectors.js";

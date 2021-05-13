@@ -3,7 +3,6 @@ import React from "react";
 import Tab from "../../../components/Tab";
 import Tabs from "../../../components/Tabs";
 import EditAccount from "../sections/EditAccount";
-import InfoAccount from "../sections/InfoAccount";
 import ChangePassword from "../sections/ChangePassword";
 
 function TabMenu() {
