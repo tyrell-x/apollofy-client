@@ -23,6 +23,13 @@ function makeApi(request = makeRequest()) {
       body: playlist,
     });
   }
+  function editPlaylist(id, playlist) {
+    return request({
+      url: `/playlist/edit/${id}`,
+      requestMethod: "PUT",
+      body: playlist,
+    });
+  }
   function createPlaylist(playlist) {
     return request({
       url: `/playlist/`,
@@ -48,6 +55,7 @@ function makeApi(request = makeRequest()) {
     createPlaylist: createPlaylist,
     followPlaylist: followPlaylist,
     updatePlaylist: updatePlaylist,
+    editPlaylist: editPlaylist,
     deletePlaylist: deletePlaylist
   };
 }

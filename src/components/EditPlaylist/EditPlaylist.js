@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FLInput from "../FLInput/index.js";
 import Button from "../Button/index.js";
 import { useForm } from "react-hook-form";
-import { updatePlaylist } from "../../redux/playlists/playlists-actions";
+import { updatePlaylist, editPlaylist } from "../../redux/playlists/playlists-actions";
 
 const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png";
 
@@ -31,7 +31,7 @@ function EditPlaylist({ id, closeModal }) {
 
   const onSubmit = async (data) => {
     console.log(data)
-    dispatch(updatePlaylist(data));
+    dispatch(editPlaylist(id, data));
     closeModal();
   };
 

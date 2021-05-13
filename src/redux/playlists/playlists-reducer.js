@@ -181,10 +181,10 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
       const { id, playlist } = action.payload;
       return {
         ...state,
-        playlistById: {
-          ...state.playlistById,
+        playlistsById: {
+          ...state.playlistsById,
           [id]: {
-            ...state.playlistById[id],
+            ...state.playlistsById[id],
             ...playlist,
           },
         },
