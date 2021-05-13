@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import TabMenu from "./TabMenu"
 import {useDispatch, useSelector} from 'react-redux'
 import {fetchProfileInfo} from "../../redux/profile/profile-actions"
-import profileApi from "../../api/profile-api";
+import {fetchAllUsers} from "../../redux/users/users-actions"
 import { onAuthStateChanged } from "../../services/auth/auth.js";
 
 import "./Profile.scss"
@@ -15,6 +15,7 @@ function Profile () {
         onAuthStateChanged((user) => {
             if (user) {
                 dispatch(fetchProfileInfo())
+                dispatch(fetchAllUsers())
             }
         });
     }, [])    
@@ -41,7 +42,7 @@ function Profile () {
             </div>
         </div>
         <div className="library-tabs library-tabs-profile">
-            <TabMenu followers={profile.followedBy} following={""}/>
+            <TabMenu followers={profile.followedBy} following={profile.following}/>
         </div>
         </>
     )

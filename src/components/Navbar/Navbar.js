@@ -3,12 +3,11 @@ import * as AiIcons from "react-icons/ai";
 import * as FaIcons from "react-icons/fa";
 import { SidebarData } from "./SidebarData";
 import "./Navbar.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import NavItem from "../NavItem";
 import DropdownMenu from "../DropdownMenu";
 import useClickOutside from "../../hooks/useClickOutside";
 import * as ROUTES from "../../routes";
-import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { authSelector } from "../../redux/auth/auth-selectors";
 

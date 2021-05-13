@@ -2,15 +2,23 @@ import { makeRequest } from "./api-utils";
 
 function makeApi(request = makeRequest()) {
 
-    function getUserInfo() {
+    function getProfileInfo() {
         return request({
           url: "/user/me",
           requestMethod: "GET",
         });
       }
 
+    function getUserInfo(id) {
+      return request({
+        url: `/user/${id}`,
+        requestMethod: "GET",
+      });
+    }
+
   return {
-    getUserInfo: getUserInfo
+    getProfileInfo: getProfileInfo,
+    getUserInfo: getUserInfo,
   };
 }
 

@@ -19,12 +19,11 @@ export function fetchProfileInfo () {
     return async function fetchProfileInfoThunk(dispatch) {
         dispatch(profileInfoRequest());
         try {
-            const res = await profileApi.getUserInfo()
+            const res = await profileApi.getProfileInfo()
             console.log(res)
             if (res.error) {
                 return dispatch(profileInfoError(res.error))
             }
-            console.log('adios')
             return dispatch(profileInfoSuccess(res.data))
         } catch(error) {
             return dispatch(profileInfoError(error))

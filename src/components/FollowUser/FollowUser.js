@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { dispatch, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import {followUser} from "../../redux/users/users-actions"
 import "./FollowUser.scss";
 
 function FollowUser({ id, followed }) {
   const dispatch = useDispatch();
   const followToggle = () => {
+    dispatch(followUser(id, !followed))
   };
   return (
     <button

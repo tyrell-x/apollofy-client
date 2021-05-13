@@ -21,8 +21,16 @@ function TabMenu({followers, following}) {
             />
           ))}
       </Tab>
-      <Tab label="Following">
-        <div>Following</div>
+      <Tab label={following ? following.length + " Following": "Following"}>
+          {following && following.map(user => (
+            <UserCard 
+              key={user._id}
+              id={user._id} 
+              name={user.firstName} 
+              image={user.pictureUrl} 
+              email={user.email}
+            />
+          ))}
       </Tab>
     </Tabs>
   );
