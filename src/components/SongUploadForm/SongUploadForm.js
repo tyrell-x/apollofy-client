@@ -14,12 +14,7 @@ import AnimatedListItem from "../AnimatedListItem";
 
 const SongUploadForm = forwardRef((props, ref) => {
   const {
-    song: {
-      data = {},
-      isUploading = false,
-      progress,
-      succeeded = false,
-    },
+    song: { data = {}, isUploading = false, progress, succeeded = false },
   } = props;
 
   const dispatch = useDispatch();

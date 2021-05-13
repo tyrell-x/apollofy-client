@@ -27,13 +27,7 @@ export default function Controls() {
   const currentlyPlaying = useSelector(currentlyPlayingSelector);
   const currentTrack = useSelector(playingTrackSelector);
 
-  const {
-    play,
-    pause,
-    stop,
-    load,
-    playing: wasPlaying,
-  } = useAudioPlayer();
+  const { play, pause, stop, load, playing: wasPlaying } = useAudioPlayer();
 
   useEffect(() => {
     if (currentTrack) {

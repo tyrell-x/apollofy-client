@@ -6,20 +6,20 @@ import Button from "../../../../components/Button";
 import FLInput from "../../../../components/FLInput";
 import "./EditAccount.scss";
 import { useSelector } from "react-redux";
-import { selectProfileState } from "../../../../redux/auth/auth-selectors"
+import { selectProfileState } from "../../../../redux/auth/auth-selectors";
 
 function EditAccount() {
   const dispatch = useDispatch();
 
   const user = useSelector(selectProfileState);
 
-  const [ data, setData ] = useState(user);
+  const [data, setData] = useState(user);
 
-  const handleInput = e => {
+  const handleInput = (e) => {
     setData((currentData) => {
-      currentData[e.target.name] = e.target.value
+      currentData[e.target.name] = e.target.value;
       return {
-        ...currentData
+        ...currentData,
       };
     });
   };
@@ -29,7 +29,6 @@ function EditAccount() {
 
     dispatch(updateUserAccount(data));
   };
-
 
   return (
     <section className="edit-account">

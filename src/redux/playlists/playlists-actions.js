@@ -143,7 +143,6 @@ export function updatePlaylist(playlist) {
     dispatch(playlistUpdateRequest());
     dispatch(playlistUpdateSuccess(playlist));
     try {
-      
     } catch (err) {
       dispatch(playlistUpdateError(err));
     }
