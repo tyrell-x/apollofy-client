@@ -69,7 +69,7 @@ function PlaylistOptions({id}) {
               }}
             >
               Edit Details
-              <Modal
+              <Modal className="modalEditPlaylist"
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
                 style={customStyles}

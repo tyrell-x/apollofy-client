@@ -132,6 +132,13 @@ export const playlistDeleteSuccess = (message) => ({
   },
 });
 
+export const playlistDeletePostSuccess = (message) => ({
+  type: PlaylistTypes.DELETE_PLAYLIST_POST_SUCCESS,
+  payload: {
+    message
+  },
+});
+
 export const editPlaylist = (id, data) => ({
   type: PlaylistTypes.UPDATE_PLAYLIST,
   payload: {
@@ -187,16 +194,19 @@ export function deletePlaylist(playlistId) {
   return async function deletePlaylistThunk(dispatch) {
     
     dispatch(playlistDeleteRequest());
-    dispatch(playlistDeleteSuccess(playlistId));
+    
     try {
       
       const res = await playlistApi.deletePlaylist(playlistId);
+      dispatch(playlistDeleteSuccess(playlistId));
       console.log(res)
     } catch (err) {
       dispatch(playlistDeleteError(err));
     }
   };
 }
+
+
 /*
 export function fetchOwnPlaylists() {
   return async function fetchPlaylistsThunk(dispatch) {

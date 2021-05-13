@@ -2,6 +2,7 @@
 /* eslint-disable spaced-comment */
 import * as PlaylistType from "./playlists-types";
 import { trackTypes } from "../tracks/track-types";
+import { fetchAllPlaylists } from "./playlists-actions";
 
 export const PlaylistInitState = {
   playlistCreation: false,
@@ -86,13 +87,27 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
         ...state,
         playlistDelete: false,
         playlistDeleteError: action.payload,
+        playlistDeleteSuccess: false
       };
     }
     case PlaylistType.DELETE_PLAYLIST_SUCCESS: {
+      const { [action.payload.message]:_, ...playlistsById} = state.playlistsById;
+
       return {
         ...state,
         playlistDelete: true,
-        playlistDeleteError: null
+        playlistDeleteError: null,
+        playlistDeleteSuccess: true,
+        playlistsById: playlistsById
+      };
+    }
+    case PlaylistType.DELETE_PLAYLIST_POST_SUCCESS: {
+
+      return {
+        ...state,
+        playlistDelete: false,
+        playlistDeleteError: null,
+        playlistDeleteSuccess: false
       };
     }
     case PlaylistType.FETCH_PLAYLISTS_REQUEST: {

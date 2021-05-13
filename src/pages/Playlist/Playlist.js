@@ -1,7 +1,7 @@
 import "./Playlist.scss";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { selectPlaylist } from "../../redux/playlists/playlists-selectors.js";
 import { getCounter } from "../../utils/utils.js";
 import Button from "../../components/Button/index.js";
@@ -23,6 +23,19 @@ const defaultImage =
 
 function Playlist() {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const deleteSuccess = useSelector(routeState => routeState.playlists.playlistDeleteSuccess)
+  const deletePostSuccess = useSelector(routeState => routeState.playlists.playlistDeletePostSuccess)
+
+  useEffect(()=>{
+    console.log(deleteSuccess)
+    if(deleteSuccess){
+      history.push("/library")
+    }
+  }, [deleteSuccess])
+
+
+
 
   useEffect(() => {
     onAuthStateChanged((user) => {
@@ -31,6 +44,8 @@ function Playlist() {
       }
     });
   }, [dispatch]);
+
+
 
 
   const { id } = useParams();
@@ -42,7 +57,10 @@ function Playlist() {
   };
 
   const handleDeletePlaylist = () => {
-    dispatch(deletePlaylist(id));
+  dispatch(deletePlaylist(id));
+  };
+  const handlePostDeletePlaylist = () => {
+  dispatch(deletePostSuccess());
   };
 
   function handleOnDragEnd(result) {
