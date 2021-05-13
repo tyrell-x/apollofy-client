@@ -84,7 +84,7 @@ function Playlist() {
               <FontAwesomeIcon icon={faPaperPlane} />
             </Button>
             {/* HERE GOES ACTION OPTIONS */}
-            <PlaylistOptions/>
+            <PlaylistOptions id={id}/>
             <FollowPlaylist id={id} followed={playlist.followed} />
           </div>
         </div>

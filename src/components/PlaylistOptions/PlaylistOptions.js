@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DeleteButton from "../DeleteButton/index.js";
 import DropdownPlaylistOptions from "../DropdownPlaylistOptions";
 import Modal from "react-modal";
-import EditTrack from "../EditTrack/index.js";
+import EditPlaylist from "../EditPlaylist/index.js";
 import { signOut } from "../../redux/auth/auth-actions";
 import { useState } from "react";
 import { deleteTrack, } from "../../redux/tracks/track-actions";
@@ -13,6 +13,7 @@ import {
 } from "../../redux/player/player-actions.js";
 import { isTrackInPlayer } from "../../redux/player/player-selectors.js";
 import "./PlaylistOptions.scss" 
+
 
 Modal.setAppElement("#root");
 Modal.defaultStyles.overlay.backgroundColor = "rgba(200, 200, 200, 0.4)";
@@ -73,7 +74,7 @@ function PlaylistOptions({id}) {
                 onRequestClose={closeModal}
                 style={customStyles}
               >
-                <EditTrack id={id} closeModal={() => closeModal()} />
+                <EditPlaylist id={id} closeModal={() => closeModal()} />
               </Modal>
             </div>
 
@@ -91,7 +92,7 @@ function PlaylistOptions({id}) {
                 onRequestClose={closeModal}
                 style={customStyles}
               >
-                <EditTrack id={id} closeModal={() => closeModal()} />
+                <EditPlaylist id={id} closeModal={() => closeModal()} />
               </Modal>
             </div>
           </DropdownPlaylistOptions>

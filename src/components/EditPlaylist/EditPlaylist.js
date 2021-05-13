@@ -1,23 +1,22 @@
-import "./EditTrack.scss";
+import "./EditPlaylist.scss";
 
 import { useState } from "react";
 import * as AiIcons from "react-icons/ai";
 import LikeButton from "../LikeButton";
 import DeleteButton from "../DeleteButton";
-import { selectTrack } from "../../redux/tracks/track-selectors";
+import { selectPlaylist } from "../../redux/playlists/playlists-selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleLikeTrack, updateTrack } from "../../redux/tracks/track-actions";
 import FLInput from "../FLInput/index.js";
 import Button from "../Button/index.js";
 import { useForm } from "react-hook-form";
-import api from "../../api/api.js";
+import { updatePlaylist } from "../../redux/playlists/playlists-actions";
 
 const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png";
 
-function EditTrack({ id, closeModal }) {
+function EditPlaylist({ id, closeModal }) {
   const dispatch = useDispatch();
 
-  const { thumbnail = defaultImage, title } = useSelector(selectTrack(id));
+  const { thumbnail = defaultImage, title } = useSelector(selectPlaylist(id));
 
   const {
     register,
@@ -31,7 +30,8 @@ function EditTrack({ id, closeModal }) {
   });
 
   const onSubmit = async (data) => {
-    dispatch(updateTrack(id, data));
+    console.log(data)
+    dispatch(updatePlaylist(data));
     closeModal();
   };
 
@@ -63,4 +63,4 @@ function EditTrack({ id, closeModal }) {
   );
 }
 
-export default EditTrack;
+export default EditPlaylist;

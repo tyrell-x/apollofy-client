@@ -177,6 +177,19 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
         },
       };
     }
+    case PlaylistType.UPDATE_PLAYLIST: {
+      const { id, playlist } = action.payload;
+      return {
+        ...state,
+        playlistById: {
+          ...state.playlistById,
+          [id]: {
+            ...state.playlistById[id],
+            ...playlist,
+          },
+        },
+      };
+    }
     default: {
       return { ...state };
     }
