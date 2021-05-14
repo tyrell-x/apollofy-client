@@ -1,14 +1,18 @@
 import "./EditPlaylist.scss";
 
+import { useState } from "react";
 import * as AiIcons from "react-icons/ai";
+import LikeButton from "../LikeButton";
+import DeleteButton from "../DeleteButton";
 import { selectPlaylist } from "../../redux/playlists/playlists-selectors";
 import { useDispatch, useSelector } from "react-redux";
 import FLInput from "../FLInput/index.js";
 import Button from "../Button/index.js";
 import { useForm } from "react-hook-form";
-import {editPlaylist } from "../../redux/playlists/playlists-actions";
-
-
+import {
+  updatePlaylist,
+  editPlaylist,
+} from "../../redux/playlists/playlists-actions";
 
 const defaultImage = "https://cdn.onlinewebfonts.com/svg/img_41510.png";
 
@@ -29,6 +33,7 @@ function EditPlaylist({ id, closeModal }) {
   });
 
   const onSubmit = async (data) => {
+    console.log(data);
     dispatch(editPlaylist(id, data));
     closeModal();
   };

@@ -117,7 +117,7 @@ export function sendPasswordResetEmail(email) {
       await auth.sendPasswordResetEmail(email);
       return dispatch(sendPasswordResetEmailSuccess());
     } catch (error) {
-      dispatch(sendPasswordResetEmailError(error.message));
+      dispatch(sendPasswordResetEmailError());
     }
   };
 }
@@ -142,8 +142,8 @@ export function updateUserAccount(userData) {
   return async function updateUserAccountThunk(dispatch) {
     dispatch(updateUserAccountRequest(userData));
     try {
-      await api.updateUser({}, userData);
-      return dispatch(updateUserAccountSuccess(userData));
+      const response = await api.updateUser(userData);
+      return dispatch(updateUserAccountSuccess(response.data));
     } catch (error) {
       return dispatch(updateUserAccountError());
     }

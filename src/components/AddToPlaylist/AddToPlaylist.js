@@ -1,5 +1,5 @@
 import "./AddToPlaylist.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as AiIcons from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { selectOwnedPlaylists } from "../../redux/playlists/playlists-selectors";
@@ -57,7 +57,7 @@ function AddToPlaylist({ id, closePlaylistModal }) {
                   >
                     <div className="playlist-info">
                       <div className="playlist-image">
-                        <img src={defaultImage} alt="playlist-image"></img>
+                        <img src={defaultImage} alt="playlist-img"></img>
                       </div>
                       <p>{playlist.title}</p>
                     </div>

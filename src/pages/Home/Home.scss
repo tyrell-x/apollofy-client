@@ -1,0 +1,148 @@
+.home {
+  .outstanding-playlist {
+    position: relative;
+    width: 60vw;
+    min-width: 350px;
+    background: linear-gradient(
+        90.46deg,
+        #000000 -12.47%,
+        rgba(255, 137, 51, 0) 116%
+      ),
+      #ff8933;
+    border-radius: 5px;
+    margin: 50px auto;
+
+    .logo {
+      user-select: none;
+      font-family: "Jockey One", sans-serif;
+      font-size: 18px;
+      line-height: 25px;
+      color: white;
+      position: absolute;
+      right: 0;
+      margin-right: 18px;
+    }
+
+    .details {
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .image-container {
+        width: 180px;
+        height: 180px;
+
+        img {
+          height: 100%;
+          border-radius: 5px;
+        }
+      }
+
+      .info {
+        .role {
+          font-family: Lato;
+          font-weight: 800;
+          font-size: 18px;
+          line-height: 24px;
+          margin-top: 10px;
+        }
+
+        .title {
+          margin-top: 3px;
+        }
+      }
+    }
+
+    .play-button {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(252, 252, 252, 0.137);
+      color: white;
+      border-radius: 30px;
+      font-size: 20px;
+      padding: 14px 27px;
+      display: flex;
+      gap: 12px;
+      margin: 25px;
+    }
+  }
+
+  .popular-songs {
+    margin: 60px 40px;
+    height: 400px;
+
+    & > .title {
+      font-weight: bold;
+      font-size: 22px;
+      margin: 30px 20px;
+    }
+
+    .track-list {
+      height: 100%;
+      display: flex;
+      gap: 24px;
+      flex-direction: column;
+      flex-wrap: wrap;
+
+      .popular-track-card {
+        display: flex;
+        max-width: 30%;
+        gap: 15px;
+        height: 100px;
+        align-items: center;
+
+        .position {
+          font-weight: 600;
+          font-size: 20px;
+          transition: color 0.3s ease;
+        }
+
+        .image-container {
+          height: 100%;
+          position: relative;
+          cursor: pointer;
+
+          .image {
+            height: 100%;
+            transition: filter 0.3s ease;
+          }
+
+          .playbutton {
+            font-size: 30px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+          }
+        }
+
+        .details {
+          margin-left: 10px;
+          flex: 1;
+          transition: color 0.3s ease;
+        }
+
+        &:hover {
+          .position {
+            color: orange;
+          }
+          .details {
+            color: orange;
+          }
+
+          .image {
+            filter: brightness(0.4);
+          }
+
+          .playbutton {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}

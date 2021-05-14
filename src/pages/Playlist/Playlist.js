@@ -1,26 +1,51 @@
 import "./Playlist.scss";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams, useLocation } from "react-router-dom";
 import { selectPlaylist } from "../../redux/playlists/playlists-selectors.js";
 import { getCounter } from "../../utils/utils.js";
 import Button from "../../components/Button/index.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlay,
+  faPaperPlane,
+  faTrash,
+  faClipboard,
+} from "@fortawesome/free-solid-svg-icons";
 import { setTracksInPlayer } from "../../redux/player/player-actions.js";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
 import { onAuthStateChanged } from "../../services/auth/auth.js";
 import {
   fetchAllPlaylists,
   updatePlaylist,
+  deletePlaylist,
 } from "../../redux/playlists/playlists-actions.js";
 import FollowPlaylist from "../../components/FollowPlaylist";
+import PlaylistOptions from "../../components/PlaylistOptions";
+import { useCopyToClipboard } from "../../hooks/useCopyToClipboard/useCopyToClipboard";
+import { currentUserSelector } from "../../redux/auth/auth-selectors.js";
 
 const defaultImage =
   "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
 
 function Playlist() {
+  const playlistLink = useLocation().pathname;
   const dispatch = useDispatch();
+  const history = useHistory();
+  const deleteSuccess = useSelector(
+    (routeState) => routeState.playlists.playlistDeleteSuccess,
+  );
+  const deletePostSuccess = useSelector(
+    (routeState) => routeState.playlists.playlistDeletePostSuccess,
+  );
+  const [isCopied, handleCopy] = useCopyToClipboard();
+
+  useEffect(() => {
+    if (deleteSuccess) {
+      history.push("/library");
+    }
+  }, [deleteSuccess]);
 
   useEffect(() => {
     onAuthStateChanged((user) => {
@@ -32,10 +57,16 @@ function Playlist() {
 
   const { id } = useParams();
 
+  const { _id: uid } = useSelector(currentUserSelector)
+
   const playlist = useSelector(selectPlaylist(id));
 
   const playPlaylist = () => {
     dispatch(setTracksInPlayer(playlist.tracks.map((track) => track._id)));
+  };
+
+  const handleDeletePlaylist = () => {
+    dispatch(deletePlaylist(id));
   };
 
   function handleOnDragEnd(result) {
@@ -63,10 +94,29 @@ function Playlist() {
           <h5 className="type">PLAYLIST</h5>
           <h4 className="title">{playlist.title}</h4>
           <div className="actions">
-            <Button onClick={playPlaylist}>
+            <Button onClick={playPlaylist} className="play-button">
               <FontAwesomeIcon icon={faPlay} />
               <span className="play-text">Play</span>
             </Button>
+            {/* HERE GOES ACTION ELIMINATE */}
+            {/* Only show if you own the playlist */}
+            <Button onClick={handleDeletePlaylist} className="trash-button">
+              <FontAwesomeIcon icon={faTrash} />
+            </Button>
+            {/* HERE GOES ACTION SEND */}
+            
+            <Button
+              className="send-button"
+              onClick={() => handleCopy(playlistLink)}
+            >
+              {isCopied ? (
+                <FontAwesomeIcon icon={faClipboard} />
+              ) : (
+                <FontAwesomeIcon icon={faPaperPlane} />
+              )}
+            </Button>
+            {/* HERE GOES ACTION OPTIONS */}
+            <PlaylistOptions id={id} />
             <FollowPlaylist id={id} followed={playlist.followed} />
           </div>
         </div>
@@ -105,7 +155,7 @@ function Playlist() {
                           {track.artist || "anonymous"}
                         </div>
                       </div>
-                      <div className="owner">{track.owned ? "Owned" : ""}</div>
+                      <div className="owner">{track.ownedBy === uid ? "Owned" : ""}</div>
                       <div className="duration">
                         {getCounter(track.duration)}
                       </div>

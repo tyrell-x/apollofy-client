@@ -1,6 +1,6 @@
 import "./Controls.scss";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAudioPlayer } from "react-use-audio-player";
 import {
@@ -27,14 +27,7 @@ export default function Controls() {
   const currentlyPlaying = useSelector(currentlyPlayingSelector);
   const currentTrack = useSelector(playingTrackSelector);
 
-  const {
-    play,
-    pause,
-    stop,
-    volume,
-    load,
-    playing: wasPlaying,
-  } = useAudioPlayer();
+  const { play, pause, stop, load, playing: wasPlaying } = useAudioPlayer();
 
   useEffect(() => {
     if (currentTrack) {
@@ -43,8 +36,10 @@ export default function Controls() {
         autoplay: currentlyPlaying,
         onend: () => dispatch(setNextTrack()),
       });
+    } else {
+      stop();
     }
-  }, [currentTrack, currentlyPlaying, dispatch, load]);
+  }, [currentTrack, currentlyPlaying, dispatch, load, pause, stop]);
 
   useEffect(() => dispatch(setCurrentlyPlaying(false)), [dispatch]);
 

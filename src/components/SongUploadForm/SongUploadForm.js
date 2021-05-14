@@ -11,16 +11,11 @@ import FLInput from "../FLInput";
 import Button from "../Button";
 import ProgressButton from "../ProgressButton";
 import AnimatedListItem from "../AnimatedListItem";
+import PuffLoader from "react-spinners/PuffLoader";
 
 const SongUploadForm = forwardRef((props, ref) => {
   const {
-    song: {
-      data = {},
-      isUploading = false,
-      progress,
-      failed = false,
-      succeeded = false,
-    },
+    song: { data = {}, isUploading = false, progress, succeeded = false },
   } = props;
 
   const dispatch = useDispatch();
@@ -29,7 +24,7 @@ const SongUploadForm = forwardRef((props, ref) => {
     if (succeeded) {
       setTimeout(() => {
         dispatch(unsetSongToUpload(data.id));
-      }, 1000);
+      }, 400);
     }
   }, [data.id, dispatch, succeeded]);
 
@@ -89,12 +84,24 @@ const SongUploadForm = forwardRef((props, ref) => {
             onChange={handleInput}
           />
           <ProgressButton
-            text={succeeded ? "uploaded!" : "upload"}
+            text={succeeded ? "" : "upload"}
             progress={progress}
             type="submit"
             disabled={isUploading || succeeded}
             className="upload-button"
-          />
+          >
+            <PuffLoader
+              color={"rgb(255, 255, 255)"}
+              loading={succeeded}
+              size={25}
+              css={{
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+            />
+          </ProgressButton>
           <Button
             text={"remove"}
             progress={progress}

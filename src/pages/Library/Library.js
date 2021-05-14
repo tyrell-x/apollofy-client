@@ -1,15 +1,20 @@
-import "./Library.scss";
+import React from "react";
+import copy from "copy-to-clipboard";
 
-import TabMenu from "../Library/sections/TabMenu";
+export default function useCopyToClipboard(resetInterval = null) {
+  const [isCopied, setCopied] = React.useState(false);
 
-function Library() {
-  return (
-    <div className="library">
-      <div className="library-tabs">
-        <TabMenu />
-      </div>
-    </div>
-  );
+  function handleCopy(text) {
+    if (typeof text === "string" || typeof text == "number") {
+      copy(text.toString());
+      setCopied(true);
+    } else {
+      setCopied(false);
+      console.error(
+        `Cannot copy typeof ${typeof text} to clipboard, must be a string or number.`,
+      );
+    }
+  }
+
+  return [isCopied, handleCopy];
 }
-
-export default Library;

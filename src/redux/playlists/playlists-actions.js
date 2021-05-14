@@ -75,59 +75,99 @@ export const updatePlaylistFollowing = (id, followed) => ({
   payload: { id, followed },
 });
 
+export const addPlaylists = (playlists) => {
+  return async (dispatch) => {
+    if(!playlists.length) {
+      return;
+    }
+    
+    let normalizedPlaylists = normalizePlaylists(playlists);
+    dispatch(addTracks(playlists.flatMap((playlist) => playlist.tracks)));
+
+    normalizedPlaylists = Object.fromEntries(
+      Object.entries(normalizedPlaylists.entities.playlists).map(
+        ([key, value]) => [
+          key,
+          {
+            ...value,
+            tracks: value.tracks.map((track) => track._id),
+          },
+        ],
+      ),
+    );
+    return dispatch(fetchPlaylistsSuccess(normalizedPlaylists));
+  }
+}
+
 export function fetchAllPlaylists() {
   return async function fetchPlaylistsThunk(dispatch) {
-    dispatch(fetchPlaylistRequest());
+    dispatch(fetchPlaylistsRequest());
 
-    try {
-      const res = await playlistApi.getAllPlaylists();
+    await new Promise(resolve => setTimeout(resolve, 300))
 
-      if (res.errorMessage) {
-        return dispatch(fetchPlaylistsError(res.errorMessage));
-      }
+    const res = await playlistApi.getAllPlaylists();
 
-      const normalizedData = normalizePlaylists(res.data);
-
-      const tracks = normalizeTracks(
-        res.data.flatMap((playlist) => playlist.tracks),
-      ).entities.tracks;
-      dispatch(addTracks(tracks));
-
-      const playlists = Object.fromEntries(
-        Object.entries(normalizedData.entities.playlists).map(
-          ([key, value]) => [
-            key,
-            {
-              ...value,
-              tracks: value.tracks.map((track) => track._id),
-            },
-          ],
-        ),
-      );
-      return dispatch(fetchPlaylistsSuccess(playlists));
-    } catch (err) {
-      return dispatch(fetchPlaylistError(err));
+    if (!res.isSuccessful) {
+      return dispatch(fetchPlaylistsError(res.errorMessage));
     }
+
+    return dispatch(addPlaylists(res.data));
   };
 }
+
+export const playlistDeleteRequest = (message) => ({
+  type: PlaylistTypes.DELETE_PLAYLIST_REQUEST,
+  payload: {
+    message,
+  },
+});
+
+export const playlistDeleteError = (message) => ({
+  type: PlaylistTypes.DELETE_PLAYLIST_ERROR,
+  payload: {
+    message,
+  },
+});
+
+export const playlistDeleteSuccess = (message) => ({
+  type: PlaylistTypes.DELETE_PLAYLIST_SUCCESS,
+  payload: {
+    message,
+  },
+});
+
+export const playlistDeletePostSuccess = (message) => ({
+  type: PlaylistTypes.DELETE_PLAYLIST_POST_SUCCESS,
+  payload: {
+    message,
+  },
+});
+
+export const editPlaylist = (id, data) => ({
+  type: PlaylistTypes.UPDATE_PLAYLIST,
+  payload: {
+    id: id,
+    playlist: data,
+  },
+});
 
 export function createPlaylist({ title }) {
   return async function createThunk(dispatch) {
     dispatch(playlistCreateRequest());
-    try {
-      const res = await playlistApi.createPlaylist({ title: title });
-      if (res.errorMessage) {
-        return dispatch(playlistCreateError(res.errorMessage));
-      }
-      return dispatch(playlistCreateSuccess(res.data));
-    } catch (err) {
-      return dispatch(playlistCreateError(err));
+    const res = await playlistApi.createPlaylist({ title: title });
+    if (!res.isSuccessful) {
+      return dispatch(playlistCreateError(res.errorMessage));
     }
+    console.log(res)
+    return dispatch(playlistCreateSuccess(res.data));
   };
 }
 export function addTrackToPlaylist(trackId, playlistId) {
   return async function addTrackToPlaylistThunk(dispatch) {
     const response = await playlistApi.addTrackToPlaylist(trackId, playlistId);
+    if(!response.isSuccessful) {
+      return;
+    }
     dispatch(updateTracksInPlaylist(trackId, playlistId));
   };
 }
@@ -145,11 +185,29 @@ export function updatePlaylist(playlist) {
     dispatch(playlistUpdateSuccess(playlist));
     try {
       const res = await playlistApi.updatePlaylist(playlist);
+      if(!res.isSuccessful) {
+        dispatch(playlistUpdateError(res.errorMessage));
+      }
     } catch (err) {
       dispatch(playlistUpdateError(err));
     }
   };
 }
+
+export function deletePlaylist(playlistId) {
+  return async function deletePlaylistThunk(dispatch) {
+    dispatch(playlistDeleteRequest());
+
+    try {
+      const res = await playlistApi.deletePlaylist(playlistId);
+      dispatch(playlistDeleteSuccess(playlistId));
+    } catch (err) {
+      dispatch(playlistDeleteError(err));
+    }
+  };
+}
+
+
 
 /*
 export function fetchOwnPlaylists() {
@@ -231,3 +289,4 @@ export function fetchPlaylistById(playlistID) {
   };
 }
 */
+  
