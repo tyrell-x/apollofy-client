@@ -1,0 +1,35 @@
+.search {
+  margin: 0 60px;
+
+  .title {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    color: rgb(224, 130, 21);
+
+    .text {
+      color: white;
+    }
+  }
+
+  .results {
+    .list {
+
+      .items {
+        margin: 28px 10px;
+        display: flex;
+        flex-wrap: wrap;
+        grid-gap: 40px;
+        gap: 40px;
+
+        &.tracks {
+          justify-content: flex-start;
+
+          .track-card {
+              width: 480px;
+          }
+        }
+      }
+    }
+  }
+}

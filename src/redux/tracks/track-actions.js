@@ -3,12 +3,18 @@ import { trackTypes } from "./track-types";
 import api from "../../api";
 import { normalizeTracks } from "../../schema/track-schema";
 
-export const addTracks = (tracks) => ({
-  type: TrackTypes.ADD_TRACKS,
-  payload: {
-    tracks: tracks,
-  },
-});
+export const addTracks = (tracks) => {
+  return async (dispatch) => {
+    const normalizedTracks = normalizeTracks(tracks)
+
+    dispatch({
+      type: TrackTypes.ADD_TRACKS,
+      payload: {
+        tracks: normalizedTracks.entities.tracks,
+      },
+    });
+  };
+};
 
 export const fetchTracksRequest = () => ({
   type: TrackTypes.FETCH_TRACKS_REQUEST,
@@ -58,72 +64,66 @@ export const removeTrack = (id) => ({
 export const fetchTracks = () => {
   return async (dispatch) => {
     dispatch(fetchTracksRequest());
-    try {
-      const response = await api.getTracks();
-      const mapped = response.data.slice(0, 10);
-      if (response.data) {
-        const normalizedTracks = normalizeTracks(mapped);
-        dispatch(
-          fetchTracksSuccess({
-            tracksById: normalizedTracks.entities.tracks,
-            trackCollections: normalizedTracks.result,
-          }),
-        );
-      } else {
-        dispatch(fetchTracksError(response.errorMessage));
-      }
-    } catch (error) {
-      dispatch(fetchTracksError(error.message));
+
+    await new Promise(resolve => setTimeout(resolve, 300))
+
+    const response = await api.getTracks();
+    if (!response.isSuccessful) {
+      return dispatch(fetchTracksError(response.errorMessage));
     }
+    const mapped = response.data.slice(0, 50);
+    const normalizedTracks = normalizeTracks(mapped);
+
+    dispatch(
+      fetchTracksSuccess({
+        tracksById: normalizedTracks.entities.tracks,
+        trackCollections: normalizedTracks.result,
+      }),
+    );
   };
 };
 
 export const fetchLikedTracks = () => {
   return async (dispatch) => {
     dispatch(fetchTracksRequest());
-    try {
-      const response = await api.getLikedTracks();
-      const mapped = response.data
-        .slice(0, 10)
-        .map((track) => ({ ...track, liked: true }));
-      if (response.data) {
-        const normalizedTracks = normalizeTracks(mapped);
-        dispatch(
-          fetchTracksSuccess({
-            fetchType: trackTypes.LIKED,
-            tracksById: normalizedTracks.entities.tracks,
-            trackCollections: normalizedTracks.result,
-          }),
-        );
-      } else {
-        dispatch(fetchTracksError(response.errorMessage));
-      }
-    } catch (error) {
-      dispatch(fetchTracksError(error));
+
+    await new Promise(resolve => setTimeout(resolve, 300))
+
+    const response = await api.getLikedTracks();
+    if (!response.isSuccessful) {
+      return dispatch(fetchTracksError(response.errorMessage));
     }
+    const mapped = response.data
+      .slice(0, 10);
+    const normalizedTracks = normalizeTracks(mapped);
+
+    dispatch(
+      fetchTracksSuccess({
+        fetchType: trackTypes.LIKED,
+        tracksById: normalizedTracks.entities.tracks,
+        trackCollections: normalizedTracks.result,
+      }),
+    );
   };
 };
 
 export const fetchOwnedTracks = () => {
   return async (dispatch) => {
     dispatch(fetchTracksRequest());
-    try {
-      const response = await api.getTracksOwned();
-      if (response.data) {
-        const normalizedTracks = normalizeTracks(response.data);
-        dispatch(
-          fetchTracksSuccess({
-            fetchType: trackTypes.OWNED,
-            tracksById: normalizedTracks.entities.tracks,
-            trackCollections: normalizedTracks.result,
-          }),
-        );
-      } else {
-        dispatch(fetchTracksError(response.errorMessage));
-      }
-    } catch (error) {
-      dispatch(fetchTracksError(error));
+
+    const response = await api.getTracksOwned();
+    if (!response.isSuccessful) {
+      dispatch(fetchTracksError(response.errorMessage));
     }
+    const normalizedTracks = normalizeTracks(response.data);
+
+    return dispatch(
+      fetchTracksSuccess({
+        fetchType: trackTypes.OWNED,
+        tracksById: normalizedTracks.entities.tracks,
+        trackCollections: normalizedTracks.result,
+      }),
+    );
   };
 };
 
@@ -132,7 +132,7 @@ export const toggleLikeTrack = (id, liked) => {
     try {
       const response = await api.likeTrackToggle(id, liked);
 
-      dispatch(updateLikeTrack(id, response.data));
+      dispatch(editTrack(id, response.data));
     } catch (error) {}
   };
 };
@@ -142,7 +142,7 @@ export const updateTrack = (id, data) => {
     try {
       const response = await api.editTrack(id, data);
 
-      dispatch(editTrack(id, response.data.data));
+      dispatch(editTrack(id, response.data));
     } catch (error) {}
   };
 };

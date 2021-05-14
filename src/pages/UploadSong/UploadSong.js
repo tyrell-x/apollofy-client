@@ -1,6 +1,6 @@
 import "./UploadSong.scss";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import * as musicMetadata from "music-metadata-browser";
 
 import { useDispatch, useSelector } from "react-redux";
