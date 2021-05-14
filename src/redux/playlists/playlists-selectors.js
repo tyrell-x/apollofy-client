@@ -50,3 +50,20 @@ export const selectFollowedPlaylistsIds = selectFilteredPlaylistsIds(
 export const selectOwnedByPlaylistsIds = (uid) => selectFilteredPlaylistsIds(
   (playlist) => playlist.author === uid,
 );
+
+export const selectLastPlaylist = createSelector(
+  (state) => state.playlists.playlistsById,
+  (state) => state.tracks.tracksById,
+  (playlists, tracks) => {
+    const lastPlaylist =
+      Object.values(playlists).sort((a, b) => {
+        const aCreatedAt = new Date(a.createdAt);
+        const bCreatedAt = new Date(b.createdAt);
+        return bCreatedAt - aCreatedAt;
+      })[0] || {};
+    return {
+      ...lastPlaylist,
+      tracks: (lastPlaylist.tracks || []).map((id) => tracks[id]),
+    };
+  },
+);
