@@ -13,7 +13,8 @@ import {
   faClipboard,
 } from "@fortawesome/free-solid-svg-icons";
 import { setTracksInPlayer } from "../../redux/player/player-actions.js";
-import { useEffect} from "react";
+import { useEffect } from "react";
+
 import { onAuthStateChanged } from "../../services/auth/auth.js";
 import {
   fetchAllPlaylists,

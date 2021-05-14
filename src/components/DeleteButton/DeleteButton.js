@@ -1,6 +1,5 @@
 import React from "react";
 import * as MdIcons from "react-icons/md";
-import api from "../../api/api";
 
 function DeleteButton({ ...attributes }) {
   return (

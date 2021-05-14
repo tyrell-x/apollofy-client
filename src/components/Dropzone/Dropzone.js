@@ -4,7 +4,7 @@ import { fileTypes } from "../../services/cloudinary";
 import { useEffect } from "react";
 
 function Dropzone({ filePaths, fileType, onFilesDropped }) {
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     accept: fileType === fileTypes.AUDIO ? "audio/*" : "image/*",
     maxFiles: 50,
     onDropAccepted: onFilesDropped,
