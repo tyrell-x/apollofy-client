@@ -9,9 +9,7 @@ import Button from "../../components/Button/index.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
-  faPaperPlane,
   faTrash,
-  faClipboard,
 } from "@fortawesome/free-solid-svg-icons";
 import { setTracksInPlayer } from "../../redux/player/player-actions.js";
 import { useEffect } from "react";
@@ -21,10 +19,10 @@ import {
   fetchAllPlaylists,
   updatePlaylist,
   deletePlaylist,
+  deleteUnsuccess
 } from "../../redux/playlists/playlists-actions.js";
 import FollowPlaylist from "../../components/FollowPlaylist";
 import PlaylistOptions from "../../components/PlaylistOptions";
-import { useCopyToClipboard } from "../../hooks/useCopyToClipboard/useCopyToClipboard";
 import { currentUserSelector } from "../../redux/auth/auth-selectors.js";
 import PuffLoader from "react-spinners/PuffLoader";
 
@@ -32,22 +30,18 @@ const defaultImage =
   "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
 
 function Playlist() {
-  const playlistLink = useLocation().pathname;
   const dispatch = useDispatch();
   const history = useHistory();
   const deleteSuccess = useSelector(
     (routeState) => routeState.playlists.playlistDeleteSuccess,
   );
-  const deletePostSuccess = useSelector(
-    (routeState) => routeState.playlists.playlistDeletePostSuccess,
-  );
-  const [isCopied, handleCopy] = useCopyToClipboard();
 
   useEffect(() => {
     if (deleteSuccess) {
+      dispatch(deleteUnsuccess())
       history.push("/library");
     }
-  }, [deleteSuccess]);
+  }, [deleteSuccess, dispatch, history]);
 
   const { playlistsLoading } = useSelector(selectPlaylistStore);
 
@@ -102,24 +96,9 @@ function Playlist() {
               <FontAwesomeIcon icon={faPlay} />
               <span className="play-text">Play</span>
             </Button>
-            {/* HERE GOES ACTION ELIMINATE */}
-            {/* Only show if you own the playlist */}
             <Button onClick={handleDeletePlaylist} className="trash-button">
               <FontAwesomeIcon icon={faTrash} />
             </Button>
-            {/* HERE GOES ACTION SEND */}
-            
-            <Button
-              className="send-button"
-              onClick={() => handleCopy(playlistLink)}
-            >
-              {isCopied ? (
-                <FontAwesomeIcon icon={faClipboard} />
-              ) : (
-                <FontAwesomeIcon icon={faPaperPlane} />
-              )}
-            </Button>
-            {/* HERE GOES ACTION OPTIONS */}
             <PlaylistOptions id={id} />
             <FollowPlaylist id={id} followed={playlist.followed} />
           </div>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import TabMenu from "./TabMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "../../services/auth/auth.js";
@@ -10,21 +10,26 @@ import {
 
 import "./User.scss";
 import { fetchUser } from "../../redux/users/users-actions.js";
-import { selectCurrentUserId } from "../../redux/auth/auth-selectors.js";
+import { currentUserSelector, selectCurrentUserId } from "../../redux/auth/auth-selectors.js";
 import { fetchAllPlaylists } from "../../redux/playlists/playlists-actions.js";
 import PuffLoader from "react-spinners/PuffLoader";
+import FollowUser from "../../components/FollowUser/index.js";
 
 function User() {
   const dispatch = useDispatch();
 
   const { id: paramId } = useParams();
-  const uid = useSelector(selectCurrentUserId);
+  const { _id: uid, following} = useSelector(currentUserSelector);
 
   const { userLoading } = useSelector(selectUsersStore);
 
   const id = paramId || uid;
 
   const user = useSelector(selectUser(id));
+
+  const isCurrentUser = id === uid;
+
+  console.log(following, uid)
 
   useEffect(() => {
     onAuthStateChanged((current) => {
@@ -36,10 +41,10 @@ function User() {
   }, []);
 
   useEffect(() => {
-      if(paramId) {
-        dispatch(fetchUser(paramId));
-      }
-  }, [paramId])
+    if (paramId) {
+      dispatch(fetchUser(paramId));
+    }
+  }, [paramId]);
 
   return (
     <>
@@ -64,6 +69,23 @@ function User() {
               <p className="profile-info-email">{user.email}</p>
             </div>
           </div>
+          {isCurrentUser && (
+            <div className="edit-profile-button-container">
+              <Link to="/account">
+                <button className="edit-profile-button">Edit Profile</button>
+              </Link>
+            </div>
+          )}
+          {!isCurrentUser && (
+            <div className="edit-profile-button-container">
+              <div className="follow-user">
+                <FollowUser
+                  id={id}
+                  followed={following?.includes(id)}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div className="library-tabs library-tabs-profile">

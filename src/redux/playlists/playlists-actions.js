@@ -207,7 +207,11 @@ export function deletePlaylist(playlistId) {
   };
 }
 
-
+export function deleteUnsuccess() {
+  return {
+    type: PlaylistTypes.DELETE_UNSUCCESS
+  };
+}
 
 /*
 export function fetchOwnPlaylists() {
