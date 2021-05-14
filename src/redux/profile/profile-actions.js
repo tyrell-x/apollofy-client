@@ -21,10 +21,10 @@ export function fetchProfileInfo () {
         dispatch(profileInfoRequest());
         const res = await profileApi.getProfileInfo();
 
-
-        if (res.isSuccessful) {
+        if (!res.isSuccessful) {
             return dispatch(profileInfoError(res.error))
         }
+
         dispatch(addUsers(res.data.followedBy.concat(res.data.following)))
 
         return dispatch(profileInfoSuccess({

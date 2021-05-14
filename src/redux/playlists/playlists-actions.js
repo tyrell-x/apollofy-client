@@ -126,6 +126,7 @@ export function createPlaylist({ title }) {
     return dispatch(playlistCreateSuccess(res.data));
   };
 }
+
 export function addTrackToPlaylist(trackId, playlistId) {
   return async function addTrackToPlaylistThunk(dispatch) {
     const response = await playlistApi.addTrackToPlaylist(trackId, playlistId);

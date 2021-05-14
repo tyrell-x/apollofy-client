@@ -4,12 +4,12 @@ import {fetchAllPlaylists} from "../../../../redux/playlists/playlists-actions"
 import PlaylistCard from "../../../../components/PlaylistCard"
 import { onAuthStateChanged } from "../../../../services/auth/auth.js";
 import "./Playlists.scss"
-import { selectOwnedPlaylistsIds } from '../../../../redux/playlists/playlists-selectors.js';
+import { selectOwnedByPlaylistsIds, selectOwnedPlaylistsIds } from '../../../../redux/playlists/playlists-selectors.js';
 
 function Playlists ({uid}) {
     const dispatch = useDispatch()
 
-    const ownedPlaylistsIds = useSelector(selectOwnedPlaylistsIds(uid))
+    const ownedPlaylistsIds = useSelector(selectOwnedByPlaylistsIds(uid))
 
     return (
         <div className="playlists-container-profile">

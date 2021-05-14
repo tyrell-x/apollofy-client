@@ -15,7 +15,7 @@ const ProfileReducer = (state = initialProfileState, action) => {
             }
         }
         case ProfileTypes.FETCH_PROFILE_INFO_ERROR: {
-            const {error} = action.payload
+            const { error } = action.payload
             return {
                 ...state,
                 profileLoading: false,
