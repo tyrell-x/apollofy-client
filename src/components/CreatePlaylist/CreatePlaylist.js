@@ -1,9 +1,8 @@
 import "./CreatePlaylist.scss";
 import { useState } from "react";
 import * as AiIcons from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createPlaylist } from "../../redux/playlists/playlists-actions";
-import { selectAllPlaylists } from "../../redux/playlists/playlists-selectors";
 
 function CreatePlaylist({ closeModal }) {
   const dispatch = useDispatch();

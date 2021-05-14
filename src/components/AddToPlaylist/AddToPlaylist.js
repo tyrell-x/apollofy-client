@@ -57,7 +57,7 @@ function AddToPlaylist({ id, closePlaylistModal }) {
                   >
                     <div className="playlist-info">
                       <div className="playlist-image">
-                        <img src={defaultImage} alt="playlist-image"></img>
+                        <img src={defaultImage} alt="playlist-img"></img>
                       </div>
                       <p>{playlist.title}</p>
                     </div>

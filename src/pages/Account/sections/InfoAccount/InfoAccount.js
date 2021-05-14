@@ -5,6 +5,7 @@ import "./InfoAccount.scss";
 
 function InfoAccount() {
   const { currentUser } = useSelector(authSelector);
+  console.log(currentUser);
 
   return (
     <div className="main_container__profileInfo">
@@ -29,7 +30,7 @@ function InfoAccount() {
             </tr>
             <tr className="main_container_profileInfo__data">
               <td>Country</td>
-              <td>{currentUser.locale}</td>
+              <td>{currentUser.country}</td>
             </tr>
           </tbody>
         </table>

@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./Home.scss";
-import Navbar from "../../components/Navbar";
 import { authSelector } from "../../redux/auth/auth-selectors";
 import MusicPlayer from "../../components/MusicPlayer/index.js";
 import Button from "../../components/Button/index.js";

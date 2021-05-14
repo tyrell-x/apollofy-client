@@ -6,7 +6,6 @@ import { selectPlaylist } from "../../redux/playlists/playlists-selectors.js";
 import AnimatedListItem from "../AnimatedListItem/index.js";
 import ReactCardFlip from "react-card-flip";
 import * as AiIcons from "react-icons/ai";
-import * as FaIcons from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 

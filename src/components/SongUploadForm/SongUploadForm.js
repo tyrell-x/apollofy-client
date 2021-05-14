@@ -15,13 +15,7 @@ import PuffLoader from "react-spinners/PuffLoader";
 
 const SongUploadForm = forwardRef((props, ref) => {
   const {
-    song: {
-      data = {},
-      isUploading = false,
-      progress,
-      failed = false,
-      succeeded = false,
-    },
+    song: { data = {}, isUploading = false, progress, succeeded = false },
   } = props;
 
   const dispatch = useDispatch();

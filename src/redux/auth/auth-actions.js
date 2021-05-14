@@ -142,8 +142,8 @@ export function updateUserAccount(userData) {
   return async function updateUserAccountThunk(dispatch) {
     dispatch(updateUserAccountRequest(userData));
     try {
-      await api.updateUser({}, userData);
-      return dispatch(updateUserAccountSuccess(userData));
+      const response = await api.updateUser(userData);
+      return dispatch(updateUserAccountSuccess(response.data));
     } catch (error) {
       return dispatch(updateUserAccountError());
     }

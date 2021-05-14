@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
 import GoogleIcon from "../../assets/images/google-icon.png";
-import AppLogo from "../../assets/images/logo.png";
+import AppLogo from "../../assets/images/tyrell.png";
 
 import FLInput from "../../components/FLInput";
 import Button from "../../components/Button";
@@ -103,13 +103,13 @@ function Login() {
           <span>Sign in with Google</span>
         </button>
 
-        <button className="link">
+        <button className="link buttons">
           <Link to={ROUTES.SIGN_UP} disabled={isSigningUp}>
             Sign Up
           </Link>
         </button>
 
-        <button className="link">
+        <button className="link buttons">
           <Link to={ROUTES.RESET_PASSWORD}>Reset password</Link>
         </button>
       </section>
