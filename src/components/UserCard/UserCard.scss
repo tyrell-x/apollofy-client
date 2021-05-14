@@ -1,0 +1,51 @@
+.user-card-container{
+    display:flex;
+    height: 100px;
+    align-items: center;
+    background: #2e2c2c;
+    margin-top:20px;
+    border-radius: 4px;
+    justify-content: space-between;
+    &:hover{
+        background: #282828;
+    }
+    a{
+        text-decoration: none;
+        color: white;
+    }
+    .user-card{
+        display: flex;
+        padding: 10px 30px;
+        max-height: 100%;
+        align-items: center;
+        .user-image-container{
+            height: 100px;
+            border-radius: 100px;
+            .user-image{
+                height: 100%;
+                border-radius: 100%;
+                box-shadow: rgba(0, 0, 0, 0.40) 0px 5px 15px;
+            }
+        }
+        .user-info{
+            padding-left: 40px;
+            &:hover{
+                cursor: pointer;
+            }
+            .user-name{
+                margin: 0;
+                &:hover{
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+            .user-email{
+                margin: 0;
+                font-weight: 100;
+            }
+        }
+    }
+    .follow-user{
+        margin-right: 40px;
+    }
+}

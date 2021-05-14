@@ -4,7 +4,8 @@ import authReducer from "./auth/auth-reducer";
 import playerReducer from "./player/player-reducer";
 import uploaderReducer from "./uploader/uploader-reducer";
 import tracksReducer from "./tracks/track-reducer";
-import playlistReducer from "./playlists/playlists-reducer";
+import playlistReducer from "./playlists/playlists-reducer.js";
+import userReducer from "./users/users-reducer"
 import finderReducer from "./finder/finder-reducer"
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   tracks: tracksReducer,
   playlists: playlistReducer,
   player: playerReducer,
+  users: userReducer,
   finder: finderReducer
 });
 

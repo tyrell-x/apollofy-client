@@ -40,7 +40,7 @@ export const selectTrackCollection = (name) =>
 
 export const selectFilteredTrackIds = (filterFn = () => true) =>
   createSelector(
-    [(state) => state.tracks.tracksById, (state) => state.auth.currentUser._id],
+    [(state) => state.tracks.tracksById, (state) => state.auth.currentUser],
     (tracks, uid) => {
       return Object.entries(tracks)
       .filter((track) => filterFn(track[1], uid))
@@ -50,7 +50,7 @@ export const selectFilteredTrackIds = (filterFn = () => true) =>
 
 export const selectFilteredTrackIdsAndName = (filterFn = () => true) =>
   createSelector(
-    [(state) => state.tracks.tracksById, (state) => state.auth.currentUser._id],
+    [(state) => state.tracks.tracksById, (state) => state.auth.currentUser],
     (tracks, uid) =>
       Object.entries(tracks)
         .filter((track) => filterFn(track[1], uid))

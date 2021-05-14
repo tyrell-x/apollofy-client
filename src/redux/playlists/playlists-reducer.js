@@ -22,6 +22,12 @@ export const PlaylistInitState = {
 
 const PlaylistReducer = (state = PlaylistInitState, action) => {
   switch (action.type) {
+    case PlaylistType.DELETE_UNSUCCESS: {
+      return {
+        ...state,
+        playlistDeleteSuccess: false
+      }
+    }
     case PlaylistType.CREATE_PLAYLIST_REQUEST: {
       return {
         ...state,

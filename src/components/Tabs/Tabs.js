@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AnimatedListItem from "../AnimatedListItem";
 import TabButtons from "../TabButtons";
 import "./Tabs.scss";
 
-const Tabs = (props) => {
+const Tabs = ({reset, ...props}) => {
   const [activeTabLabel, setActiveTabLabel] = useState(
-    props.children[0].props.label,
+    props.children[0].props.label
   );
   const content = useRef(props.children[0]);
 
@@ -16,6 +16,10 @@ const Tabs = (props) => {
 
     setActiveTabLabel(label);
   };
+
+  useEffect(() => {
+    changeTab(props.children[0].props.label)
+  }, [reset])
 
   return (
     <div className="main_container__nav">

@@ -1,6 +1,7 @@
 import * as AuthTypes from "./auth-types";
 import api from "../../api";
 import * as auth from "../../services/auth";
+import { addUsers } from "../users/users-actions.js";
 
 export const resetStoreAndLogOut = () => ({
   type: AuthTypes.RESET_STORE_AND_LOG_OUT,
@@ -15,9 +16,11 @@ export const signUpError = (message) => ({
   payload: message,
 });
 
-export const setUserInfo = (userInfo) => ({
+export const setUserInfo = (uid) => ({
   type: AuthTypes.SET_CURRENT_USER,
-  payload: userInfo,
+  payload: {
+    uid
+  },
 });
 
 export function signInWithGoogleRequest() {
@@ -37,8 +40,11 @@ export function signInWithGoogleRequest() {
         pictureUrl: additionalUserInfo.picture,
         phoneNumber: profile.phoneNumber,
         isNewUser: isNewUser,
+        _id: profile.uid,
       };
-      dispatch(setUserInfo(userInfo));
+
+      dispatch(addUsers([userInfo]))
+      dispatch(setUserInfo(profile.uid));
     } catch (error) {
       dispatch(signUpError(error.message));
     }
@@ -72,13 +78,16 @@ export function signInWithEmailRequest(email, password) {
 export function syncSignIn() {
   return async function syncSignInThunk(dispatch, getState) {
     await auth.getCurrentUserToken();
-    const response = await api.signUp(getState().auth.currentUser);
+    const currentUser = getState().users.usersById[getState().auth.currentUser];
+
+    const response = await api.signUp(currentUser);
 
     if (response.errorMessage) {
       return dispatch(signUpError(response.errorMessage));
     }
 
-    dispatch(setUserInfo(response.data));
+    dispatch(addUsers([response.data]))
+    dispatch(setUserInfo(response.data._id));
     return dispatch(signUpSuccess());
   };
 }

@@ -16,6 +16,7 @@ import Modal from "react-modal";
 import EditTrack from "../EditTrack/index.js";
 import { useState } from "react";
 import { currentUserSelector } from "../../redux/auth/auth-selectors.js";
+
 const customStyles = {
   content: {
     position: "0",

@@ -6,6 +6,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Pangolin&display=swap");
 
 .main-navbar {
+  position: sticky;
+  z-index: 100;
+  width: 100;
+  top: 0;
+
   .navbar {
     background-color: black;
     height: 96px;
@@ -120,6 +125,7 @@
 
   .dropdown {
     position: absolute;
+    z-index: 4;
     top: 58px;
     width: 300px;
     transform: translateX(-90%);

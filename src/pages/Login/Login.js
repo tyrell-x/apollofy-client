@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
 import GoogleIcon from "../../assets/images/google-icon.png";
-import AppLogo from "../../assets/images/tyrell.png";
+import AppLogo from "../../assets/images/logo1.png";
 
 import FLInput from "../../components/FLInput";
 import Button from "../../components/Button";

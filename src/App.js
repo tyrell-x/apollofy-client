@@ -17,7 +17,9 @@ import Library from "./pages/Library";
 import Navbar from "./components/Navbar";
 import MusicPlayer from "./components/MusicPlayer";
 import Playlist from "./pages/Playlist";
+import User from "./pages/User/User";
 import Search from "./pages/Search/index.js";
+
 function App() {
   const dispatch = useDispatch();
 
@@ -50,6 +52,16 @@ function App() {
           <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
           <ProtectedRoute path={ROUTES.HOME} component={Home} exact />
           <ProtectedRoute path={ROUTES.ACCOUNT} component={Account} exact />
+          <ProtectedRoute
+            path={`${ROUTES.PROFILE}/:id`}
+            component={User}
+            exact
+          /> 
+          <ProtectedRoute
+            path={`${ROUTES.PROFILE}`}
+            component={User}
+            exact
+          /> 
           <ProtectedRoute path={ROUTES.UPLOAD_SONG} component={UploadSong} />
           <ProtectedRoute path={ROUTES.UPLOAD_IMAGE} component={UploadImage} />
           <ProtectedRoute path={ROUTES.LIBRARY} component={Library} exact />

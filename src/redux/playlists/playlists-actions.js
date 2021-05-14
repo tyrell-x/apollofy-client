@@ -158,10 +158,10 @@ export function createPlaylist({ title }) {
     if (!res.isSuccessful) {
       return dispatch(playlistCreateError(res.errorMessage));
     }
-    console.log(res)
     return dispatch(playlistCreateSuccess(res.data));
   };
 }
+
 export function addTrackToPlaylist(trackId, playlistId) {
   return async function addTrackToPlaylistThunk(dispatch) {
     const response = await playlistApi.addTrackToPlaylist(trackId, playlistId);
@@ -207,7 +207,11 @@ export function deletePlaylist(playlistId) {
   };
 }
 
-
+export function deleteUnsuccess() {
+  return {
+    type: PlaylistTypes.DELETE_UNSUCCESS
+  };
+}
 
 /*
 export function fetchOwnPlaylists() {

@@ -1,11 +1,10 @@
 import { useSelector } from "react-redux";
-import { authSelector } from "../../../../redux/auth/auth-selectors";
+import { currentUserSelector } from "../../../../redux/auth/auth-selectors";
 
 import "./InfoAccount.scss";
 
 function InfoAccount() {
-  const { currentUser } = useSelector(authSelector);
-  console.log(currentUser);
+  const currentUser = useSelector(currentUserSelector);
 
   return (
     <div className="main_container__profileInfo">

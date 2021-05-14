@@ -12,8 +12,8 @@ function DropdownMenu() {
   };
   return (
     <div className="dropdown">
-      <DropdownItem leftIcon={<CgProfile />} path={"/account"}>
-        Account
+      <DropdownItem leftIcon={<CgProfile />} path={"/profile"}>
+        Profile
       </DropdownItem>
       <DropdownItem
         leftIcon={<FaSignOutAlt />}
