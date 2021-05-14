@@ -1,26 +1,20 @@
 import React, { useEffect } from 'react'
-import {useSelector, useDispatch} from "react-redux"
-import {selectOwnedPlaylistsIds} from "../../../../redux/playlists/playlists-selectors"
+import {useDispatch, useSelector} from "react-redux"
 import {fetchAllPlaylists} from "../../../../redux/playlists/playlists-actions"
 import PlaylistCard from "../../../../components/PlaylistCard"
 import { onAuthStateChanged } from "../../../../services/auth/auth.js";
-import "./MyPlaylists.scss"
+import "./Playlists.scss"
+import { selectOwnedPlaylistsIds } from '../../../../redux/playlists/playlists-selectors.js';
 
-function MyPlaylists () {
-    const ownedPlaylistIds = useSelector(selectOwnedPlaylistsIds);
+function Playlists ({uid}) {
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        onAuthStateChanged((user) => {
-          if (user) {
-            dispatch(fetchAllPlaylists())
-          }
-        });
-      }, []);
+    const ownedPlaylistsIds = useSelector(selectOwnedPlaylistsIds(uid))
+
     return (
         <div className="playlists-container-profile">
           <div className="profile-playlists">
-            {(ownedPlaylistIds || []).map((id) => (
+            {(ownedPlaylistsIds || []).map((id) => (
               <PlaylistCard id={id} key={id} />
             ))}
           </div>
@@ -29,4 +23,4 @@ function MyPlaylists () {
     )
 }
 
-export default MyPlaylists
+export default Playlists

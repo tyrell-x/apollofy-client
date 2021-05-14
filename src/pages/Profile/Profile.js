@@ -15,10 +15,9 @@ function Profile () {
         onAuthStateChanged((user) => {
             if (user) {
                 dispatch(fetchProfileInfo())
-                dispatch(fetchAllUsers())
             }
         });
-    }, [])    
+    }, [dispatch])    
     
     return (
         <>
@@ -26,7 +25,7 @@ function Profile () {
             <div className="profile-container">
                 <div className="profile-info-container">
                     <div className="profile-image">
-                        <img src={profile.pictureUrl ? profile.pictureUrl : "http://apollo.eu-west-3.elasticbeanstalk.com/content/images/svg/default-user.svg"}></img>
+                        <img alt="profile" src={profile.pictureUrl ? profile.pictureUrl : "http://apollo.eu-west-3.elasticbeanstalk.com/content/images/svg/default-user.svg"}></img>
                     </div>
                     <div className="profile-info">
                         <p className="profile-info-title">PROFILE</p>

@@ -8,5 +8,5 @@ export const selectUserStore = createSelector(
 export const selectUser = (id) =>
   createSelector(
     (state) => state.users.usersById[id],
-    (user) => user
+    (user) => user || {}
   )

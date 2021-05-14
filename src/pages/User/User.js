@@ -8,6 +8,8 @@ import profileApi from "../../api/profile-api"
 import {selectUser} from "../../redux/users/users-selectors"
 
 import "./User.scss"
+import { fetchAllUsers } from '../../redux/users/users-actions.js';
+import { fetchAllPlaylists } from '../../redux/playlists/playlists-actions.js';
 
 function User () {
     const dispatch = useDispatch()
@@ -16,10 +18,11 @@ function User () {
     useEffect(()=> {
         onAuthStateChanged((user) => {
             if (user) {
-
+                dispatch(fetchAllUsers())
+                dispatch(fetchAllPlaylists())
             }
         });
-    }, []) 
+    }, [dispatch]) 
        
     return (
         <>
@@ -27,7 +30,7 @@ function User () {
             <div className="profile-container">
                 <div className="profile-info-container">
                     <div className="profile-image">
-                        <img src={user.pictureUrl ? user.pictureUrl : "http://apollo.eu-west-3.elasticbeanstalk.com/content/images/svg/default-user.svg"}></img>
+                        <img alt="user" src={user.pictureUrl ? user.pictureUrl : "http://apollo.eu-west-3.elasticbeanstalk.com/content/images/svg/default-user.svg"}></img>
                     </div>
                     <div className="profile-info">
                         <p className="profile-info-title">PROFILE</p>

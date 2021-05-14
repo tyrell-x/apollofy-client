@@ -32,9 +32,10 @@ const filterPlaylistSelector = (filterFn) => (playlist) => {
 export const selectFilteredPlaylistsIds = (filterFn = () => true) =>
   createSelector(
     (state) => state.playlists.playlistsById,
-    (playlists) =>
+    (state) => state.auth.currentUser._id,
+    (playlists, uid) =>
       Object.entries(playlists)
-        .filter((playlist) => filterPlaylistSelector(filterFn)(playlist[1]))
+        .filter((playlist) => filterFn(playlist[1], uid))
         .map((playlist) => playlist[0]),
   );
 
@@ -47,4 +48,8 @@ export const selectOwnedPlaylistsIds = selectFilteredPlaylistsIds(
 );
 export const selectFollowedPlaylistsIds = selectFilteredPlaylistsIds(
   (playlist) => playlist.followed,
+);
+
+export const selectOwnedByPlaylistsIds = (uid) => selectFilteredPlaylistsIds(
+  (playlist) => playlist.author === uid,
 );

@@ -3,15 +3,15 @@ import {useDispatch} from "react-redux";
 import{fetchAllUsers} from "../../../redux/users/users-actions"
 import Tab from "../../../components/Tab";
 import Tabs from "../../../components/Tabs";
-import MyPlaylists from "../sections/MyPlaylists"
+import Playlists from "../sections/Playlists"
 import UserCard from "../../../components/UserCard"
 
-function TabMenu({followers, following, params}) {
+function TabMenu({followers, following, uid}) {
 
   return (
     <Tabs>
       <Tab label="Playlists">
-        <MyPlaylists />
+        <Playlists uid={uid}/>
       </Tab>
       <Tab label={followers ? followers.length + " Followers": "Followers"}>
           {followers && followers.map(user => (

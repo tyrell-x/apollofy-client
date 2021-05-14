@@ -45,47 +45,34 @@ export const fetchUserSuccess = (id, user) => ({
   payload: { id, user },
 });
 
-
 export const updateUserFollowing = (id, followed) => ({
   type: userTypes.UPDATE_USER_FOLLOWING,
   payload: { id, followed },
 });
 
+export function addUsers(users) {
+  return (dispatch) => {
+    const normalizedUsers = normalizeUsers(users);
+    dispatch(fetchUsersSuccess(normalizedUsers.entities.users));
+  };
+}
+
 export function fetchAllUsers() {
   return async function fetchUsersThunk(dispatch) {
     dispatch(fetchUsersRequest());
 
-    try {
-      const res = await userApi.getAllUsers();
-
-      if (res.errorMessage) {
-        return dispatch(fetchUsersError(res.errorMessage));
-      }
-
-      const normalizedData = normalizeUsers(res.data);
-
-      const users = Object.fromEntries(
-        Object.entries(normalizedData.entities.users).map(
-          ([key, value]) => [
-            key,
-            {
-              ...value,
-            },
-          ],
-        ),
-      );
-      return dispatch(fetchUsersSuccess(users));
-    } catch (err) {
-      return dispatch(fetchUserError(err));
+    const res = await userApi.getAllUsers();
+    if (res.errorMessage) {
+      return dispatch(fetchUsersError(res.errorMessage));
     }
+    dispatch(addUsers(res.data));
   };
 }
-
 
 export function followUser(id, follow) {
   return async function followUserThunk(dispatch) {
     const res = await userApi.followUser(id, follow);
-    console.log(res)
+    console.log(res);
     dispatch(updateUserFollowing(id, res.data));
   };
 }
@@ -93,14 +80,13 @@ export function followUser(id, follow) {
 export function updateUser(user) {
   return async function updateUserThunk(dispatch) {
     dispatch(userUpdateRequest());
-    
+
     try {
       const res = await userApi.updateUser(user);
-      console.log(res)
+      console.log(res);
       dispatch(userUpdateSuccess(res));
     } catch (err) {
       dispatch(userUpdateError(err));
     }
   };
 }
-

@@ -11,24 +11,18 @@ function TabMenu({followers, following}) {
         <MyPlaylists />
       </Tab>
       <Tab label={followers ? followers.length + " Followers": "Followers"}>
-          {followers && followers.map(user => (
+          {followers && followers.map(id => (
             <UserCard 
-              key={user._id}
-              id={user._id} 
-              name={user.firstName} 
-              image={user.pictureUrl} 
-              email={user.email}
+              key={id}
+              id={id}
             />
           ))}
       </Tab>
       <Tab label={following ? following.length + " Following": "Following"}>
-          {following && following.map(user => (
+          {following && following.map(id => (
             <UserCard 
-              key={user._id}
-              id={user._id} 
-              name={user.firstName} 
-              image={user.pictureUrl} 
-              email={user.email}
+              key={id}
+              id={id}
             />
           ))}
       </Tab>
