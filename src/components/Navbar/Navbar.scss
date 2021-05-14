@@ -14,9 +14,9 @@
     background-color: black;
     height: 96px;
     display: flex;
+    justify-content: space-around;
     align-items: center;
     z-index: 1;
-
     &.playlist {
       background-color: #1e2026;
     }
@@ -78,7 +78,7 @@
     }
 
     .finder {
-      margin-left: auto;
+      margin-left: 15%;
 
       .finder-input {
         background-color: white;
