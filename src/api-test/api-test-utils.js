@@ -15,6 +15,7 @@ export async function normalizeResponse(promise = Promise.resolve) {
   try {
     networkResponse = await promise;
     defaultResponse.data = networkResponse.data;
+    defaultResponse.isSuccessful = true;
   } catch (error) {
     defaultResponse.errorMessage = error.message;
   }

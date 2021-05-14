@@ -52,12 +52,13 @@ const FLInput = (props) => {
   return (
     <div
       {...containerAttributes}
-      className={`input-container${className ? " " + className : ""}`}
+      className={`input-container ${className ? " " + className : ""}`}
     >
       <div
         className={`floating-label-input ${active ? "active" : ""} ${
           disabled ? "disabled" : ""
-        } ${hasError ? "error" : ""} border-${borderMode}`}
+        } ${hasError ? "error" : ""} border-${borderMode}
+        ${className ? " " + className : ""}`}
       >
         <label>
           <input
