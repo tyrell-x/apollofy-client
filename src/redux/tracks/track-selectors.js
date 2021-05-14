@@ -16,6 +16,22 @@ export const selectAllTracks = createSelector(
   (tracksObj) => Object.values(tracksObj),
 );
 
+export const selectRandomTracks = (number) => {
+  return createSelector(selectAllTracks, (tracks) => {
+    const tracksCopy = [...tracks];
+    const randomTracks = [];
+    for (let i = 0; i < number; i++) {
+      randomTracks.push(
+        tracksCopy.splice(
+          Math.floor(Math.random() * tracksCopy.length),
+          1,
+        )[0] || {},
+      );
+    }
+    return randomTracks;
+  });
+};
+
 export const selectTrackCollection = (name) =>
   createSelector(
     (state) => state.tracks.trackCollections[name],
@@ -24,19 +40,20 @@ export const selectTrackCollection = (name) =>
 
 export const selectFilteredTrackIds = (filterFn = () => true) =>
   createSelector(
-    (state) => state.tracks.tracksById,
-    (tracks) =>
-      Object.entries(tracks)
-        .filter((track) => filterFn(track[1]))
-        .map((track) => track[0]),
+    [(state) => state.tracks.tracksById, (state) => state.auth.currentUser._id],
+    (tracks, uid) => {
+      return Object.entries(tracks)
+      .filter((track) => filterFn(track[1], uid))
+      .map((track) => track[0]);
+    }
   );
 
 export const selectFilteredTrackIdsAndName = (filterFn = () => true) =>
   createSelector(
-    (state) => state.tracks.tracksById,
-    (tracks) =>
+    [(state) => state.tracks.tracksById, (state) => state.auth.currentUser._id],
+    (tracks, uid) =>
       Object.entries(tracks)
-        .filter((track) => filterFn(track[1]))
+        .filter((track) => filterFn(track[1], uid))
         .map((track) => ({
           id: track[0],
           title: track[1].title,
@@ -45,8 +62,8 @@ export const selectFilteredTrackIdsAndName = (filterFn = () => true) =>
 
 export const selectAllTrackIds = selectFilteredTrackIds();
 export const selectLikedTrackIds = selectFilteredTrackIds(
-  (track) => track.liked,
+  (track, uid) => track.likedBy.includes(uid),
 );
 export const selectOwnedTrackIds = selectFilteredTrackIds(
-  (track) => track.owned,
+  (track, uid) => track.ownedBy === uid,
 );

@@ -21,8 +21,12 @@ import {
   deletePlaylist,
 } from "../../redux/playlists/playlists-actions.js";
 import FollowPlaylist from "../../components/FollowPlaylist";
+<<<<<<< HEAD
 import PlaylistOptions from "../../components/PlaylistOptions";
 import { useCopyToClipboard } from "../../hooks/useCopyToClipboard/useCopyToClipboard";
+=======
+import { currentUserSelector } from "../../redux/auth/auth-selectors.js";
+>>>>>>> fc4393b03a60e103f884625d174b7c2a757760cd
 
 const defaultImage =
   "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
@@ -54,6 +58,9 @@ function Playlist() {
   }, [dispatch]);
 
   const { id } = useParams();
+
+  const { _id: uid } = useSelector(currentUserSelector)
+
   const playlist = useSelector(selectPlaylist(id));
 
   const playPlaylist = () => {
@@ -150,7 +157,7 @@ function Playlist() {
                           {track.artist || "anonymous"}
                         </div>
                       </div>
-                      <div className="owner">{track.owned ? "Owned" : ""}</div>
+                      <div className="owner">{track.ownedBy === uid ? "Owned" : ""}</div>
                       <div className="duration">
                         {getCounter(track.duration)}
                       </div>

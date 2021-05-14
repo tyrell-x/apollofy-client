@@ -2,42 +2,44 @@ import React, { useEffect, useState } from "react";
 import TrackCard from "../../../../components/TrackCard";
 import { fetchTracks } from "../../../../redux/tracks/track-actions";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAllTracks } from "../../../../redux/tracks/track-selectors";
+import {
+  selectAllTracks,
+  selectOwnedTrackIds,
+  selectTracksStore,
+} from "../../../../redux/tracks/track-selectors";
+
 import AnimatedList from "../../../../components/AnimatedList";
-import FLInput from "../../../../components/FLInput";
+import PuffLoader from "react-spinners/PuffLoader";
 
 function MyTracks() {
   const dispatch = useDispatch();
 
-  const allTracks = useSelector(selectAllTracks);
-  const [filteredTracks, setFilteredTracks] = useState(allTracks.slice(0, 8));
-
-  useEffect(() => {
-    setFilteredTracks(allTracks.slice(0, 7));
-  }, [allTracks]);
+  const ownedTracks = useSelector(selectOwnedTrackIds);
 
   useEffect(() => {
     dispatch(fetchTracks());
   }, []);
 
-  const applyNameFilter = (e) => {
-    setFilteredTracks(
-      allTracks
-        .slice(0, 7)
-        .filter((track) => track.title.includes(e.target.value)),
-    );
-  };
+  const { tracksLoading } = useSelector(selectTracksStore);
 
   return (
     <div className="library-content">
-      <div className="filter-inputs">
-        <FLInput borderMode="bottom" onInput={applyNameFilter} label="Search" />
-      </div>
-      <AnimatedList flipKey={(filteredTracks || []).join("")}>
-        {(filteredTracks || []).map((track) => (
-          <TrackCard id={track._id} key={track._id} />
+      <AnimatedList flipKey={(ownedTracks || []).join("")}>
+        {(ownedTracks || []).map((id) => (
+          <TrackCard id={id} key={id} />
         ))}
       </AnimatedList>
+      <PuffLoader
+        color={"rgb(224, 130, 21)"}
+        loading={tracksLoading}
+        size={150}
+        css={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      />
     </div>
   );
 }

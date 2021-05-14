@@ -142,7 +142,7 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
       return {
         ...state,
         playlistLoading: true,
-        playlistLoadingError: null,
+        playlistLoadingError: null
       };
     }
     case PlaylistType.FETCH_PLAYLIST_ERROR: {
@@ -208,7 +208,7 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
       };
     }
     default: {
-      return { ...state };
+      return state;
     }
   }
 };
