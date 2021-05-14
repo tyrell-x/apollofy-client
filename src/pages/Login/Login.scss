@@ -15,9 +15,9 @@
       text-align: center;
 
       img {
-        max-width: 30%;
+        max-width: 35%;
         margin: 0 auto;
-        filter: hue-rotate(263deg);
+        // filter: hue-rotate(263deg);
       }
     }
 
@@ -48,17 +48,28 @@
   }
 }
 
+.buttons {
+  background-color: #eb8500;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  color: #2e2e2e;
+  transition: background-color 0.3s ease-out;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  }
+
 .link {
   width: fit-content;
   margin: 0 auto;
   a {
-    color: white;
+    // color: white;
     width: fit-content;
     text-decoration: none;
 
     &:hover,
     &:focus {
-      text-decoration: underline;
+      text-decoration: none;
     }
   }
 
