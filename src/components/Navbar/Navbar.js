@@ -66,19 +66,6 @@ function Navbar() {
             </div>
           </Link>
           <Link
-            to={ROUTES.EXPLORE}
-            className={
-              location.pathname.startsWith(ROUTES.EXPLORE) ? "active" : ""
-            }
-          >
-            <div className="nav-item">
-              <i>
-                <AiIcons.AiOutlineSearch />
-              </i>
-              <span>Explore</span>
-            </div>
-          </Link>
-          <Link
             to={ROUTES.UPLOAD_SONG}
             className={
               location.pathname.startsWith(ROUTES.UPLOAD_SONG) ? "active" : ""
