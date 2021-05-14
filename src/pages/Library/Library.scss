@@ -20,14 +20,14 @@
 
   .list {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
 
     gap: 20px;
     margin: 50px 30px;
 
     .track-card {
-      width: 300px;
+      width: 70%;
     }
   }
 }

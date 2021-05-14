@@ -20,3 +20,49 @@
   color: #1e2026;
   cursor: pointer;
 }
+
+.like-button {
+  width: 50px;
+
+  svg {
+    margin: 0 auto;
+    transition: transform 0.3s, stroke 0.3s;
+    font-size: 25px;
+
+    path {
+      transition: fill 0.3s;
+    }
+  }
+
+  .liked {
+    stroke: #e01515;
+
+    path {
+      fill: red;
+    }
+  }
+
+  .not-liked {
+    stroke: white;
+
+    path {
+      fill: transparent;
+    }
+  }
+
+  &:hover {
+    svg {
+      transform: scale(1.1);
+
+      path {
+        fill: rgba(255, 0, 0, 0.26);
+      }
+    }
+  }
+
+  &:active {
+    svg {
+      transform: scale(1.13);
+    }
+  }
+}

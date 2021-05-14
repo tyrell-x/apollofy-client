@@ -34,7 +34,7 @@ export default function PlaylistCard({ id }) {
 
   useEffect(() => {
     return clearTimeout(timer.current)
-  }, [])
+  })
 
   return (
     <AnimatedListItem key={id} flipId={id}>

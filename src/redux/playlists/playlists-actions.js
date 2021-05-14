@@ -122,7 +122,6 @@ export function createPlaylist({ title }) {
     if (!res.isSuccessful) {
       return dispatch(playlistCreateError(res.errorMessage));
     }
-    console.log(res)
     return dispatch(playlistCreateSuccess(res.data));
   };
 }

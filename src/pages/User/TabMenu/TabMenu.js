@@ -9,7 +9,7 @@ import UserCard from "../../../components/UserCard"
 function TabMenu({followers, following, uid}) {
 
   return (
-    <Tabs>
+    <Tabs reset={uid}>
       <Tab label="Playlists">
         <Playlists uid={uid}/>
       </Tab>

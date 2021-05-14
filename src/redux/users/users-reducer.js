@@ -83,31 +83,20 @@ const userReducer = (state = userInitState, action) => {
       };
     }
     case UserType.FETCH_USER_SUCCESS: {
-      const { id, user } = action.payload.user;
-
       return {
         ...state,
         userLoading: false,
         userLoadingError: null,
-        userFetched: true,
-        usersById: {
-          ...state.usersById,
-          [id]: {
-            ...user,
-          },
-        },
+        userFetched: true
       };
     }
-    case UserType.UPDATE_USER_FOLLOWING: {
-      const { id, followed } = action.payload;
+    case UserType.UPDATE_USER: {
+      const { id, user } = action.payload;
       return {
         ...state,
         usersById: {
           ...state.usersById,
-          [id]: {
-            ...state.usersById[id],
-            followed: followed,
-          },
+          [id]: user,
         },
       };
     }

@@ -8,9 +8,10 @@ function FollowUser({ id, followed }) {
   const followToggle = () => {
     dispatch(followUser(id, !followed))
   };
+  
   return (
     <button
-      className={followed ? "following-button" : "follow-button"}
+      className={`follow-button ${followed ? "following-button" : "follow-button"}`}
       onClick={() => followToggle()}
     >
       {followed ? "Following" : "Follow"}

@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-export const selectUserStore = createSelector(
+export const selectUsersStore = createSelector(
   [(state) => state.users],
   (usersStore) => usersStore,
 );

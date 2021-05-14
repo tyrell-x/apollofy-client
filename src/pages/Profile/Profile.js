@@ -44,6 +44,7 @@ function Profile () {
         <div className="library-tabs library-tabs-profile">
             <TabMenu followers={profile.followedBy} following={profile.following}/>
         </div>
+
         </>
     )
 }

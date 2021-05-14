@@ -40,14 +40,13 @@ export const fetchUserError = (message) => ({
   payload: { message },
 });
 
-export const fetchUserSuccess = (id, user) => ({
-  type: userTypes.FETCH_USER_SUCCESS,
-  payload: { id, user },
+export const fetchUserSuccess = () => ({
+  type: userTypes.FETCH_USER_SUCCESS
 });
 
-export const updateUserFollowing = (id, followed) => ({
-  type: userTypes.UPDATE_USER_FOLLOWING,
-  payload: { id, followed },
+export const updateUser = (id, user) => ({
+  type: userTypes.UPDATE_USER,
+  payload: { id, user },
 });
 
 export function addUsers(users) {
@@ -73,8 +72,8 @@ export function fetchUser(uid) {
       return dispatch(fetchUserError(res.errorMessage));
     }
 
-    console.log(res);
     dispatch(addUsers([res.data]));
+    dispatch(fetchUserSuccess());
   };
 }
 
@@ -93,20 +92,7 @@ export function fetchAllUsers() {
 export function followUser(id, follow) {
   return async function followUserThunk(dispatch) {
     const res = await userApi.followUser(id, follow);
-    dispatch(updateUserFollowing(id, res.data));
-  };
-}
 
-export function updateUser(user) {
-  return async function updateUserThunk(dispatch) {
-    dispatch(userUpdateRequest());
-
-    try {
-      const res = await userApi.updateUser(user);
-      console.log(res);
-      dispatch(userUpdateSuccess(res));
-    } catch (err) {
-      dispatch(userUpdateError(err));
-    }
+    dispatch(addUsers([res.data]));
   };
 }
