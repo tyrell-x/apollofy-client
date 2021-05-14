@@ -12,7 +12,6 @@ import ResetPassword from "./pages/ResetPassword";
 import { onAuthStateChanged } from "./services/auth";
 import { syncSignIn, signOut } from "./redux/auth/auth-actions";
 import Account from "./pages/Account/Account";
-import Profile from "./pages/Profile/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Library from "./pages/Library";
 import Navbar from "./components/Navbar";

@@ -11,7 +11,7 @@ function FollowUser({ id, followed }) {
   
   return (
     <button
-      className={`follow-button ${followed ? "following-button" : "follow-button"}`}
+      className={`follow-button ${followed ? "followed" : "not-followed"}`}
       onClick={() => followToggle()}
     >
       {followed ? "Following" : "Follow"}
