@@ -1,13 +1,18 @@
 import React from "react";
 import copy from "copy-to-clipboard";
 
-export default function useCopyToClipboard(resetInterval = null) {
+<<<<<<< HEAD
+
+=======
+>>>>>>> 0e446d181b1103c6110ec8197ceb08c446c52515
+export const useCopyToClipboard = function (resetInterval = null) {
   const [isCopied, setCopied] = React.useState(false);
 
   function handleCopy(text) {
     if (typeof text === "string" || typeof text == "number") {
       copy(text.toString());
       setCopied(true);
+      alert("Playlist link succesfully copied to clipboard")
     } else {
       setCopied(false);
       console.error(
@@ -17,4 +22,4 @@ export default function useCopyToClipboard(resetInterval = null) {
   }
 
   return [isCopied, handleCopy];
-}
+};

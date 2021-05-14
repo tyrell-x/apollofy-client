@@ -115,6 +115,42 @@ export function fetchAllPlaylists() {
   };
 }
 
+export const playlistDeleteRequest = (message) => ({
+  type: PlaylistTypes.DELETE_PLAYLIST_REQUEST,
+  payload: {
+    message,
+  },
+});
+
+export const playlistDeleteError = (message) => ({
+  type: PlaylistTypes.DELETE_PLAYLIST_ERROR,
+  payload: {
+    message,
+  },
+});
+
+export const playlistDeleteSuccess = (message) => ({
+  type: PlaylistTypes.DELETE_PLAYLIST_SUCCESS,
+  payload: {
+    message,
+  },
+});
+
+export const playlistDeletePostSuccess = (message) => ({
+  type: PlaylistTypes.DELETE_PLAYLIST_POST_SUCCESS,
+  payload: {
+    message,
+  },
+});
+
+export const editPlaylist = (id, data) => ({
+  type: PlaylistTypes.UPDATE_PLAYLIST,
+  payload: {
+    id: id,
+    playlist: data,
+  },
+});
+
 export function createPlaylist({ title }) {
   return async function createThunk(dispatch) {
     dispatch(playlistCreateRequest());
@@ -147,9 +183,110 @@ export function updatePlaylist(playlist) {
   return async function updatePlaylistThunk(dispatch) {
     dispatch(playlistUpdateRequest());
     dispatch(playlistUpdateSuccess(playlist));
-    const res = await playlistApi.updatePlaylist(playlist);
-    if(!res.isSuccessful) {
-      dispatch(playlistUpdateError(res.errorMessage));
+    try {
+      const res = await playlistApi.updatePlaylist(playlist);
+      if(!res.isSuccessful) {
+        dispatch(playlistUpdateError(res.errorMessage));
+      }
+    } catch (err) {
+      dispatch(playlistUpdateError(err));
     }
   };
 }
+
+export function deletePlaylist(playlistId) {
+  return async function deletePlaylistThunk(dispatch) {
+    dispatch(playlistDeleteRequest());
+
+    try {
+      const res = await playlistApi.deletePlaylist(playlistId);
+      dispatch(playlistDeleteSuccess(playlistId));
+    } catch (err) {
+      dispatch(playlistDeleteError(err));
+    }
+  };
+}
+
+
+
+/*
+export function fetchOwnPlaylists() {
+  return async function fetchPlaylistsThunk(dispatch) {
+    dispatch(fetchPlaylistRequest());
+
+    const res = await api.getOwnPlaylists();
+
+    if (res.isSuccessful) {
+      const normalizedPlaylists = normalizePlaylists(res.data);
+      dispatch(
+        fetchPlaylistSuccess({
+          type: playlistTypes.OWN,
+          byID: normalizedPlaylists.entities.playlists,
+          ids: {
+            OWN: normalizedPlaylists.result,
+          },
+        }),
+      );
+    } else {
+      dispatch(fetchPlaylistError(res.errorMessage));
+    }
+  };
+}
+
+export function fetchFollowingPlaylists() {
+  return async function fetchPlaylistsThunk(dispatch) {
+    dispatch(fetchPlaylistsRequest());
+
+    const res = await api.getFollowingPlaylists();
+
+    if (res.isSuccessful) {
+      const normalizedPlaylists = normalizePlaylists(res.data);
+      dispatch(
+        fetchPlaylistsSuccess({
+          type: playlistTypes.FOLLOWING,
+          byID: normalizedPlaylists.entities.playlists,
+          ids: normalizedPlaylists.result,
+        }),
+      );
+    } else {
+      dispatch(fetchPlaylistsError(res.errorMessage));
+    }
+  };
+}
+
+export function fetchPopularPlaylists() {
+  return async function fetchPlaylistsThunk(dispatch) {
+    dispatch(fetchPlaylistsRequest());
+
+    const res = await api.getPopularPlaylists();
+
+    if (res.isSuccessful) {
+      const normalizedPlaylists = normalizePlaylists(res.data);
+      dispatch(
+        fetchPlaylistsSuccess({
+          type: playlistTypes.POPULAR,
+          byID: normalizedPlaylists.entities.playlists,
+          ids: normalizedPlaylists.result,
+        }),
+      );
+    } else {
+      dispatch(fetchPlaylistsError(res.errorMessage));
+    }
+  };
+}
+
+export function fetchPlaylistById(playlistID) {
+  return async function fetchPlaylistThunk(dispatch) {
+    dispatch(fetchPlaylistRequest());
+
+    const res = await api.getPlaylistById(playlistID);
+
+    if (res.isSuccessful) {
+      dispatch(fetchPlaylistSuccess(res.data));
+    } else {
+      dispatch(fetchPlaylistError(res.errorMessage));
+    }
+  };
+}
+*/
+  
