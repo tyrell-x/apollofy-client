@@ -2,7 +2,6 @@ import "./TrackCard.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTrack } from "../../redux/tracks/track-selectors";
 import { deleteTrack, toggleLikeTrack } from "../../redux/tracks/track-actions";
-import { fetchAllPlaylists } from "../../redux/playlists/playlists-actions";
 import LikeButton from "../LikeButton";
 import AnimatedListItem from "../AnimatedListItem";
 import DeleteButton from "../DeleteButton/index.js";
@@ -16,6 +15,7 @@ import AddToPlaylist from "../AddToPlaylist";
 import Modal from "react-modal";
 import EditTrack from "../EditTrack/index.js";
 import { useState } from "react";
+import { currentUserSelector } from "../../redux/auth/auth-selectors.js";
 const customStyles = {
   content: {
     position: "0",
@@ -34,8 +34,12 @@ Modal.defaultStyles.overlay.backgroundColor = "rgba(200, 200, 200, 0.4)";
 function TrackCard({ id }) {
   const dispatch = useDispatch();
 
-  const { name, title, ownedBy, thumbnail = defaultImage, liked } =
+  const { _id: uid } = useSelector(currentUserSelector);
+
+  const { title, thumbnail = defaultImage, likedBy } =
     useSelector(selectTrack(id)) || {};
+
+  const liked = likedBy.includes(uid);
 
   const trackInPlayer = useSelector(isTrackInPlayer(id));
 
@@ -80,7 +84,6 @@ function TrackCard({ id }) {
         </div>
         <div className="track-content">
           <div className="track-details">
-            <p className="track-name">{name}</p>
             <p className="track-artist">{title}</p>
           </div>
         </div>

@@ -26,7 +26,10 @@
   .track-content {
     width: 100%;
     margin-left: 1em;
+    display: flex;
     align-items: center;
+    overflow: hidden;
+    height: 100%;
   }
 
   .track-details {

@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 
 export const selectPlaylistStore = createSelector(
-  [(state) => state.playlists],
+  (state) => state.playlists,
   (playlistsStore) => playlistsStore,
 );
 
@@ -22,29 +22,44 @@ export const selectAllPlaylists = createSelector(
 
 export const selectOwnedPlaylists = createSelector(
   (state) => state.playlists.playlistsById,
-  (tracksObj) => Object.values(tracksObj).filter((playlist) => playlist.owned),
+  (state) => state.auth.currentUser._id,
+  (tracksObj, uid) => Object.values(tracksObj).filter((playlist) => playlist.author === uid)
 );
-
-const filterPlaylistSelector = (filterFn) => (playlist) => {
-  return filterFn(playlist);
-};
 
 export const selectFilteredPlaylistsIds = (filterFn = () => true) =>
   createSelector(
     (state) => state.playlists.playlistsById,
-    (playlists) =>
+    (state) => state.auth.currentUser._id,
+    (playlists, uid) =>
       Object.entries(playlists)
-        .filter((playlist) => filterPlaylistSelector(filterFn)(playlist[1]))
+        .filter((playlist) => filterFn(playlist[1], uid))
         .map((playlist) => playlist[0]),
   );
 
 export const selectAllPlaylistsIds = selectFilteredPlaylistsIds();
 export const selectLikedPlaylistsIds = selectFilteredPlaylistsIds(
-  (playlist) => playlist.liked,
+  (playlist, uid) => playlist.followedBy.includes(uid),
 );
 export const selectOwnedPlaylistsIds = selectFilteredPlaylistsIds(
-  (playlist) => playlist.owned,
+  (playlist, uid) => playlist.author === uid,
 );
 export const selectFollowedPlaylistsIds = selectFilteredPlaylistsIds(
-  (playlist) => playlist.followed,
+  (playlist, uid) => playlist.followedBy.includes(uid),
+);
+
+export const selectLastPlaylist = createSelector(
+  (state) => state.playlists.playlistsById,
+  (state) => state.tracks.tracksById,
+  (playlists, tracks) => {
+    const lastPlaylist =
+      Object.values(playlists).sort((a, b) => {
+        const aCreatedAt = new Date(a.createdAt);
+        const bCreatedAt = new Date(b.createdAt);
+        return bCreatedAt - aCreatedAt;
+      })[0] || {};
+    return {
+      ...lastPlaylist,
+      tracks: (lastPlaylist.tracks || []).map((id) => tracks[id]),
+    };
+  },
 );

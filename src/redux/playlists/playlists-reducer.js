@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable spaced-comment */
 import * as PlaylistType from "./playlists-types";
-import { trackTypes } from "../tracks/track-types";
 
 export const PlaylistInitState = {
   playlistCreation: false,
@@ -102,7 +101,7 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
       return {
         ...state,
         playlistLoading: true,
-        playlistLoadingError: null,
+        playlistLoadingError: null
       };
     }
     case PlaylistType.FETCH_PLAYLIST_ERROR: {
@@ -155,7 +154,7 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
       };
     }
     default: {
-      return { ...state };
+      return state;
     }
   }
 };

@@ -77,6 +77,17 @@
       }
     }
 
+    .finder {
+      margin-left: auto;
+
+      .finder-input {
+        background-color: white;
+        color: black !important;
+        border-radius: 40px;
+        font-family: 'Lato';
+      }
+    }
+
     .account-button {
       margin-left: auto;
       margin-right: 56px;
