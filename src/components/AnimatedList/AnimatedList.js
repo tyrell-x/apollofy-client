@@ -10,9 +10,7 @@ function AnimatedList({ children, ...props }) {
     hideEnteringElements();
     animateExitingElements();
     animateFlippedElements();
-    setTimeout(() => {
-      animateEnteringElements();
-    }, 60);
+    animateEnteringElements();
   };
 
   return (

@@ -36,8 +36,10 @@ export default function Controls() {
         autoplay: currentlyPlaying,
         onend: () => dispatch(setNextTrack()),
       });
+    } else {
+      stop();
     }
-  }, [currentTrack, currentlyPlaying, dispatch, load]);
+  }, [currentTrack, currentlyPlaying, dispatch, load, pause, stop]);
 
   useEffect(() => dispatch(setCurrentlyPlaying(false)), [dispatch]);
 

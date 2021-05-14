@@ -21,9 +21,9 @@ function AnimatedListItem({ children, ...props }) {
       targets: el,
       translateY: 60,
       opacity: 0,
-      duration: 300,
+      duration: 200,
       easing: "easeInSine",
-      delay: 30 * index,
+      delay: 20 * index,
       complete: () => removeElement(),
     });
     return removeElement;

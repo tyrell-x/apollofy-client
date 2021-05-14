@@ -75,58 +75,63 @@ export const updatePlaylistFollowing = (id, followed) => ({
   payload: { id, followed },
 });
 
+export const addPlaylists = (playlists) => {
+  return async (dispatch) => {
+    if(!playlists.length) {
+      return;
+    }
+    
+    let normalizedPlaylists = normalizePlaylists(playlists);
+    dispatch(addTracks(playlists.flatMap((playlist) => playlist.tracks)));
+
+    normalizedPlaylists = Object.fromEntries(
+      Object.entries(normalizedPlaylists.entities.playlists).map(
+        ([key, value]) => [
+          key,
+          {
+            ...value,
+            tracks: value.tracks.map((track) => track._id),
+          },
+        ],
+      ),
+    );
+    return dispatch(fetchPlaylistsSuccess(normalizedPlaylists));
+  }
+}
+
 export function fetchAllPlaylists() {
   return async function fetchPlaylistsThunk(dispatch) {
-    dispatch(fetchPlaylistRequest());
+    dispatch(fetchPlaylistsRequest());
 
-    try {
-      const res = await playlistApi.getAllPlaylists();
+    await new Promise(resolve => setTimeout(resolve, 300))
 
-      if (res.errorMessage) {
-        return dispatch(fetchPlaylistsError(res.errorMessage));
-      }
+    const res = await playlistApi.getAllPlaylists();
 
-      const normalizedData = normalizePlaylists(res.data);
-
-      const tracks = normalizeTracks(
-        res.data.flatMap((playlist) => playlist.tracks),
-      ).entities.tracks;
-      dispatch(addTracks(tracks));
-
-      const playlists = Object.fromEntries(
-        Object.entries(normalizedData.entities.playlists).map(
-          ([key, value]) => [
-            key,
-            {
-              ...value,
-              tracks: value.tracks.map((track) => track._id),
-            },
-          ],
-        ),
-      );
-      return dispatch(fetchPlaylistsSuccess(playlists));
-    } catch (err) {
-      return dispatch(fetchPlaylistError(err));
+    if (!res.isSuccessful) {
+      return dispatch(fetchPlaylistsError(res.errorMessage));
     }
+
+    return dispatch(addPlaylists(res.data));
   };
 }
 
 export function createPlaylist({ title }) {
   return async function createThunk(dispatch) {
     dispatch(playlistCreateRequest());
-    try {
-      const res = await playlistApi.createPlaylist({ title: title });
-      if (res.errorMessage) {
-        return dispatch(playlistCreateError(res.errorMessage));
-      }
-      return dispatch(playlistCreateSuccess(res.data));
-    } catch (err) {
-      return dispatch(playlistCreateError(err));
+    const res = await playlistApi.createPlaylist({ title: title });
+    if (!res.isSuccessful) {
+      return dispatch(playlistCreateError(res.errorMessage));
     }
+    console.log(res)
+    return dispatch(playlistCreateSuccess(res.data));
   };
 }
 export function addTrackToPlaylist(trackId, playlistId) {
   return async function addTrackToPlaylistThunk(dispatch) {
+    const response = await playlistApi.addTrackToPlaylist(trackId, playlistId);
+    if(!response.isSuccessful) {
+      return;
+    }
     dispatch(updateTracksInPlaylist(trackId, playlistId));
   };
 }
@@ -142,90 +147,9 @@ export function updatePlaylist(playlist) {
   return async function updatePlaylistThunk(dispatch) {
     dispatch(playlistUpdateRequest());
     dispatch(playlistUpdateSuccess(playlist));
-    try {
-    } catch (err) {
-      dispatch(playlistUpdateError(err));
+    const res = await playlistApi.updatePlaylist(playlist);
+    if(!res.isSuccessful) {
+      dispatch(playlistUpdateError(res.errorMessage));
     }
   };
 }
-
-/*
-export function fetchOwnPlaylists() {
-  return async function fetchPlaylistsThunk(dispatch) {
-    dispatch(fetchPlaylistRequest());
-
-    const res = await api.getOwnPlaylists();
-
-    if (res.isSuccessful) {
-      const normalizedPlaylists = normalizePlaylists(res.data);
-      dispatch(
-        fetchPlaylistSuccess({
-          type: playlistTypes.OWN,
-          byID: normalizedPlaylists.entities.playlists,
-          ids: {
-            OWN: normalizedPlaylists.result,
-          },
-        }),
-      );
-    } else {
-      dispatch(fetchPlaylistError(res.errorMessage));
-    }
-  };
-}
-
-export function fetchFollowingPlaylists() {
-  return async function fetchPlaylistsThunk(dispatch) {
-    dispatch(fetchPlaylistsRequest());
-
-    const res = await api.getFollowingPlaylists();
-
-    if (res.isSuccessful) {
-      const normalizedPlaylists = normalizePlaylists(res.data);
-      dispatch(
-        fetchPlaylistsSuccess({
-          type: playlistTypes.FOLLOWING,
-          byID: normalizedPlaylists.entities.playlists,
-          ids: normalizedPlaylists.result,
-        }),
-      );
-    } else {
-      dispatch(fetchPlaylistsError(res.errorMessage));
-    }
-  };
-}
-
-export function fetchPopularPlaylists() {
-  return async function fetchPlaylistsThunk(dispatch) {
-    dispatch(fetchPlaylistsRequest());
-
-    const res = await api.getPopularPlaylists();
-
-    if (res.isSuccessful) {
-      const normalizedPlaylists = normalizePlaylists(res.data);
-      dispatch(
-        fetchPlaylistsSuccess({
-          type: playlistTypes.POPULAR,
-          byID: normalizedPlaylists.entities.playlists,
-          ids: normalizedPlaylists.result,
-        }),
-      );
-    } else {
-      dispatch(fetchPlaylistsError(res.errorMessage));
-    }
-  };
-}
-
-export function fetchPlaylistById(playlistID) {
-  return async function fetchPlaylistThunk(dispatch) {
-    dispatch(fetchPlaylistRequest());
-
-    const res = await api.getPlaylistById(playlistID);
-
-    if (res.isSuccessful) {
-      dispatch(fetchPlaylistSuccess(res.data));
-    } else {
-      dispatch(fetchPlaylistError(res.errorMessage));
-    }
-  };
-}
-*/
