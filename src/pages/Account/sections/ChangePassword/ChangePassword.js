@@ -27,67 +27,59 @@ function ChangePassword(props) {
   };
 
   return (
-    <>
-      <main className="changePassword">
-        <section className="Login__wrapper">
-          <hr className="mt-1 mb-4" />
-          <form onSubmit={handleSubmit}>
-            <FLInput
-              name="current"
-              id="currentPassword"
-              label="Current Password"
-              onChange={handleChange}
-              value={userPassword.current}
-              required
-              className="form-input"
-              type="password"
-            />
-            <FLInput
-              name="new"
-              id="newPassword"
-              rules={{
-                maxLength: {
-                  value: 20,
-                  message: "Max length (20)",
-                },
-              }}
-              label="New Password"
-              onChange={handleChange}
-              value={userPassword.new}
-              required
-              className="form-input"
-              type="password"
-            />
-            <FLInput
-              name="newRepeated"
-              id="confirmPassword"
-              rules={{
-                maxLength: {
-                  value: 20,
-                  message: "Max length (20)",
-                },
-              }}
-              label="Confirm Password"
-              onChange={handleChange}
-              value={userPassword.newRepeated}
-              required
-              className="form-input"
-              type="password"
-            />
-            <Button
-              style={{
-                maxWidth: 150,
-              }}
-              type="submit"
-              text="Change Password"
-            />
-          </form>
-          <section className="mt-4">
-            <hr className="mt-1 mb-4" />
-          </section>
-        </section>
-      </main>
-    </>
+    <div className="changePassword">
+      <form onSubmit={handleSubmit} className="form">
+        <FLInput
+          name="current"
+          id="currentPassword"
+          label="Current Password"
+          onChange={handleChange}
+          value={userPassword.current}
+          required
+          className="form-input"
+          type="password"
+        />
+        <FLInput
+          name="new"
+          id="newPassword"
+          rules={{
+            maxLength: {
+              value: 20,
+              message: "Max length (20)",
+            },
+          }}
+          label="New Password"
+          onChange={handleChange}
+          value={userPassword.new}
+          required
+          className="form-input"
+          type="password"
+        />
+        <FLInput
+          name="newRepeated"
+          id="confirmPassword"
+          rules={{
+            maxLength: {
+              value: 20,
+              message: "Max length (20)",
+            },
+          }}
+          label="Confirm Password"
+          onChange={handleChange}
+          value={userPassword.newRepeated}
+          required
+          className="form-input"
+          type="password"
+        />
+        <Button
+          style={{
+            maxWidth: 150,
+          }}
+          type="submit"
+          text="Change Password"
+        />
+      </form>
+    </div>
   );
 }
 

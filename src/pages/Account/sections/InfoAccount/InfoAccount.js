@@ -29,7 +29,7 @@ function InfoAccount() {
             </tr>
             <tr className="main_container_profileInfo__data">
               <td>Country</td>
-              <td>{currentUser.locale}</td>
+              <td>{currentUser.country}</td>
             </tr>
           </tbody>
         </table>

@@ -18,8 +18,8 @@ function makeApi(request = makeRequest()) {
 
   function updateUser(user) {
     return request({
-      url: "/user/me/edit",
-      requestMethod: "PATCH",
+      url: "/user/me",
+      requestMethod: "PUT",
       body: user,
     });
   }
