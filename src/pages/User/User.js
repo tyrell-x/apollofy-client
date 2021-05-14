@@ -5,24 +5,22 @@ import {useDispatch, useSelector} from 'react-redux'
 import {fetchProfileInfo} from "../../redux/profile/profile-actions"
 import { onAuthStateChanged } from "../../services/auth/auth.js";
 import profileApi from "../../api/profile-api"
+import {selectUser} from "../../redux/users/users-selectors"
 
 import "./User.scss"
 
 function User () {
+    const dispatch = useDispatch()
     const { id } = useParams()
-    const [user, setUser] = useState([])
+    const user = useSelector(selectUser(id))
     useEffect(()=> {
         onAuthStateChanged((user) => {
             if (user) {
-                const getUser = async () => {
-                    const user = await profileApi.getUserInfo(id)
-                    setUser(user.data)
-                }
-                getUser()
+
             }
         });
-    }, [id])    
-    console.log(user)
+    }, []) 
+       
     return (
         <>
         <div className="profile">

@@ -53,7 +53,7 @@ export const updateUserFollowing = (id, followed) => ({
 
 export function fetchAllUsers() {
   return async function fetchUsersThunk(dispatch) {
-    dispatch(fetchUserRequest());
+    dispatch(fetchUsersRequest());
 
     try {
       const res = await userApi.getAllUsers();
@@ -84,17 +84,20 @@ export function fetchAllUsers() {
 
 export function followUser(id, follow) {
   return async function followUserThunk(dispatch) {
-    await userApi.followUser(id, follow);
-    dispatch(updateUserFollowing(id, follow));
+    const res = await userApi.followUser(id, follow);
+    console.log(res)
+    dispatch(updateUserFollowing(id, res.data));
   };
 }
 
 export function updateUser(user) {
   return async function updateUserThunk(dispatch) {
     dispatch(userUpdateRequest());
-    dispatch(userUpdateSuccess(user));
+    
     try {
       const res = await userApi.updateUser(user);
+      console.log(res)
+      dispatch(userUpdateSuccess(res));
     } catch (err) {
       dispatch(userUpdateError(err));
     }

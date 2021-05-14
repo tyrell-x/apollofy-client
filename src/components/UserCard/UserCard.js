@@ -18,7 +18,7 @@ function UserCard({id, name, image, email}) {
                 </div>
             </Link>
             <div className="follow-user">
-                <FollowUser />
+                <FollowUser id={id} />
             </div>
         </div>
     )

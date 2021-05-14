@@ -7,10 +7,7 @@ import MyPlaylists from "../sections/MyPlaylists"
 import UserCard from "../../../components/UserCard"
 
 function TabMenu({followers, following, params}) {
-  const dispatch = useDispatch()
-  useEffect(()=> {
-    dispatch(fetchAllUsers())
-  }, )
+
   return (
     <Tabs>
       <Tab label="Playlists">

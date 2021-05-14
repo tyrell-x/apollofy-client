@@ -26,7 +26,7 @@ function makeApi(request = makeRequest()) {
 
   function followUser(id, followed) {
     return request({
-      url: `/playlist/follow?id=${id}${followed ? "&followed=true" : ""}`,
+      url: `/user/follow?id=${id}${followed ? "&followed=true" : ""}`,
       requestMethod: "POST",
     });
   }
