@@ -183,10 +183,11 @@ export function updatePlaylist(playlist) {
   return async function updatePlaylistThunk(dispatch) {
     dispatch(playlistUpdateRequest());
     dispatch(playlistUpdateSuccess(playlist));
-<<<<<<< HEAD
     try {
       const res = await playlistApi.updatePlaylist(playlist);
-      dispatch(editPlaylist(playlist._id, res.data));
+      if(!res.isSuccessful) {
+        dispatch(playlistUpdateError(res.errorMessage));
+      }
     } catch (err) {
       dispatch(playlistUpdateError(err));
     }
@@ -205,6 +206,8 @@ export function deletePlaylist(playlistId) {
     }
   };
 }
+
+
 
 /*
 export function fetchOwnPlaylists() {
@@ -286,11 +289,4 @@ export function fetchPlaylistById(playlistID) {
   };
 }
 */
-=======
-    const res = await playlistApi.updatePlaylist(playlist);
-    if(!res.isSuccessful) {
-      dispatch(playlistUpdateError(res.errorMessage));
-    }
-  };
-}
->>>>>>> fc4393b03a60e103f884625d174b7c2a757760cd
+  

@@ -21,12 +21,9 @@ import {
   deletePlaylist,
 } from "../../redux/playlists/playlists-actions.js";
 import FollowPlaylist from "../../components/FollowPlaylist";
-<<<<<<< HEAD
 import PlaylistOptions from "../../components/PlaylistOptions";
 import { useCopyToClipboard } from "../../hooks/useCopyToClipboard/useCopyToClipboard";
-=======
 import { currentUserSelector } from "../../redux/auth/auth-selectors.js";
->>>>>>> fc4393b03a60e103f884625d174b7c2a757760cd
 
 const defaultImage =
   "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
