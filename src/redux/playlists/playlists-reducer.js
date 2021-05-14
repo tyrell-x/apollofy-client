@@ -1,12 +1,16 @@
 /* eslint-disable no-console */
 /* eslint-disable spaced-comment */
 import * as PlaylistType from "./playlists-types";
+import { trackTypes } from "../tracks/track-types";
+import { fetchAllPlaylists } from "./playlists-actions";
 
 export const PlaylistInitState = {
   playlistCreation: false,
   playlistCreationError: null,
   playlistUpdate: false,
   playlistUpdateError: null,
+  playlistDelete: false,
+  playlistDeleteError: null,
   playlistsLoading: false,
   playlistsLoadingError: null,
   playlistsFetched: false,
@@ -69,6 +73,43 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
           ...state.playlistsById,
           [playlist._id]: playlist,
         },
+      };
+    }
+    case PlaylistType.DELETE_PLAYLIST_REQUEST: {
+      return {
+        ...state,
+        playlistDelete: true,
+        playlistDeleteError: null,
+      };
+    }
+    case PlaylistType.DELETE_PLAYLIST_ERROR: {
+      return {
+        ...state,
+        playlistDelete: false,
+        playlistDeleteError: action.payload,
+        playlistDeleteSuccess: false,
+      };
+    }
+    case PlaylistType.DELETE_PLAYLIST_SUCCESS: {
+      const {
+        [action.payload.message]: _,
+        ...playlistsById
+      } = state.playlistsById;
+
+      return {
+        ...state,
+        playlistDelete: true,
+        playlistDeleteError: null,
+        playlistDeleteSuccess: true,
+        playlistsById: playlistsById,
+      };
+    }
+    case PlaylistType.DELETE_PLAYLIST_POST_SUCCESS: {
+      return {
+        ...state,
+        playlistDelete: false,
+        playlistDeleteError: null,
+        playlistDeleteSuccess: false,
       };
     }
     case PlaylistType.FETCH_PLAYLISTS_REQUEST: {
@@ -149,6 +190,19 @@ const PlaylistReducer = (state = PlaylistInitState, action) => {
           [id]: {
             ...state.playlistsById[id],
             followed: followed,
+          },
+        },
+      };
+    }
+    case PlaylistType.UPDATE_PLAYLIST: {
+      const { id, playlist } = action.payload;
+      return {
+        ...state,
+        playlistsById: {
+          ...state.playlistsById,
+          [id]: {
+            ...state.playlistsById[id],
+            ...playlist,
           },
         },
       };
