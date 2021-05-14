@@ -6,12 +6,12 @@ import Button from "../../../../components/Button";
 import FLInput from "../../../../components/FLInput";
 import "./EditAccount.scss";
 import { useSelector } from "react-redux";
-import { selectProfileState } from "../../../../redux/auth/auth-selectors";
+import { currentUserSelector } from "../../../../redux/auth/auth-selectors";
 
 function EditAccount() {
   const dispatch = useDispatch();
 
-  const user = useSelector(selectProfileState);
+  const user = useSelector(currentUserSelector);
 
   const [data, setData] = useState(user);
 
