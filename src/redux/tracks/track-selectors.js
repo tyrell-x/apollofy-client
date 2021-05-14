@@ -16,6 +16,22 @@ export const selectAllTracks = createSelector(
   (tracksObj) => Object.values(tracksObj),
 );
 
+export const selectRandomTracks = (number) => {
+  return createSelector(selectAllTracks, (tracks) => {
+    const tracksCopy = [...tracks];
+    const randomTracks = [];
+    for (let i = 0; i < number; i++) {
+      randomTracks.push(
+        tracksCopy.splice(
+          Math.floor(Math.random() * tracksCopy.length),
+          1,
+        )[0] || {},
+      );
+    }
+    return randomTracks;
+  });
+};
+
 export const selectTrackCollection = (name) =>
   createSelector(
     (state) => state.tracks.trackCollections[name],
