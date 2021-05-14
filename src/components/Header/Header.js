@@ -6,7 +6,7 @@ import { signOut } from "../../redux/auth/auth-actions";
 import { useState } from "react";
 
 import "./Header.scss";
-import AppLogo from "../../assets/images/logo.png";
+import AppLogo from "../../assets/images/logo1.png";
 
 function Header() {
   const dispatch = useDispatch();
