@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import PlaylistCard from "../../../../components/PlaylistCard";
 import { fetchAllPlaylists } from "../../../../redux/playlists/playlists-actions.js";
 import {
-  selectAllPlaylistsIds,
   selectOwnedPlaylistsIds,
   selectFollowedPlaylistsIds,
+  selectPlaylistStore,
 } from "../../../../redux/playlists/playlists-selectors.js";
 import Button from "../../../../components/Button/index.js";
 import { onAuthStateChanged } from "../../../../services/auth/auth.js";
 import CreatePlaylist from "../../../../components/CreatePlaylist";
+import PuffLoader from "react-spinners/PuffLoader";
 
 function MyPlaylists() {
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ function MyPlaylists() {
       }
     });
   }, [dispatch]);
+
+  const { playlistsLoading } = useSelector(selectPlaylistStore);
+
   return (
     <div className="library-content">
       <div className="playlists-header">
@@ -41,23 +45,38 @@ function MyPlaylists() {
         )}
       </div>
       <div className="playlists">
-        <div className="playlists-container">
-          <h3>Owned Playlists</h3>
-          <div className="yourplaylists">
-            {(ownedPlaylistIds || []).map((id) => (
-              <PlaylistCard id={id} key={id} />
-            ))}
+        {!!ownedPlaylistIds.length && (
+          <div className="playlists-container">
+            <h3>Owned Playlists</h3>
+            <div className="yourplaylists">
+              {(ownedPlaylistIds || []).map((id) => (
+                <PlaylistCard id={id} key={id} />
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="playlists-container">
-          <h3>Followed Playlists</h3>
-          <div className="followedplaylists">
-            {(followedPlaylistIds || []).map((id) => (
-              <PlaylistCard id={id} key={id} />
-            ))}
+        )}
+        {!!followedPlaylistIds.length && (
+          <div className="playlists-container">
+            <h3>Followed Playlists</h3>
+            <div className="followedplaylists">
+              {(followedPlaylistIds || []).map((id) => (
+                <PlaylistCard id={id} key={id} />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
+      <PuffLoader
+        color={"rgb(224, 130, 21)"}
+        loading={playlistsLoading}
+        size={150}
+        css={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      />
     </div>
   );
 }

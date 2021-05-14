@@ -18,7 +18,8 @@ import Library from "./pages/Library";
 import Navbar from "./components/Navbar";
 import MusicPlayer from "./components/MusicPlayer";
 import Playlist from "./pages/Playlist";
-import User from "./pages/User/User"
+import User from "./pages/User/User";
+import Search from "./pages/Search/index.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -65,6 +66,12 @@ function App() {
             component={Playlist}
             exact
           />
+          <ProtectedRoute
+            path={`${ROUTES.SEARCH}/:text`}
+            component={Search}
+            exact
+          />
+
         </Switch>
       </main>
       <MusicPlayer />

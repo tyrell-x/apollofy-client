@@ -10,16 +10,47 @@ import useClickOutside from "../../hooks/useClickOutside";
 import * as ROUTES from "../../routes";
 import { useSelector } from "react-redux";
 import { authSelector } from "../../redux/auth/auth-selectors";
+import FLInput from "../FLInput/index.js";
+import { useHistory } from "react-router-dom";
 
 function Navbar() {
+  const history = useHistory();
+
   const location = useLocation();
 
+  const [searchValue, setSearchValue] = useState("");
+
   const [sidebar, setSidebar] = useState(false);
+
   const showSidebar = () => setSidebar(!sidebar);
 
   const menuRef = useClickOutside(() => {
     setSidebar(false);
   });
+
+  const finderTimeoutRef = useRef(null);
+
+  const applyNameFilter = (e) => {
+    setSearchValue(e.target.value)
+    if (!e.target.value) {
+      clearTimeout(finderTimeoutRef.current);
+      finderTimeoutRef.current = null;
+      return;
+    }
+
+    if (finderTimeoutRef.current) {
+      clearTimeout(finderTimeoutRef.current);
+      finderTimeoutRef.current = setTimeout(() => {
+        history.push(`/search/${e.target.value}`);
+        setSearchValue("")
+      }, 500);
+    } else {
+      finderTimeoutRef.current = setTimeout(() => {
+        history.push(`/search/${e.target.value}`);
+        setSearchValue("")
+      }, 500);
+    }
+  };
 
   const { isAuthenticated } = useSelector(authSelector);
   if (!isAuthenticated) {
@@ -90,6 +121,15 @@ function Navbar() {
               <span>Upload</span>
             </div>
           </Link>
+        </div>
+        <div className="finder">
+          <FLInput
+            value={searchValue}
+            className="finder-input"
+            style={{ color: "#616161" }}
+            onInput={applyNameFilter}
+            label="Search"
+          />
         </div>
         <button className="account-button">
           <NavItem icon={<AiIcons.AiOutlineUser className="dropdown-icon" />}>

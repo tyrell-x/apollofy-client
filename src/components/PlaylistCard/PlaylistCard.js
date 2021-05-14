@@ -1,6 +1,6 @@
 import "./PlaylistCard.scss";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectPlaylist } from "../../redux/playlists/playlists-selectors.js";
 import AnimatedListItem from "../AnimatedListItem/index.js";
@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import * as ROUTES from "../../routes";
 
 const defaultImage =
-  "https://i.etsystatic.com/17942801/r/il/32d310/2418661138/il_570xN.2418661138_lnxd.jpg";
+  "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
 
 export default function PlaylistCard({ id }) {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -31,6 +31,10 @@ export default function PlaylistCard({ id }) {
     clearTimeout(timer.current);
     timer.current = setTimeout(() => setIsFlipped(false), 300);
   };
+
+  useEffect(() => {
+    return clearTimeout(timer.current)
+  }, [])
 
   return (
     <AnimatedListItem key={id} flipId={id}>

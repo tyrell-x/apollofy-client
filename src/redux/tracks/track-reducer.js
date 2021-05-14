@@ -102,7 +102,7 @@ const TrackReducer = (state = TrackInitState, action) => {
           ...state.tracksById,
           [id]: {
             ...state.tracksById[id],
-            liked: liked,
+            likedBy: liked,
           },
         },
       };

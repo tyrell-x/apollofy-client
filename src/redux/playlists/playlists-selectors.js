@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 
 export const selectPlaylistStore = createSelector(
-  [(state) => state.playlists],
+  (state) => state.playlists,
   (playlistsStore) => playlistsStore,
 );
 
@@ -22,12 +22,9 @@ export const selectAllPlaylists = createSelector(
 
 export const selectOwnedPlaylists = createSelector(
   (state) => state.playlists.playlistsById,
-  (tracksObj) => Object.values(tracksObj).filter((playlist) => playlist.owned),
+  (state) => state.auth.currentUser._id,
+  (tracksObj, uid) => Object.values(tracksObj).filter((playlist) => playlist.author === uid)
 );
-
-const filterPlaylistSelector = (filterFn) => (playlist) => {
-  return filterFn(playlist);
-};
 
 export const selectFilteredPlaylistsIds = (filterFn = () => true) =>
   createSelector(
@@ -41,13 +38,13 @@ export const selectFilteredPlaylistsIds = (filterFn = () => true) =>
 
 export const selectAllPlaylistsIds = selectFilteredPlaylistsIds();
 export const selectLikedPlaylistsIds = selectFilteredPlaylistsIds(
-  (playlist) => playlist.liked,
+  (playlist, uid) => playlist.followedBy.includes(uid),
 );
 export const selectOwnedPlaylistsIds = selectFilteredPlaylistsIds(
-  (playlist) => playlist.owned,
+  (playlist, uid) => playlist.author === uid,
 );
 export const selectFollowedPlaylistsIds = selectFilteredPlaylistsIds(
-  (playlist) => playlist.followed,
+  (playlist, uid) => playlist.followedBy.includes(uid),
 );
 
 export const selectOwnedByPlaylistsIds = (uid) => selectFilteredPlaylistsIds(
