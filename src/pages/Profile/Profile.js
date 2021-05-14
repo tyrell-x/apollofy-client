@@ -2,22 +2,23 @@ import React, {useEffect} from 'react'
 import { Link } from "react-router-dom";
 import TabMenu from "./TabMenu"
 import {useDispatch, useSelector} from 'react-redux'
-import {fetchProfileInfo} from "../../redux/profile/profile-actions"
-import {fetchAllUsers} from "../../redux/users/users-actions"
+import {fetchAllUsers, fetchUser} from "../../redux/users/users-actions"
 import { onAuthStateChanged } from "../../services/auth/auth.js";
 
 import "./Profile.scss"
+import { currentUserSelector } from '../../redux/auth/auth-selectors.js';
 
 function Profile () {
-    const profile = useSelector(state => state.profile.profileInfo)
+    const profile = useSelector(currentUserSelector)
+
     const dispatch = useDispatch()
     useEffect(()=> {
         onAuthStateChanged((user) => {
             if (user) {
-                dispatch(fetchProfileInfo())
+                dispatch(fetchUser(user.uid))
             }
         });
-    }, [dispatch])    
+    }, [dispatch, profile._id])    
     
     return (
         <>

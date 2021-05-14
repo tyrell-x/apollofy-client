@@ -1,17 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import "./UserCard.scss";
 import FollowUser from "../FollowUser";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/users/users-selectors.js";
+import * as ROUTES from "../../routes"
 
 function UserCard({ id }) {
   const user = useSelector(selectUser(id));
 
+  const history = useHistory();
+
+  const redirectToUser = () => {
+    history.push(`${ROUTES.PROFILE}/${id}`)
+  }
+
   return (
     <div className="user-card-container">
-      <Link to={`/profile/${id}`}>
-        <div className="user-card">
+        <div className="user-card" onClick={redirectToUser}>
           <div className="user-image-container">
             <img
               alt="profile"
@@ -28,7 +34,6 @@ function UserCard({ id }) {
             <p className="user-email">{user.email}</p>
           </div>
         </div>
-      </Link>
       <div className="follow-user">
         <FollowUser id={id} />
       </div>

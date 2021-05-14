@@ -4,11 +4,12 @@ import "./Account.scss";
 import Header from "../../components/Header";
 import TabMenu from "./TabMenu";
 import Navbar from "../../components/Navbar";
+import { currentUserSelector } from "../../redux/auth/auth-selectors.js";
 const DEFAULT_PROFILE_IMAGE =
   "http://apollo.eu-west-3.elasticbeanstalk.com/content/images/svg/default-user.svg";
 
 function Account() {
-  const profile = useSelector((state) => state.auth.currentUser);
+  const profile = useSelector(currentUserSelector);
 
   return (
     <>

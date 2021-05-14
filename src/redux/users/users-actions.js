@@ -52,8 +52,29 @@ export const updateUserFollowing = (id, followed) => ({
 
 export function addUsers(users) {
   return (dispatch) => {
-    const normalizedUsers = normalizeUsers(users);
-    dispatch(fetchUsersSuccess(normalizedUsers.entities.users));
+    const normalizedUsers = normalizeUsers(users.map(user => ({
+      ...user,
+      followedBy: user.followedBy.map(user => user._id),
+      following: user.following.map(user => user._id)
+    }))).entities.users;
+
+    const normalizedFollows = normalizeUsers(users.flatMap(user => user.followedBy.concat(user.following))).entities.users;
+    dispatch(fetchUsersSuccess(normalizedUsers));
+    dispatch(fetchUsersSuccess(normalizedFollows));
+  };
+}
+
+export function fetchUser(uid) {
+  return async function fetchUsersThunk(dispatch) {
+    dispatch(fetchUserRequest());
+
+    const res = await userApi.getUserById(uid);
+    if (!res.isSuccessful) {
+      return dispatch(fetchUserError(res.errorMessage));
+    }
+
+    console.log(res);
+    dispatch(addUsers([res.data]));
   };
 }
 
@@ -72,7 +93,6 @@ export function fetchAllUsers() {
 export function followUser(id, follow) {
   return async function followUserThunk(dispatch) {
     const res = await userApi.followUser(id, follow);
-    console.log(res);
     dispatch(updateUserFollowing(id, res.data));
   };
 }

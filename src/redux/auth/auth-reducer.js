@@ -17,7 +17,7 @@ export const AuthInitialState = {
   passwordIsChanging: false,
   passwordIsChanged: false,
   passwordChangeError: null,
-  currentUser: {},
+  currentUser: "",
 };
 
 const AuthReducer = (state = AuthInitialState, action) => {
@@ -35,7 +35,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         ...state,
         isSigningUp: false,
         signUpError: action.payload,
-        currentUser: {},
+        currentUser: "",
       };
     }
 
@@ -70,7 +70,7 @@ const AuthReducer = (state = AuthInitialState, action) => {
         isSigningOut: false,
         signOutError: null,
         isAuthenticated: false,
-        currentUser: {},
+        currentUser: "",
       };
     }
 
@@ -115,12 +115,10 @@ const AuthReducer = (state = AuthInitialState, action) => {
     }
 
     case AuthTypes.SET_CURRENT_USER: {
+      const { uid } = action.payload;
       return {
         ...state,
-        currentUser: {
-          ...state.currentUser,
-          ...action.payload,
-        },
+        currentUser: uid
       };
     }
 
@@ -130,10 +128,6 @@ const AuthReducer = (state = AuthInitialState, action) => {
         userIsUpdated: true,
         userIsUpdating: false,
         userUpdateError: null,
-        currentUser: {
-          ...state.currentUser,
-          ...action.payload,
-        },
       };
     }
 

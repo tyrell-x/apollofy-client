@@ -52,9 +52,13 @@ function App() {
           <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
           <ProtectedRoute path={ROUTES.HOME} component={Home} exact />
           <ProtectedRoute path={ROUTES.ACCOUNT} component={Account} exact />
-          <ProtectedRoute path={ROUTES.PROFILE} component={Profile} exact />
           <ProtectedRoute
             path={`${ROUTES.PROFILE}/:id`}
+            component={User}
+            exact
+          /> 
+          <ProtectedRoute
+            path={`${ROUTES.PROFILE}`}
             component={User}
             exact
           /> 

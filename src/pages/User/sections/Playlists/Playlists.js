@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react'
-import {useDispatch, useSelector} from "react-redux"
-import {fetchAllPlaylists} from "../../../../redux/playlists/playlists-actions"
+import {useSelector} from "react-redux"
 import PlaylistCard from "../../../../components/PlaylistCard"
-import { onAuthStateChanged } from "../../../../services/auth/auth.js";
 import "./Playlists.scss"
-import { selectOwnedByPlaylistsIds, selectOwnedPlaylistsIds } from '../../../../redux/playlists/playlists-selectors.js';
+import { selectOwnedByPlaylistsIds } from '../../../../redux/playlists/playlists-selectors.js';
 
 function Playlists ({uid}) {
-    const dispatch = useDispatch()
 
     const ownedPlaylistsIds = useSelector(selectOwnedByPlaylistsIds(uid))
 

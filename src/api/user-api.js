@@ -9,6 +9,13 @@ function makeApi(request = makeRequest()) {
     });
   }
 
+  function getUserById(uid) {
+    return request({
+      url: `/user/${uid}`,
+      requestMethod: "GET"
+    });
+  }
+
   function addTrackToPlaylist(trackId, playlistId) {
     return request({
       url: `/playlist/track?id=${playlistId}&track=true`,
@@ -32,6 +39,7 @@ function makeApi(request = makeRequest()) {
   }
   return {
     getAllUsers: getAllUsers,
+    getUserById: getUserById,
     followUser: followUser,
   };
 }

@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import "./Home.scss";
 import Navbar from "../../components/Navbar";
-import { authSelector } from "../../redux/auth/auth-selectors";
+import { authSelector, currentUserSelector } from "../../redux/auth/auth-selectors";
 import MusicPlayer from "../../components/MusicPlayer/index.js";
 
 function Home() {
-  const { currentUser } = useSelector(authSelector);
+  const currentUser = useSelector(currentUserSelector);
 
   return (
     <div>

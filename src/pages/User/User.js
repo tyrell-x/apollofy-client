@@ -1,28 +1,37 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import { useParams } from "react-router-dom";
 import TabMenu from "./TabMenu"
 import {useDispatch, useSelector} from 'react-redux'
-import {fetchProfileInfo} from "../../redux/profile/profile-actions"
 import { onAuthStateChanged } from "../../services/auth/auth.js";
-import profileApi from "../../api/profile-api"
 import {selectUser} from "../../redux/users/users-selectors"
 
 import "./User.scss"
-import { fetchAllUsers } from '../../redux/users/users-actions.js';
-import { fetchAllPlaylists } from '../../redux/playlists/playlists-actions.js';
+import { fetchUser } from '../../redux/users/users-actions.js';
+import { selectCurrentUserId } from '../../redux/auth/auth-selectors.js';
 
 function User () {
-    const dispatch = useDispatch()
-    const { id } = useParams()
+    const dispatch = useDispatch();
+    const { id: paramId } = useParams();
+    const uid = useSelector(selectCurrentUserId)
+
+    const id = paramId || uid;
+
+
+    console.log(id)
     const user = useSelector(selectUser(id))
+
     useEffect(()=> {
-        onAuthStateChanged((user) => {
-            if (user) {
-                dispatch(fetchAllUsers())
-                dispatch(fetchAllPlaylists())
+        onAuthStateChanged((current) => {
+            if (current) {
+                dispatch(fetchUser(current.uid))
             }
         });
-    }, [dispatch]) 
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(fetchUser(id))
+        
+    }, [dispatch, id])
        
     return (
         <>

@@ -15,7 +15,7 @@ function TabMenu({followers, following, uid}) {
       </Tab>
       <Tab label={followers ? followers.length + " Followers": "Followers"}>
           {followers && followers.map(id => (
-            <UserCard 
+            <UserCard
               key={id}
               id={id} 
             />
