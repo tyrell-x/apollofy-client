@@ -2,7 +2,7 @@ import "./Playlist.scss";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { selectPlaylist } from "../../redux/playlists/playlists-selectors.js";
+import { selectPlaylist, selectPlaylistStore } from "../../redux/playlists/playlists-selectors.js";
 import { getCounter } from "../../utils/utils.js";
 import Button from "../../components/Button/index.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,12 +16,15 @@ import {
 } from "../../redux/playlists/playlists-actions.js";
 import FollowPlaylist from "../../components/FollowPlaylist";
 import { currentUserSelector } from "../../redux/auth/auth-selectors.js";
+import PuffLoader from "react-spinners/PuffLoader";
 
 const defaultImage =
   "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
 
 function Playlist() {
   const dispatch = useDispatch();
+
+  const { playlistsLoading } = useSelector(selectPlaylistStore);
 
   useEffect(() => {
     onAuthStateChanged((user) => {
@@ -122,6 +125,17 @@ function Playlist() {
           )}
         </Droppable>
       </DragDropContext>
+      <PuffLoader
+        color={"rgb(224, 130, 21)"}
+        loading={playlistsLoading}
+        size={150}
+        css={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      />
     </div>
   );
 }

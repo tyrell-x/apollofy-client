@@ -120,6 +120,7 @@
 
   .dropdown {
     position: absolute;
+    z-index: 4;
     top: 58px;
     width: 300px;
     transform: translateX(-90%);

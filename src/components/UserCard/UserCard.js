@@ -11,6 +11,8 @@ function UserCard({ id }) {
   const user = useSelector(selectUser(id));
   const currentUser = useSelector(currentUserSelector);
 
+  const isCurrentUser = currentUser._id === id;
+
   const history = useHistory();
 
   const redirectToUser = () => {
@@ -36,9 +38,11 @@ function UserCard({ id }) {
           <p className="user-email">{user.email}</p>
         </div>
       </div>
-      <div className="follow-user">
-        <FollowUser id={id} followed={currentUser.following?.includes(id)}/>
-      </div>
+      {!isCurrentUser && (
+        <div className="follow-user">
+          <FollowUser id={id} followed={currentUser.following?.includes(id)} />
+        </div>
+      )}
     </div>
   );
 }

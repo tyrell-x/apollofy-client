@@ -7,9 +7,10 @@ import { setTracksInPlayer } from "../../redux/player/player-actions.js";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "../../services/auth/auth.js";
 import { fetchAllPlaylists } from "../../redux/playlists/playlists-actions.js";
-import { selectLastPlaylist } from "../../redux/playlists/playlists-selectors.js";
-import { selectRandomTracks } from "../../redux/tracks/track-selectors.js";
+import { selectLastPlaylist, selectPlaylistStore } from "../../redux/playlists/playlists-selectors.js";
+import { selectRandomTracks, selectTracksStore } from "../../redux/tracks/track-selectors.js";
 import { fetchTracks } from "../../redux/tracks/track-actions.js";
+import PuffLoader from "react-spinners/PuffLoader";
 
 const defaultImage =
   "https://i.pinimg.com/originals/f8/65/d3/f865d3112022612c6875b4ab7ec54239.jpg";
@@ -19,6 +20,9 @@ function Home() {
 
   const lastPlaylist = useSelector(selectLastPlaylist);
   const randomSongs = useSelector(selectRandomTracks(9));
+
+  const { playlistsLoading } = useSelector(selectPlaylistStore);
+  const { tracksLoading } = useSelector(selectTracksStore);
 
   useEffect(() => {
     onAuthStateChanged((user) => {
@@ -82,6 +86,17 @@ function Home() {
           ))}
         </div>
       </section>
+      <PuffLoader
+        color={"rgb(224, 130, 21)"}
+        loading={playlistsLoading || tracksLoading}
+        size={150}
+        css={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      />
     </div>
   );
 }
